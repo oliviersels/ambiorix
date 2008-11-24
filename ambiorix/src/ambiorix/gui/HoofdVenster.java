@@ -20,7 +20,7 @@ public class HoofdVenster extends JFrame{
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
 	private JScrollPane chatVeldScroll;
-	private JTextArea chatVeld;
+	private ChatVeld chatVeld;
 	private JTextField chatInvoer;
 	private JScrollPane pionnenVeldScroll;
 	private PionnenVeld pionnenVeld;
@@ -31,7 +31,22 @@ public class HoofdVenster extends JFrame{
 	
 	public static void main(String args[])
 	{
-		new HoofdVenster();
+		HoofdVenster hv = new HoofdVenster();
+		hv.voegRegelToe("testing1");
+		hv.voegRegelToe("testing2");
+		hv.voegRegelToe("testing3");
+		hv.voegRegelToe("testing4");
+		hv.voegRegelToe("testing5");
+		hv.voegRegelToe("testing6");
+		hv.voegRegelToe("testing7");
+		hv.voegRegelToe("testing8");
+		hv.voegRegelToe("testing9");
+		hv.voegRegelToe("testing10");
+		hv.voegRegelToe("testing11");
+		hv.voegRegelToe("testing12");
+		for(int i = 0; i <6; i++)
+			for(int y = 0; y <6 ;y++)
+				hv.voegTegelToe(i, y);
 	}
 	HoofdVenster()
 	{
@@ -42,7 +57,7 @@ public class HoofdVenster extends JFrame{
 		splitOnderkant = new JSplitPane();
 		splitOnderkantLinks = new JSplitPane();
 		chatVeldScroll = new JScrollPane();
-		chatVeld = new JTextArea();
+		chatVeld = new ChatVeld();
 		chatInvoer = new JTextField();
 		pionnenVeldScroll = new JScrollPane();
 		pionnenVeld = new PionnenVeld();
@@ -98,5 +113,12 @@ public class HoofdVenster extends JFrame{
 		this.setLocationRelativeTo(this.getOwner());
 		setVisible(true);
 	}
-	
+	public void voegRegelToe(String str)
+	{
+		chatVeld.voegRegelToe(str);
+	}
+	public void voegTegelToe(int x, int y)
+	{
+		tegelVeld.voegTegelToe(x, y);
+	}
 }
