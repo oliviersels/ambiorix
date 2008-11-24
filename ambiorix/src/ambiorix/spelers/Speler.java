@@ -14,6 +14,10 @@ public abstract class Speler {
 	private HashMap<String, Integer> pionnen; // TODO: String key vervangen door PionType
 	private int status;
 	
+	public Speler() {
+		
+	}
+	
 	public abstract void doeIets(); // TODO: Uitsplitsen naar meerdere functie -> zie behoeften anderen
 	
 	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
