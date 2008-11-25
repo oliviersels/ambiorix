@@ -10,34 +10,32 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-public class TegelVeld extends JPanel {
-	private Vector<Tegel_Gui> mijnTegels;
+import ambiorix.spelbord.Tegel;
 
-	public TegelVeld() {
+public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
+	private Vector<Tegel_Gui> mijnTegels;
+	private HoofdVenster hv; //tijdelijk!!
+	public TegelVeld(HoofdVenster hv) {
+		this.hv = hv;
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		mijnTegels = new Vector<Tegel_Gui>();
+		this.setLayout(new TegelVeldLayout());
+		
 	}
 	
-	public void voegTegelToe(int x, int y)
+	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
-		Tegel_Gui nieuweTegel = new Tegel_Gui();
+		Tegel_Gui nieuweTegel = new Tegel_Gui(tegel);
 		nieuweTegel.zetPos(x, y);
 		mijnTegels.add(nieuweTegel);
+		nieuweTegel.setVisible(true);
+		nieuweTegel.addTegelKlikLuisteraar(this);
+		this.add(nieuweTegel);
 		this.repaint();
 	}
-	
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		g.drawString("testing", 10, 20);
-		
-		ListIterator<Tegel_Gui> iter = mijnTegels.listIterator();
-		while (iter.hasNext()){
-		    (iter.next()).teken(g);
-		    //System.out.println("volgende");
-		}
 
+	@Override
+	public void geklikt(TegelGebeurtenis tg) {
+		hv.voegRegelToe("Geklikt op tegel: " + tg.tegelX + ", " + tg.tegelY + " op pixel " + tg.tegelPixelX + ", " + tg.tegelPixelY);
 	}
-	
-
 }

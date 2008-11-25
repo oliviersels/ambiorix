@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import ambiorix.spelbord.Tegel;
+
 public class HoofdVenster extends JFrame{
 	private JToolBar menuBalk;
 	private JButton knopBestand;
@@ -44,13 +46,15 @@ public class HoofdVenster extends JFrame{
 		hv.voegRegelToe("testing10");
 		hv.voegRegelToe("testing11");
 		hv.voegRegelToe("testing12");
-		for(int i = 0; i <6; i++)
-			for(int y = 0; y <6 ;y++)
-				hv.voegTegelToe(i, y);
+		
+		for(int i = 0; i <20; i++)
+			for(int y = 0; y <20 ;y++)
+				hv.voegTegelToe(i, y, null);
+				
 	}
 	HoofdVenster()
 	{
-		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBalk = new JToolBar();
 		knopBestand = new JButton();
 		knopHelp = new JButton();
@@ -62,7 +66,7 @@ public class HoofdVenster extends JFrame{
 		pionnenVeldScroll = new JScrollPane();
 		pionnenVeld = new PionnenVeld();
 		tegelVeldScroll = new JScrollPane();
-		tegelVeld = new TegelVeld();
+		tegelVeld = new TegelVeld(this);
 		
 		//knoppen
 		knopBestand.setText("Bestand");
@@ -101,7 +105,7 @@ public class HoofdVenster extends JFrame{
 		
 		//tegelVeld
 		tegelVeldScroll.setViewportView(tegelVeld);
-		
+		tegelVeld.setVisible(true);
 		//HoofdVenster
 		setMinimumSize(new Dimension(800, 600));
 		Container container = this.getContentPane();
@@ -117,8 +121,8 @@ public class HoofdVenster extends JFrame{
 	{
 		chatVeld.voegRegelToe(str);
 	}
-	public void voegTegelToe(int x, int y)
+	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
-		tegelVeld.voegTegelToe(x, y);
+		tegelVeld.voegTegelToe(x, y, null);
 	}
 }
