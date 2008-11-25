@@ -23,8 +23,13 @@ public class ActieBestuurder implements ActieInputs {
 	// TODO_S sychronization!!!
 	
 	public void start(Actie start) {
-		huidige = start;
-		huidige.start();
+		synchronized(this) {
+			if(huidige==null) {
+				huidige = start;
+				huidige.start();
+				controleerHuidige();
+			}
+		}
 	}
 	
 	public void undo() {
@@ -32,10 +37,12 @@ public class ActieBestuurder implements ActieInputs {
 			huidige.undo();
 			// kunnen we teruggaan naar de vorige actie?
 			if(huidige.getUndo() == UNDO.BESCHIKBAAR) {
+				System.out.println("-----> UNDO");
 				huidige = stapel.pop();
 				huidige.undo();
-				huidige = huidige.volgende();
+//				huidige = huidige.volgende();
 				huidige.start();
+				controleerHuidige();
 			}
 		}		
 	}
@@ -45,8 +52,9 @@ public class ActieBestuurder implements ActieInputs {
 		
 	}
 	
-	public void controleerHuidige() {
+	private void controleerHuidige() {
 		if(huidige.getStatus() == STATUS.GEDAAN && huidige.volgende()!=null) {
+			System.out.println("-----> ADD");
 			stapel.add(huidige);
 			huidige = huidige.volgende();
 			huidige.start();
@@ -59,6 +67,13 @@ public class ActieBestuurder implements ActieInputs {
 	public void volgendeBeurt() {
 		synchronized(this) {
 			huidige.volgendeBeurt();
+			controleerHuidige();
+		}			
+	}
+	
+	public void legTegel() {
+		synchronized(this) {
+			huidige.legTegel();
 			controleerHuidige();
 		}			
 	}

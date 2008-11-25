@@ -15,11 +15,11 @@ public abstract class Actie implements ActieInputs {
 	// BEZIG -> (dingen zijn veranderd, bijhouden !!!) undo -> KLAAR brengen
 	// GEDAAN -> undo, enkel bij beschikbaar -> UNDO
 	
-	abstract void start();
+	public abstract void start();
 
-	abstract void undo();
+	public abstract void undo();
 	
-	abstract Actie volgende();
+	public abstract Actie volgende();
 	
 	public STATUS getStatus() {
 		return status;
@@ -29,10 +29,15 @@ public abstract class Actie implements ActieInputs {
 		return undo;
 	}	
 	
+	// interface inputs
+	
+	public void volgendeBeurt() {}
+	public void legTegel() {}
+	
+	
 	// member vars;
 	
-	private STATUS status = STATUS.ONKLAAR;
-	private UNDO undo = UNDO.BESCHIKBAAR;
-
+	protected STATUS status = STATUS.ONKLAAR;
+	protected UNDO undo = UNDO.BESCHIKBAAR;
 	
 }

@@ -10,11 +10,13 @@ public class systeem
 
 	public static void main(String args[])
 	{	
-		Robin();
-		//Steven();
+//		Robin();
+		Steven();
 		//Jens();
 		//Jan();
 		//Olivier();
+		// ge kunt ook meerdere mains tegelijk hebben, flikkers
+	
 	}
 	
 	private static void Olivier()
