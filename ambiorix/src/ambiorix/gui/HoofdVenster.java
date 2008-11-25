@@ -34,18 +34,6 @@ public class HoofdVenster extends JFrame{
 	public static void main(String args[])
 	{
 		HoofdVenster hv = new HoofdVenster();
-		hv.voegRegelToe("testing1");
-		hv.voegRegelToe("testing2");
-		hv.voegRegelToe("testing3");
-		hv.voegRegelToe("testing4");
-		hv.voegRegelToe("testing5");
-		hv.voegRegelToe("testing6");
-		hv.voegRegelToe("testing7");
-		hv.voegRegelToe("testing8");
-		hv.voegRegelToe("testing9");
-		hv.voegRegelToe("testing10");
-		hv.voegRegelToe("testing11");
-		hv.voegRegelToe("testing12");
 		
 		for(int i = 0; i <20; i++)
 			for(int y = 0; y <20 ;y++)
