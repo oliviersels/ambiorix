@@ -1,5 +1,6 @@
 package ambiorix.acties;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import ambiorix.acties.Actie.STATUS;
@@ -20,8 +21,6 @@ public class ActieBestuurder implements ActieInputs {
 	
 	public ActieBestuurder() {}
 	
-	// TODO_S sychronization!!!
-	
 	public void start(Actie start) {
 		synchronized(this) {
 			if(huidige==null) {
@@ -33,17 +32,23 @@ public class ActieBestuurder implements ActieInputs {
 	}
 	
 	public void undo() {
+		if(huidige==null)
+			return;
+		
 		synchronized(this) {
 			huidige.undo();
 			System.out.println("-----> UNDO");
 			// kunnen we teruggaan naar de vorige actie?
-			if(huidige.getUndo() == UNDO.BESCHIKBAAR) {
-				System.out.println("-----> UNDO BESCHIKBAAR");
-				huidige = stapel.pop();
-				huidige.undo();
-//				huidige = huidige.volgende();
-				huidige.start();
-				controleerHuidige();
+			if(huidige.getUndo() == UNDO.BESCHIKBAAR) {				
+				try {
+					System.out.println("-----> UNDO BESCHIKBAAR");
+					huidige = stapel.pop();
+					huidige.undo();
+					huidige.start();
+					controleerHuidige();
+				} catch (EmptyStackException e) {
+					// geen vorige acties!
+				}
 			}
 		}		
 	}
@@ -54,11 +59,16 @@ public class ActieBestuurder implements ActieInputs {
 	}
 	
 	private void controleerHuidige() {
-		if(huidige.getStatus() == STATUS.GEDAAN && huidige.volgende()!=null) {
+		if(huidige.getStatus() == STATUS.GEDAAN) {
 			System.out.println("-----> ADD");
 			stapel.add(huidige);
 			huidige = huidige.volgende();
+			if(huidige == null) {
+				System.out.println("-----> SPELCYCLUS AFGELOPEN");
+				return;
+			}
 			huidige.start();
+			controleerHuidige();
 		}
 	}
 	
@@ -66,6 +76,10 @@ public class ActieBestuurder implements ActieInputs {
 	
 	// inputs van speltoolkit
 	public void volgendeBeurt() {
+		if(huidige==null)
+			return;
+		
+		System.out.println("-----> VOLGENDE BEURT");
 		synchronized(this) {
 			huidige.volgendeBeurt();
 			controleerHuidige();
@@ -73,8 +87,23 @@ public class ActieBestuurder implements ActieInputs {
 	}
 	
 	public void legTegel() {
+		if(huidige==null)
+			return;
+		
+		System.out.println("-----> LEG TEGEL");
 		synchronized(this) {
 			huidige.legTegel();
+			controleerHuidige();
+		}			
+	}
+	
+	public void zetPion() {
+		if(huidige==null)
+			return;
+		
+		System.out.println("-----> ZET PION");
+		synchronized(this) {
+			huidige.zetPion();
 			controleerHuidige();
 		}			
 	}

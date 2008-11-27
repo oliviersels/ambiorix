@@ -14,18 +14,29 @@ public class DRAAD extends Thread {
 		if(mode==1)
 			while(true) {			
 				sleep(250);
-				System.out.println("THREAD -> undo");
-				ab.undo();
+//				ab.undo();
 			}
 		else if (mode==2)
 			while(true) {
-				sleep(2000);
-				System.out.println("THREAD -> legTegel");
+				sleep(1000);
+				ab.legTegel();
 			}
 		else if (mode==3) 
 			while(true) {
-//				System.out.println("---- DONE ----");
+				sleep(1000);
+				ab.zetPion();
 			}
+		else if (mode==4) 
+			while(true) {
+				sleep(1000);
+				ab.volgendeBeurt();
+			}
+		
+		else if(mode==0) {			
+			while(true) {
+				sleep(10000);
+			}
+		}
 		
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
