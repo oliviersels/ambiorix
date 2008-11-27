@@ -1,7 +1,7 @@
 package ambiorix.spelbord;
 
-import ambiorix.util.APoint;
-import java.awt.Point;
+import ambiorix.util.Punt;
+import java.util.HashMap;
 
 public class Tegel 
 {
@@ -19,9 +19,12 @@ public class Tegel
 	private TegelType type = null;
 	
 	// positieindexen komen overeen met indexen op type.terrein
-	private Pion[] pionPosities = null; 
+	private Pion[][] pionPosities = null; 
+	private TerreinType[][] terrein = null;
 	
 	private Tegel[] buren = new Tegel[4];
+	
+	private TegelGebiedBeheerder gebiedBeheerder = null;
 	
 	public Tegel(TegelType type)
 	{
@@ -29,15 +32,29 @@ public class Tegel
 		
 		for(int i = 0; i < buren.length; i++)
 			buren[i] = null;
+		
+		//gebiedBeheerder = new TegelGebiedBeheerder(this);
 	}
 	
 	public void setType(TegelType type)
 	{
 		this.type = type;
 		
-		this.pionPosities = new Pion[type.terrein.length];
+		this.pionPosities = new Pion[type.terrein.length][type.terrein[0].length];
+		
 		for(int i = 0; i < pionPosities.length; i++)
-			pionPosities[i] = null;	
+			for(int j = 0; j < pionPosities[0].length; j++)
+				pionPosities[i][j] = null;	
+		
+		setRotatie(rotatie);
+	}
+
+	public void setRotatie(int rotatie) 
+	{
+		this.rotatie = rotatie;
+		
+		terrein = type.draaiTerrein(rotatie);
+		gebiedBeheerder = new TegelGebiedBeheerder(this);
 	}
 	
 	public void setBuur( Tegel buur, RICHTING richting )
@@ -195,12 +212,12 @@ public class Tegel
 	 * Intern moet zo'n 2D punt eerst omgezet worden naar arraycoordinaten,
 	 * zodat pionPosities dezelfde logica gebruikt als TerreinType.terrein
 	 */
-	public void PlaatsPion(Point positie, Pion pion)
+	public void PlaatsPion(Punt positie, Pion pion)
 	{
-		int terreinPositie = APoint.getArrayCoord(positie, pionPosities.length);
+		boolean bestaat = ( positie.getX() < pionPosities.length ) && ( positie.getY() < pionPosities[0].length );
 		
-		if( terreinPositie != -1 )
-			pionPosities[ terreinPositie ] = pion;
+		if( bestaat )
+			pionPosities[ positie.getX() ][ positie.getY() ] = pion;
 		else
 		{
 			// TODO : exception
@@ -208,12 +225,11 @@ public class Tegel
 		}
 	}
 	
-	public Pion getPion(Point positie)
+	public Pion getPion(Punt positie)
 	{
-		int terreinPositie = APoint.getArrayCoord(positie, pionPosities.length);
-		
-		if( terreinPositie != -1 )
-			return pionPosities[ terreinPositie ];
+		boolean bestaat = ( positie.getX() < pionPosities.length ) && ( positie.getY() < pionPosities[0].length );
+		if( bestaat )
+			return pionPosities[ positie.getX() ][ positie.getY() ];
 		else
 		{
 			// TODO : exception
@@ -238,14 +254,14 @@ public class Tegel
 		return rotatie;
 	}
 
-	public void setRotatie(int rotatie) 
-	{
-		this.rotatie = rotatie;
-	}
-
 	public TegelType getType() 
 	{
 		return type;
+	}
+
+	public TerreinType[][] getTerrein() 
+	{
+		return terrein;
 	}
 
 	

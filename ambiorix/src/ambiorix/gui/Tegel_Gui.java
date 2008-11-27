@@ -36,6 +36,9 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		this.addMouseListener(this);
 		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
 		tegel = t;
+		
+		
+		//tegel.getTerrein()[1][2].getID() = "TerreinType_Gras"
 	}
 	
 	@Override

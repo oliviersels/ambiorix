@@ -1,8 +1,9 @@
+package ambiorix;
+
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
-import ambiorix.spelbord.terreintypes.TerreinType_Gras;
-import ambiorix.spelbord.terreintypes.TerreinType_Klooster;
+import ambiorix.spelbord.terreintypes.*;
 
 
 public class systeem 
@@ -10,13 +11,11 @@ public class systeem
 
 	public static void main(String args[])
 	{	
-//		Robin();
-		Steven();
+		Robin();
+		//Steven();
 		//Jens();
 		//Jan();
 		//Olivier();
-		// ge kunt ook meerdere mains tegelijk hebben, flikkers
-	
 	}
 	
 	private static void Olivier()
@@ -45,23 +44,16 @@ public class systeem
 
 	public static void Robin()
 	{
-		PionType_Volgeling volgeling = new PionType_Volgeling();
-		PionTypeVerzameling.getInstantie().registreerType(volgeling);
-		
-		TegelType_GGGGK ggggk = new TegelType_GGGGK();
-		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
-		
-		TerreinType_Gras gras = new TerreinType_Gras();
-		TerreinType_Klooster klooster = new TerreinType_Klooster();
-		TerreinTypeVerzameling.getInstantie().registreerType(gras);
-		TerreinTypeVerzameling.getInstantie().registreerType(klooster);
+		prepareForTests();
 		
 		 
-		Pion vg = new Pion("test",PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
 		Spelbord spelbord = new Spelbord(t);
 		spelbord.setTegelAantal("TegelType_GGGGK", 5);
+		
+		
 		Tegel next = spelbord.getVolgendeTegel();
 		t.setBuur(next, Tegel.RICHTING.RECHTS);
 		
@@ -71,6 +63,26 @@ public class systeem
 		Tegel next3 = spelbord.getVolgendeTegel();
 		Tegel next4 = spelbord.getVolgendeTegel();
 		Tegel next5 = spelbord.getVolgendeTegel();	
+	}
+	
+	public static void prepareForTests()
+	{
+		PionType_Volgeling volgeling = new PionType_Volgeling();
+		PionTypeVerzameling.getInstantie().registreerType(volgeling);
+	
+		
+		TerreinType_Gras gras = new TerreinType_Gras();
+		TerreinType_Klooster klooster = new TerreinType_Klooster();
+		TerreinType_Weg weg = new TerreinType_Weg();
+		TerreinTypeVerzameling.getInstantie().registreerType(gras);
+		TerreinTypeVerzameling.getInstantie().registreerType(klooster);
+		TerreinTypeVerzameling.getInstantie().registreerType(weg);
+		
+		
+		TegelType_GGGGK ggggk = new TegelType_GGGGK();
+		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
+		
+
 	}
 		
 }
