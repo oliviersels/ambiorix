@@ -1,6 +1,6 @@
 package ambiorix.spelers;
 
-public class GewoneSpeler extends Speler {
+public class GewoneSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void doeIets() {
@@ -21,9 +21,19 @@ public class GewoneSpeler extends Speler {
 	}
 
 	@Override
-	public Antwoord plaatsTegel() {
+	public synchronized Antwoord plaatsTegel() {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
+		
+		/* JensRunnable jr = new JensRunnable(this);
+		 * new Thread(jr).start();
+		 */
+		
 		return null;
 	}
 
+	@Override
+	public void InvoerGebeurtenis(Antwoord a) {
+		// Ik handel het vanaf hier terug af.
+		
+	}
 }
