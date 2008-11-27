@@ -18,6 +18,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ambiorix.spelbord.Tegel;
 
 public class HoofdVenster extends JFrame{
+	private static HoofdVenster instantie = null; // Even singleton van gemaakt, moet opgelost kunnen worden
+	
 	private JToolBar menuBalk;
 	private JButton knopBestand;
 	private JButton knopHelp;
@@ -31,7 +33,19 @@ public class HoofdVenster extends JFrame{
 	private JScrollPane tegelVeldScroll;
 	private TegelVeld tegelVeld;
 	
+	/*
+	 * Hier start code van Olivier
+	 */
+	public static HoofdVenster geefInstantie() {
+		if(instantie == null) {
+			instantie = new HoofdVenster();
+		}
+		return instantie;
+	}
 	
+	protected TegelVeld geefTegelVeld() {
+		return tegelVeld;
+	}
 	
 	public static void main(String args[])
 	{
@@ -58,7 +72,7 @@ public class HoofdVenster extends JFrame{
 				
 	}
 	HoofdVenster()
-	{
+	{	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBalk = new JToolBar();
 		knopBestand = new JButton();
@@ -121,6 +135,10 @@ public class HoofdVenster extends JFrame{
 		this.pack();
 		this.setLocationRelativeTo(this.getOwner());
 		setVisible(true);
+		
+		for(int i = 0; i <20; i++)
+			for(int y = 0; y <20 ;y++)
+				voegTegelToe(i, y, null);
 	}
 	public void voegRegelToe(String str)
 	{

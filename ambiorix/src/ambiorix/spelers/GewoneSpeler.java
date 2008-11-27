@@ -1,7 +1,13 @@
 package ambiorix.spelers;
 
-public class GewoneSpeler extends Speler implements InvoerLuisteraar {
+import javax.swing.SwingUtilities;
 
+import ambiorix.gui.Invoer;
+import ambiorix.gui.InvoerLuisteraar;
+
+public class GewoneSpeler extends Speler implements InvoerLuisteraar {
+	Antwoord huidigAntwoord = null;
+	
 	@Override
 	public void doeIets() {
 		// TODO Auto-generated method stub
@@ -24,16 +30,26 @@ public class GewoneSpeler extends Speler implements InvoerLuisteraar {
 	public synchronized Antwoord plaatsTegel() {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
-		/* JensRunnable jr = new JensRunnable(this);
-		 * new Thread(jr).start();
-		 */
+		Invoer i = new Invoer();
+		Invoer.PlaatsTegel run = i.new PlaatsTegel(this);
+		SwingUtilities.invokeLater(run);
 		
-		return null;
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		run.stopLuisteren();
+		
+		return huidigAntwoord;
 	}
 
 	@Override
-	public void InvoerGebeurtenis(Antwoord a) {
+	public synchronized void invoerGebeurtenis(Antwoord a) {
 		// Ik handel het vanaf hier terug af.
-		
+		huidigAntwoord = a;
+		notifyAll();
 	}
 }
