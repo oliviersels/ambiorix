@@ -6,6 +6,7 @@ import java.util.Vector;
 import ambiorix.spelbord.Pion;
 
 public abstract class Speler {
+	// FIXME wa is van ne enum?
 	public static int ACTIEF = 1;
 	public static int GESTOPT = -1;
 	public static int WACHTEND = 0;

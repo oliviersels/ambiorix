@@ -1,29 +1,33 @@
 package ambiorix.acties.basisspel;
 
+import java.util.Random;
+
 import ambiorix.acties.Actie;
+import ambiorix.spelers.Speler;
 
 public class Pre_BeginSpeler extends Actie {
 
 	public Pre_BeginSpeler() {
 		System.out.println("-------> Pre - BeginSpeler");
 		
-		// TODO_S ref naar speler bijhouden
-		
 		status = STATUS.KLAAR;
 	}
 
 	@Override
 	public void start() {
-		System.out.println("Pre - BeginSpeler -> alle Spelers opvragen");
-		System.out.println("Pre - BeginSpeler -> een kiezen als beginspeler");
-		System.out.println("Pre - BeginSpeler -> Speler zetten als beginspeler");
+		// willekeurige speler kiezen
+		int verkozen = (int) (Math.random() * speltoolkit.getAantalSpelers());
+		Speler speler = speltoolkit.getSpelers().get(verkozen);		
+		speltoolkit.setActieveSpeler(speler);
+		
+		System.out.println("Pre - BeginSpeler -> "+speler.getNaam());
 		
 		status = STATUS.GEDAAN;
 	}
 
 	@Override
 	public void undo() {
-		System.out.println("Pre - BeginSpeler -> Speler verwijderen als beginspeler");
+		System.out.println("Pre - BeginSpeler -> geen undo");
 
 		status = STATUS.UNDO;
 	}

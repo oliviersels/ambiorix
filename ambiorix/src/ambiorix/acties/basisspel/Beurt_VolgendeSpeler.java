@@ -1,33 +1,41 @@
 package ambiorix.acties.basisspel;
 
 import ambiorix.acties.Actie;
+import ambiorix.spelers.Speler;
 
 public class Beurt_VolgendeSpeler extends Actie {
 
 	public Beurt_VolgendeSpeler() {
 		System.out.println("-------> Beurt - VolgendeSpeler");
 		
-		// TODO_S ref naar huidige speler
-		// TODO_S ref naar volgende speler
-
-		// geen undo, anders kunnen we valsspelen door steeds een nieuwe tegel te krijgens
 		undo = UNDO.NIET_BESCHIKBAAR;
 		status = STATUS.KLAAR;
 	}
 
 	@Override
 	public void start() {
-		System.out.println("Beurt - VolgendeSpeler -> lijst van spelers opvragen");
-		System.out.println("Beurt - VolgendeSpeler -> huidige speler opvragen");
-		System.out.println("Beurt - VolgendeSpeler -> volgende speler bepalen");
-		System.out.println("Beurt - VolgendeSpeler -> speler aanduiden als huidige speler");
+		
+		Speler actieve = speltoolkit.getActieveSpeler();
+		boolean gevonden = false; 
+		
+		for (Speler speler : speltoolkit.getSpelers()) {
+			if(gevonden)
+				speltoolkit.setActieveSpeler(speler);
+			
+			gevonden = (speler == actieve);		
+		}
+		
+		if(gevonden) // laatste in de rij -> herbeginnen bij de eerste
+			speltoolkit.setActieveSpeler( speltoolkit.getSpelers().firstElement() );
+		
+		System.out.println("Beurt - VolgendeSpeler -> " + speltoolkit.getActieveSpeler().getNaam());
 		
 		status = STATUS.GEDAAN;
 	}
 
 	@Override
 	public void undo() {
-		System.out.println("Beurt - VolgendeSpeler -> vorige speler pakken");
+		System.out.println("Beurt - VolgendeSpeler -> geen undo");
 		
 		status = STATUS.UNDO;
 	}

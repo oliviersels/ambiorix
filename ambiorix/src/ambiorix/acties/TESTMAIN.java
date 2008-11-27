@@ -1,12 +1,10 @@
 package ambiorix.acties;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Stack;
-import java.util.Vector;
-
+import ambiorix.Spel;
 import ambiorix.acties.basisspel.Pre_GeefPionnen;
-import ambiorix.acties.specifiek.GeefTegel;
+import ambiorix.spelbord.PionTypeVerzameling;
+import ambiorix.spelbord.piontypes.PionType_Volgeling;
+import ambiorix.spelers.*;
 
 public class TESTMAIN {
 
@@ -17,7 +15,20 @@ public class TESTMAIN {
 	
 		
 		try {
-			ActieBestuurder ab = new ActieBestuurder(null);			
+			Spel spel = new Spel();
+			PionTypeVerzameling.getInstantie().registreerType(new PionType_Volgeling());			
+			
+			Speler speler;
+			
+			speler = new MenselijkeSpeler();
+			speler.setNaam("Joske");
+			spel.addSpeler(speler);
+			
+			speler = new MenselijkeSpeler();
+			speler.setNaam("Jefke");
+			spel.addSpeler(speler);
+			
+			ActieBestuurder ab = spel.getSpeltoolkit().getActiebestuurder();	
 			
 			DRAAD d = null;
 			d = new DRAAD(ab, 1);
@@ -25,7 +36,7 @@ public class TESTMAIN {
 			d = new DRAAD(ab, 3);
 			d = new DRAAD(ab, 4);
 			
-			ab.start(new Pre_GeefPionnen());
+			spel.start(new Pre_GeefPionnen());
 			
 			d = new DRAAD(ab, 0);
 			d.join();

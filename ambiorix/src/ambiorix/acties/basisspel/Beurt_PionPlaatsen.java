@@ -16,7 +16,7 @@ public class Beurt_PionPlaatsen extends Actie {
 
 	@Override
 	public void start() {
-		System.out.println("Beurt - PionPlaatsen -> wachten op input (legtegel | beurt afsluiten)");
+		System.out.println("Beurt - PionPlaatsen -> wachten op input (zetpion | beurt afsluiten)");
 
 		status = STATUS.BEZIG;
 	}

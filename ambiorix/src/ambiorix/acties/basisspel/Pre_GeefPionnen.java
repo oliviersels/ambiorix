@@ -1,11 +1,11 @@
 package ambiorix.acties.basisspel;
 
 import ambiorix.acties.Actie;
+import ambiorix.spelers.Speler;
 
 public class Pre_GeefPionnen extends Actie {
 
 	public Pre_GeefPionnen() {
-		// alle spelers 7 pionnen geven, niks qua data voor undo bijhouden
 		System.out.println("-------> Pre - GeefPionnen");
 		
 		undo = UNDO.NIET_BESCHIKBAAR; // 1e Actie
@@ -14,17 +14,19 @@ public class Pre_GeefPionnen extends Actie {
 
 	@Override
 	public void start() {
-		System.out.println("Pre - GeefPionnen -> spelers opvragen");
-		System.out.println("Pre - GeefPionnen -> elke speler 7 pionnen geven");
+		for (Speler speler : speltoolkit.getSpelers()) {
+			System.out.println("Pre - GeefPionnen -> "+speler.getNaam());
+			for (int i = 0; i < 7; ++i) // TODO_S naar speltoolkit, of rechtstreeks op speler?
+				speler.addPion( speltoolkit.getPion("PionType_Volgeling") ); 
+			System.out.println("Pre - GeefPionnen -> "+speler.getAantalPionnen());
+		}
 		
 		status = STATUS.GEDAAN;
 	}
 
 	@Override
 	public void undo() {
-		System.out.println("Pre - GeefPionnen -> spelers opvragen");
-		System.out.println("Pre - GeefPionnen -> alle pionnen verwijderen");
-		
+		System.out.println("Pre - GeefPionnen -> geen undo");		
 		status = STATUS.UNDO;
 	}
 

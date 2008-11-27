@@ -20,6 +20,11 @@ import ambiorix.acties.Actie.UNDO;
 
 public class ActieBestuurder implements ActieInputs {
 	
+	Stack<Actie> vorigeActies = new Stack<Actie>();
+	Actie huidige = null;
+	
+	SpelToolkit speltoolkit;
+	
 	public ActieBestuurder(SpelToolkit speltoolkit) {
 		this.speltoolkit = speltoolkit;
 	}
@@ -28,25 +33,27 @@ public class ActieBestuurder implements ActieInputs {
 		synchronized(this) {
 			if(huidige==null) {
 				huidige = start;
+				huidige.setSpeltoolkit(speltoolkit);
 				huidige.start();
 				controleerHuidige();
 			}
 		}
 	}
 	
-	public void undo() {
-		if(huidige==null)
-			return;
-		
+	public void undo() {		
 		synchronized(this) {
+			if(huidige==null)
+				return;
+			
 			huidige.undo();
 			System.out.println("-----> UNDO");
 			// kunnen we teruggaan naar de vorige actie?
 			if(huidige.getUndo() == UNDO.BESCHIKBAAR) {				
 				try {
 					System.out.println("-----> UNDO BESCHIKBAAR");
-					huidige = stapel.pop();
+					huidige = vorigeActies.pop();
 					huidige.undo();
+					huidige.setSpeltoolkit(speltoolkit);
 					huidige.start();
 					controleerHuidige();
 				} catch (EmptyStackException e) {
@@ -64,12 +71,13 @@ public class ActieBestuurder implements ActieInputs {
 	private void controleerHuidige() {
 		if(huidige.getStatus() == STATUS.GEDAAN) {
 			System.out.println("-----> ADD");
-			stapel.add(huidige);
+			vorigeActies.add(huidige);
 			huidige = huidige.volgende();
 			if(huidige == null) {
 				System.out.println("-----> SPELCYCLUS AFGELOPEN");
 				return;
 			}
+			huidige.setSpeltoolkit(speltoolkit);
 			huidige.start();
 			controleerHuidige();
 		}
@@ -78,44 +86,33 @@ public class ActieBestuurder implements ActieInputs {
 	//-------------------------
 	
 	// inputs van speltoolkit
-	public void volgendeBeurt() {
-		if(huidige==null)
-			return;
-		
-		System.out.println("-----> VOLGENDE BEURT");
+	public void volgendeBeurt() {		
 		synchronized(this) {
+			System.out.println("-----> VOLGENDE BEURT");
+			if(huidige==null)
+				return;
 			huidige.volgendeBeurt();
 			controleerHuidige();
 		}			
 	}
 	
 	public void legTegel() {
-		if(huidige==null)
-			return;
-		
-		System.out.println("-----> LEG TEGEL");
 		synchronized(this) {
+			System.out.println("-----> LEG TEGEL");
+			if(huidige==null)
+				return;
 			huidige.legTegel();
 			controleerHuidige();
 		}			
 	}
 	
 	public void zetPion() {
-		if(huidige==null)
-			return;
-		
-		System.out.println("-----> ZET PION");
 		synchronized(this) {
+			System.out.println("-----> ZET PION");
+			if(huidige==null)
+				return;
 			huidige.zetPion();
 			controleerHuidige();
 		}			
-	}
-
-	// TODO_S delete lol
-	// stapel, lol
-	Stack<Actie> stapel = new Stack<Actie>();
-	Actie huidige = null;	
-	
-	SpelToolkit speltoolkit;
-	
+	}	
 }

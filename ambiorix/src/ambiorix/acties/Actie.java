@@ -1,5 +1,7 @@
 package ambiorix.acties;
 
+import ambiorix.SpelToolkit;
+
 public abstract class Actie implements ActieInputs {
 	
 	public enum STATUS {ONKLAAR, KLAAR, BEZIG, GEDAAN, UNDO};
@@ -20,6 +22,10 @@ public abstract class Actie implements ActieInputs {
 	
 	public abstract Actie volgende();
 	
+	public void setSpeltoolkit(SpelToolkit speltoolkit) {
+		this.speltoolkit = speltoolkit;
+	}
+
 	public STATUS getStatus() {
 		return status;
 	}
@@ -32,12 +38,12 @@ public abstract class Actie implements ActieInputs {
 	
 	public void volgendeBeurt() {}
 	public void legTegel() {}
-	public void zetPion() {}
-	
+	public void zetPion() {}	
 	
 	// member vars;
 	
 	protected STATUS status = STATUS.ONKLAAR;
 	protected UNDO undo = UNDO.BESCHIKBAAR;
+	protected SpelToolkit speltoolkit = null;
 	
 }

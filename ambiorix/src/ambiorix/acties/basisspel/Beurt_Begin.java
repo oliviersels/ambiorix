@@ -4,7 +4,7 @@ import ambiorix.acties.Actie;
 
 public class Beurt_Begin extends Actie {
 	
-	boolean speelbaar = true;
+	private boolean speelbaar = true;	
 
 	public Beurt_Begin() {
 		System.out.println("-------> Beurt - Begin");
@@ -20,6 +20,8 @@ public class Beurt_Begin extends Actie {
 	
 	@Override
 	public void start() {
+		if(speltoolkit==null)
+			return;
 		// lijst van mogelijke tegeltypes opstellen
 		System.out.println("Beurt - Begin -> alle tegeltypes opvragen");
 		System.out.println("Beurt - Begin -> checken welk tegeltype nog te plaatsen is");
@@ -42,7 +44,7 @@ public class Beurt_Begin extends Actie {
 	}
 
 	@Override
-	public void undo() {
+	public void undo() {		
 		// normaal niks undo doen
 		System.out.println("Beurt - Begin -> undo");
 		if(speelbaar) {
@@ -53,6 +55,7 @@ public class Beurt_Begin extends Actie {
 
 	@Override
 	public Actie volgende() {
+		
 		System.out.println("Beurt - Begin -> volgende");
 		if(speelbaar)		
 			return new Beurt_TegelPlaatsen();
