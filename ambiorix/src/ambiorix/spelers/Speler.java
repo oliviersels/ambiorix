@@ -1,7 +1,9 @@
 package ambiorix.spelers;
 
 import java.awt.Color;
-import java.util.HashMap;
+import java.util.Vector;
+
+import ambiorix.spelbord.Pion;
 
 public abstract class Speler {
 	public static int ACTIEF = 1;
@@ -11,16 +13,29 @@ public abstract class Speler {
 	private Color kleur;
 	private int score;
 	private String naam;
-	private HashMap<String, Integer> pionnen; // TODO: String key vervangen door PionType
+	private Vector<Pion> pionnen;
 	private int status;
 	
 	public Speler() {
-		
+		kleur = null;
+		naam = null;
+		pionnen = new Vector<Pion>();
 	}
 	
 	public abstract void doeIets(); // TODO: Uitsplitsen naar meerdere functie -> zie behoeften anderen
 	
 	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
+	
+	/**
+	 * Deze functie geeft terug welke positie de speler kiest om een tegel te
+	 * plaatsen. Het is cruciaal dat de aanroeper hierna bevestigTegel() aanroept
+	 * om de positie te bevestigen.
+	 * @return Antwoord bevat:</br>
+	 *   a) Tegels (1): De tegel die de gebruiker wilt plaatsen.</br>
+	 *   b) Tegels (2): De positie waar deze geplaatst wil worden.
+	 */
+	public abstract Antwoord plaatsTegel();
+	public abstract void bevestigTegel(boolean toegestaan);
 
 	public Color getKleur() {
 		return kleur;
@@ -50,32 +65,39 @@ public abstract class Speler {
 		this.naam = naam;
 	}
 	
-	public void addPion(String pion, int aantal) { // TODO: String pion veranderen in PionType pion
-		int huidigAantal;
-		try {
-			huidigAantal = geefAantalPionnen(pion);
-			pionnen.put(pion, new Integer(huidigAantal + aantal));
-		}
-		catch (PionTypeException e) {
-			pionnen.put(pion, aantal);
-		}
+	public void addPion(Pion pion) {
+		pionnen.add(pion);
 	}
 	
-	public void deletePion(String pionType) throws PionTypeException { // TODO: String pion veranderen naar PionType
-		if(pionnen.containsKey(pionType))
-			pionnen.remove(pionType);
-		else
-			PionTypeException.throwNow(pionType);
+	public void deletePion(Pion pion) {
+		pionnen.remove(pion);
 	}
 	
-	public int geefAantalPionnen(String pionType) throws PionTypeException { // TODO: String pion veranderen naar PionType
-		Integer resultaat;
-		resultaat = pionnen.get(pionType);
-		if(resultaat == null) {
-			PionTypeException.throwNow(pionType);
-			return 0; // Hier komen we nooit maar de compiler is niet slim genoeg om dat te merken en klaagt anders
+	public int getAantalPionnen() {
+		return pionnen.size();
+	}
+	
+	/**
+	 * Geeft terug hoeveel pionnen de speler heeft van het type pion. Maakt gebruik van equals!
+	 * @param pion
+	 * @return het aantal pionnen.
+	 */
+	public int geefAantalPionnen(Pion pion) {
+		int aantal = 0;
+		
+		for(Pion p : pionnen) {
+			if(p.equals(pion))
+				aantal++;
 		}
-		else
-			return resultaat.intValue();
+		
+		return aantal;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }
