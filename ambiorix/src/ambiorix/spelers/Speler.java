@@ -27,15 +27,20 @@ public abstract class Speler {
 	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
 	
 	/**
-	 * Deze functie geeft terug welke positie de speler kiest om een tegel te
-	 * plaatsen. Het is cruciaal dat de aanroeper hierna bevestigTegel() aanroept
-	 * om de positie te bevestigen.
+	 * Geeft terug welke positie de speler kiest om een tegel te
+	 * plaatsen. Dit geeft geen verandering weer in de GUI. Enkel dat de
+	 * gebruiker een keuze gemaakt heeft.
 	 * @return Antwoord bevat:</br>
 	 *   a) tegels (1): De tegel die de gebruiker wilt plaatsen.</br>
 	 *   b) posities (1): De positie waar deze geplaatst wil worden.
 	 */
 	public abstract Antwoord plaatsTegel();
-	public abstract void bevestigTegel(boolean toegestaan);
+	/**
+	 * Moet onmiddelijk na plaatsTegel() opgeroepen worden om door te geven
+	 * dat de tegel hier geplaatst mag worden.
+	 * @param toegestaan true als de tegel hier mag geplaatst worden
+	 */
+	public abstract void positieToestaan(boolean toegestaan);
 
 	public Color getKleur() {
 		return kleur;

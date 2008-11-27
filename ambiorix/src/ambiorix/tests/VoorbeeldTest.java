@@ -3,20 +3,20 @@ package ambiorix.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import ambiorix.spelers.GewoneSpeler;
+import ambiorix.spelers.MenselijkeSpeler;
 
 public class VoorbeeldTest {
 
 	@Test
 	public void testDoeIets() {
-		GewoneSpeler s = new GewoneSpeler();
+		MenselijkeSpeler s = new MenselijkeSpeler();
 		s.setNaam("Test");
 		assertEquals("Speler Naam", s.getNaam(), "Test");
 	}
 
 	@Test
 	public void testVraagIets() {
-		GewoneSpeler s = new GewoneSpeler();
+		MenselijkeSpeler s = new MenselijkeSpeler();
 		s.setScore(15);
 		assertEquals("Speler Score", s.getScore(), 15);
 	}

@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
 
-public class GewoneSpeler extends Speler implements InvoerLuisteraar {
+public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
 	
 	@Override
@@ -21,7 +21,7 @@ public class GewoneSpeler extends Speler implements InvoerLuisteraar {
 	}
 
 	@Override
-	public void bevestigTegel(boolean toegestaan) {
+	public void positieToestaan(boolean toegestaan) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -37,8 +37,9 @@ public class GewoneSpeler extends Speler implements InvoerLuisteraar {
 		try {
 			wait();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			// TODO Exception handling kan beter
 			e.printStackTrace();
+			System.exit(1);
 		}
 		
 		run.stopLuisteren();

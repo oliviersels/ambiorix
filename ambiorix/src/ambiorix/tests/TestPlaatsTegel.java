@@ -1,6 +1,6 @@
 package ambiorix.tests;
 
-import ambiorix.spelers.GewoneSpeler;
+import ambiorix.spelers.MenselijkeSpeler;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TestPlaatsTegel {
 	@Test
 	public void testPlaatsTegel() {
-		GewoneSpeler speler = new GewoneSpeler();
+		MenselijkeSpeler speler = new MenselijkeSpeler();
 		
 		assertNotNull(speler.plaatsTegel().getTegels().get(0));
 		assertNotNull(speler.plaatsTegel().getPosities().get(0));
