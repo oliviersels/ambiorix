@@ -2,19 +2,26 @@ package ambiorix.spelers;
 
 import java.util.Vector;
 
+import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
-import ambiorix.spelbord.TerreinType;
+import ambiorix.spelbord.Terrein;
 
 public class Antwoord {
 	private Vector<Pion> pionnen;
 	private Vector<Tegel> tegels;
-	private Vector<TerreinType> terreinen; // FIXME moet dit geen Terrein zijn ipv TerreinType?
+	private Vector<Terrein> terreinen;
+	private Vector<BordPositie> posities;
 	
 	public Antwoord() {
 		pionnen = new Vector<Pion>();
 		tegels = new Vector<Tegel>();
-		terreinen = new Vector<TerreinType>();
+		terreinen = new Vector<Terrein>();
+		posities = new Vector<BordPositie>();
+	}
+
+	public Vector<BordPositie> getPosities() {
+		return posities;
 	}
 
 	public Vector<Pion> getPionnen() {
@@ -25,7 +32,7 @@ public class Antwoord {
 		return tegels;
 	}
 
-	public Vector<TerreinType> getTerreinen() {
+	public Vector<Terrein> getTerreinen() {
 		return terreinen;
 	}
 }

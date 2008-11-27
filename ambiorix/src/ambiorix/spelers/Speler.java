@@ -31,8 +31,8 @@ public abstract class Speler {
 	 * plaatsen. Het is cruciaal dat de aanroeper hierna bevestigTegel() aanroept
 	 * om de positie te bevestigen.
 	 * @return Antwoord bevat:</br>
-	 *   a) Tegels (1): De tegel die de gebruiker wilt plaatsen.</br>
-	 *   b) Tegels (2): De positie waar deze geplaatst wil worden.
+	 *   a) tegels (1): De tegel die de gebruiker wilt plaatsen.</br>
+	 *   b) posities (1): De positie waar deze geplaatst wil worden.
 	 */
 	public abstract Antwoord plaatsTegel();
 	public abstract void bevestigTegel(boolean toegestaan);
