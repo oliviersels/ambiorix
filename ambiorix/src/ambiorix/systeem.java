@@ -131,5 +131,6 @@ public class systeem
 		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
 		TegelTypeVerzameling.getInstantie().registreerType(wggww);
 	}
-		
+	
+	Spel huidigeSpel;		
 }

@@ -3,6 +3,7 @@ package ambiorix.acties;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import ambiorix.SpelToolkit;
 import ambiorix.acties.Actie.STATUS;
 import ambiorix.acties.Actie.UNDO;
 
@@ -19,8 +20,10 @@ import ambiorix.acties.Actie.UNDO;
 
 public class ActieBestuurder implements ActieInputs {
 	
-	public ActieBestuurder() {}
-	
+	public ActieBestuurder(SpelToolkit speltoolkit) {
+		this.speltoolkit = speltoolkit;
+	}
+
 	public void start(Actie start) {
 		synchronized(this) {
 			if(huidige==null) {
@@ -112,5 +115,7 @@ public class ActieBestuurder implements ActieInputs {
 	// stapel, lol
 	Stack<Actie> stapel = new Stack<Actie>();
 	Actie huidige = null;	
+	
+	SpelToolkit speltoolkit;
 	
 }

@@ -17,8 +17,7 @@ public class TESTMAIN {
 	
 		
 		try {
-			ActieBestuurder ab = new ActieBestuurder();
-			
+			ActieBestuurder ab = new ActieBestuurder(null);			
 			
 			DRAAD d = null;
 			d = new DRAAD(ab, 1);
