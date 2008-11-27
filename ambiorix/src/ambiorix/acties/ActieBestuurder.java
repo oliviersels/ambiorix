@@ -35,9 +35,10 @@ public class ActieBestuurder implements ActieInputs {
 	public void undo() {
 		synchronized(this) {
 			huidige.undo();
+			System.out.println("-----> UNDO");
 			// kunnen we teruggaan naar de vorige actie?
 			if(huidige.getUndo() == UNDO.BESCHIKBAAR) {
-				System.out.println("-----> UNDO");
+				System.out.println("-----> UNDO BESCHIKBAAR");
 				huidige = stapel.pop();
 				huidige.undo();
 //				huidige = huidige.volgende();
