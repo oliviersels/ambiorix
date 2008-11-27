@@ -25,6 +25,7 @@ public class TESTMAIN {
 		deque.addFirst(4);
 		deque.addFirst(4);
 		deque.addFirst(4);
+		deque.addFirst(4);
 		
 		stack.add(1);
 		stack.add(2);
