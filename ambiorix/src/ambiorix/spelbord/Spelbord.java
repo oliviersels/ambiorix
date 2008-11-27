@@ -66,7 +66,6 @@ public class Spelbord
 				Set<String> tegelTypes = overgeblevenTegels.keySet();
 				
 				int randType = generator.nextInt( tegelTypes.size() );
-				Object[] arr = tegelTypes.toArray();
 				String tegelType = (String) tegelTypes.toArray()[ randType ];
 				
 				if( overgeblevenTegels.get(tegelType) > 0)

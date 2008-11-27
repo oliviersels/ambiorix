@@ -3,6 +3,7 @@ package ambiorix;
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
+import ambiorix.spelbord.tegeltypes.TegelType_WGGWW;
 import ambiorix.spelbord.terreintypes.*;
 
 
@@ -47,7 +48,7 @@ public class systeem
 		prepareForTests();
 		
 		 
-		Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		/*Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
 		Spelbord spelbord = new Spelbord(t);
@@ -80,9 +81,34 @@ public class systeem
 		System.out.println( " ----------------------- " );
 		next2.print();
 		//next2.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
 		
-		/*Tegel next3 = spelbord.getVolgendeTegel();
-		Tegel next4 = spelbord.getVolgendeTegel();
+		Tegel next3 = spelbord.getVolgendeTegel();
+		next2.setBuur(next3, Tegel.RICHTING.LINKS);
+		
+		t.print();
+		//t.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next.print();
+		//next.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next2.print();
+		//next2.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next3.print();
+		//next3.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		
+		
+		/*Tegel next4 = spelbord.getVolgendeTegel();
 		Tegel next5 = spelbord.getVolgendeTegel();	*/
 	}
 	
@@ -101,9 +127,9 @@ public class systeem
 		
 		
 		TegelType_GGGGK ggggk = new TegelType_GGGGK();
+		TegelType_WGGWW wggww = new TegelType_WGGWW();
 		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
-		
-
+		TegelTypeVerzameling.getInstantie().registreerType(wggww);
 	}
 		
 }

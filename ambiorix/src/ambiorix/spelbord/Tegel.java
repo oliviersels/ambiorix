@@ -1,7 +1,6 @@
 package ambiorix.spelbord;
 
 import ambiorix.util.Punt;
-import java.util.HashMap;
 
 public class Tegel 
 {
@@ -66,27 +65,32 @@ public class Tegel
 	// TODO : wat als er al een buur staat daar ?
 	protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
 	{
+		//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
+		
 		if( getBuur( richting ) == null )
 		{
 			buren[ richting.ordinal() ] = buur;
 			
-			if(synchronizeer)
-			{
-				// de buur moet zelf ook deze tegel als zijn buur zetten !
-				if( richting == RICHTING.BOVEN )
-					buur.setBuur(this, RICHTING.ONDER, false);
-				if( richting == RICHTING.ONDER )
-					buur.setBuur(this, RICHTING.BOVEN, false);	
-				if( richting == RICHTING.RECHTS )
-					buur.setBuur(this, RICHTING.LINKS, false);		
-				if( richting == RICHTING.LINKS )
-					buur.setBuur(this, RICHTING.RECHTS, false);	
-			}
+			// de buur moet zelf ook deze tegel als zijn buur zetten !
+			if( richting == RICHTING.BOVEN )
+				buur.setBuur(this, RICHTING.ONDER, false);
+			if( richting == RICHTING.ONDER )
+				buur.setBuur(this, RICHTING.BOVEN, false);	
+			if( richting == RICHTING.RECHTS )
+				buur.setBuur(this, RICHTING.LINKS, false);		
+			if( richting == RICHTING.LINKS )
+				buur.setBuur(this, RICHTING.RECHTS, false);	
+			
 		} 
 		else
 		{
-			// TODO : throw exception, buur is al gezet
-			System.out.println("Tegel::SetBuur : TEGEL IS AL GEZET");
+			// TODO ; mogen we dit hier gewoon zo laten? 
+			// Momenteel gaat hij altijd hierin komen, door bovenstaande code.
+			// ik zou zeggen : gewoon niks doen en oude behouden.
+			// mss een functie "vervangtegel" ?
+			
+			//System.out.println("Tegel::SetBuur : TEGEL IS AL GEZET");
+			//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
 			return;
 		}
 		
@@ -95,6 +99,7 @@ public class Tegel
 		if(!synchronizeer)
 			return;
 		
+
 		// ook zorgen dat omliggende tegels deze tegel registreren als buur!
 		// hangt totaal van de richting af!
 		
@@ -172,7 +177,7 @@ public class Tegel
 		{
 			RICHTING[] pad = 		{RICHTING.BOVEN, RICHTING.LINKS, RICHTING.LINKS, RICHTING.ONDER};
 			RICHTING[] operaties =  {null          , RICHTING.ONDER, null		   , RICHTING.RECHTS};
-			
+
 			synchronizeerBuren(buur, pad, operaties);
 			
 			RICHTING[] pad2 = 		 {RICHTING.ONDER, RICHTING.LINKS, RICHTING.LINKS, RICHTING.BOVEN};
@@ -212,11 +217,11 @@ public class Tegel
 		private void synchronizeerBuren(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
 		{
 			int teller = 0;
-			Tegel tegel = null;
+			Tegel tegel = this;
 			
 			while( teller < pad.length )
 			{
-				tegel = getBuur( pad[teller] );
+				tegel = tegel.getBuur( pad[teller] );
 				if( tegel == null )
 					return;
 				

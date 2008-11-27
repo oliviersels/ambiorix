@@ -1,7 +1,6 @@
 package ambiorix.spelbord.tegeltypes;
 
 import ambiorix.spelbord.*;
-import ambiorix.spelbord.terreintypes.*;
 
 public class TegelType_GGGGK extends TegelType
 {

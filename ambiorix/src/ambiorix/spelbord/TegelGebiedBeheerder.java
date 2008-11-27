@@ -3,11 +3,8 @@ package ambiorix.spelbord;
 import ambiorix.spelbord.Tegel.RICHTING;
 import ambiorix.util.Punt;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-
-import java.util.Iterator;
 
 public class TegelGebiedBeheerder 
 {
