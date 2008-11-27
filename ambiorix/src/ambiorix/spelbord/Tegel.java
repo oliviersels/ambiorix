@@ -24,7 +24,8 @@ public class Tegel
 	
 	private Tegel[] buren = new Tegel[4];
 	
-	private TegelGebiedBeheerder gebiedBeheerder = null;
+	// PRIVATE ZETTEN !!!!
+	public TegelGebiedBeheerder gebiedBeheerder = null;
 	
 	public Tegel(TegelType type)
 	{
@@ -63,9 +64,33 @@ public class Tegel
 	}
 	
 	// TODO : wat als er al een buur staat daar ?
-	private void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
+	protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
 	{
-		buren[ richting.ordinal() ] = buur;
+		if( getBuur( richting ) == null )
+		{
+			buren[ richting.ordinal() ] = buur;
+			
+			if(synchronizeer)
+			{
+				// de buur moet zelf ook deze tegel als zijn buur zetten !
+				if( richting == RICHTING.BOVEN )
+					buur.setBuur(this, RICHTING.ONDER, false);
+				if( richting == RICHTING.ONDER )
+					buur.setBuur(this, RICHTING.BOVEN, false);	
+				if( richting == RICHTING.RECHTS )
+					buur.setBuur(this, RICHTING.LINKS, false);		
+				if( richting == RICHTING.LINKS )
+					buur.setBuur(this, RICHTING.RECHTS, false);	
+			}
+		} 
+		else
+		{
+			// TODO : throw exception, buur is al gezet
+			System.out.println("Tegel::SetBuur : TEGEL IS AL GEZET");
+			return;
+		}
+		
+		gebiedBeheerder.setBuur(buur, richting);
 		
 		if(!synchronizeer)
 			return;
@@ -201,6 +226,21 @@ public class Tegel
 				teller++;
 			}
 		}
+		
+	public void print()
+	{
+		System.out.println( "Tegel::Print voor tegel " + ID );
+		
+		for(RICHTING r: RICHTING.values())
+		{
+			Tegel buur = getBuur(r);
+			if(buur == null)
+				System.out.println(r + " = LEEG");
+			else
+				System.out.println(r + " = " + buur.getID());
+				
+		}
+	}
 	
 	public Tegel getBuur(RICHTING richting)
 	{

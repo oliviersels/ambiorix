@@ -15,8 +15,14 @@ public class TegelGebiedBeheerder
 
 	private class GebiedHelper
 	{
+		public GebiedHelper( Punt p, Tegel t )
+		{
+			this.punt = p;
+			this.tegel = t; 
+		}
+		
 		public Tegel tegel;
-		public Punt p;
+		public Punt punt;
 	}
 	
 	private HashMap<Punt, GebiedHelper> GebiedHelpersBOVEN;
@@ -37,22 +43,25 @@ public class TegelGebiedBeheerder
 		// 1 extra nodig voor elke hoek ( + 4 dus ) want die wijzen naar beide kanten
 		// voor elke kant een aparte lijst bijhouden is het beste
 		
+		// voor elk punt in het terrein pointer bijhouden naar aangrenzend punt in de buurtegel
+		
 		int aantalKolommen = tegel.getTerrein()[0].length;
 		int aantalRijen = tegel.getTerrein().length;
 		
 		for( int i = 0; i < aantalKolommen; i++ )
 		{
 			// boven is rij 0, kolom i
-			GebiedHelpersBOVEN.put(new Punt(0,i), null);
+			// deze linken naar die ONDER de buurtegel bovenaan
+			GebiedHelpersBOVEN.put( new Punt(0,i), new GebiedHelper( new Punt(aantalRijen - 1, i), null ) );
 			
 			// onder is rij aantalRijen - 1, kolom i
-			GebiedHelpersONDER.put(new Punt(aantalRijen - 1, i), null);
+			GebiedHelpersONDER.put(new Punt(aantalRijen - 1, i), new GebiedHelper( new Punt(0, i), null ) );
 			
 			// rechts is i, aantalKolommen - 1
-			GebiedHelpersRECHTS.put(new Punt(i, aantalKolommen - 1), null);			
+			GebiedHelpersRECHTS.put(new Punt(i, aantalKolommen - 1), new GebiedHelper( new Punt(i, 0), null ) );			
 			
 			// links is i, 0
-			GebiedHelpersLINKS.put(new Punt(i,0), null);
+			GebiedHelpersLINKS.put(new Punt(i,0), new GebiedHelper( new Punt(i, aantalKolommen - 1), null ) );
 		}
 	}
 	
@@ -80,12 +89,18 @@ public class TegelGebiedBeheerder
 		HashMap<Punt, GebiedHelper> verzameling = getGebiedHelpers(richting);
 		Set<Punt> punten = verzameling.keySet();
 		
-		if( richting == Tegel.RICHTING.BOVEN)
+		for( Punt punt: punten )
 		{
-			/*for( Punt punt: punten)
+			verzameling.get(punt).tegel = buur;
+		}	
+			
+		
+		/*if( richting == Tegel.RICHTING.BOVEN)
+		{
+			for( Punt punt: punten)
 			{
 				verzameling.get(punt).
-			}*/
+			}
 		}
 		else if( richting == Tegel.RICHTING.ONDER )
 		{
@@ -98,12 +113,13 @@ public class TegelGebiedBeheerder
 		else if( richting == Tegel.RICHTING.LINKS )
 		{
 			
-		}
+		}*/
 		
 	}
 	
 	public void print()
 	{
+		System.out.println("GebiedBeheerder::Print voor tegel " + tegel.getID());
 		printRichting( Tegel.RICHTING.BOVEN );
 		printRichting( Tegel.RICHTING.ONDER );
 		printRichting( Tegel.RICHTING.RECHTS );
@@ -126,9 +142,15 @@ public class TegelGebiedBeheerder
 					
 					GebiedHelper helper = (GebiedHelper) verzameling.get(lokaalPunt);
 					if( helper != null)
-						System.out.println( helper.p.getX() + "," + helper.p.getY() + " = " + helper.tegel.getID() );
+					{
+						System.out.print( helper.punt.getX() + "," + helper.punt.getY() + " = ");
+						if(helper.tegel == null)
+							System.out.println("LEEG");
+						else
+							System.out.println( helper.tegel.getID() );
+					}
 					else
-						System.out.println("LEEG");
+						System.out.println("ERROR");
 				}
 				else
 					System.out.println("punt ERROR");

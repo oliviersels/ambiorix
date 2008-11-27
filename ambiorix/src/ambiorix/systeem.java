@@ -57,12 +57,33 @@ public class systeem
 		Tegel next = spelbord.getVolgendeTegel();
 		t.setBuur(next, Tegel.RICHTING.RECHTS);
 		
+		t.print();
+		//t.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next.print();
+		//next.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		System.out.println( " ----------------------- " );
+		
+		
 		Tegel next2 = spelbord.getVolgendeTegel();
 		next.setBuur(next2, Tegel.RICHTING.ONDER);
 		
-		Tegel next3 = spelbord.getVolgendeTegel();
+		t.print();
+		//t.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next.print();
+		//next.gebiedBeheerder.print();
+		System.out.println( " ----------------------- " );
+		next2.print();
+		//next2.gebiedBeheerder.print();
+		
+		/*Tegel next3 = spelbord.getVolgendeTegel();
 		Tegel next4 = spelbord.getVolgendeTegel();
-		Tegel next5 = spelbord.getVolgendeTegel();	
+		Tegel next5 = spelbord.getVolgendeTegel();	*/
 	}
 	
 	public static void prepareForTests()
