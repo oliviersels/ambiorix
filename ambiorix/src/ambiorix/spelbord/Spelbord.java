@@ -21,21 +21,21 @@ public class Spelbord
 	private int overgeblevenTegelAantal = 0;
 	
 	
-	private HashMap<Punt, Tegel> tegelCoordinaten = new HashMap<Punt, Tegel>();
+	private HashMap<String, Tegel> tegelCoordinaten = new HashMap<String, Tegel>();
 	
 	
 	private Tegel beginTegel = null;
 	private int volgendeTegelID = 1;
 	
-	public Spelbord(Tegel beginTegel)
+	public Spelbord()
 	{
-		this.beginTegel = beginTegel;
+		/*this.beginTegel = beginTegel;
 		this.beginTegel.setID(0);
 		
-		tegelCoordinaten.put(new Punt(0,0), beginTegel);
+		tegelCoordinaten.put(new Punt(0,0), beginTegel);*/
 	}
 	
-	public void setBeginTegel( Tegel beginTegel )
+	public void setBegintegel( Tegel beginTegel )
 	{
 		if(this.beginTegel != null)
 		{
@@ -47,7 +47,17 @@ public class Spelbord
 		this.beginTegel = beginTegel;
 		this.beginTegel.setID(0);
 		
-		tegelCoordinaten.put(new Punt(0,0), beginTegel);		
+		tegelCoordinaten.put(new Punt(0,0).toString(), beginTegel);		
+	}
+	
+	private void assertBegintegel()
+	{
+		if(this.beginTegel == null)
+		{
+			// TODO : throw exception
+			System.out.println( "Spelbord::getVolgendeTegel : Begintegel is nog niet gezet!!!" );
+			return;
+		}		
 	}
 	
 	/*
@@ -56,12 +66,7 @@ public class Spelbord
 	 */
 	public Tegel getVolgendeTegel()
 	{		
-		if(this.beginTegel == null)
-		{
-			// TODO : throw exception
-			System.out.println( "Spelbord::getVolgendeTegel : Begintegel is nog niet gezet!!!" );
-			return;
-		}
+		assertBegintegel();
 		
 		TegelType type = getRandomTegelType();
 		if(type == null) // geen tegels meer in de pool
@@ -124,6 +129,118 @@ public class Spelbord
 		return overgeblevenTegels.get(tegelType);
 	}
 	
+	/*
+	 * Deze functie controleert of tegel plaatsbaar is naast buur, in de opgegeven richting.
+	 * Ze gaat echter nog verder en controleert ook meteen de andere mogelijke buren van de nieuwe tegel
+	 * of hij daar wel aan kan grenzen.
+	 */
+	public boolean controleerPlaatsbaarheid( Tegel tegel, BordPositie positie )
+	{	
+		Tegel buur = positie.getBuur();
+		Tegel.RICHTING richting = positie.getRichting();
+		
+		Punt buurCoordinaat = getTegelCoordinaat(buur);
+		Punt nieuweCoordinaat = getAangrenzendeCoordinaat( buurCoordinaat, richting );		
+
+		// staat al een tegel daar, zeker niet plaatsbaar dus
+		if( tegelCoordinaten.get(nieuweCoordinaat) != null )
+			return false;
+		
+		// alle buren afgaan en kijken of tegel kan gezet worden
+		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
+		{
+			buurCoordinaat = getAangrenzendeCoordinaat(nieuweCoordinaat, r);
+			buur = tegelCoordinaten.get(buurCoordinaat);
+			
+			if(buur != null)
+				if( !buur.kanBuurAccepteren(tegel, r.getTegenovergestelde()) )
+					return false;
+		}		
+		
+		return true;
+	}
 	
+	/*
+	 * Deze functie gaat tegel toevoegen aan het spelbord, naast de gespecifieerde buur.
+	 * De richting geeft aan hoe de nieuwe tegel ligt tov de buur.
+	 * richting == BOVEN betekent bijv. dat de nieuwe tegel BOVEN de buur moet geplaatst worden.
+	 * 
+	 * De functie zal ervoor zorgen dat de correcte tegels onderling deze tegel als buur gaan instellen.
+	 * 
+	 * De functie gaat niet zelf controleren of de plaatsing wel geldig is. Gebruik hiervoor Spelbord::controleerPlaatsbaarheid
+	 */
+	public void plaatsTegel( Tegel tegel, BordPositie positie)
+	{
+		Tegel buur = positie.getBuur();
+		Tegel.RICHTING richting = positie.getRichting();
+		
+		// eerst coordinaat van de nieuwe tegel zoeken, op basis van de buur
+		Punt buurCoordinaat = getTegelCoordinaat(buur);
+		Punt nieuweCoordinaat = getAangrenzendeCoordinaat( buurCoordinaat, richting );
+		
+		// TODO : wat als daar al een tegel staat ???
+		tegelCoordinaten.put(nieuweCoordinaat.toString(), tegel);
+		
+		
+		// nu we de coordinaat kennen, de buren errond laten weten dat de nieuwe tegel gezet is
+		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
+		{
+			buurCoordinaat = getAangrenzendeCoordinaat(nieuweCoordinaat, r);
+			buur = tegelCoordinaten.get(buurCoordinaat.toString());
+			
+			if( buur != null )
+			{
+				tegel.setBuur(buur, r);
+				buur.setBuur(tegel, r.getTegenovergestelde() );
+			}
+			else
+			{
+				// TODO : remove
+				//System.out.println(" spelbord::PlaatsTegel : geen buur gevonden op " + buurCoordinaat);
+			}
+		}
+	}
+		// zoekt coordinaat in lijst van geplaatste tegels.
+		// ENKEL gebruiken voor geplaatste tegels dus !
+		private Punt getTegelCoordinaat(Tegel tegel)
+		{
+			// eerst controleren of de tegel wel een coordinaat heeft
+			if( !tegelCoordinaten.containsValue(tegel))
+			{
+				// TODO : exception
+				System.out.println("Spelbord::getTegelCoordinaat : tegel heeft nog geen coordinaat");
+				return null;
+			}
+			
+			Set<String> punten = tegelCoordinaten.keySet();
+			
+			for(String punt: punten)
+			{
+				if( ((Tegel) tegelCoordinaten.get(punt)) ==  tegel)
+					return Punt.fromString(punt);
+			}
+
+			System.out.println("Spelbord::getTegelCoordinaat : tegel heeft nog geen coordinaat 2");
+			return null;
+		}
+		
+		// Werkt als een matrix, rijen en kolommen
+		private Punt getAangrenzendeCoordinaat( Punt coordinaat, Tegel.RICHTING richting )
+		{
+			if( richting == Tegel.RICHTING.BOVEN )
+				return new Punt( coordinaat.getX() - 1, coordinaat.getY() ); 
+			
+			if( richting == Tegel.RICHTING.ONDER )
+				return new Punt( coordinaat.getX() + 1, coordinaat.getY() ); 
+			
+			if( richting == Tegel.RICHTING.RECHTS )
+				return new Punt( coordinaat.getX(), coordinaat.getY() + 1 ); 
+			
+			if( richting == Tegel.RICHTING.LINKS )
+				return new Punt( coordinaat.getX(), coordinaat.getY() - 1 ); 
+				
+			
+			return null;
+		}
 	
 }

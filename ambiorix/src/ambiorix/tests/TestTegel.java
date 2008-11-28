@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ambiorix.systeem;
+import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
 import ambiorix.spelbord.Spelbord;
@@ -23,11 +24,22 @@ public class TestTegel {
 		
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK") );
 		
-		Tegel buur = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
+		// testen dit via het spelbord
+		Spelbord bord = new Spelbord();
+		bord.setBegintegel(t);
+		bord.setTegelAantal("TegelType_GGGGK", 5);
 		
-		t.setBuur(buur, Tegel.RICHTING.RECHTS);
+
+		Tegel buur = bord.getVolgendeTegel();
 		
+		assertEquals( "kan geplaatst worden : ", bord.controleerPlaatsbaarheid(buur, new BordPositie(t, Tegel.RICHTING.RECHTS) ), true );
+		bord.plaatsTegel(buur, new BordPositie(t, Tegel.RICHTING.RECHTS) );
+		
+		t.print();
+		buur.print();
+
 		assertEquals("buren geupdate : ", t.getBuur(Tegel.RICHTING.RECHTS), buur);
+		assertEquals("buren geupdate : ", buur.getBuur(Tegel.RICHTING.LINKS), t);
 	}
 	
 	@Test
@@ -52,6 +64,8 @@ public class TestTegel {
 		// klooster  weg180  weg270
 		// weg270    weg90   weg
 		
+		Spelbord bord = new Spelbord();
+		
 		Tegel linksboven = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
 		Tegel middenboven = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
 		middenboven.setRotatie(90);
@@ -69,27 +83,53 @@ public class TestTegel {
 		middenonder.setRotatie(90);
 		Tegel rechtsonder = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
 		
+		bord.setBegintegel(linksboven);
+		
+		middenboven.setID(1);
+		rechtsboven.setID(2);
+		rechtsmidden.setID(3);
+		rechtsonder.setID(4);
+		middenonder.setID(5);
+		linksonder.setID(6);
+		linksmidden.setID(7);
 		
 		assertEquals("Linksboven + middenboven : ",linksboven.kanBuurAccepteren(middenboven, Tegel.RICHTING.RECHTS), true );
-		linksboven.setBuur(middenboven, Tegel.RICHTING.RECHTS);
+		//linksboven.setBuur(middenboven, Tegel.RICHTING.RECHTS);
+		bord.plaatsTegel(middenboven, new BordPositie(linksboven, Tegel.RICHTING.RECHTS) );
+		
 		
 		assertEquals("Middenboven + rechtsboven : ",middenboven.kanBuurAccepteren(rechtsboven, Tegel.RICHTING.RECHTS), true );
-		middenboven.setBuur(rechtsboven, Tegel.RICHTING.RECHTS);	
+		//middenboven.setBuur(rechtsboven, Tegel.RICHTING.RECHTS);	
+		bord.plaatsTegel(rechtsboven, new BordPositie(middenboven, Tegel.RICHTING.RECHTS) );
 		
 		assertEquals("Rechtsboven + rechtsmidden : ",rechtsboven.kanBuurAccepteren(rechtsmidden, Tegel.RICHTING.ONDER), true );
-		rechtsboven.setBuur(rechtsmidden, Tegel.RICHTING.ONDER);		
+		//rechtsboven.setBuur(rechtsmidden, Tegel.RICHTING.ONDER);	
+		bord.plaatsTegel(rechtsmidden, new BordPositie(rechtsboven, Tegel.RICHTING.ONDER) );	
 		
 		assertEquals("Rechtsmidden + rechtsonder : ",rechtsmidden.kanBuurAccepteren(rechtsonder, Tegel.RICHTING.ONDER), true );
-		rechtsmidden.setBuur(rechtsonder, Tegel.RICHTING.ONDER);		
+		//rechtsmidden.setBuur(rechtsonder, Tegel.RICHTING.ONDER);
+		bord.plaatsTegel(rechtsonder, new BordPositie(rechtsmidden, Tegel.RICHTING.ONDER) );		
 		
 		assertEquals("Rechtsonder + middenonder : ",rechtsonder.kanBuurAccepteren(middenonder, Tegel.RICHTING.LINKS), true );
-		rechtsonder.setBuur(middenonder, Tegel.RICHTING.LINKS);			
+		//rechtsonder.setBuur(middenonder, Tegel.RICHTING.LINKS);	
+		bord.plaatsTegel(middenonder, new BordPositie(rechtsonder, Tegel.RICHTING.LINKS) );		
 		
 		assertEquals("middenonder + linksonder : ",middenonder.kanBuurAccepteren(linksonder, Tegel.RICHTING.LINKS), true );
-		middenonder.setBuur(linksonder, Tegel.RICHTING.LINKS);				
+		//middenonder.setBuur(linksonder, Tegel.RICHTING.LINKS);	
+		bord.plaatsTegel(linksonder, new BordPositie(middenonder, Tegel.RICHTING.LINKS) );				
 		
 		assertEquals("linksonder + linksmidden : ",linksonder.kanBuurAccepteren(linksmidden, Tegel.RICHTING.BOVEN), true );
-		linksonder.setBuur(linksmidden, Tegel.RICHTING.BOVEN);			
+		//linksonder.setBuur(linksmidden, Tegel.RICHTING.BOVEN);	
+		bord.plaatsTegel(linksmidden, new BordPositie(linksonder, Tegel.RICHTING.BOVEN) );
+		
+		linksboven.print();
+		middenboven.print();
+		rechtsboven.print();
+		rechtsmidden.print();
+		rechtsonder.print();
+		middenonder.print();
+		linksonder.print();
+		linksmidden.print();
 	
 		// structuur is opgezet, nu kunnen we de middenste testen
 		assertEquals("Test goed", linksmidden.kanBuurAccepteren(middenmidden,  Tegel.RICHTING.RECHTS), true);
@@ -114,8 +154,6 @@ public class TestTegel {
 		assertEquals("Test goed", middenonder.kanBuurAccepteren(middenmidden,  Tegel.RICHTING.BOVEN), false);
 		assertEquals("Test goed", rechtsmidden.kanBuurAccepteren(middenmidden, Tegel.RICHTING.LINKS), false);
 		assertEquals("Test goed", middenboven.kanBuurAccepteren(middenmidden,  Tegel.RICHTING.ONDER), false);
-
-		
 	}
 	
 

@@ -73,4 +73,15 @@ public class Punt
 		else
 			return null;
 	}
+	
+	public String toString()
+	{
+		return x + "," + y;
+	}
+	
+	public static Punt fromString(String input)
+	{
+		String[] delen = input.split(",");
+		return new Punt( Integer.valueOf(delen[0]).intValue(), Integer.valueOf(delen[1]).intValue() );
+	}
 }

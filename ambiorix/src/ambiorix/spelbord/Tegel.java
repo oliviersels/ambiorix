@@ -51,11 +51,6 @@ public class Tegel
 		//gebiedBeheerder = new TegelGebiedBeheerder(this);
 	}
 	
-	public Tegel(TegelType type, int rotatie)
-	{
-		
-	}
-	
 	public void setType(TegelType type)
 	{
 		this.type = type;
@@ -105,18 +100,18 @@ public class Tegel
 		boolean output = this.gebiedBeheerder.controleerOvereenkomstigeZijden(buur.getGebiedBeheerder(), richting);
 		
 		// ook omliggende buren nog checken !!!!
-		RICHTING[] pad1 = BuurPaden.getPad(richting, 1);
+		/*RICHTING[] pad1 = BuurPaden.getPad(richting, 1);
 		RICHTING[] operaties1 = BuurPaden.getOperaties(richting, 1);
 		RICHTING[] pad2 = BuurPaden.getPad(richting, 2);
 		RICHTING[] operaties2 = BuurPaden.getOperaties(richting, 2);
 		
 		output = output && kanBuurAccepterenUitgebreid(buur, pad1, operaties1);
-		output = output && kanBuurAccepterenUitgebreid(buur, pad2, operaties2);		
+		output = output && kanBuurAccepterenUitgebreid(buur, pad2, operaties2);	*/	
 		
 		return output;
 	}
 		
-		private boolean kanBuurAccepterenUitgebreid(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
+		/*private boolean kanBuurAccepterenUitgebreid(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
 		{
 			int teller = 0;
 			Tegel tegel = this;
@@ -138,15 +133,25 @@ public class Tegel
 			}	
 			
 			return output;
-		}
+		}*/
 	
 	public void setBuur( Tegel buur, RICHTING richting )
 	{
 		draaibaar = false;
-		setBuur(buur, richting, true);
+		//setBuur(buur, richting, true);
+		//System.out.println("SET BUUR : NOG AANPASSEN");
+		
+		buren[ richting.ordinal() ] = buur;
+		
+		// moeten ons geen zorgen meer maken over andere buren. Spelbord regelt dit.
 	}
 	
-	protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
+	public Tegel getBuur(RICHTING richting)
+	{
+		return buren[ richting.ordinal() ];
+	}
+	
+	/*protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
 	{
 		//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
 		
@@ -162,7 +167,7 @@ public class Tegel
 			if( richting == RICHTING.RECHTS )
 				buur.setBuur(this, RICHTING.LINKS, false);		
 			if( richting == RICHTING.LINKS )
-				buur.setBuur(this, RICHTING.RECHTS, false);	*/
+				buur.setBuur(this, RICHTING.RECHTS, false);	*\/
 			
 			buur.setBuur(this, richting.getTegenovergestelde(),false);
 			
@@ -287,10 +292,11 @@ public class Tegel
 				}
 			}
 			
-		}*/
-	}
+		}*\/
+	}*/
+	
 		// hulpfunctie voor setBuur()
-		private void synchronizeerBuren(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
+		/*private void synchronizeerBuren(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
 		{
 			int teller = 0;
 			Tegel tegel = this;
@@ -306,7 +312,7 @@ public class Tegel
 				
 				teller++;
 			}
-		}
+		}*/
 		
 	public void print()
 	{
@@ -321,11 +327,6 @@ public class Tegel
 				System.out.println(r + " = " + buur.getID());
 				
 		}
-	}
-	
-	public Tegel getBuur(RICHTING richting)
-	{
-		return buren[ richting.ordinal() ];
 	}
 	
 	/*

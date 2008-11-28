@@ -19,7 +19,8 @@ public class TestSpelbord
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
-		Spelbord spelbord = new Spelbord(t);
+		Spelbord spelbord = new Spelbord();
+		spelbord.setBegintegel(t);
 		spelbord.setTegelAantal("TegelType_WGGWW", 5);
 		
 		Tegel next = null; 
@@ -42,7 +43,8 @@ public class TestSpelbord
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
-		Spelbord spelbord = new Spelbord(t);
+		Spelbord spelbord = new Spelbord();
+		spelbord.setBegintegel(t);
 		spelbord.setTegelAantal("TegelType_GGGGK", 5);
 		
 		assertEquals("test aantal van type : ", spelbord.getTegelAantal("TegelType_GGGGK"), 5);
@@ -62,7 +64,8 @@ public class TestSpelbord
 
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
-		Spelbord spelbord = new Spelbord(t);
+		Spelbord spelbord = new Spelbord();
+		spelbord.setBegintegel(t);
 		spelbord.setTegelAantal("TegelType_GGGGK", 5);
 		
 		
