@@ -87,7 +87,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		}
 	}
 	@Override
-	public void geklikt(TegelGeestGebeurtenis gtg) {
+	public synchronized void geklikt(TegelGeestGebeurtenis gtg) {
 		Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
 		while(it.hasNext()) {
 			it.next().geklikt(gtg);
