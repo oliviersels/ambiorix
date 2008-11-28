@@ -30,6 +30,4 @@ public class BordPositie
 	{
 		this.richting = richting;
 	}
-	
-	
 }

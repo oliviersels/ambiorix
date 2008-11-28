@@ -8,14 +8,18 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
+import ambiorix.spelbord.Tegel;
+
 public class TegelGeest extends JComponent implements MouseListener{
 	private int xPos;
 	private int yPos;
+	private Tegel.RICHTING richting;
 	private Tegel_Gui buur;//1 buur is genoeg
-	public TegelGeest(int x, int y, Tegel_Gui tg)
+	public TegelGeest(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
 	{
 		setXPos(x);
 		setYPos(y);
+		this.richting = richting;
 		this.setBounds(x*100, y*100, 100, 100);
 		this.buur = tg;
 		this.revalidate();

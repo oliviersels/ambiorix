@@ -60,14 +60,9 @@ public class TegelVeldLayout implements LayoutManager {
 
 	}
 	
-	
 	public void layoutContainer(Container parent) {
 
         Insets insets = parent.getInsets();
-        int maxWidth = parent.getWidth()
-                       - (insets.left + insets.right);
-        int maxHeight = parent.getHeight()
-                        - (insets.top + insets.bottom);
         int nComps = parent.getComponentCount();
 
 

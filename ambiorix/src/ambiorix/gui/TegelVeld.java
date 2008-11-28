@@ -14,10 +14,11 @@ import javax.swing.JPanel;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TerreinType;
 
-public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
+public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeestLuisteraar{
 	private Vector<Tegel_Gui> mijnTegels;
 	private Vector<TegelGeest> mijnTegelGeesten;
 	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
+	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private HoofdVenster hv; //tijdelijk!!
 	
 	public synchronized void addTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
@@ -28,7 +29,18 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 	public synchronized void removeTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
 	{
 		
-		tegelKlikLuisteraars.remove(tkl);
+		tegelGeestLuisteraars.remove(tkl);
+	}
+	
+	public synchronized void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
+	{
+		tegelGeestLuisteraars.add(tgl);
+	}
+	
+	public synchronized void removeTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
+	{
+		
+		tegelKlikLuisteraars.remove(tgl);
 	}
 	
 	public TegelVeld(HoofdVenster hv) {
@@ -36,6 +48,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		mijnTegels = new Vector<Tegel_Gui>();
 		mijnTegelGeesten = new Vector<TegelGeest>();
+		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
 		this.setLayout(new TegelVeldLayout());
 		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
 	}
@@ -48,10 +61,10 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 		nieuweTegel.setVisible(true);
 		nieuweTegel.addTegelKlikLuisteraar(this);
 		this.add(nieuweTegel);
-		voegTegelGeestToe(x, y+1, nieuweTegel);
-		voegTegelGeestToe(x, y-1, nieuweTegel);
-		voegTegelGeestToe(x+1, y, nieuweTegel);
-		voegTegelGeestToe(x-1, y, nieuweTegel);
+		voegTegelGeestToe(x, y+1, nieuweTegel, Tegel.RICHTING.ONDER);
+		voegTegelGeestToe(x, y-1, nieuweTegel, Tegel.RICHTING.BOVEN);
+		voegTegelGeestToe(x+1, y, nieuweTegel, Tegel.RICHTING.LINKS);
+		voegTegelGeestToe(x-1, y, nieuweTegel, Tegel.RICHTING.RECHTS);
 		verwijderTegelGeest(x, y);
 		this.repaint();
 	}
@@ -73,8 +86,14 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());
 		}
 	}
-	
-	private void voegTegelGeestToe(int x, int y, Tegel_Gui tg)
+	@Override
+	public void geklikt(TegelGeestGebeurtenis gtg) {
+		Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
+		while(it.hasNext()) {
+			it.next().geklikt(gtg);
+		}
+	}
+	private void voegTegelGeestToe(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
 	{
 		boolean gevonden = false;
 		Iterator<TegelGeest> it = mijnTegelGeesten.iterator();
@@ -98,7 +117,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 		}
 		if(!gevonden)
 		{
-			TegelGeest nieuweTegelGeest = new TegelGeest(x, y, tg);
+			TegelGeest nieuweTegelGeest = new TegelGeest(x, y, tg, richting);
 			mijnTegelGeesten.add(nieuweTegelGeest);
 			this.add(nieuweTegelGeest);
 		}
@@ -118,4 +137,6 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar{
 			}
 		}
 	}
+
+	
 }
