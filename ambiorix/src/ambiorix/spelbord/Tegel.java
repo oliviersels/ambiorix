@@ -6,13 +6,29 @@ public class Tegel
 {
 	private int ID = -1;
 	private int rotatie = 0;
+	private boolean draaibaar = true;
 	
 	public enum RICHTING
 	{
 		BOVEN,
 		RECHTS,
 		ONDER,
-		LINKS
+		LINKS;
+		
+		public RICHTING getTegenovergestelde()
+		{
+			if( this == RICHTING.BOVEN )
+				return RICHTING.ONDER;
+			if( this == RICHTING.ONDER )
+				return RICHTING.BOVEN;
+			if( this == RICHTING.RECHTS )
+				return RICHTING.LINKS;		
+			if( this == RICHTING.LINKS )
+				return RICHTING.RECHTS;		
+			
+			// anders doet compiler moeilijk. Komt hier nooit.
+			return null;
+		}
 	}
 	
 	private TegelType type = null;
@@ -23,8 +39,7 @@ public class Tegel
 	
 	private Tegel[] buren = new Tegel[4];
 	
-	// PRIVATE ZETTEN !!!!
-	public TegelGebiedBeheerder gebiedBeheerder = null;
+	private TegelGebiedBeheerder gebiedBeheerder = null;
 	
 	public Tegel(TegelType type)
 	{
@@ -34,6 +49,11 @@ public class Tegel
 			buren[i] = null;
 		
 		//gebiedBeheerder = new TegelGebiedBeheerder(this);
+	}
+	
+	public Tegel(TegelType type, int rotatie)
+	{
+		
 	}
 	
 	public void setType(TegelType type)
@@ -51,18 +71,81 @@ public class Tegel
 
 	public void setRotatie(int rotatie) 
 	{
+		if( (rotatie == this.rotatie) && ( terrein != null ) )
+		{
+			System.out.println("Tegel::setRotatie : GEEN GEVOLG");
+			return;
+		}
+		
+		if(!draaibaar)
+		{
+			// TODO : exception
+			System.out.println("Tegel::setRotatie : NIET TOEGESTAAN");
+			return;
+		}
+		
+		if( (rotatie != 90) && (rotatie != 180) && (rotatie != 270) && (rotatie != 0)  )
+		{
+			// TODO : exception
+			System.out.println("Tegel::setRotatie : FOUTE GRADEN");
+			return;
+		}
+		
 		this.rotatie = rotatie;
 		
 		terrein = type.draaiTerrein(rotatie);
 		gebiedBeheerder = new TegelGebiedBeheerder(this);
 	}
 	
+	public boolean kanBuurAccepteren(Tegel buur, RICHTING richting)
+	{
+		// terreintypes in aangrenzende vakjes van de terreinmatrix checken en zien of ze overeenkomen
+		
+		// we maken gebruik van TegelGebiedBeheerder
+		boolean output = this.gebiedBeheerder.controleerOvereenkomstigeZijden(buur.getGebiedBeheerder(), richting);
+		
+		// ook omliggende buren nog checken !!!!
+		RICHTING[] pad1 = BuurPaden.getPad(richting, 1);
+		RICHTING[] operaties1 = BuurPaden.getOperaties(richting, 1);
+		RICHTING[] pad2 = BuurPaden.getPad(richting, 2);
+		RICHTING[] operaties2 = BuurPaden.getOperaties(richting, 2);
+		
+		output = output && kanBuurAccepterenUitgebreid(buur, pad1, operaties1);
+		output = output && kanBuurAccepterenUitgebreid(buur, pad2, operaties2);		
+		
+		return output;
+	}
+		
+		private boolean kanBuurAccepterenUitgebreid(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
+		{
+			int teller = 0;
+			Tegel tegel = this;
+			boolean output = true;
+			
+			while( teller < pad.length )
+			{
+				tegel = tegel.getBuur( pad[teller] );
+				if( tegel == null )
+					return output;
+				
+				if( operaties[teller] != null )
+					output = tegel.getGebiedBeheerder().controleerOvereenkomstigeZijden(buur.getGebiedBeheerder(), operaties[teller]);
+				
+				if(output == false)
+					return output;
+				
+				teller++;
+			}	
+			
+			return output;
+		}
+	
 	public void setBuur( Tegel buur, RICHTING richting )
 	{
+		draaibaar = false;
 		setBuur(buur, richting, true);
 	}
 	
-	// TODO : wat als er al een buur staat daar ?
 	protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
 	{
 		//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
@@ -72,14 +155,16 @@ public class Tegel
 			buren[ richting.ordinal() ] = buur;
 			
 			// de buur moet zelf ook deze tegel als zijn buur zetten !
-			if( richting == RICHTING.BOVEN )
+			/*if( richting == RICHTING.BOVEN )
 				buur.setBuur(this, RICHTING.ONDER, false);
 			if( richting == RICHTING.ONDER )
 				buur.setBuur(this, RICHTING.BOVEN, false);	
 			if( richting == RICHTING.RECHTS )
 				buur.setBuur(this, RICHTING.LINKS, false);		
 			if( richting == RICHTING.LINKS )
-				buur.setBuur(this, RICHTING.RECHTS, false);	
+				buur.setBuur(this, RICHTING.RECHTS, false);	*/
+			
+			buur.setBuur(this, richting.getTegenovergestelde(),false);
 			
 		} 
 		else
@@ -110,13 +195,16 @@ public class Tegel
 		// moet aangepast worden. (4 elementen in pad, 2 in operaties)
 		
 		
-		// BOVEN
-		// LINKS, BOVEN, BOVEN, RECHTS
-		//        RECHTS        ONDER
-		// RECHTS BOVEN, BOVEN, LINKS
-		//        LINKS         ONDER
+		RICHTING[] pad1 = BuurPaden.getPad(richting, 1);
+		RICHTING[] operaties1 = BuurPaden.getOperaties(richting, 1);
+		RICHTING[] pad2 = BuurPaden.getPad(richting, 2);
+		RICHTING[] operaties2 = BuurPaden.getOperaties(richting, 2);
 		
-		if(richting == RICHTING.BOVEN)
+		synchronizeerBuren(buur, pad1, operaties1);
+		synchronizeerBuren(buur, pad2, operaties2);		
+
+		
+		/*if(richting == RICHTING.BOVEN)
 		{
 			RICHTING[] pad = 		{RICHTING.LINKS, RICHTING.BOVEN, RICHTING.BOVEN, RICHTING.RECHTS};
 			RICHTING[] operaties =  {null          , RICHTING.RECHTS, null		   , RICHTING.ONDER};
@@ -129,11 +217,7 @@ public class Tegel
 			synchronizeerBuren(buur, pad2, operaties2);
 		}
 		
-		// RECHTS
-		// BOVEN, RECHTS, RECHTS, ONDER
-		//        ONDER           LINKS
-		// ONDER, RECHTS, RECHTS, BOVEN
-		//        BOVEN           LINKS
+
 		
 		if(richting == RICHTING.RECHTS)
 		{
@@ -148,11 +232,7 @@ public class Tegel
 			synchronizeerBuren(buur, pad2, operaties2);
 		}
 		
-		// ONDER
-		// LINKS, ONDER, ONDER, RECHTS
-		//        RECHTS        BOVEN
-		// RECHTS, ONDER, ONDER, LINKS
-		//         LINKS         BOVEN
+
 
 		if(richting == RICHTING.ONDER)
 		{
@@ -167,11 +247,7 @@ public class Tegel
 			synchronizeerBuren(buur, pad2, operaties2);
 		}
 		
-		// LINKS
-		// BOVEN, LINKS, LINKS, ONDER
-		//        ONDER         RECHTS
-		// ONDER, LINKS, LINKS, BOVEN
-		//        BOVEN        RECHTS
+
 
 		if(richting == RICHTING.LINKS)
 		{
@@ -308,6 +384,15 @@ public class Tegel
 	{
 		return terrein;
 	}
+	
+	public TegelGebiedBeheerder getGebiedBeheerder()
+	{
+		return this.gebiedBeheerder;
+	}
 
+	public boolean isDraaibaar()
+	{
+		return draaibaar;
+	}
 	
 }

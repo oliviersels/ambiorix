@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import ambiorix.util.Punt;
+
 
 /*
  * FLOW of CONTROL voor tegel plaatsen !
@@ -19,6 +21,9 @@ public class Spelbord
 	private int overgeblevenTegelAantal = 0;
 	
 	
+	private HashMap<Punt, Tegel> tegelCoordinaten = new HashMap<Punt, Tegel>();
+	
+	
 	private Tegel beginTegel = null;
 	private int volgendeTegelID = 1;
 	
@@ -26,6 +31,23 @@ public class Spelbord
 	{
 		this.beginTegel = beginTegel;
 		this.beginTegel.setID(0);
+		
+		tegelCoordinaten.put(new Punt(0,0), beginTegel);
+	}
+	
+	public void setBeginTegel( Tegel beginTegel )
+	{
+		if(this.beginTegel != null)
+		{
+			// TODO : throw exception
+			System.out.println( "Spelbord::setBeginTegel : Begintegel is al gezet!!!" );
+			return;
+		}
+		
+		this.beginTegel = beginTegel;
+		this.beginTegel.setID(0);
+		
+		tegelCoordinaten.put(new Punt(0,0), beginTegel);		
 	}
 	
 	/*
@@ -33,7 +55,14 @@ public class Spelbord
 	 * Geeft null als er geen tegels meer over zijn (spel is gedaan)
 	 */
 	public Tegel getVolgendeTegel()
-	{
+	{		
+		if(this.beginTegel == null)
+		{
+			// TODO : throw exception
+			System.out.println( "Spelbord::getVolgendeTegel : Begintegel is nog niet gezet!!!" );
+			return;
+		}
+		
 		TegelType type = getRandomTegelType();
 		if(type == null) // geen tegels meer in de pool
 			return null;

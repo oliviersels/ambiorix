@@ -78,6 +78,33 @@ public class TegelGebiedBeheerder
 			return verzameling;		
 		}
 	
+	public boolean controleerOvereenkomstigeZijden(TegelGebiedBeheerder buur, RICHTING richting)
+	{
+		// Elk punt in deze zijde heeft een equivalent aan de andere kant op de buur GebiedHelper.
+		// Dat equivalent zoeken we op op terreinType om zo de overeenkomsten te bepalen
+		HashMap<Punt, GebiedHelper> huidigeZijde = getGebiedHelpers(richting);
+		
+		// alle punten van de zijde overlopen
+		Set<Punt> punten = huidigeZijde.keySet();
+		
+		TerreinType huidigTerrein = null;
+		TerreinType buurTerrein = null;
+		Punt buurPunt = null;
+		
+		for( Punt huidigPunt: punten )
+		{
+			huidigTerrein = this.tegel.getTerrein()[ huidigPunt.getX() ][ huidigPunt.getY() ];
+			
+			buurPunt = huidigeZijde.get(huidigPunt).punt;
+			buurTerrein = buur.tegel.getTerrein()[ buurPunt.getX() ][ buurPunt.getY() ]; 
+			
+			if( huidigTerrein != buurTerrein )
+				return false;
+		}			
+		
+		return true;
+	}
+		
 	public void setBuur(Tegel buur, RICHTING richting)
 	{
 		
@@ -90,28 +117,6 @@ public class TegelGebiedBeheerder
 		{
 			verzameling.get(punt).tegel = buur;
 		}	
-			
-		
-		/*if( richting == Tegel.RICHTING.BOVEN)
-		{
-			for( Punt punt: punten)
-			{
-				verzameling.get(punt).
-			}
-		}
-		else if( richting == Tegel.RICHTING.ONDER )
-		{
-			
-		}
-		else if( richting == Tegel.RICHTING.RECHTS )
-		{
-			
-		}
-		else if( richting == Tegel.RICHTING.LINKS )
-		{
-			
-		}*/
-		
 	}
 	
 	public void print()
