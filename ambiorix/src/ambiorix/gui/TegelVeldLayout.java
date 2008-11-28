@@ -14,7 +14,6 @@ public class TegelVeldLayout implements LayoutManager {
 	int minBreedte = 0;
 	@Override
 	public void addLayoutComponent(String s, Component c) {
-		System.out.println("component added: " + i);
 		i++;
 	}
 
@@ -31,7 +30,6 @@ public class TegelVeldLayout implements LayoutManager {
         int maxBreedte = 0;
         minHoogte = 0;
         int maxHoogte = 0;
-        System.out.println("aantal: " + nComps);
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
            
@@ -49,7 +47,6 @@ public class TegelVeldLayout implements LayoutManager {
         Insets insets = parent.getInsets();
         dim.width = maxBreedte - minBreedte  + insets.left + insets.right;
         dim.height = maxHoogte - minHoogte + insets.top + insets.bottom;
-        System.out.println(dim + "\nminh: " + minHoogte + " maxh: " + maxHoogte + " minb: " + minBreedte + " maxb: " + maxBreedte);
         return dim;
 
 	}

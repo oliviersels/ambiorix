@@ -129,10 +129,8 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		while(it.hasNext())
 		{
 			TegelGeest huidig = it.next();
-			System.out.println("mss verwijder: " + huidig.getXPos() + ", " + huidig.getYPos());
 			if(huidig.getXPos() == x && huidig.getYPos() == y)
 			{
-				System.out.println("verwijder");
 				this.remove(huidig);
 				it.remove();
 			}

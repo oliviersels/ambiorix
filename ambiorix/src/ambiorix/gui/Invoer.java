@@ -25,7 +25,6 @@ public class Invoer {
 		public void geklikt(TegelGeestGebeurtenis gtg) {
 			Antwoord a = new Antwoord();
 			a.getPosities().add(new BordPositie(gtg.tegel, gtg.richting));
-			System.out.println(gtg.tegel + " " + gtg.richting.toString());
 			invoerluisteraar.invoerGebeurtenis(a);
 			
 		}

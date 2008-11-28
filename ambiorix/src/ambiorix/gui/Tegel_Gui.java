@@ -49,7 +49,6 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		Rectangle rec = this.getBounds();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(mijnGeroteerdeAfbeelding, 1, 1, rec.width-2, rec.height-2, null);
-		//System.out.println("teken: " + rec.x + " " + rec.y + " " + rec.width + " " + rec.height + " " +g2.getClip());
 	}
 	
 	public void zetPos(int x, int y)
@@ -61,7 +60,6 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX() +" "+  e.getY());
 		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
 		TegelGebeurtenis tg = new TegelGebeurtenis();
 		tg.tegel = this.tegel;
