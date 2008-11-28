@@ -20,10 +20,10 @@ import ambiorix.acties.Actie.UNDO;
 
 public class ActieBestuurder implements ActieInputs {
 	
-	Stack<Actie> vorigeActies = new Stack<Actie>();
-	Actie huidige = null;
+	private Stack<Actie> vorigeActies = new Stack<Actie>();
+	private Actie huidige = null;
 	
-	SpelToolkit speltoolkit;
+	private SpelToolkit speltoolkit;
 	
 	public ActieBestuurder(SpelToolkit speltoolkit) {
 		this.speltoolkit = speltoolkit;
@@ -31,6 +31,8 @@ public class ActieBestuurder implements ActieInputs {
 
 	public void start(Actie start) {
 		synchronized(this) {
+			if(start==null)
+				return;
 			if(huidige==null) {
 				huidige = start;
 				huidige.setSpeltoolkit(speltoolkit);
@@ -66,6 +68,10 @@ public class ActieBestuurder implements ActieInputs {
 	// use in emergency, and in emergency ONLY
 	public void stop() {		
 		
+	}
+	
+	public boolean isBezig() {
+		return (huidige!=null);
 	}
 	
 	private void controleerHuidige() {

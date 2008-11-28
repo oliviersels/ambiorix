@@ -18,15 +18,13 @@ public class TESTMAIN {
 			Spel spel = new Spel();
 			PionTypeVerzameling.getInstantie().registreerType(new PionType_Volgeling());			
 			
-			Speler speler;
+			Speler speler1 = new MenselijkeSpeler();
+			speler1.setNaam("Joske");
+			spel.addSpeler(speler1);
 			
-			speler = new MenselijkeSpeler();
-			speler.setNaam("Joske");
-			spel.addSpeler(speler);
-			
-			speler = new MenselijkeSpeler();
-			speler.setNaam("Jefke");
-			spel.addSpeler(speler);
+			Speler speler2 = new MenselijkeSpeler();
+			speler2.setNaam("Jefke");
+			spel.addSpeler(speler2);
 			
 			ActieBestuurder ab = spel.getSpeltoolkit().getActiebestuurder();	
 			
