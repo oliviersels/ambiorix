@@ -3,6 +3,7 @@ package ambiorix.spelers;
 import java.awt.Color;
 import java.util.Vector;
 
+import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 
 public abstract class Speler {
@@ -31,17 +32,24 @@ public abstract class Speler {
 	 * Geeft terug welke positie de speler kiest om een tegel te
 	 * plaatsen. Dit geeft geen verandering weer in de GUI. Enkel dat de
 	 * gebruiker een keuze gemaakt heeft.
-	 * @return Antwoord bevat:</br>
-	 *   a) tegels (1): De tegel die de gebruiker wilt plaatsen.</br>
-	 *   b) posities (1): De positie waar deze geplaatst wil worden.
+	 * @return Antwoord bevat:<br/>
+	 *   a) posities (0): De positie waar deze geplaatst wil worden.
 	 */
-	public abstract Antwoord plaatsTegel();
+	public abstract Antwoord selecteerBordPositie();
 	/**
 	 * Moet onmiddelijk na plaatsTegel() opgeroepen worden om door te geven
 	 * dat de tegel hier geplaatst mag worden.
 	 * @param toegestaan true als de tegel hier mag geplaatst worden
 	 */
-	public abstract void positieToestaan(boolean toegestaan);
+	public abstract void positieToestaan(boolean toegestaan, BordPositie b);
+	
+	/**
+	 * Geeft terug welke tegel de gebruiker geselecteerd heeft (om op het
+	 * bord te leggen.
+	 * @return Antwoord bevat: <br/>
+	 *   a) tegels (0): De tegel die gekozen is.
+	 */
+	public abstract Antwoord selecteerSpelerTegel();
 
 	public Color getKleur() {
 		return kleur;

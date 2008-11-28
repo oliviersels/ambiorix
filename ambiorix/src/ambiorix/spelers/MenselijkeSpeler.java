@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
+import ambiorix.spelbord.BordPositie;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
@@ -21,13 +22,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	}
 
 	@Override
-	public void positieToestaan(boolean toegestaan) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public synchronized Antwoord plaatsTegel() {
+	public synchronized Antwoord selecteerBordPositie() {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
 		Invoer i = new Invoer();
@@ -52,5 +47,17 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		// Ik handel het vanaf hier terug af.
 		huidigAntwoord = a;
 		notifyAll();
+	}
+
+	@Override
+	public void positieToestaan(boolean toegestaan, BordPositie b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Antwoord selecteerSpelerTegel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
