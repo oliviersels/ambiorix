@@ -93,6 +93,11 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		yPos = pos;
 	}
 	
+	public Tegel getTegel()
+	{
+		return tegel;
+	}
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub

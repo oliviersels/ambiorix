@@ -118,6 +118,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		if(!gevonden)
 		{
 			TegelGeest nieuweTegelGeest = new TegelGeest(x, y, tg, richting);
+			nieuweTegelGeest.addTegelGeestLuisteraar(this);
 			mijnTegelGeesten.add(nieuweTegelGeest);
 			this.add(nieuweTegelGeest);
 		}

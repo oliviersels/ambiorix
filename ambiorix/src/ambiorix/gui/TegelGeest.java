@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.JComponent;
 
@@ -15,8 +17,10 @@ public class TegelGeest extends JComponent implements MouseListener{
 	private int yPos;
 	private Tegel.RICHTING richting;
 	private Tegel_Gui buur;//1 buur is genoeg
+	private Vector <TegelGeestLuisteraar> tegelGeestLuisteraars;
 	public TegelGeest(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
 	{
+		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
 		setXPos(x);
 		setYPos(y);
 		this.richting = richting;
@@ -24,9 +28,22 @@ public class TegelGeest extends JComponent implements MouseListener{
 		this.buur = tg;
 		this.revalidate();
 	}
+	
+	public void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
+	{
+		tegelGeestLuisteraars.add(tgl);
+	}
+
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) {
+		Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
+		TegelGeestGebeurtenis tgg = new TegelGeestGebeurtenis();
+		tgg.tegel = this.buur.getTegel();
+		tgg.richting = this.richting;
+		while(it.hasNext())
+		{
+			(it.next()).geklikt(tgg);
+		}
 		
 	}
 
