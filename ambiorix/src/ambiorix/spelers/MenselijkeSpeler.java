@@ -66,4 +66,10 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public synchronized Antwoord selecteerSpelerPion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

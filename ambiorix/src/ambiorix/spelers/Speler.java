@@ -58,6 +58,13 @@ public abstract class Speler {
 	 *   a) terreinen (0): Het terrein dat gekozen is.
 	 */
 	public abstract Antwoord selecteerTegelGebied();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	
+	public abstract Antwoord selecteerSpelerPion();
 
 	public Color getKleur() {
 		return kleur;
