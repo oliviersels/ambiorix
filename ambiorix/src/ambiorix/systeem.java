@@ -1,5 +1,9 @@
 package ambiorix;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import ambiorix.gui.HoofdVenster;
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
@@ -32,7 +36,30 @@ public class systeem
 
 	private static void Jens()
 	{
-		// TODO Auto-generated method stub
+		prepareForTests();
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HoofdVenster hv = HoofdVenster.geefInstantie();
+		/*for(int i = 0; i <20; i++)
+			for(int y = 0; y <20 ;y++)
+				hv.voegTegelToe(i, y, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
+		*/
+		hv.voegTegelToe(2, 2, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
+		hv.voegTegelToe(3, 2, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
 		
 	}
 

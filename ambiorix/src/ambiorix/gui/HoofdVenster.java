@@ -136,9 +136,9 @@ public class HoofdVenster extends JFrame{
 		this.setLocationRelativeTo(this.getOwner());
 		setVisible(true);
 		
-		for(int i = 0; i <20; i++)
+		/*for(int i = 0; i <20; i++)
 			for(int y = 0; y <20 ;y++)
-				voegTegelToe(i, y, null);
+				voegTegelToe(i, y, null);*/
 	}
 	public void voegRegelToe(String str)
 	{
@@ -146,6 +146,6 @@ public class HoofdVenster extends JFrame{
 	}
 	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
-		tegelVeld.voegTegelToe(x, y, null);
+		tegelVeld.voegTegelToe(x, y, tegel);
 	}
 }

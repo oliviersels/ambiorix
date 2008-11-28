@@ -24,7 +24,7 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	private BufferedImage mijnGeroteerdeAfbeelding = null;
 	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
 	private Tegel tegel;
-	
+	private int xPos, yPos;
 	public Tegel_Gui(Tegel t)
 	{
 		try {
@@ -54,6 +54,8 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	
 	public void zetPos(int x, int y)
 	{
+		xPos = x;
+		yPos = y;
 		this.setBounds(x*100, y*100, 100, 100);
 		this.revalidate();
 	}
@@ -64,8 +66,8 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		TegelGebeurtenis tg = new TegelGebeurtenis();
 		tg.tegel = this.tegel;
 		Rectangle rec = this.getBounds();
-		tg.tegelX = rec.x;
-		tg.tegelY = rec.y;
+		tg.tegelX = xPos;
+		tg.tegelY = yPos;
 		tg.tegelPixelX = e.getX();
 		tg.tegelPixelY = e.getY();
 		while(it.hasNext())
@@ -74,6 +76,23 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		}
 		
 	}
+	
+	public int getXPos() {
+		return xPos;
+	}
+
+	public void setXPos(int pos) {
+		xPos = pos;
+	}
+
+	public int getYPos() {
+		return yPos;
+	}
+
+	public void setYPos(int pos) {
+		yPos = pos;
+	}
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub

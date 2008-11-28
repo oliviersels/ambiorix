@@ -10,6 +10,8 @@ import java.util.Vector;
 
 public class TegelVeldLayout implements LayoutManager {
 	int i = 0;
+	int minHoogte = 0;
+	int minBreedte = 0;
 	@Override
 	public void addLayoutComponent(String s, Component c) {
 		System.out.println("component added: " + i);
@@ -25,15 +27,15 @@ public class TegelVeldLayout implements LayoutManager {
 	public Dimension preferredLayoutSize(Container parent) {
 		Dimension dim = new Dimension(0, 0);
         int nComps = parent.getComponentCount();
-        int minBreedte = 0;
+        minBreedte = 0;
         int maxBreedte = 0;
-        int minHoogte = 0;
+        minHoogte = 0;
         int maxHoogte = 0;
         System.out.println("aantal: " + nComps);
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
            
-            Rectangle rec = ((Tegel_Gui)c).getBounds();
+            Rectangle rec = (c).getBounds();
             
             if (rec.y < minHoogte)
             	minHoogte = rec.y;
@@ -72,8 +74,8 @@ public class TegelVeldLayout implements LayoutManager {
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
            
-            Rectangle rec = ((Tegel_Gui)c).getBounds();
-            c.setBounds(rec);
+            Rectangle rec = (c).getBounds();
+            c.setBounds(rec.x - minBreedte, rec.y - minHoogte, rec.width, rec.height);
         }
     }
 
