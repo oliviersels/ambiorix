@@ -40,7 +40,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 	public synchronized void removeTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
 	{
 		
-		tegelKlikLuisteraars.remove(tgl);
+		tegelGeestLuisteraars.remove(tgl);
 	}
 	
 	public TegelVeld(HoofdVenster hv) {

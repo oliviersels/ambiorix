@@ -27,6 +27,7 @@ public class TegelGeest extends JComponent implements MouseListener{
 		this.setBounds(x*100, y*100, 100, 100);
 		this.buur = tg;
 		this.revalidate();
+		this.addMouseListener(this);
 	}
 	
 	public void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
