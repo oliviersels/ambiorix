@@ -56,7 +56,13 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	}
 
 	@Override
-	public Antwoord selecteerSpelerTegel() {
+	public synchronized Antwoord selecteerSpelerTegel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public synchronized Antwoord selecteerTegelGebied() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,16 +7,17 @@ import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 
 public abstract class Speler {
-	// FIXME wa is van ne enum?
-	public static int ACTIEF = 1;
-	public static int GESTOPT = -1;
-	public static int WACHTEND = 0;
+	public enum STATUS {
+		ACTIEF,
+		GESTOPT,
+		WACHTEND
+	}
 	
 	private Color kleur;
 	private int score;
 	private String naam;
 	private Vector<Pion> pionnen;
-	private int status;
+	private STATUS status;
 	
 	public Speler() {
 		kleur = null;
@@ -50,6 +51,13 @@ public abstract class Speler {
 	 *   a) tegels (0): De tegel die gekozen is.
 	 */
 	public abstract Antwoord selecteerSpelerTegel();
+	
+	/**
+	 * Geeft een terrein terug (een gebied op een tegel)
+	 * @return Antwoord bevat: <br/>
+	 *   a) terreinen (0): Het terrein dat gekozen is.
+	 */
+	public abstract Antwoord selecteerTegelGebied();
 
 	public Color getKleur() {
 		return kleur;
@@ -107,11 +115,11 @@ public abstract class Speler {
 		return aantal;
 	}
 
-	public int getStatus() {
+	public STATUS getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(STATUS status) {
 		this.status = status;
 	}
 }
