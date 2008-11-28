@@ -4,7 +4,9 @@ import javax.swing.SwingUtilities;
 
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
+import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Tegel;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
@@ -71,5 +73,12 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public synchronized Antwoord selecteerSpelerPion() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void zetTegel(Tegel t, BordPositie p) {
+		Uitvoer u = new Uitvoer();
+		Uitvoer.ZetTegel run = u.new ZetTegel(t, p);
+		SwingUtilities.invokeLater(run);
 	}
 }

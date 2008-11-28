@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.Tegel;
 
 public abstract class Speler {
 	public enum STATUS {
@@ -27,6 +28,8 @@ public abstract class Speler {
 	
 	public abstract void doeIets(); // TODO: Uitsplitsen naar meerdere functie -> zie behoeften anderen
 	
+	public abstract void zetTegel(Tegel t, BordPositie p);
+	
 	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
 	
 	/**
@@ -38,8 +41,8 @@ public abstract class Speler {
 	 */
 	public abstract Antwoord selecteerBordPositie();
 	/**
-	 * Moet onmiddelijk na plaatsTegel() opgeroepen worden om door te geven
-	 * dat de tegel hier geplaatst mag worden.
+	 * Ik ben er niet zeker van of deze functie wel nodig is. Het zetten van
+	 * een tegel impliceert immers dat de zet toegestaan is.
 	 * @param toegestaan true als de tegel hier mag geplaatst worden
 	 */
 	public abstract void positieToestaan(boolean toegestaan, BordPositie b);
