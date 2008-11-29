@@ -28,21 +28,21 @@ public class TestActies {
 		Spel spel = new Spel();
 		PionTypeVerzameling.getInstantie().registreerType(new PionType_Volgeling());			
 		
-		assertEquals(null, spel.getActieveSpeler());
+		assertEquals(null, spel.getSpeltoolkit().getActieveSpeler());
 		assertEquals(0, spel.getAantalSpelers());
 		
 		Speler speler1 = new MenselijkeSpeler();
 		speler1.setNaam("Joske");
 		spel.addSpeler(speler1);
 		
-		assertEquals(speler1, spel.getActieveSpeler());
+		assertEquals(speler1, spel.getSpeltoolkit().getActieveSpeler());
 		assertEquals(1, spel.getAantalSpelers());
 		
 		Speler speler2 = new MenselijkeSpeler();
 		speler2.setNaam("Jefke");
 		spel.addSpeler(speler2);
 		
-		assertEquals(speler1, spel.getActieveSpeler());
+		assertEquals(speler1, spel.getSpeltoolkit().getActieveSpeler());
 		assertEquals(2, spel.getAantalSpelers());
 		
 		ActieBestuurder ab = spel.getSpeltoolkit().getActiebestuurder();	

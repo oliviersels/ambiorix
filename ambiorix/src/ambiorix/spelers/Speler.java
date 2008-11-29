@@ -125,11 +125,14 @@ public abstract class Speler {
 		return aantal;
 	}
 
-	public STATUS getStatus() {
-		return status;
+	public boolean isActief() {
+		return status == STATUS.ACTIEF;
 	}
-
-	public void setStatus(STATUS status) {
-		this.status = status;
+	
+	public void zetActief(boolean actief) {
+		if(actief)
+			status = STATUS.ACTIEF;
+		else
+			status = STATUS.WACHTEND;
 	}
 }
