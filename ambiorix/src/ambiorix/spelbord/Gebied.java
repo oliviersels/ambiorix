@@ -33,4 +33,9 @@ public class Gebied
 		return terreinStukken;
 	}	
 	
+	public void setTerreinStukken( Vector<Terrein> stukken )
+	{
+		this.terreinStukken = stukken;
+	}
+	
 }

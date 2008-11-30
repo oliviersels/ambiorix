@@ -2,27 +2,29 @@ package ambiorix.spelbord;
 
 import ambiorix.spelbord.Tegel.RICHTING;
 import ambiorix.util.Punt;
+import ambiorix.util.PuntMap;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Vector;
 
 public class TegelGebiedBeheerder 
 {
 	private Tegel tegel = null;
 	
-	private HashMap<Punt, Terrein> GebiedHelpersBOVEN;
-	private HashMap<Punt, Terrein> GebiedHelpersRECHTS;
-	private HashMap<Punt, Terrein> GebiedHelpersONDER;
-	private HashMap<Punt, Terrein> GebiedHelpersLINKS;	
+	private PuntMap<Terrein> GebiedHelpersBOVEN;
+	private PuntMap<Terrein> GebiedHelpersRECHTS;
+	private PuntMap<Terrein> GebiedHelpersONDER;
+	private PuntMap<Terrein> GebiedHelpersLINKS;	
 	
 	public TegelGebiedBeheerder(Tegel tegel) 
 	{
 		this.tegel = tegel;
 		
-		GebiedHelpersBOVEN = new HashMap<Punt, Terrein>();
-		GebiedHelpersRECHTS = new HashMap<Punt, Terrein>();
-		GebiedHelpersONDER = new HashMap<Punt, Terrein>();
-		GebiedHelpersLINKS = new HashMap<Punt, Terrein>();
+		GebiedHelpersBOVEN = new PuntMap<Terrein>();
+		GebiedHelpersRECHTS = new PuntMap<Terrein>();
+		GebiedHelpersONDER = new PuntMap<Terrein>();
+		GebiedHelpersLINKS = new PuntMap<Terrein>();
 		
 		// 1 nodig per vakje aan buitenkant van terrein.
 		// 1 extra nodig voor elke hoek ( + 4 dus ) want die wijzen naar beide kanten
@@ -50,9 +52,9 @@ public class TegelGebiedBeheerder
 		}
 	}
 	
-		private HashMap<Punt, Terrein> getGebiedHelpers(Tegel.RICHTING richting)
+		public PuntMap<Terrein> getGebiedHelpers(Tegel.RICHTING richting)
 		{
-			HashMap<Punt, Terrein> verzameling = null;
+			PuntMap<Terrein> verzameling = null;
 			
 			if( richting == Tegel.RICHTING.BOVEN)
 				verzameling = GebiedHelpersBOVEN;
@@ -70,7 +72,7 @@ public class TegelGebiedBeheerder
 	{
 		// Elk punt in deze zijde heeft een equivalent aan de andere kant op de buur GebiedHelper.
 		// Dat equivalent zoeken we op op terreinType om zo de overeenkomsten te bepalen
-		HashMap<Punt, Terrein> huidigeZijde = getGebiedHelpers(richting);
+		PuntMap<Terrein> huidigeZijde = getGebiedHelpers(richting);
 		
 		// alle punten van de zijde overlopen
 		Set<Punt> punten = huidigeZijde.keySet();
@@ -98,7 +100,7 @@ public class TegelGebiedBeheerder
 		
 		// moeten zelf niet verder in de boom van tegels zoeken, daar zorgt tegel wel voor
 
-		HashMap<Punt, Terrein> verzameling = getGebiedHelpers(richting);
+		PuntMap<Terrein> verzameling = getGebiedHelpers(richting);
 		Set<Punt> punten = verzameling.keySet();
 		
 		for( Punt punt: punten )
@@ -106,6 +108,156 @@ public class TegelGebiedBeheerder
 			verzameling.get(punt).setTegel(buur);
 		}	
 	}
+	
+	public Vector<Terrein> getGebied(Terrein start)
+	{
+		Vector<Terrein> gebied = new Vector<Terrein>();
+		Vector<Tegel> gesloten = new Vector<Tegel>();
+		
+		//rondom het startterrein zoeken naar aangrenzende stukjes terrein van hetzelfde type
+		berekenGebied(gebied, start, gesloten);
+		
+		return gebied;
+	}
+	
+		private void berekenGebied( Vector<Terrein> gebied, Terrein start, Vector<Tegel> gesloten )
+		{
+			
+			// eerst alles binnen zelfde tegel doen. Dan op aangrenzende tegels verdergaan.
+			// binnen :
+			// - beweeg zover het gaat naar de kant
+			// - als we op de kant zitten moeten we op de tegel aan die kant verdergaan
+			//	  , anders gewoon stoppen
+			
+			Tegel tegel = start.getTegel();
+			
+			// TODO : eventueel dit nog naar onderen brengen, 1 functieaanroep minder per keer
+			if( !gesloten.contains(tegel) )
+				gesloten.add(tegel);
+			else
+				return;
+			
+			TerreinType gebiedType = tegel.getTerreinType( start.getPositie() );
+			
+			Punt punt = null; //new Punt( start.getPositie() );
+			boolean doorgaan = true;
+			boolean doorgaanNaarVolgende = true;
+			
+			int x = 0;
+			int y = 0;
+			int xincrement = 0;
+			int yincrement = 0;
+			
+			for( Tegel.RICHTING richting: Tegel.RICHTING.values() )
+			{
+				//System.out.println( "We gaan kijken in richting " + richting.toString() );
+				
+				doorgaan = true;
+				doorgaanNaarVolgende = true;
+				punt = new Punt( start.getPositie() );
+				
+				// richting van beweging bepalen
+				if(richting == Tegel.RICHTING.LINKS)
+				{
+					xincrement = 0;
+					yincrement = -1;
+				}
+				else if(richting == Tegel.RICHTING.RECHTS)
+				{
+					xincrement = 0;
+					yincrement = 1;
+				}
+				else if(richting == Tegel.RICHTING.BOVEN)
+				{
+					xincrement = -1;
+					yincrement = 0;
+				}
+				else if(richting == Tegel.RICHTING.ONDER)
+				{
+					xincrement = 1;
+					yincrement = 0;
+				}
+				else
+				{
+					System.out.println("IETS SERIEUS MIS");
+					return;
+				}
+				
+				
+				while(doorgaan)
+				{
+					// gebied is van 1 en hetzelfde type
+					// als er een punt gevonden wordt dat niet van het type is = einde gebied daar
+					if( tegel.getTerreinType(punt) == gebiedType )
+					{
+						// gevonden Terrein aan het gebied toevoegen
+						gebied.add( new Terrein(tegel, new Punt(punt)) );
+						
+						// punt klaarzetten voor volgende iteratie
+						punt.setX( punt.getX() + xincrement );
+						punt.setY( punt.getY() + yincrement );
+						
+						x = punt.getX();
+						y = punt.getY();
+						
+						if( (x < 0) || (x > tegel.getTerreinBreedte() - 1) )
+						{
+							doorgaan = false;
+							doorgaanNaarVolgende = true;
+						}
+						if( (y < 0) || (y > tegel.getTerreinHoogte() - 1) )
+						{
+							doorgaan = false;
+							doorgaanNaarVolgende = true;
+						}
+						
+						//System.out.println( tegel.getID() + " - " + punt.getX() + "," + punt.getY() );
+					}
+					else
+						doorgaan = false;
+				}
+				
+				if(doorgaanNaarVolgende)
+				{
+					punt.setX( punt.getX() - xincrement );
+					punt.setY( punt.getY() - yincrement );	
+					
+					Terrein buur = tegel.getGebiedBeheerder().getGebiedHelpers(richting).get(punt);
+					
+					if(buur.getTegel() != null)
+					{
+						//System.out.println( "volgende : " + buur.getTegel().getID() + " - " + punt.getX() + "," + punt.getY() );
+						berekenGebied( gebied, buur, gesloten );		
+					}
+				}
+			}
+			
+			
+			// voorbeeld voor links
+			/*while( (tijdelijk.getY() >= 0)  && doorgaan)
+			{
+				if( tegel.getTerreinType(tijdelijk) == gebiedType )
+				{
+					gebied.add( new Terrein(tegel, new Punt(tijdelijk)) );
+					tijdelijk.setY( tijdelijk.getY() - 1 );
+				}
+				else
+					doorgaan = false;
+			}
+			
+			if( doorgaan )
+			{
+				tijdelijk.setY( tijdelijk.getY() + 1 ); // staat nu op -1 normaal gezien
+				
+				// nieuw startpunt berkenen op tegel ernaast
+				Terrein buur = tegel.getGebiedBeheerder().getGebiedHelpers(Tegel.RICHTING.LINKS).get(tijdelijk);
+				
+				if(buur.getTegel() == null)
+					return;
+				
+				berekenGebied( gebied, buur );
+			}*/
+		}
 	
 	public void print()
 	{
@@ -120,7 +272,7 @@ public class TegelGebiedBeheerder
 		{
 			System.out.println("TegelGebiedBeheerder::printRichting " + richting.toString());
 			
-			HashMap<Punt, Terrein> verzameling = getGebiedHelpers(richting);
+			PuntMap<Terrein> verzameling = getGebiedHelpers(richting);
 			
 			Set<Punt> keys = verzameling.keySet();
 			

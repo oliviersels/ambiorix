@@ -1,5 +1,7 @@
 package ambiorix.spelbord;
 
+import java.util.Vector;
+
 import ambiorix.util.Punt;
 
 public class Tegel 
@@ -366,6 +368,12 @@ public class Tegel
 	}
 	
 	
+	public Vector<Terrein> getGebied(Terrein start)
+	{
+		return gebiedBeheerder.getGebied(start);
+	}
+	
+	
 
 	public int getID() 
 	{
@@ -408,6 +416,7 @@ public class Tegel
 		return terrein;
 	}*/
 	
+	// TODO : deze moet hier weg !
 	public TegelGebiedBeheerder getGebiedBeheerder()
 	{
 		return this.gebiedBeheerder;

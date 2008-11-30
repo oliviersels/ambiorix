@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Set;
 
 import ambiorix.util.Punt;
+import ambiorix.util.PuntMap;
 
 
 /*
@@ -21,7 +22,7 @@ public class Spelbord
 	private int overgeblevenTegelAantal = 0;
 	
 	
-	private HashMap<String, Tegel> tegelCoordinaten = new HashMap<String, Tegel>();
+	private PuntMap<Tegel> tegelCoordinaten = new PuntMap<Tegel>();
 	
 	
 	private Tegel beginTegel = null;
@@ -47,7 +48,7 @@ public class Spelbord
 		this.beginTegel = beginTegel;
 		this.beginTegel.setID(0);
 		
-		tegelCoordinaten.put(new Punt(0,0).toString(), beginTegel);		
+		tegelCoordinaten.put(new Punt(0,0), beginTegel);		
 	}
 	
 	private void assertBegintegel()
@@ -152,7 +153,7 @@ public class Spelbord
 		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
 		{
 			buurCoordinaat = getAangrenzendeCoordinaat(nieuweCoordinaat, r);
-			buur = tegelCoordinaten.get(buurCoordinaat.toString());
+			buur = tegelCoordinaten.get(buurCoordinaat);
 			
 			if(buur != null)
 				if( !buur.kanBuurAccepteren(tegel, r.getTegenovergestelde()) )
@@ -182,14 +183,20 @@ public class Spelbord
 		Punt nieuweCoordinaat = getAangrenzendeCoordinaat( buurCoordinaat, richting );
 		
 		// TODO : wat als daar al een tegel staat ???
-		tegelCoordinaten.put(nieuweCoordinaat.toString(), tegel);
+		tegelCoordinaten.put(nieuweCoordinaat, tegel);
+		
+		
+		// als tegel geen ID heeft (bijv. bij toevoegen vanuit file etc.)
+		// gaan we hem een ID moeten toekennen
+		if( tegel.getID() == -1)
+			tegel.setID( getVolgendeTegelID() );
 		
 		
 		// nu we de coordinaat kennen, de buren errond laten weten dat de nieuwe tegel gezet is
 		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
 		{
 			buurCoordinaat = getAangrenzendeCoordinaat(nieuweCoordinaat, r);
-			buur = tegelCoordinaten.get(buurCoordinaat.toString());
+			buur = tegelCoordinaten.get(buurCoordinaat);
 			
 			if( buur != null )
 			{
@@ -215,12 +222,12 @@ public class Spelbord
 				return null;
 			}
 			
-			Set<String> punten = tegelCoordinaten.keySet();
+			Set<Punt> punten = tegelCoordinaten.keySet();
 			
-			for(String punt: punten)
+			for(Punt punt: punten)
 			{
 				if( ((Tegel) tegelCoordinaten.get(punt)) ==  tegel)
-					return Punt.fromString(punt);
+					return punt;
 			}
 
 			System.out.println("Spelbord::getTegelCoordinaat : tegel heeft nog geen coordinaat 2");
@@ -252,6 +259,8 @@ public class Spelbord
 		
 		gebied.setType(start.getTegel().getTerreinType(start.getPositie()) );
 		
+		// vanaf startpunt gaan we "recursief" alle Terreintjes zoeken
+		gebied.setTerreinStukken( start.getTegel().getGebied(start) );
 		
 		return gebied;
 	}

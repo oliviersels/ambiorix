@@ -2,11 +2,17 @@ package ambiorix.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Vector;
+
 import org.junit.Test;
 
+import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelTypeVerzameling;
+import ambiorix.spelbord.Terrein;
+import ambiorix.util.Punt;
 import ambiorix.systeem;
 
 public class TestSpelbord 
@@ -49,10 +55,31 @@ public class TestSpelbord
 		
 		assertEquals("test aantal van type : ", spelbord.getTegelAantal("TegelType_GGGGK"), 5);
 	}
+	
+	@Test
+	public void testGetGebied()
+	{
+		systeem.prepareForTests();
+		
+		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
+		
+		Spelbord spelbord = new Spelbord();
+		spelbord.setBegintegel(t);
+		spelbord.setTegelAantal("TegelType_GGGGK", 5);
+		
+		spelbord.plaatsTegel(spelbord.getVolgendeTegel(), new BordPositie(t, Tegel.RICHTING.LINKS) );
+		
+		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
+		
+		for( Terrein terrein: gebied.getTerreinStukken() )
+			System.out.println( terrein.getTegel().getID() + "->" +  terrein.getPositie().toString() );
+	}
 
 	@Test
 	public void testBordOpbouw()
 	{
+		System.out.println("--------------------------------------------------------------------------");
+		
 		// geen "echte" unitTest, kijk naar de output !
 		// maakt iets van de vorm :
 		//  0  1
