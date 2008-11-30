@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TerreinType;
+import ambiorix.util.Punt;
 
 public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeestLuisteraar{
 	private Vector<Tegel_Gui> mijnTegels;
@@ -81,9 +82,13 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		if(geklikteTegel != null)
 		{
 			//TegelType tegelType = geklikteTegel.getType();
-			TerreinType tt[][] = geklikteTegel.getTerrein();
+			// TODO : nakijken door JENS : origineel staat hier in 3 regels commentaar, daaronder robin aanpassingen
+			/*TerreinType tt[][] = geklikteTegel.getTerrein();
 			int lengte = tt.length;
-			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());
+			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());*/
+			
+			int lengte = geklikteTegel.getTerreinHoogte();
+			hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelX/100, lengte*tg.tegelPixelY/100) ).toString()  );
 		}
 	}
 	@Override

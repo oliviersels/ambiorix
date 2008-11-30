@@ -133,6 +133,8 @@ public class Spelbord
 	 * Deze functie controleert of tegel plaatsbaar is naast buur, in de opgegeven richting.
 	 * Ze gaat echter nog verder en controleert ook meteen de andere mogelijke buren van de nieuwe tegel
 	 * of hij daar wel aan kan grenzen.
+	 * 
+	 * 1x aanroepen van deze functie is dus genoeg.
 	 */
 	public boolean controleerPlaatsbaarheid( Tegel tegel, BordPositie positie )
 	{	
@@ -150,7 +152,7 @@ public class Spelbord
 		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
 		{
 			buurCoordinaat = getAangrenzendeCoordinaat(nieuweCoordinaat, r);
-			buur = tegelCoordinaten.get(buurCoordinaat);
+			buur = tegelCoordinaten.get(buurCoordinaat.toString());
 			
 			if(buur != null)
 				if( !buur.kanBuurAccepteren(tegel, r.getTegenovergestelde()) )
@@ -166,6 +168,7 @@ public class Spelbord
 	 * richting == BOVEN betekent bijv. dat de nieuwe tegel BOVEN de buur moet geplaatst worden.
 	 * 
 	 * De functie zal ervoor zorgen dat de correcte tegels onderling deze tegel als buur gaan instellen.
+	 * De functie moet dus maar 1x aangeroepen worden per nieuwe tegel.
 	 * 
 	 * De functie gaat niet zelf controleren of de plaatsing wel geldig is. Gebruik hiervoor Spelbord::controleerPlaatsbaarheid
 	 */
@@ -242,5 +245,15 @@ public class Spelbord
 			
 			return null;
 		}
+	
+	public Gebied getGebied(Terrein start)
+	{
+		Gebied gebied = new Gebied();
+		
+		gebied.setType(start.getTegel().getTerreinType(start.getPositie()) );
+		
+		
+		return gebied;
+	}
 	
 }

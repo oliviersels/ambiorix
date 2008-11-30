@@ -15,7 +15,7 @@ public class Terrein
 	
 	public TerreinType getType()
 	{
-		return tegel.getTerrein()[ positie.getX() ][ positie.getY() ];
+		return tegel.getTerreinType(positie);
 	}
 
 	public Tegel getTegel() 
@@ -37,4 +37,10 @@ public class Terrein
 	{
 		this.positie = positie;
 	}
+	
+	public String toString()
+	{
+		return tegel.getID() + "-" + positie.getX() + "," + positie.getY();
+	}	
+	
 }

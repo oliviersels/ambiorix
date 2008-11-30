@@ -64,6 +64,11 @@ public class Tegel
 		setRotatie(rotatie);
 	}
 
+	/*
+	 * Roteert de tegel met een bepaald aantal graden.
+	 * OPGELET : is NIET incrementeel !
+	 * maw : setRotatie(90) en daarna setRotatie(180) betekent een rotatie van 180, niet van 270 !!!
+	 */
 	public void setRotatie(int rotatie) 
 	{
 		if( (rotatie == this.rotatie) && ( terrein != null ) )
@@ -142,6 +147,7 @@ public class Tegel
 		//System.out.println("SET BUUR : NOG AANPASSEN");
 		
 		buren[ richting.ordinal() ] = buur;
+		gebiedBeheerder.setBuur(buur, richting);
 		
 		// moeten ons geen zorgen meer maken over andere buren. Spelbord regelt dit.
 	}
@@ -380,11 +386,27 @@ public class Tegel
 	{
 		return type;
 	}
+	
+	public TerreinType getTerreinType( Punt locatie )
+	{
+		// TODO : controle op indices
+		return terrein[ locatie.getX() ][ locatie.getY() ]; 
+	}
+	
+	public int getTerreinBreedte()
+	{
+		return terrein[0].length;
+	}
+	
+	public int getTerreinHoogte()
+	{
+		return terrein.length;
+	}
 
-	public TerreinType[][] getTerrein() 
+	/*public TerreinType[][] getTerrein() 
 	{
 		return terrein;
-	}
+	}*/
 	
 	public TegelGebiedBeheerder getGebiedBeheerder()
 	{
