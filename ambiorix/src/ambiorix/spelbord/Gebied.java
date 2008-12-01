@@ -5,7 +5,7 @@ import java.util.Vector;
 public class Gebied 
 {
 	private TerreinType type;
-	private Vector<Terrein> terreinStukken;
+	private Vector<Terrein> terreinStukken = new Vector<Terrein>();
 	
 	public Gebied()
 	{

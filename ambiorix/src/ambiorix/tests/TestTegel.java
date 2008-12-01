@@ -6,12 +6,14 @@ import org.junit.Test;
 
 import ambiorix.systeem;
 import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelGebiedBeheerder;
 import ambiorix.spelbord.TegelTypeVerzameling;
+import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
 
@@ -85,13 +87,13 @@ public class TestTegel {
 		
 		bord.setBegintegel(linksboven);
 		
-		middenboven.setID(1);
+		/*middenboven.setID(1);
 		rechtsboven.setID(2);
 		rechtsmidden.setID(3);
 		rechtsonder.setID(4);
 		middenonder.setID(5);
 		linksonder.setID(6);
-		linksmidden.setID(7);
+		linksmidden.setID(7);*/
 		
 		assertEquals("Linksboven + middenboven : ",linksboven.kanBuurAccepteren(middenboven, Tegel.RICHTING.RECHTS), true );
 		//linksboven.setBuur(middenboven, Tegel.RICHTING.RECHTS);
@@ -163,6 +165,19 @@ public class TestTegel {
 		assertEquals("Test goed", middenboven.kanBuurAccepteren(middenmidden,  Tegel.RICHTING.ONDER), true);
 		
 		assertEquals("Test op spelbord", bord.controleerPlaatsbaarheid(middenmidden, new BordPositie(linksmidden,Tegel.RICHTING.RECHTS)), false );
+	
+		
+		
+		// TODO : dit is eigenlijk deel van spelbordTest => testGetGebied
+		middenmidden.setRotatie(180);
+		bord.plaatsTegel( middenmidden, new BordPositie(linksmidden, Tegel.RICHTING.RECHTS) );
+		Gebied gebied = bord.getGebied( new Terrein(rechtsmidden, new Punt(1,1)) );
+		
+		// kloosters mogen er niet in
+		for( Terrein terrein: gebied.getTerreinStukken() )
+		{
+			System.out.println("Zoek de weg : " +  terrein.getTegel().getID() + "->" +  terrein.getPositie().toString() );
+		}
 	}
 	
 

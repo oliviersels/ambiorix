@@ -67,12 +67,18 @@ public class TestSpelbord
 		spelbord.setBegintegel(t);
 		spelbord.setTegelAantal("TegelType_GGGGK", 5);
 		
-		spelbord.plaatsTegel(spelbord.getVolgendeTegel(), new BordPositie(t, Tegel.RICHTING.LINKS) );
+		Tegel t2 = spelbord.getVolgendeTegel();
+		spelbord.plaatsTegel(t2, new BordPositie(t, Tegel.RICHTING.LINKS) );
 		
 		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
 		
+		// kloosters mogen er niet in
 		for( Terrein terrein: gebied.getTerreinStukken() )
+		{
+			assertEquals("Geen kloosters toegelaten : ", terrein.toString() == t.getTerrein(new Punt(1,1)).toString(), false);
+			assertEquals("Geen kloosters toegelaten : ", terrein.toString() == t2.getTerrein(new Punt(1,1)).toString(), false);
 			System.out.println( terrein.getTegel().getID() + "->" +  terrein.getPositie().toString() );
+		}
 	}
 
 	@Test
@@ -80,7 +86,7 @@ public class TestSpelbord
 	{
 		System.out.println("--------------------------------------------------------------------------");
 		
-		// geen "echte" unitTest, kijk naar de output !
+		// TODO : nog geen "echte" unitTest, kijk naar de output ! (niet omdat hij geen fouten geeft dat hij geslaagd is)
 		// maakt iets van de vorm :
 		//  0  1
 		//  3  2

@@ -109,10 +109,12 @@ public class TegelGebiedBeheerder
 		}	
 	}
 	
-	public Vector<Terrein> getGebied(Terrein start)
+	public Gebied getGebied(Terrein start)
 	{
-		Vector<Terrein> gebied = new Vector<Terrein>();
-		Vector<Tegel> gesloten = new Vector<Tegel>();
+		Gebied gebied = new Gebied();
+		gebied.setType(start.getType());
+		
+		Vector<String> gesloten = new Vector<String>();
 		
 		//rondom het startterrein zoeken naar aangrenzende stukjes terrein van hetzelfde type
 		berekenGebied(gebied, start, gesloten);
@@ -120,7 +122,235 @@ public class TegelGebiedBeheerder
 		return gebied;
 	}
 	
-		private void berekenGebied( Vector<Terrein> gebied, Terrein start, Vector<Tegel> gesloten )
+	
+		private void berekenGebied( Gebied gebied, Terrein start, Vector<String> gesloten )
+		{
+			// we gaan ervanuit dat START nog niet in het gebied zit
+			// - eerst kijken of hij erbij moet
+			//  - JA : toevoegen 
+			//       : in 4 richtingen rondom kijken en algoritme terug aanroepen
+			//  - NEE: stop
+			
+			Tegel tegel = start.getTegel();
+			TerreinType gebiedType = gebied.getType();
+			
+			//System.out.print("Kandidaat : " + start.getTegel().getID() + " - " + start.getPositie().getX() + "," + start.getPositie().getY() );
+			//System.out.println(" -> " + tegel.getTerreinType(start.getPositie()).getID() + " en " + gebiedType.getID() );
+			
+			// TODO : deze check naar beneden, aannemen dat start geldig is (en eventueel al in gebied zit)
+			if( tegel.getTerreinType(start.getPositie()) == gebiedType )
+			{
+				// gevonden Terrein aan het gebied toevoegen
+				Terrein nieuw = new Terrein( tegel, new Punt(start.getPositie()) );
+				
+				// anders moeten we niet meer toevoegen!!!
+				if( !gesloten.contains(nieuw.toString()) )
+				{
+					gebied.voegToe( nieuw );
+					gesloten.add( nieuw.toString() );
+					
+					//System.out.println("Toegevoegd : " + nieuw.getTegel().getID() + " - " + nieuw.getPositie().getX() + "," + nieuw.getPositie().getY() );
+					
+					// variabelen voor rondom in 4 richtingen kijken
+					Punt punt = null;
+					boolean doorgaanNaarVolgende = true;
+					
+					int x = 0;
+					int y = 0;
+					int xincrement = 0;
+					int yincrement = 0;
+					
+					
+					// in de 4 richtingen rondom start kijken voor nieuwe stukjes in het gebied
+					for( Tegel.RICHTING richting: Tegel.RICHTING.values() )
+					{
+						//System.out.println( "We gaan kijken in richting " + richting.toString() );
+						
+						doorgaanNaarVolgende = true;
+						punt = new Punt( start.getPositie() );
+						
+						// richting van beweging bepalen
+						if(richting == Tegel.RICHTING.LINKS)
+						{
+							xincrement = 0;
+							yincrement = -1;
+						}
+						else if(richting == Tegel.RICHTING.RECHTS)
+						{
+							xincrement = 0;
+							yincrement = 1;
+						}
+						else if(richting == Tegel.RICHTING.BOVEN)
+						{
+							xincrement = -1;
+							yincrement = 0;
+						}
+						else if(richting == Tegel.RICHTING.ONDER)
+						{
+							xincrement = 1;
+							yincrement = 0;
+						}
+						
+						punt.setX( punt.getX() + xincrement );
+						punt.setY( punt.getY() + yincrement );
+						
+						x = punt.getX();
+						y = punt.getY();
+						
+						
+						// nu is er in die richting
+						// - ofwel een nieuw vakje op dezelfde tegel
+						// - ofwel een nieuw vakje op een andere tegel
+						// - ofwel geen vakje meer		
+						
+						//System.out.println("Kijk naar : " + tegel.getID() + " - " + punt.getX() + "," + punt.getY() );
+						
+						// op volgende tegel, boven en onder
+						if( (x < 0) || (x > tegel.getTerreinHoogte() - 1) )
+						{
+							//doorgaan = false;
+							doorgaanNaarVolgende = true;
+						}
+						// op volgende tegel, links en rechts
+						else if( (y < 0) || (y > tegel.getTerreinBreedte() - 1) )
+						{
+							//doorgaan = false;
+							doorgaanNaarVolgende = true;
+						}
+						// op zelfde tegel
+						else
+						{
+							nieuw = new Terrein( tegel, new Punt(punt) );
+							doorgaanNaarVolgende = false;
+						}	
+						
+						// als op een andere tegel
+						// => zoek het juiste punt op de buur
+						if(doorgaanNaarVolgende)
+						{
+							//correctie van vorige increment (die zit dan al te ver);
+							punt.setX( punt.getX() - xincrement );
+							punt.setY( punt.getY() - yincrement );	
+							
+							nieuw = tegel.getGebiedBeheerder().getGebiedHelpers(richting).get(punt);
+							
+							// nieuw bestaat normaal gezien altijd, gezien de structuur van de lijsten
+							// checken of er ook echt een tegel aan gekoppeld is!
+							if(nieuw.getTegel() == null)
+							{
+								//System.out.println("Punt niet gevonden op buur");
+								nieuw = null;
+							}
+						}
+						
+						
+						if( nieuw != null ) // anders moeten we niet meer verdergaan
+						{
+							if( !gesloten.contains(nieuw.toString()) )
+								berekenGebied(gebied, nieuw, gesloten);
+						}
+						
+					}// einde richtingen iteratie
+					
+				}// einde : check of start in gesloten zit
+				else
+				{
+					// start zat er al in, betekent dat we gewoon mogen stoppen
+				}
+			}
+		}
+			
+			
+			/*Punt punt = null; //new Punt( start.getPositie() );
+			boolean doorgaan = true;
+			boolean doorgaanNaarVolgende = true;
+			Terrein nieuw = null;
+			
+			int x = 0;
+			int y = 0;
+			int xincrement = 0;
+			int yincrement = 0;		
+			
+			for( Tegel.RICHTING richting: Tegel.RICHTING.values() )
+			{
+				//System.out.println( "We gaan kijken in richting " + richting.toString() );
+				
+				doorgaan = true;
+				doorgaanNaarVolgende = true;
+				punt = new Punt( start.getPositie() );
+				
+				// richting van beweging bepalen
+				if(richting == Tegel.RICHTING.LINKS)
+				{
+					xincrement = 0;
+					yincrement = -1;
+				}
+				else if(richting == Tegel.RICHTING.RECHTS)
+				{
+					xincrement = 0;
+					yincrement = 1;
+				}
+				else if(richting == Tegel.RICHTING.BOVEN)
+				{
+					xincrement = -1;
+					yincrement = 0;
+				}
+				else if(richting == Tegel.RICHTING.ONDER)
+				{
+					xincrement = 1;
+					yincrement = 0;
+				}
+				
+				if( tegel.getTerreinType(punt) == gebiedType )
+				{
+					// gevonden Terrein aan het gebied toevoegen
+					nieuw = new Terrein(tegel, new Punt(punt));
+					
+					// moeten niet meer toevoegen!!!
+					if( gesloten.contains(nieuw.toString()) )
+						continue;
+					
+					gebied.add( nieuw );
+					gesloten.add( nieuw.toString() );
+					
+					// nu is er ofwel in die richting een nieuw vakje op dezelfde tegel
+					// ofwel een nieuw vakje op een andere tegel
+					// ofwel geen vakje meer
+					
+					punt.setX( punt.getX() + xincrement );
+					punt.setY( punt.getY() + yincrement );
+					
+					x = punt.getX();
+					y = punt.getY();
+					
+					// op volgende tegel, boven en onder
+					if( (x < 0) || (x > tegel.getTerreinHoogte() - 1) )
+					{
+						doorgaan = false;
+						doorgaanNaarVolgende = true;
+					}
+					// op volgende tegel, links en rechts
+					else if( (y < 0) || (y > tegel.getTerreinBreedte() - 1) )
+					{
+						doorgaan = false;
+						doorgaanNaarVolgende = true;
+					}
+					// op zelfde tegel
+					else
+					{
+						
+					}
+				}
+				else
+				{
+					// niks doen, gebied stopt hier
+				}
+				
+			}
+			
+		}*/
+		
+		/*private void berekenGebied( Vector<Terrein> gebied, Terrein start, Vector<Tegel> gesloten )
 		{
 			
 			// eerst alles binnen zelfde tegel doen. Dan op aangrenzende tegels verdergaan.
@@ -131,7 +361,7 @@ public class TegelGebiedBeheerder
 			
 			Tegel tegel = start.getTegel();
 			
-			// TODO : eventueel dit nog naar onderen brengen, 1 functieaanroep minder per keer
+			// eventueel dit nog naar onderen brengen, 1 functieaanroep minder per keer
 			if( !gesloten.contains(tegel) )
 				gesloten.add(tegel);
 			else
@@ -230,7 +460,7 @@ public class TegelGebiedBeheerder
 						berekenGebied( gebied, buur, gesloten );		
 					}
 				}
-			}
+			}*/
 			
 			
 			// voorbeeld voor links
@@ -256,8 +486,8 @@ public class TegelGebiedBeheerder
 					return;
 				
 				berekenGebied( gebied, buur );
-			}*/
-		}
+			}*\/
+		}*/
 	
 	public void print()
 	{

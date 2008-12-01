@@ -260,7 +260,7 @@ public class Spelbord
 		gebied.setType(start.getTegel().getTerreinType(start.getPositie()) );
 		
 		// vanaf startpunt gaan we "recursief" alle Terreintjes zoeken
-		gebied.setTerreinStukken( start.getTegel().getGebied(start) );
+		gebied = start.getTegel().getGebied(start);
 		
 		return gebied;
 	}

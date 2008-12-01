@@ -368,7 +368,7 @@ public class Tegel
 	}
 	
 	
-	public Vector<Terrein> getGebied(Terrein start)
+	public Gebied getGebied(Terrein start)
 	{
 		return gebiedBeheerder.getGebied(start);
 	}
@@ -399,6 +399,12 @@ public class Tegel
 	{
 		// TODO : controle op indices
 		return terrein[ locatie.getX() ][ locatie.getY() ]; 
+	}
+	
+	public Terrein getTerrein(Punt locatie)
+	{
+		// TODO : controle op indices
+		return new Terrein( this, new Punt(locatie) );
 	}
 	
 	public int getTerreinBreedte()
