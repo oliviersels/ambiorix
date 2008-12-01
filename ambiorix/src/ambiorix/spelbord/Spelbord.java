@@ -253,6 +253,12 @@ public class Spelbord
 			return null;
 		}
 	
+	/*
+	 * Gaat recursief rondom start zoeken voor terreinstukken van hetzelfde type.
+	 * 
+	 * TODO : gebied ook nog laten bijhouden waar het nog niet "af is" (Tegel + zijde) ?
+	 * 
+	 */
 	public Gebied getGebied(Terrein start)
 	{
 		Gebied gebied = new Gebied();
