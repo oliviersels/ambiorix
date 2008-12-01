@@ -11,7 +11,10 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
 
@@ -46,7 +49,6 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 	
 	public TegelVeld(HoofdVenster hv) {
 		this.hv = hv;
-		setBorder(BorderFactory.createLineBorder(Color.black));
 		mijnTegels = new Vector<Tegel_Gui>();
 		mijnTegelGeesten = new Vector<TegelGeest>();
 		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
@@ -141,6 +143,47 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 			}
 		}
 	}
+	
+	public void tekenTerrein(Gebied gebied)
+	{
+		for(Tegel_Gui tg: mijnTegels)
+		{
+			tg.wisGebiedenTeTekenen();
+		}
+		Vector <Terrein> terreinstukken = gebied.getTerreinStukken();
+		for( Terrein terrein: terreinstukken)
+		{
+			for(Tegel_Gui tg: mijnTegels)
+			{
+				if(tg.getTegel().getID() == terrein.getTegel().getID())
+				{
+					tg.addGebiedTeTekenen(terrein.getPositie());
+				}
+			}
+		}
+	}
 
+	public void voegTegelToe(Tegel tegel, BordPositie bp) {
+		Tegel buur = bp.getBuur();
+		int grootte = mijnTegels.size();
+		for(int i = 0; i < grootte; i++)
+		{
+			Tegel_Gui tg = mijnTegels.get(i);
+			if(tg.getTegel().getID() == buur.getID())
+			{
+				Punt p = new Punt(tg.getPos());
+				if(bp.getRichting() == Tegel.RICHTING.BOVEN){
+					p.setY(p.getY()-1);
+				}else if(bp.getRichting() == Tegel.RICHTING.ONDER){
+					p.setY(p.getY()+1);
+				}else if(bp.getRichting() == Tegel.RICHTING.RECHTS){
+					p.setX(p.getX()+1);
+				}else if(bp.getRichting() == Tegel.RICHTING.LINKS){
+					p.setX(p.getX()-1);
+				}
+				this.voegTegelToe(p.getX(), p.getY(), tegel);
+			}
+		}
+	}
 	
 }

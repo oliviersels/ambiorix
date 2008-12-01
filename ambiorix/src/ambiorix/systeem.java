@@ -1,5 +1,7 @@
 package ambiorix;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -9,6 +11,7 @@ import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
 import ambiorix.spelbord.tegeltypes.TegelType_WGGWW;
 import ambiorix.spelbord.terreintypes.*;
+import ambiorix.util.Punt;
 
 
 public class systeem 
@@ -16,8 +19,8 @@ public class systeem
 
 	public static void main(String args[])
 	{	
-		Robin();
-		//Jens();
+		//Robin();
+		Jens();
 		//Jan();
 		//Olivier();
 	}
@@ -54,12 +57,17 @@ public class systeem
 			e.printStackTrace();
 		}
 		HoofdVenster hv = HoofdVenster.geefInstantie();
-		/*for(int i = 0; i <20; i++)
-			for(int y = 0; y <20 ;y++)
-				hv.voegTegelToe(i, y, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
-		*/
-		hv.voegTegelToe(2, 2, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
-		hv.voegTegelToe(3, 2, new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK")));
+		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
+		
+		Spelbord spelbord = new Spelbord();
+		spelbord.setBegintegel(t);
+		spelbord.setTegelAantal("TegelType_GGGGK", 5);
+		hv.voegTegelToe(3, 3, t);
+		Tegel t2 = spelbord.getVolgendeTegel();
+		spelbord.plaatsTegel(t2, new BordPositie(t, Tegel.RICHTING.LINKS) );
+		hv.voegTegelToe(t2, new BordPositie(t, Tegel.RICHTING.LINKS));
+		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
+		hv.tekenTerrein(gebied);
 		
 	}
 

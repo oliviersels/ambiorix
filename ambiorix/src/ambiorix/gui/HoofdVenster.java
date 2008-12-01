@@ -15,6 +15,8 @@ import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Tegel;
 
 public class HoofdVenster extends JFrame{
@@ -147,5 +149,13 @@ public class HoofdVenster extends JFrame{
 	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
 		tegelVeld.voegTegelToe(x, y, tegel);
+	}
+	public void voegTegelToe(Tegel tegel, BordPositie bp)
+	{
+		tegelVeld.voegTegelToe(tegel, bp);
+	}
+	public void tekenTerrein(Gebied gebied)
+	{
+		tegelVeld.tekenTerrein(gebied);
 	}
 }

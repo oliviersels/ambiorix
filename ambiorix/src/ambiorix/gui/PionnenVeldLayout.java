@@ -6,15 +6,26 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
-import java.util.Vector;
 
-public class TegelVeldLayout implements LayoutManager {
-	int i = 0;
-	int minHoogte = 0;
-	int minBreedte = 0;
+public class PionnenVeldLayout implements LayoutManager {
+	int Hoogte = 100;
+	int Breedte = 300;
+	int aantal = 0;
 	@Override
-	public void addLayoutComponent(String s, Component c) {
-		i++;
+	public void addLayoutComponent(String arg0, Component com) {
+		aantal++;
+		com.setBounds((aantal * 20)% this.Breedte, (aantal*20) / Hoogte, 20, 20);
+	}
+
+	@Override
+	public void layoutContainer(Container parent) {
+		int nComps = parent.getComponentCount();
+
+
+        for (int i = 0 ; i < nComps ; i++) {
+            Component c = parent.getComponent(i);
+            c.setBounds((i * 20)% this.Breedte, (i*20) / Hoogte, 20, 20);
+        }
 	}
 
 	@Override
@@ -24,7 +35,8 @@ public class TegelVeldLayout implements LayoutManager {
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
-		Dimension dim = new Dimension(0, 0);
+		Dimension dim = new Dimension(Breedte, Hoogte);
+		/*
         int nComps = parent.getComponentCount();
         minBreedte = 0;
         int maxBreedte = 0;
@@ -47,27 +59,14 @@ public class TegelVeldLayout implements LayoutManager {
         Insets insets = parent.getInsets();
         dim.width = maxBreedte - minBreedte  + insets.left + insets.right;
         dim.height = maxHoogte - minHoogte + insets.top + insets.bottom;
+        */
         return dim;
-
 	}
 
 	@Override
 	public void removeLayoutComponent(Component arg0) {
-		// TODO Auto-generated method stub
-
+		aantal--;
+		
 	}
-	
-	public void layoutContainer(Container parent) {
-        int nComps = parent.getComponentCount();
-
-
-        for (int i = 0 ; i < nComps ; i++) {
-            Component c = parent.getComponent(i);
-           
-            Rectangle rec = (c).getBounds();
-            c.setBounds(rec.x - minBreedte, rec.y - minHoogte, rec.width, rec.height);
-        }
-    }
-
 
 }
