@@ -148,7 +148,7 @@ public class TegelGebiedBeheerder
 				// anders moeten we niet meer toevoegen!!!
 				if( !gesloten.contains(nieuw.toString()) )
 				{
-					gebied.voegToe( nieuw );
+					gebied.voegTerreinToe( nieuw );
 					gesloten.add( nieuw.toString() );
 					
 					//System.out.println("Toegevoegd : " + nieuw.getTegel().getID() + " - " + nieuw.getPositie().getX() + "," + nieuw.getPositie().getY() );

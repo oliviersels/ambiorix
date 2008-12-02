@@ -34,6 +34,4 @@ public class Pion
 	{
 		this.speler = speler;
 	}
-	
-	
 }

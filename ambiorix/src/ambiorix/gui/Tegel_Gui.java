@@ -60,7 +60,7 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		for (Punt p: gebiedenTeTekenen)
 		{
 			//g2.drawRect((rec.width + 1)/tb * p.getX(), (rec.height + 1)/tb * p.getY(), 98/tb, 98/tb);
-			g2.fillRect((rec.width + 1)/tb * p.getX(), (rec.height + 1)/tb * p.getY(), 99/tb, 99/tb);
+			g2.fillRect((rec.width + 1)/tb * p.getY(), (rec.height + 1)/tb * p.getX(), 99/tb, 99/tb);
 		}
 	}
 	
