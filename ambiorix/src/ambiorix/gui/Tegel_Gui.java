@@ -22,9 +22,7 @@ import ambiorix.util.Punt;
 public class Tegel_Gui extends JComponent implements MouseListener{
 	
 	public void update(Graphics g){paint(g);}
-	private int rotatie = 0;
 	private BufferedImage mijnAfbeelding = null;
-	private BufferedImage mijnGeroteerdeAfbeelding = null;
 	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
 	private Vector<Punt> gebiedenTeTekenen;
 	private Tegel tegel;
@@ -32,12 +30,13 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	
 	public Tegel_Gui(Tegel t)
 	{
+		String fileNaam = t.getType().getID();
 		try {
-			mijnAfbeelding = ImageIO.read(new File("testtegel.jpg"));
+			
+			mijnAfbeelding = ImageIO.read(new File(fileNaam + ".jpg"));
 		} catch (IOException e) {
-			System.out.println("opgegeven image niet gevonden in Tegel_Gui");
+			System.out.println(fileNaam + " niet gevonden in Tegel_Gui");
 		}
-		mijnGeroteerdeAfbeelding = mijnAfbeelding;
 		this.addMouseListener(this);
 		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
 		gebiedenTeTekenen = new Vector<Punt>();
@@ -52,15 +51,18 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		
 		Rectangle rec = this.getBounds();
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(mijnGeroteerdeAfbeelding, 1, 1, rec.width-2, rec.height-2, null);
-		AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .7f);
+		int rot = tegel.getRotatie();
+		g2.rotate(Math.toRadians(rot), 50, 50);
+		g2.drawImage(mijnAfbeelding, 0, 0, rec.width, rec.height, null);
+		g2.rotate(-Math.toRadians(rot), 50, 50);
+		AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f);
 		g2.setComposite(ap);
 		g2.setColor(Color.red);
 		int tb = tegel.getTerreinBreedte();
 		for (Punt p: gebiedenTeTekenen)
 		{
 			//g2.drawRect((rec.width + 1)/tb * p.getX(), (rec.height + 1)/tb * p.getY(), 98/tb, 98/tb);
-			g2.fillRect((rec.width + 1)/tb * p.getY(), (rec.height + 1)/tb * p.getX(), 99/tb, 99/tb);
+			g2.fillRect((rec.width)/tb * p.getY(), (rec.height)/tb * p.getX(), 100/tb, 100/tb);
 		}
 	}
 	

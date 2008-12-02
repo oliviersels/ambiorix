@@ -90,7 +90,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());*/
 			
 			int lengte = geklikteTegel.getTerreinHoogte();
-			hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelX/100, lengte*tg.tegelPixelY/100) ).toString()  );
+			hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelY/100, lengte*tg.tegelPixelX/100) ).toString()  );
 		}
 	}
 	@Override
