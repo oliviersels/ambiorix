@@ -1,5 +1,6 @@
 package ambiorix.spelbord;
 
+import java.util.Set;
 import java.util.Vector;
 import java.util.HashMap;
 
@@ -110,6 +111,38 @@ public class Gebied
 	public Vector<BordPositie> openZijden()
 	{
 		return openZijden;
+	}
+	
+	
+	public void print()
+	{
+		// tereinstukken
+		System.out.println(">> Terreinstukken : ");
+		for( Terrein terrein: terreinStukken )
+		{
+			System.out.println(terrein.getTegel().getID() + "->" +  terrein.getPositie().toString() );
+		}
+		
+		System.out.println(">> Tegels : ");
+		for( Tegel tegel: tegels )
+		{
+			System.out.println(tegel.getID() );
+		}
+		
+		System.out.println(">> Open Zijden : ");
+		for( BordPositie positie: openZijden )
+		{
+			System.out.println(positie.getBuur().getID() + " langs " + positie.getRichting() );
+		}
+		
+		System.out.println(">> Pionnen : ");
+		Set<Pion> pionKeys = pionnen.keySet();
+		for( Pion pion: pionKeys )
+		{
+			System.out.println(pion.getID() + " op " + pionnen.get(pion).toString() );
+		}
+		
+		
 	}
 	
 		

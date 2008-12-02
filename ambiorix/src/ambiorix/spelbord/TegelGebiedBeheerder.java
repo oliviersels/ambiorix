@@ -125,6 +125,7 @@ public class TegelGebiedBeheerder
 		/*
 		 * Helpfunctie die recursief het gebied gaat berekenen.
 		 */
+		// TODO : gesloten (de check op dubbele terreinen) naar gebied brengen, niet in functie houden
 		private void berekenGebied( Gebied gebied, Terrein start, Vector<String> gesloten )
 		{
 			// we gaan ervanuit dat START nog niet in het gebied zit
@@ -134,6 +135,7 @@ public class TegelGebiedBeheerder
 			//  - NEE: stop
 			
 			Tegel tegel = start.getTegel();
+			Pion pion = null;
 			TerreinType gebiedType = gebied.getType();
 			
 			//System.out.print("Kandidaat : " + start.getTegel().getID() + " - " + start.getPositie().getX() + "," + start.getPositie().getY() );
@@ -150,6 +152,10 @@ public class TegelGebiedBeheerder
 				{
 					gebied.voegTerreinToe( nieuw );
 					gesloten.add( nieuw.toString() );
+					
+					// kijken of er een pion opstaat. If so : toevoegen aan gebied
+					if( (pion = tegel.getPion(start.getPositie())) != null )
+						gebied.voegPionToe(pion, new Terrein( tegel, new Punt(start.getPositie()) ) );
 					
 					//System.out.println("Toegevoegd : " + nieuw.getTegel().getID() + " - " + nieuw.getPositie().getX() + "," + nieuw.getPositie().getY() );
 					
@@ -242,6 +248,8 @@ public class TegelGebiedBeheerder
 							{
 								//System.out.println("Punt niet gevonden op buur");
 								nieuw = null;
+								
+								gebied.voegOpenZijdeToe(new BordPositie(tegel,richting));
 							}
 						}
 						

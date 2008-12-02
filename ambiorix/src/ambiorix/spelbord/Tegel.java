@@ -342,7 +342,7 @@ public class Tegel
 	 * Intern moet zo'n 2D punt eerst omgezet worden naar arraycoordinaten,
 	 * zodat pionPosities dezelfde logica gebruikt als TerreinType.terrein
 	 */
-	public void PlaatsPion(Punt positie, Pion pion)
+	public void plaatsPion(Punt positie, Pion pion)
 	{
 		boolean bestaat = ( positie.getX() < pionPosities.length ) && ( positie.getY() < pionPosities[0].length );
 		

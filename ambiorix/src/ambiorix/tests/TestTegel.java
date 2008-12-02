@@ -188,13 +188,13 @@ public class TestTegel {
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK") );	
 		
 		Pion p = new Pion(0, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling") );
-		t.PlaatsPion(new Punt(1,2), p);
+		t.plaatsPion(new Punt(1,2), p);
 		
 		assertEquals( "pion correct gezet", t.getPion( new Punt(1,2) ), p );
 		
 		// meerdere pionnen op 1 tegel
 		Pion p2 = new Pion(0, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling") );
-		t.PlaatsPion(new Punt(1,1), p2);
+		t.plaatsPion(new Punt(1,1), p2);
 
 		assertEquals( "pion correct gezet", t.getPion( new Punt(1,1) ), p2 );		
 	}

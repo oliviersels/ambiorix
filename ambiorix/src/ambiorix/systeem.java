@@ -242,15 +242,21 @@ public class systeem
 
 		hv.voegTegelToe(middenmidden, new BordPositie(linksmidden, Tegel.RICHTING.RECHTS) );
 		
+		Pion pion = new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		
+		middenmidden.plaatsPion(new Punt(0,1), pion);
+		
 		Gebied gebied = bord.getGebied( new Terrein(rechtsmidden, new Punt(0,1)) );
 		
 		hv.tekenTerrein(gebied);
 		
+		gebied.print();
+		
 		// kloosters mogen er niet in
-		for( Terrein terrein: gebied.getTerreinStukken() )
+		/*for( Terrein terrein: gebied.getTerreinStukken() )
 		{
 			System.out.println("Zoek de weg : " +  terrein.getTegel().getID() + "->" +  terrein.getPositie().toString() );
-		}
+		}*/
 	}
 
 	private static void Steven()
