@@ -17,7 +17,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
+import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
+import ambiorix.util.Punt;
 
 public class HoofdVenster extends JFrame{
 	private static HoofdVenster instantie = null; // Even singleton van gemaakt, moet opgelost kunnen worden
@@ -157,5 +159,9 @@ public class HoofdVenster extends JFrame{
 	public void tekenTerrein(Gebied gebied)
 	{
 		tegelVeld.tekenTerrein(gebied);
+	}
+	public void voegPionToe(Tegel tegel, Pion pion, Punt pos)
+	{
+		tegelVeld.voegPionToe(tegel, pion, pos);
 	}
 }

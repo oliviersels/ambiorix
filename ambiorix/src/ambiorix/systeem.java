@@ -258,6 +258,9 @@ public class systeem
 		
 		gebied.print();
 		
+		Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		hv.voegPionToe(middenonder, vg, new Punt(0,0));
+		
 		// kloosters mogen er niet in
 		/*for( Terrein terrein: gebied.getTerreinStukken() )
 		{

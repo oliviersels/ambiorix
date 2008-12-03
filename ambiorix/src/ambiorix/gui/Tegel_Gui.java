@@ -16,6 +16,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
+import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.util.Punt;
 
@@ -25,6 +26,8 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	private BufferedImage mijnAfbeelding = null;
 	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
 	private Vector<Punt> gebiedenTeTekenen;
+	private Vector<Pion> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
+	private Vector<Punt> mijnPionPunten;
 	private Tegel tegel;
 	private Punt p;
 	
@@ -40,6 +43,8 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		this.addMouseListener(this);
 		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
 		gebiedenTeTekenen = new Vector<Punt>();
+		mijnPionnen = new Vector<Pion>();
+		mijnPionPunten = new Vector<Punt>();
 		tegel = t;
 		p = new Punt(0,0);
 	}
@@ -58,11 +63,33 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f);
 		g2.setComposite(ap);
 		g2.setColor(Color.red);
-		int tb = tegel.getTerreinBreedte();
+		float tb = tegel.getTerreinBreedte();
+		float th = tegel.getTerreinHoogte();
 		for (Punt p: gebiedenTeTekenen)
 		{
 			//g2.drawRect((rec.width + 1)/tb * p.getX(), (rec.height + 1)/tb * p.getY(), 98/tb, 98/tb);
-			g2.fillRect((rec.width)/tb * p.getY(), (rec.height)/tb * p.getX(), 100/tb, 100/tb);
+			g2.fillRect((int)Math.round(((float)rec.width)/tb * (float)p.getY()),
+					(int)Math.round((float)(rec.height)/th * (float)p.getX()), (int)Math.ceil(100.0f/tb), (int)Math.ceil(100.0f/th));
+		}
+		
+		AlphaComposite ap2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
+		g2.setComposite(ap2);
+		
+		int aantalPionnen = this.mijnPionnen.size();
+		for(int i = 0; i < aantalPionnen ; i++)
+		{
+			BufferedImage mijnPionImg = null;
+			// TODO image loader maken
+			try {
+				
+				mijnPionImg = ImageIO.read(new File("pion.png"));
+			} catch (IOException e) {
+				System.out.println("pion.png" + " niet gevonden in Tegel_Gui");
+			}
+			
+			Punt p = mijnPionPunten.get(i);
+			g2.drawImage(mijnPionImg, (int)Math.round(((float)rec.width)/tb * (float)p.getY()),
+					(int)Math.round((float)(rec.height)/th * (float)p.getX()), (int)Math.ceil(100.0f/tb), (int)Math.ceil(100.0f/th), null);
 		}
 	}
 	
@@ -148,6 +175,12 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	public void wisGebiedenTeTekenen()
 	{
 		gebiedenTeTekenen.clear();
+	}
+
+	public void voegPionToe(Pion pion, Punt pos) {
+		mijnPionnen.add(pion);
+		mijnPionPunten.add(pos);
+		
 	}
 	
 	

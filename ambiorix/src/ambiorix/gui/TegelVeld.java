@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
+import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinType;
@@ -185,5 +186,15 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 			}
 		}
 	}
-	
+
+	public void voegPionToe(Tegel tegel, Pion pion, Punt pos) {
+		for(Tegel_Gui tg: mijnTegels)
+		{
+			if(tg.getTegel().getID() == tegel.getID())
+			{
+				tg.voegPionToe(pion, pos);
+			}
+		}
+		
+	}
 }
