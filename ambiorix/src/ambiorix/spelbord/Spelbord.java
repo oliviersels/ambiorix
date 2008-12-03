@@ -3,6 +3,8 @@ package ambiorix.spelbord;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
+import java.util.Vector;
+import java.util.Collection;
 
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
@@ -27,6 +29,10 @@ public class Spelbord
 	
 	private Tegel beginTegel = null;
 	private int volgendeTegelID = 1;
+	
+	private Tegel laatstGeplaatsteTegel = null;
+	
+	private HashMap<Pion,Terrein> pionnen = new HashMap<Pion, Terrein>();
 	
 	public Spelbord()
 	{
@@ -164,6 +170,157 @@ public class Spelbord
 	}
 	
 	/*
+	 * Deze functie controleer of een pion plaatsbaar is op terrein door het gebied rondom terrein te berekenen
+	 * en te zien of er nog geen andere pionnen aanwezig zijn.
+	 */
+	public boolean controleerPlaatsbaarheid( Pion pion, Terrein terrein )
+	{
+		// TODO : berekening gebied aanpassen zodat hij stopt op 1 pion gevonden !
+		boolean output = true;
+		
+		Gebied g = getGebied(terrein);
+		
+		output = (g.getPionnen().keySet().size() == 0);
+		
+		return output;
+	}
+	
+	/*
+	 * Geeft de laatste succesvol geplaatste tegel terug.
+	 * 
+	 */
+	public Tegel getLaatstGeplaatsteTegel()
+	{
+		return laatstGeplaatsteTegel;
+	}
+	
+	/*
+	 * Deze functie gaat controleren of een tegel ERGENS op het bord kan geplaatst worden.
+	 * Als dit zo is, is output.size() != 0
+	 * 
+	 * Hij gaat alle tegels afgaan, in de 4 richtingen kijken of er al een buur staat.
+	 * Is dit niet zo controleert hij de plaatsbaarheid van de tegel. Geeft dit true terug, wordt de BordPositie toegevoegd
+	 * aan de output.
+	 * 
+	 * ALs stopDirect == false zal hij een lijst teruggeven van alle mogelijke posities waar de tegel kan gelegd worden.
+	 *    = trager => maar handig voor de AI
+	 * Als stopDirect == true zal hij enkel de eerste die hij vind teruggeven en dan stoppen.
+	 *    = snel => om een voorgestelde tegel te checken
+	 * 
+	 */
+	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel, boolean stopDirect)
+	{
+		// tegelCoordinaten geeft ons pointers naar elke tegel die geplaatst is.
+		// deze tegels allemaal afgaan en aan elke zijde checken of de nieuwe tegel plaatsbaar is.
+		
+		Collection<Tegel> tegels = tegelCoordinaten.values();
+		Vector<BordPositie> output = new Vector<BordPositie>();
+		BordPositie pos = null;
+		
+		for(Tegel t: tegels)
+		{
+			for(Tegel.RICHTING richting: Tegel.RICHTING.values() )
+			{
+				if( t.getBuur(richting) == null )
+				{
+					pos = new BordPositie(t,richting);
+					if( controleerPlaatsbaarheid(tegel, pos ) )
+					{
+						output.add(pos);
+						
+						if( stopDirect )
+							return output;
+					}
+					// else kan de tegel hier niet gezet worden, dus overslaan
+				}
+				// else is er al een buur daar, kan zeker niet
+			}
+		}
+		
+		return output;
+	}
+	
+	/*
+	 * Deze functie verwijdert de tegel van het spelbord, en past ook de buren aan.
+	 * 
+	 */
+	public void verwijderTegel(Tegel tegel)
+	{
+		// ook verwijderen uit coordinatentabel !!!
+		Punt positie = tegelCoordinaten.getKey(tegel);
+		if(positie == null)
+		{
+			// TODO exception
+			System.out.println("Spelbord::verwijderTegel : Kan tegel niet vinden op het spelbord !");
+			return;
+		}
+		
+		
+		Punt buurPositie = null;
+		Tegel buur = null;
+		
+		// de buren updaten zodat ze geen verwijzingen meer hebben naar de verwijderde tegel
+		for( Tegel.RICHTING richting : Tegel.RICHTING.values() )
+		{
+			buurPositie = getAangrenzendeCoordinaat(positie, richting);
+			
+			if(buurPositie != null)
+			{
+				buur = tegelCoordinaten.get(buurPositie);
+				
+				if(buur != null)
+				{
+					buur.verwijderBuur(richting.getTegenovergestelde());
+				}
+				else
+				{
+					// TODO : Exception
+					System.out.println("Spelbord::verwijderTegel : Kan tegel op buurpositie niet vinden !");
+					return;
+				}
+			}
+			// else is er daar geen buur, dus moeten we ook niks laten weten
+		}
+	}
+	
+	/*
+	 * Deze functie plaatst een pion op het gegeven terrein
+	 * 
+	 */
+	public void plaatsPion(Pion pion, Terrein terrein)
+	{
+		// TODO : indices check ?
+		terrein.getTegel().plaatsPion(terrein.getPositie(), pion);
+		pionnen.put(pion, terrein);
+	}
+	
+	/*
+	 * verwijdert een pion van de opgegeven positie, als daar eentje staat tenminste.
+	 * 
+	 * OPM : dit verwijdert niet het pion-object, slechts de verwijzing ernaar op het spelbord.
+	 * 
+	 */
+	public void verwijderPion(Terrein positie)
+	{
+		pionnen.remove(positie.getTegel().getPion(positie.getPositie()));
+		positie.getTegel().verwijderPion(positie.getPositie());
+	}
+	
+	/*
+	 * Zoekt waar de pion staat en verwijdert deze dan van het spelbord.
+	 * Deze functie is traag => Gebruikt verwijderPion(Terrein positie)!!!
+	 * 
+	 * OPM : zoekt maar tot hij de pion 1x gevonden heeft. Als meermaals dezelfde pion op het spelbord staat
+	 * , zal enkel de eerste verwijzing ongedaan worden gemaakt !
+	 */
+	public void verwijderPion(Pion pion)
+	{
+		Terrein positie = pionnen.get(pion);
+		if(positie != null)
+			verwijderPion(positie);
+	}
+	
+	/*
 	 * Deze functie gaat tegel toevoegen aan het spelbord, naast de gespecifieerde buur.
 	 * De richting geeft aan hoe de nieuwe tegel ligt tov de buur.
 	 * richting == BOVEN betekent bijv. dat de nieuwe tegel BOVEN de buur moet geplaatst worden.
@@ -191,6 +348,8 @@ public class Spelbord
 		if( tegel.getID() == -1)
 			tegel.setID( getVolgendeTegelID() );
 		
+		
+		laatstGeplaatsteTegel = tegel;
 		
 		// nu we de coordinaat kennen, de buren errond laten weten dat de nieuwe tegel gezet is
 		for( Tegel.RICHTING r : Tegel.RICHTING.values() )

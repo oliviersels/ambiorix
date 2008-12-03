@@ -2,7 +2,7 @@ package ambiorix.spelbord;
 
 import ambiorix.util.Punt;
 
-public class Terrein 
+public class Terrein implements TerreinBasis
 {
 	private Tegel tegel = null;
 	private Punt positie = null;

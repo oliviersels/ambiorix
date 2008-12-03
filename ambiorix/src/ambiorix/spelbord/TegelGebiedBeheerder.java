@@ -1,6 +1,6 @@
 package ambiorix.spelbord;
 
-import ambiorix.spelbord.Tegel.RICHTING;
+import ambiorix.spelbord.TegelBasis.RICHTING;
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
 
@@ -97,7 +97,6 @@ public class TegelGebiedBeheerder
 		
 	public void setBuur(Tegel buur, RICHTING richting)
 	{
-		
 		// moeten zelf niet verder in de boom van tegels zoeken, daar zorgt tegel wel voor
 
 		PuntMap<Terrein> verzameling = getGebiedHelpers(richting);
@@ -107,6 +106,17 @@ public class TegelGebiedBeheerder
 		{
 			verzameling.get(punt).setTegel(buur);
 		}	
+	}
+	
+	public void verwijderBuur(RICHTING richting)
+	{
+		PuntMap<Terrein> verzameling = getGebiedHelpers(richting);
+		Set<Punt> punten = verzameling.keySet();
+		
+		for(Punt p: punten)
+		{
+			verzameling.get(p).setTegel(null);
+		}
 	}
 	
 	public Gebied getGebied(Terrein start)

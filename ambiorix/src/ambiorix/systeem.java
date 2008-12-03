@@ -246,6 +246,12 @@ public class systeem
 		
 		middenmidden.plaatsPion(new Punt(0,1), pion);
 		
+		
+		// laat deze weg voor goed te zien, laat em staan om verwijderen van tegel te testen
+		// opgelet : gui tekent em nog wel !!!!
+		//bord.verwijderTegel(linksmidden);
+		
+		
 		Gebied gebied = bord.getGebied( new Terrein(rechtsmidden, new Punt(0,1)) );
 		
 		hv.tekenTerrein(gebied);

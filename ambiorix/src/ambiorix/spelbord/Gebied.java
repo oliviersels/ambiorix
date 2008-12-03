@@ -108,7 +108,7 @@ public class Gebied
 		return pionnen;
 	}
 	
-	public Vector<BordPositie> openZijden()
+	public Vector<BordPositie> getOpenZijden()
 	{
 		return openZijden;
 	}

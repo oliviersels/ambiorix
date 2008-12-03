@@ -4,34 +4,11 @@ import java.util.Vector;
 
 import ambiorix.util.Punt;
 
-public class Tegel 
+public class Tegel implements TegelBasis
 {
 	private int ID = -1;
 	private int rotatie = 0;
 	private boolean draaibaar = true;
-	
-	public enum RICHTING
-	{
-		BOVEN,
-		RECHTS,
-		ONDER,
-		LINKS;
-		
-		public RICHTING getTegenovergestelde()
-		{
-			if( this == RICHTING.BOVEN )
-				return RICHTING.ONDER;
-			if( this == RICHTING.ONDER )
-				return RICHTING.BOVEN;
-			if( this == RICHTING.RECHTS )
-				return RICHTING.LINKS;		
-			if( this == RICHTING.LINKS )
-				return RICHTING.RECHTS;		
-			
-			// anders doet compiler moeilijk. Komt hier nooit.
-			return null;
-		}
-	}
 	
 	private TegelType type = null;
 	
@@ -154,193 +131,19 @@ public class Tegel
 		// moeten ons geen zorgen meer maken over andere buren. Spelbord regelt dit.
 	}
 	
+	public void verwijderBuur(RICHTING richting)
+	{
+		buren[ richting.ordinal() ] = null;
+		gebiedBeheerder.verwijderBuur(richting);
+	}
+	
 	public Tegel getBuur(RICHTING richting)
 	{
 		return buren[ richting.ordinal() ];
 	}
 	
-	/*protected void setBuur(Tegel buur, RICHTING richting, boolean synchronizeer)
-	{
-		//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
-		
-		if( getBuur( richting ) == null )
-		{
-			buren[ richting.ordinal() ] = buur;
-			
-			// de buur moet zelf ook deze tegel als zijn buur zetten !
-			/*if( richting == RICHTING.BOVEN )
-				buur.setBuur(this, RICHTING.ONDER, false);
-			if( richting == RICHTING.ONDER )
-				buur.setBuur(this, RICHTING.BOVEN, false);	
-			if( richting == RICHTING.RECHTS )
-				buur.setBuur(this, RICHTING.LINKS, false);		
-			if( richting == RICHTING.LINKS )
-				buur.setBuur(this, RICHTING.RECHTS, false);	*\/
-			
-			buur.setBuur(this, richting.getTegenovergestelde(),false);
-			
-		} 
-		else
-		{
-			// TODO ; mogen we dit hier gewoon zo laten? 
-			// Momenteel gaat hij altijd hierin komen, door bovenstaande code.
-			// ik zou zeggen : gewoon niks doen en oude behouden.
-			// mss een functie "vervangtegel" ?
-			
-			//System.out.println("Tegel::SetBuur : TEGEL IS AL GEZET");
-			//System.out.println("setBuur : " + this.ID + " zet op " + richting + " => " + buur.getID() + ", " + synchronizeer );
-			return;
-		}
-		
-		gebiedBeheerder.setBuur(buur, richting);
-		
-		if(!synchronizeer)
-			return;
-		
-
-		// ook zorgen dat omliggende tegels deze tegel registreren als buur!
-		// hangt totaal van de richting af!
-		
-		// algoritme is gebaseerd op een reeks tegels die je moet doorlopen om alle aangrenzende
-		// tegels van de nieuw geplaatste te bereiken. Omdat we maar 4 buren bijhouden, slaan we
-		// telkens 1 over om setBuur op aan te roepen.
-		// Pad zegt dus welk pad er moet gevolgd worden, operaties bij welke tegel in dat pad de buur
-		// moet aangepast worden. (4 elementen in pad, 2 in operaties)
-		
-		
-		RICHTING[] pad1 = BuurPaden.getPad(richting, 1);
-		RICHTING[] operaties1 = BuurPaden.getOperaties(richting, 1);
-		RICHTING[] pad2 = BuurPaden.getPad(richting, 2);
-		RICHTING[] operaties2 = BuurPaden.getOperaties(richting, 2);
-		
-		synchronizeerBuren(buur, pad1, operaties1);
-		synchronizeerBuren(buur, pad2, operaties2);		
-
-		
-		/*if(richting == RICHTING.BOVEN)
-		{
-			RICHTING[] pad = 		{RICHTING.LINKS, RICHTING.BOVEN, RICHTING.BOVEN, RICHTING.RECHTS};
-			RICHTING[] operaties =  {null          , RICHTING.RECHTS, null		   , RICHTING.ONDER};
-			
-			synchronizeerBuren(buur, pad, operaties);
-			
-			RICHTING[] pad2 = 		 {RICHTING.RECHTS, RICHTING.BOVEN, RICHTING.BOVEN, RICHTING.LINKS};
-			RICHTING[] operaties2 =  {null           , RICHTING.LINKS, null		     , RICHTING.ONDER};
-			
-			synchronizeerBuren(buur, pad2, operaties2);
-		}
-		
-
-		
-		if(richting == RICHTING.RECHTS)
-		{
-			RICHTING[] pad = 		{RICHTING.BOVEN, RICHTING.RECHTS, RICHTING.RECHTS, RICHTING.ONDER};
-			RICHTING[] operaties =  {null          , RICHTING.ONDER, null		     , RICHTING.LINKS};
-			
-			synchronizeerBuren(buur, pad, operaties);
-			
-			RICHTING[] pad2 = 		 {RICHTING.ONDER, RICHTING.RECHTS, RICHTING.RECHTS, RICHTING.BOVEN};
-			RICHTING[] operaties2 =  {null          , RICHTING.BOVEN, null		      , RICHTING.LINKS};
-			
-			synchronizeerBuren(buur, pad2, operaties2);
-		}
-		
-
-
-		if(richting == RICHTING.ONDER)
-		{
-			RICHTING[] pad = 		{RICHTING.LINKS, RICHTING.ONDER, RICHTING.ONDER, RICHTING.RECHTS};
-			RICHTING[] operaties =  {null          , RICHTING.RECHTS, null		   , RICHTING.BOVEN};
-			
-			synchronizeerBuren(buur, pad, operaties);
-			
-			RICHTING[] pad2 = 		 {RICHTING.RECHTS, RICHTING.ONDER, RICHTING.ONDER, RICHTING.LINKS};
-			RICHTING[] operaties2 =  {null           , RICHTING.LINKS, null		     , RICHTING.BOVEN};
-			
-			synchronizeerBuren(buur, pad2, operaties2);
-		}
-		
-
-
-		if(richting == RICHTING.LINKS)
-		{
-			RICHTING[] pad = 		{RICHTING.BOVEN, RICHTING.LINKS, RICHTING.LINKS, RICHTING.ONDER};
-			RICHTING[] operaties =  {null          , RICHTING.ONDER, null		   , RICHTING.RECHTS};
-
-			synchronizeerBuren(buur, pad, operaties);
-			
-			RICHTING[] pad2 = 		 {RICHTING.ONDER, RICHTING.LINKS, RICHTING.LINKS, RICHTING.BOVEN};
-			RICHTING[] operaties2 =  {null           , RICHTING.BOVEN, null		    , RICHTING.RECHTS};
-			
-			synchronizeerBuren(buur, pad2, operaties2);
-		}		
-		
-		// originele code
-		// geeft een goed idee hoe de synchronizeerBuren-functie werkt
-		// louter ter DOCUMENTATIE bedoeld!!!
-		/*if( richting == RICHTING.BOVEN )
-		{
-			// langs links naar boven gaan en kijken of daar buren zitten.
-			Tegel links = getBuur( RICHTING.LINKS );
-			
-			if( links != null )
-			{
-				Tegel linksboven = links.getBuur(RICHTING.BOVEN);
-				if( linksboven != null )
-				{
-					linksboven.setBuur(buur, RICHTING.RECHTS);
-					
-					Tegel dubbellinksboven = linksboven.getBuur(RICHTING.BOVEN);
-					if( dubbellinksboven != null )
-					{
-						Tegel dubbelboven = dubbellinksboven.getBuur(RICHTING.RECHTS);
-						if(dubbelboven != null)
-							dubbelboven.setBuur(buur, RICHTING.ONDER);
-					}
-				}
-			}
-			
-		}*\/
-	}*/
-	
-		// hulpfunctie voor setBuur()
-		/*private void synchronizeerBuren(Tegel buur, RICHTING[] pad, RICHTING[] operaties)
-		{
-			int teller = 0;
-			Tegel tegel = this;
-			
-			while( teller < pad.length )
-			{
-				tegel = tegel.getBuur( pad[teller] );
-				if( tegel == null )
-					return;
-				
-				if( operaties[teller] != null )
-					tegel.setBuur(buur, operaties[teller], false);
-				
-				teller++;
-			}
-		}*/
-		
-	public void print()
-	{
-		System.out.println( "Tegel::Print voor tegel " + ID );
-		
-		for(RICHTING r: RICHTING.values())
-		{
-			Tegel buur = getBuur(r);
-			if(buur == null)
-				System.out.println(r + " = LEEG");
-			else
-				System.out.println(r + " = " + buur.getID());
-				
-		}
-	}
-	
 	/*
-	 * Tegel werkt met 2D coordinaten naar de buitenwereld.
-	 * Intern moet zo'n 2D punt eerst omgezet worden naar arraycoordinaten,
-	 * zodat pionPosities dezelfde logica gebruikt als TerreinType.terrein
+	 * Houdt geen rekening met eventuele bestaande pionnen
 	 */
 	public void plaatsPion(Punt positie, Pion pion)
 	{
@@ -355,6 +158,22 @@ public class Tegel
 		}
 	}
 	
+	public void verwijderPion(Punt positie)
+	{
+		boolean bestaat = ( positie.getX() < pionPosities.length ) && ( positie.getY() < pionPosities[0].length );
+		
+		if( bestaat )
+			pionPosities[ positie.getX() ][ positie.getY() ] = null;
+		else
+		{
+			// TODO : exception
+			
+		}
+	}
+	
+	/*
+	 * Geeft null terug als er geen pion aanwezig is op positie.
+	 */
 	public Pion getPion(Punt positie)
 	{
 		boolean bestaat = ( positie.getX() < pionPosities.length ) && ( positie.getY() < pionPosities[0].length );
@@ -373,8 +192,6 @@ public class Tegel
 		return gebiedBeheerder.getGebied(start);
 	}
 	
-	
-
 	public int getID() 
 	{
 		return ID;
@@ -416,11 +233,6 @@ public class Tegel
 	{
 		return terrein.length;
 	}
-
-	/*public TerreinType[][] getTerrein() 
-	{
-		return terrein;
-	}*/
 	
 	// TODO : deze moet hier weg !
 	public TegelGebiedBeheerder getGebiedBeheerder()
@@ -431,6 +243,22 @@ public class Tegel
 	public boolean isDraaibaar()
 	{
 		return draaibaar;
+	}
+	
+	
+	public void print()
+	{
+		System.out.println( "Tegel::Print voor tegel " + ID );
+		
+		for(RICHTING r: RICHTING.values())
+		{
+			Tegel buur = getBuur(r);
+			if(buur == null)
+				System.out.println(r + " = LEEG");
+			else
+				System.out.println(r + " = " + buur.getID());
+				
+		}
 	}
 	
 }

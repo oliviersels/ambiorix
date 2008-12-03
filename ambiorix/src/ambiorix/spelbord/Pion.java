@@ -2,7 +2,7 @@ package ambiorix.spelbord;
 
 import ambiorix.spelers.Speler;
 
-public class Pion
+public class Pion implements PionBasis
 {
 	private int ID = -1;
 	private PionType type = null;

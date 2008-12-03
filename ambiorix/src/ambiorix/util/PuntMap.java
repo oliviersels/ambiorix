@@ -1,5 +1,6 @@
 package ambiorix.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,5 +50,22 @@ public class PuntMap<T>
 	public boolean containsValue(T value)
 	{
 		return map.containsValue(value);
+	}
+	
+	public Collection<T> values()
+	{
+		return map.values();
+	}
+	
+	public Punt getKey(T value)
+	{
+		Set<String> punten = map.keySet();
+		for( String punt: punten )
+		{
+			if( map.get(punt) == value )
+				return Punt.fromString(punt);
+		}
+		
+		return null;
 	}
 }
