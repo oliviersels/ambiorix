@@ -13,9 +13,6 @@ import ambiorix.spelbord.Terrein;
 import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 
-// TODO_S eigelijk met reflectie via uitbreidingen
-import ambiorix.acties.basisspel.*;
-
 public class SpelToolkit {
 	private Vector<Speler> spelers;
 	private Spelbord spelbord;
