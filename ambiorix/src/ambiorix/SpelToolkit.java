@@ -23,7 +23,7 @@ public class SpelToolkit {
 
 	public SpelToolkit(Vector<Speler> spelers) {
 		this.spelers = spelers;
-		actiebestuurder = new ActieBestuurder(this);
+		actiebestuurder = new ActieBestuurder();
 		// spelbord = new Spelbord();
 	}
 	
@@ -36,6 +36,10 @@ public class SpelToolkit {
 	
 	public void start(Actie start) {
 		actiebestuurder.start(start);
+	}
+	
+	public void stop() {
+		actiebestuurder.stop();
 	}
 
 	// van Spel

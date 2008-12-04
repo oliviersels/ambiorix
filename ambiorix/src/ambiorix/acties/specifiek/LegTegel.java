@@ -1,44 +1,42 @@
 package ambiorix.acties.specifiek;
 
-import ambiorix.acties.Actie;
+import ambiorix.SpelToolkit;
+import ambiorix.acties.AbstractActie;
 
-public class LegTegel extends Actie {
+public class LegTegel extends AbstractActie {
 
-	public LegTegel() {
-		System.out.println("CONS -> legtegel");
-		
-		undo = UNDO.BESCHIKBAAR;
-		status = STATUS.KLAAR;
+	public LegTegel(SpelToolkit kit, AbstractActie vorige) {
+		super(kit, vorige);
 	}
 
 	@Override
-	public void start() {
-		// onklaar > stoppen !
+	public AbstractActie doeActie() {
 		System.out.println("start -> legtegel");
-		
-		System.out.println("legtegel -> niks doen");
-		
-		status = STATUS.BEZIG;
+		System.out.println("legtegel -> vraag aan gebruiker welke tegel hij wilt leggen");
+		System.out.println("legtegel -> vraag aan gebruiker waar hij deze wilt leggen");
+		// Dit duurt lang..
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			System.out.println("doeActie onderbroken!");
+			return null;
+		}
+
+		System.out.println("Volgende actie is zetpion");
+		return null; // TODO: return zetPion actie
 	}
 
 	@Override
-	public void undo() {
-		System.out.println("legtegel -> tegel terug naar speler");
-		
-		status = STATUS.UNDO;
+	public boolean kanOngedaanMaken() {
+		return false; // TODO: Ongedaan maken van LegTegel
 	}
 
 	@Override
-	public Actie volgende() {
-		System.out.println("legtegel -> volgende -> NULL");
-		return null;
-	}
+	public AbstractActie maakOngedaan() {
+		System.out.println("legtegel -> Ongedaan maken");
+		System.out.println("legtegel -> tegel verwijderen van speelbord en teruggeven aan speler");
 
-	@Override
-	public void legTegel() {
-		System.out.println("legtegel -> tegel goed gelegd");
-		
-		status = STATUS.GEDAAN;
+		return vorigeActie;
 	}
 	
 	
