@@ -1,15 +1,15 @@
 package ambiorix.tests;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import ambiorix.Spel;
 import ambiorix.systeem;
-import ambiorix.spelbord.PionTypeVerzameling;
-import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 
-public class TestActies {
+public class TestSpel {
 	@Test
 	public void testActies() {
 		// TODO: Nog echte tests toevoegen
@@ -23,6 +23,9 @@ public class TestActies {
 		Speler s2 = new MenselijkeSpeler();
 		s1.setNaam("Piet");
 		spel.addSpeler(s2);
+		assertEquals(spel.getAantalSpelers(), 2);
+		assertNotNull(spel.getActieveSpeler());
+		assertEquals(spel.getActieveSpeler(), s1);
 		spel.start();
 		try {
 			System.out.println("test");

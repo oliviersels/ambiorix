@@ -46,4 +46,12 @@ public class Spel {
 	public int getAantalSpelers() {
 		return spelers.size();
 	}
+	
+	/**
+	 * Geeft de actieve speler. Enkel gebruiken voor het spel begonnen is.
+	 * @return de active speler of null indien er geen actief is.
+	 */
+	public Speler getActieveSpeler() {
+		return speltoolkit.getActieveSpeler();
+	}
 }
