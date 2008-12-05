@@ -1,10 +1,71 @@
 package ambiorix.gui;
 
 import ambiorix.spelbord.BordPositie;
-import ambiorix.spelbord.Tegel;
 import ambiorix.spelers.Antwoord;
+import ambiorix.spelers.Speler;
 
 public class Invoer {
+	public class SelecteerSpelerPion implements Runnable {
+		InvoerLuisteraar invoerLuisteraar;
+		Speler speler;
+		
+		public SelecteerSpelerPion(InvoerLuisteraar il, Speler s) {
+			invoerLuisteraar = il;
+			speler = s;
+		}
+		
+		public void opruimen() {
+			// TODO Opruimen
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+
+	public class SelecteerTegelGebied implements Runnable {
+		InvoerLuisteraar invoerLuisteraar;
+		
+		public SelecteerTegelGebied(InvoerLuisteraar il) {
+			invoerLuisteraar = il;
+		}
+		
+		public void opruimen() {
+			// TODO Opruimen
+		}
+		
+			
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public class SelecteerSpelerTegel implements Runnable {
+		InvoerLuisteraar invoerLuisteraar;
+		Speler speler;
+		
+		public SelecteerSpelerTegel(InvoerLuisteraar il, Speler s) {
+			invoerLuisteraar = il;
+			speler = s;
+		}
+		
+		public void opruimen() {
+			// TODO opruimen
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+
 	public class SelecteerBordPositie implements Runnable, TegelGeestLuisteraar {
 		InvoerLuisteraar invoerluisteraar;
 		
@@ -12,7 +73,7 @@ public class Invoer {
 			invoerluisteraar = il;
 		}
 		
-		public void stopLuisteren() {
+		public void opruimen() {
 			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelGeestLuisteraar(this);
 		}
 		

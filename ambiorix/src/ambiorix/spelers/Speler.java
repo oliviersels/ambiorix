@@ -40,12 +40,6 @@ public abstract class Speler {
 	 *   a) posities (0): De positie waar deze geplaatst wil worden.
 	 */
 	public abstract Antwoord selecteerBordPositie();
-	/**
-	 * Ik ben er niet zeker van of deze functie wel nodig is. Het zetten van
-	 * een tegel impliceert immers dat de zet toegestaan is.
-	 * @param toegestaan true als de tegel hier mag geplaatst worden
-	 */
-	public abstract void positieToestaan(boolean toegestaan, BordPositie b);
 	
 	/**
 	 * Geeft terug welke tegel de gebruiker geselecteerd heeft (om op het
