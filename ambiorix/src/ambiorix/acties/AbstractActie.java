@@ -3,7 +3,13 @@ package ambiorix.acties;
 import ambiorix.SpelToolkit;
 
 /**
- * Deze klasse biedt basisfunctionaliteit voor concrete Acties.
+ * Deze klasse biedt basisfunctionaliteit voor concrete Acties. Tot deze
+ * basisfunctionaliteit behoort de afhandeling van undo. Subklassen moeten
+ * dus ook niet meer start() overwriten maar doeActie() en maakOngedaan().<br/><br/>
+ * doeActie() wordt aangeroepen indien de actie start en echt uitgevoerd dient
+ * te worden.<br/>
+ * maakOngedaan() wordt aangeroepen als de actie afgelopen is maar ongedaan
+ * gemaakt moet worden. Dit moet maar tot de vorige input gebeuren.
  * @author olivier
  */
 public abstract class AbstractActie implements Actie {

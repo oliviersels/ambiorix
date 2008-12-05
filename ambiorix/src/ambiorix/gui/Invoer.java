@@ -5,10 +5,10 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelers.Antwoord;
 
 public class Invoer {
-	public class PlaatsTegel implements Runnable, TegelGeestLuisteraar {
+	public class SelecteerBordPositie implements Runnable, TegelGeestLuisteraar {
 		InvoerLuisteraar invoerluisteraar;
 		
-		public PlaatsTegel(InvoerLuisteraar il) {
+		public SelecteerBordPositie(InvoerLuisteraar il) {
 			invoerluisteraar = il;
 		}
 		

@@ -7,6 +7,7 @@ import ambiorix.gui.InvoerLuisteraar;
 import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelTypeVerzameling;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
@@ -28,13 +29,13 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
 		Invoer i = new Invoer();
-		Invoer.PlaatsTegel run = i.new PlaatsTegel(this);
+		Invoer.SelecteerBordPositie run = i.new SelecteerBordPositie(this);
 		SwingUtilities.invokeLater(run);
 		
 		try {
 			wait();
 		} catch (InterruptedException e) {
-			// TODO Exception handling kan beter
+			// TODO Dit betekent dat het spel gaat stoppen: NIET ZOMAAR System.exit doen!
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -59,8 +60,11 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public synchronized Antwoord selecteerSpelerTegel() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Moet via Invoer gaan
+		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
+		Antwoord stub = new Antwoord();
+		stub.getTegels().add(t);
+		return stub;
 	}
 
 	@Override

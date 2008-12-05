@@ -2,8 +2,6 @@ package ambiorix;
 
 import java.util.Vector;
 
-import ambiorix.acties.Actie;
-import ambiorix.acties.ActieBestuurder;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
@@ -16,27 +14,10 @@ import ambiorix.spelers.Speler;
 public class SpelToolkit {
 	private Vector<Speler> spelers;
 	private Spelbord spelbord;
-	private ActieBestuurder actiebestuurder;
 
-	public SpelToolkit(Vector<Speler> spelers) {
+	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord) {
 		this.spelers = spelers;
-		actiebestuurder = new ActieBestuurder();
-		// spelbord = new Spelbord();
-	}
-	
-	@Deprecated
-	public ActieBestuurder getActiebestuurder() {
-		return actiebestuurder;
-	}
-	
-	// van Actiebestuurder	
-	
-	public void start(Actie start) {
-		actiebestuurder.start(start);
-	}
-	
-	public void stop() {
-		actiebestuurder.stop();
+		this.spelbord = spelbord;
 	}
 
 	// van Spel
@@ -58,10 +39,6 @@ public class SpelToolkit {
 		return null;
 	}
 
-	/**
-	 * Hier gaat een alternatief voor komen (volgendeBeurt of zo).
-	 */
-	@Deprecated
 	public void setActieveSpeler(Speler actieveSpeler) {
 		Speler nuActief = getActieveSpeler();
 		nuActief.zetActief(false);
@@ -90,8 +67,6 @@ public class SpelToolkit {
 		Antwoord a = s.selecteerBordPositie();
 		return a.getPosities().get(0);
 	}
-
-	//public void positieToestaan(boolean toegestaan, BordPositie b);
 	
 	public Tegel selecteerSpelerTegel(Speler s) {
 		Antwoord a = s.selecteerSpelerTegel();
