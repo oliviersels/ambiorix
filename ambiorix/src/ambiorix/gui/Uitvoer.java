@@ -17,7 +17,7 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.voegTegelToe(4, 2, tegel); // FIXME Wachten op Robin tot BordPositie coordinaatgebaseerd is. En Wachten op Jens, want voegTegelToe moet een bordpositie aannemen ipv coordinaten.
+			hv.voegTegelToe(tegel, positie); // FIXME Wachten op Robin tot BordPositie coordinaatgebaseerd is. En Wachten op Jens, want voegTegelToe moet een bordpositie aannemen ipv coordinaten.
 		}
 	}
 

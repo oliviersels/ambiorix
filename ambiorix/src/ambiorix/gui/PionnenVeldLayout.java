@@ -15,16 +15,20 @@ public class PionnenVeldLayout implements LayoutManager {
 	public void addLayoutComponent(String arg0, Component com) {
 		aantal++;
 		com.setBounds((aantal * 20)% this.Breedte, (aantal*20) / Hoogte, 20, 20);
+		System.out.println("in addLayoutComponent");
 	}
 
 	@Override
 	public void layoutContainer(Container parent) {
+		
 		int nComps = parent.getComponentCount();
-
+		System.out.println("in layoutContainer, ncomps: " + nComps);
 
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
-            c.setBounds((i * 20)% this.Breedte, (i*20) / Hoogte, 20, 20);
+            System.out.println(i);
+            //c.setBounds((i * 20)% this.Breedte, (i*20) / Hoogte, 20, 20);
+            c.setBounds(0, 0, 100, 100);
         }
 	}
 
@@ -35,7 +39,11 @@ public class PionnenVeldLayout implements LayoutManager {
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
+		System.out.println("in preferredLayoutSize");
 		Dimension dim = new Dimension(Breedte, Hoogte);
+		Insets insets = parent.getInsets();
+        dim.width = Breedte + insets.left + insets.right;
+        dim.height = Hoogte + insets.top + insets.bottom;
 		/*
         int nComps = parent.getComponentCount();
         minBreedte = 0;

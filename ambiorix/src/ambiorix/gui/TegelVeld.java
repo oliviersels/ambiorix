@@ -24,7 +24,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 	private Vector<TegelGeest> mijnTegelGeesten;
 	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
-	private HoofdVenster hv; //tijdelijk!!
+	private HoofdVenster hv; // TODO tijdelijk!!
 	
 	public synchronized void addTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
 	{
@@ -167,23 +167,29 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 	public void voegTegelToe(Tegel tegel, BordPositie bp) {
 		Tegel buur = bp.getBuur();
 		int grootte = mijnTegels.size();
-		for(int i = 0; i < grootte; i++)
+		if(buur != null)
 		{
-			Tegel_Gui tg = mijnTegels.get(i);
-			if(tg.getTegel().getID() == buur.getID())
+			for(int i = 0; i < grootte; i++)
 			{
-				Punt p = new Punt(tg.getPos());
-				if(bp.getRichting() == Tegel.RICHTING.BOVEN){
-					p.setY(p.getY()-1);
-				}else if(bp.getRichting() == Tegel.RICHTING.ONDER){
-					p.setY(p.getY()+1);
-				}else if(bp.getRichting() == Tegel.RICHTING.RECHTS){
-					p.setX(p.getX()+1);
-				}else if(bp.getRichting() == Tegel.RICHTING.LINKS){
-					p.setX(p.getX()-1);
+				Tegel_Gui tg = mijnTegels.get(i);
+				if(tg.getTegel().getID() == buur.getID())
+				{
+					Punt p = new Punt(tg.getPos());
+					if(bp.getRichting() == Tegel.RICHTING.BOVEN){
+						p.setY(p.getY()-1);
+					}else if(bp.getRichting() == Tegel.RICHTING.ONDER){
+						p.setY(p.getY()+1);
+					}else if(bp.getRichting() == Tegel.RICHTING.RECHTS){
+						p.setX(p.getX()+1);
+					}else if(bp.getRichting() == Tegel.RICHTING.LINKS){
+						p.setX(p.getX()-1);
+					}
+					this.voegTegelToe(p.getX(), p.getY(), tegel);
 				}
-				this.voegTegelToe(p.getX(), p.getY(), tegel);
 			}
+		}else
+		{
+			this.voegTegelToe(3, 3, tegel);
 		}
 	}
 

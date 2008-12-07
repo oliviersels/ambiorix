@@ -14,6 +14,7 @@ public class TegelVeldLayout implements LayoutManager {
 	int minBreedte = 0;
 	@Override
 	public void addLayoutComponent(String s, Component c) {
+		System.out.println("in addLayoutComponent tegel");
 		i++;
 	}
 
@@ -24,6 +25,7 @@ public class TegelVeldLayout implements LayoutManager {
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
+		System.out.println("in preferredLayoutSize tegel");
 		Dimension dim = new Dimension(0, 0);
         int nComps = parent.getComponentCount();
         minBreedte = 0;
@@ -58,6 +60,7 @@ public class TegelVeldLayout implements LayoutManager {
 	}
 	
 	public void layoutContainer(Container parent) {
+		System.out.println("in layoutContainer tegel");
         int nComps = parent.getComponentCount();
 
 

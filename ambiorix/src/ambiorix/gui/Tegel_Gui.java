@@ -51,7 +51,6 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
 		Rectangle rec = this.getBounds();
@@ -98,14 +97,12 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		p.setX(x);
 		p.setY(y);
 		this.setBounds(x*100, y*100, 100, 100);
-		this.revalidate();
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
 		TegelGebeurtenis tg = new TegelGebeurtenis();
 		tg.tegel = this.tegel;
-		Rectangle rec = this.getBounds();
 		tg.tegelX = p.getX();
 		tg.tegelY = p.getY();
 		tg.tegelPixelX = e.getX();

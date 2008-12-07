@@ -14,10 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
 import ambiorix.util.Punt;
 
@@ -87,7 +89,7 @@ public class HoofdVenster extends JFrame{
 		chatVeld = new ChatVeld();
 		chatInvoer = new JTextField();
 		pionnenVeldScroll = new JScrollPane();
-		pionnenVeld = new PionnenVeld();
+		pionnenVeld = new PionnenVeld(this);
 		tegelVeldScroll = new JScrollPane();
 		tegelVeld = new TegelVeld(this);
 		
@@ -129,6 +131,7 @@ public class HoofdVenster extends JFrame{
 		//tegelVeld
 		tegelVeldScroll.setViewportView(tegelVeld);
 		tegelVeld.setVisible(true);
+		pionnenVeld.setVisible(true);
 		//HoofdVenster
 		setMinimumSize(new Dimension(800, 600));
 		Container container = this.getContentPane();
@@ -138,6 +141,7 @@ public class HoofdVenster extends JFrame{
 		container.add(tegelVeldScroll, BorderLayout.CENTER);
 		this.pack();
 		this.setLocationRelativeTo(this.getOwner());
+
 		setVisible(true);
 		
 		/*for(int i = 0; i <20; i++)
@@ -148,6 +152,7 @@ public class HoofdVenster extends JFrame{
 	{
 		chatVeld.voegRegelToe(str);
 	}
+	@Deprecated
 	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
 		tegelVeld.voegTegelToe(x, y, tegel);
@@ -159,6 +164,10 @@ public class HoofdVenster extends JFrame{
 	public void tekenTerrein(Gebied gebied)
 	{
 		tegelVeld.tekenTerrein(gebied);
+	}
+	public void voegPionToe(PionBasis pion)
+	{
+		this.pionnenVeld.voegPionToe(pion);
 	}
 	public void voegPionToe(Tegel tegel, Pion pion, Punt pos)
 	{

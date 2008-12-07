@@ -22,8 +22,8 @@ public class systeem
 		//Robin();
 		//Jens();
 		//Robin();
-		//Jens();
-		TestGebiedAanduiding();
+		Jens();
+		//TestGebiedAanduiding();
 		//Jan();
 		//Olivier();
 	}
@@ -71,7 +71,11 @@ public class systeem
 		spelbord.plaatsTegel(t2, new BordPositie(t, Tegel.RICHTING.ONDER) );
 		hv.voegTegelToe(t2, new BordPositie(t, Tegel.RICHTING.ONDER));
 		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
+		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
+		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
+		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
 		hv.tekenTerrein(gebied);
+		
 		
 	}
 	

@@ -90,5 +90,4 @@ public class Invoer {
 			
 		}
 	}
-	// TODO Poison afhalen van alice cooper
 }
