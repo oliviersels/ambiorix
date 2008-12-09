@@ -3,6 +3,7 @@ package ambiorix.gui;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
@@ -11,7 +12,7 @@ import javax.swing.table.TableModel;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
 
-public class PionnenVeld extends JTable implements PionLuisteraar{
+public class PionnenVeld extends JPanel implements PionLuisteraar{
 	private Vector<Pion_Gui> mijnPionnen;
 	private Vector<PionLuisteraar> mijnPionLuisteraars;
 	private HoofdVenster hv; // TODO tijdelijk!! (voor printjes te kunnen doen)
@@ -27,10 +28,11 @@ public class PionnenVeld extends JTable implements PionLuisteraar{
 	{
 		Pion_Gui nieuwePion= new Pion_Gui(pion);
 		nieuwePion.setVisible(true);
+		nieuwePion.voegPionLuisteraarToe(this);
 		mijnPionnen.add(nieuwePion);
 		this.add(nieuwePion);
 		this.repaint();
-		
+		this.revalidate();
 		System.out.println("pion toegevoegd!");
 	}
 	public synchronized void addPionLuisteraar(PionLuisteraar pl)

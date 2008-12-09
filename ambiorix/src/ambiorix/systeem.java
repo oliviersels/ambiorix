@@ -65,15 +65,15 @@ public class systeem
 		Spelbord spelbord = new Spelbord();
 		spelbord.setBegintegel(t);
 		spelbord.setTegelAantal("TegelType_WGGWW", 5);
-		hv.voegTegelToe(3, 3, t);
+		hv.voegTegelToe(0, 0, t);
 		Tegel t2 = spelbord.getVolgendeTegel();
 		t2.setRotatie(180);
 		spelbord.plaatsTegel(t2, new BordPositie(t, Tegel.RICHTING.ONDER) );
 		hv.voegTegelToe(t2, new BordPositie(t, Tegel.RICHTING.ONDER));
 		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
-		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
-		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
-		hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
+		for(int i = 0; i < 50; i++)
+			hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
+
 		hv.tekenTerrein(gebied);
 		
 		
@@ -142,7 +142,7 @@ public class systeem
 		
 
 
-		hv.voegTegelToe(3, 3, linksboven);
+		hv.voegTegelToe(2, 1, linksboven);
 		
 		/*middenboven.setID(1);
 		rechtsboven.setID(2);

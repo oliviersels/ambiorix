@@ -1,11 +1,12 @@
 package ambiorix.gui;
 
 import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Pion;
 import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 
 public class Invoer {
-	public class SelecteerSpelerPion implements Runnable {
+	public class SelecteerSpelerPion implements Runnable, PionLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		Speler speler;
 		
@@ -15,13 +16,20 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			// TODO Opruimen
+			HoofdVenster.geefInstantie().verwijderPionLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+			HoofdVenster.geefInstantie().voegPionLuisteraarToe(this);
 			
+		}
+
+		@Override
+		public void geklikt(PionGebeurtenis pg) {
+			Antwoord a = new Antwoord();
+			a.getPionnen().add((Pion) pg.pion);
+			invoerLuisteraar.invoerGebeurtenis(a);
 		}
 
 	}
@@ -45,7 +53,7 @@ public class Invoer {
 		}
 	}
 
-	public class SelecteerSpelerTegel implements Runnable {
+	public class SelecteerSpelerTegel implements Runnable, TegelKlikLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		Speler speler;
 		
@@ -55,13 +63,20 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			// TODO opruimen
+			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelKlikLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+			HoofdVenster.geefInstantie().geefTegelVeld().addTegelKlikLuisteraar(this);
 			
+		}
+
+		@Override
+		public void geklikt(TegelGebeurtenis tg) {
+			Antwoord a = new Antwoord();
+			a.getTegels().add(tg.tegel);
+			invoerLuisteraar.invoerGebeurtenis(a);
 		}
 
 	}

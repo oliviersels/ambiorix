@@ -38,12 +38,20 @@ public class Pion_Gui extends JComponent implements MouseListener{
 		this.setBounds(0, 0, 20, 20);
 	}
 	
+	public void voegPionLuisteraarToe(PionLuisteraar pl)
+	{
+		mijnPionLuisteraars.add(pl);
+	}
+	
+	public void verwijderPionLuisteraar(PionLuisteraar pl)
+	{
+		mijnPionLuisteraars.remove(pl);
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Rectangle rec = this.getBounds();
 		Graphics2D g2 = (Graphics2D) g;
-		System.out.println("pion tekenen: w:" + rec.width+" h: "+ rec.height);
 		g2.drawImage(mijnAfbeelding, 0, 0, rec.width, rec.height, null);
 	}
 	

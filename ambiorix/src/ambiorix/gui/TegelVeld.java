@@ -71,6 +71,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		voegTegelGeestToe(x-1, y, nieuweTegel, Tegel.RICHTING.RECHTS);
 		verwijderTegelGeest(x, y);
 		this.repaint();
+		this.revalidate();
 	}
 
 	@Override
@@ -162,6 +163,8 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 				}
 			}
 		}
+		this.repaint();
+		this.revalidate();
 	}
 
 	public void voegTegelToe(Tegel tegel, BordPositie bp) {

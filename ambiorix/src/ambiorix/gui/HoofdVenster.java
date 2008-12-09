@@ -173,4 +173,12 @@ public class HoofdVenster extends JFrame{
 	{
 		tegelVeld.voegPionToe(tegel, pion, pos);
 	}
+	public void voegPionLuisteraarToe(PionLuisteraar pl)
+	{
+		this.pionnenVeld.addPionLuisteraar(pl);
+	}
+	public void verwijderPionLuisteraar(PionLuisteraar pl)
+	{
+		this.pionnenVeld.removePionLuisteraar(pl);
+	}
 }
