@@ -6,6 +6,7 @@ import java.util.Vector;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.Terrein;
 
 public abstract class Speler {
 	public enum STATUS {
@@ -29,6 +30,8 @@ public abstract class Speler {
 	public abstract void doeIets(); // TODO: Uitsplitsen naar meerdere functie -> zie behoeften anderen
 	
 	public abstract void zetTegel(Tegel t, BordPositie p);
+	
+	public abstract void zetPion(Pion p, Terrein t);
 	
 	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
 	

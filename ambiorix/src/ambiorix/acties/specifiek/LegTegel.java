@@ -38,7 +38,7 @@ public class LegTegel extends AbstractActie {
 		kit.zetTegel(actieveSpeler, gekozenTegel, positie);
 
 		System.out.println("Volgende actie is zetpion");
-		return null; // TODO: return zetPion actie
+		return new GeefTegel(kit, this); // TODO: return zetPion actie
 	}
 
 	@Override

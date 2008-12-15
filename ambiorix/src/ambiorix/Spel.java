@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import ambiorix.acties.ActieBestuurder;
 import ambiorix.acties.specifiek.GeefTegel;
+import ambiorix.acties.specifiek.StartSpel;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelers.Speler;
 
@@ -24,7 +25,7 @@ public class Spel {
 	
 	// Spel starten: uitbreidingen bepalen de startactie
 	public void start() {
-		GeefTegel startActie = new GeefTegel(speltoolkit, null);
+		StartSpel startActie = new StartSpel(speltoolkit, null);
 		actieBestuurder.start(startActie);
 	}
 	

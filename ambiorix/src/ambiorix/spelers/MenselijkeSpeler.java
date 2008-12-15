@@ -6,7 +6,9 @@ import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
 import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.Terrein;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
@@ -89,5 +91,11 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		Uitvoer u = new Uitvoer();
 		Uitvoer.ZetTegel run = u.new ZetTegel(t, p);
 		SwingUtilities.invokeLater(run);
+	}
+
+	@Override
+	public void zetPion(Pion p, Terrein t) {
+		// TODO Auto-generated method stub
+		
 	}
 }
