@@ -261,4 +261,46 @@ public class Tegel implements TegelBasis
 		}
 	}
 	
+	public String toXML()
+	{
+		String output = "<tegel>";
+		
+			output += "<id>" 		+ this.ID + "			</id>";
+			output += "<type>" 		+ this.type.getID() + 	"</type>";
+			output += "<rotatie>" 	+ this.rotatie + 		"</rotatie>";
+			
+			// eerste beste buur meegeven ( = positie op het spelbord)
+			for( RICHTING richting : RICHTING.values() )
+			{
+				if( buren[ richting.ordinal() ] != null )
+				{
+					output += "<buur>";
+					output += "<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>";
+					output += "<richting>" 	+ richting.toString() 						+ "</richting>";
+					output += "</buur>";
+					continue;
+				}
+			}
+			
+			
+			String pionnen = "";
+			for(int i = 0; i < pionPosities.length; i++)
+			{
+				for(int j = 0; j < pionPosities[0].length; j++)
+				{
+					if( pionPosities[i][j] != null )
+					{
+						pionnen += pionPosities[i][j].toXML(); 
+					}
+				}
+			} 
+			
+			if(pionnen != "")
+				output += "<pionnen>" + pionnen + "</pionnen>";
+				
+		output += "</tegel>";
+		
+		return output;
+	}
+	
 }

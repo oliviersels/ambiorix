@@ -430,4 +430,45 @@ public class Spelbord
 		return gebied;
 	}
 	
+	public String toXML()
+	{
+		String output = "<spelbord>";
+		
+		output += "<beginTegel>" + this.beginTegel.getID() + "</beginTegel>";
+		
+		// niet echt nodig, meer ter controle
+		output += "<volgendeTegelID>" + this.volgendeTegelID + "</volgendeTegelID>";
+		
+		output += "<overgeblevenTegels>";
+		
+			// de tegelpool moeten we ook opslaan natuurlijk
+			Set<String> tegelTypes = this.overgeblevenTegels.keySet();
+			for( String tegelType : tegelTypes )
+			{
+				output += "<reeks>";
+				
+				output += "<type>"   + tegelType 								+ "</type>";
+				output += "<aantal>" + this.overgeblevenTegels.get(tegelType) 	+ "</aantal>";
+				
+				output += "</reeks>";
+			}
+		
+		output += "</overgeblevenTegels>";
+			
+		output += "<tegels>";
+			
+			Collection<Tegel> tegels = tegelCoordinaten.values();
+			for( Tegel tegel : tegels )
+			{
+				output += tegel.toXML();
+			}
+		
+		output += "</tegels>";
+		
+		
+		output += "</spelbord>";
+		
+		return output;
+	}
+	
 }

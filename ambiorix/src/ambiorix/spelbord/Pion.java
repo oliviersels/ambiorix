@@ -34,4 +34,17 @@ public class Pion implements PionBasis
 	{
 		this.speler = speler;
 	}
+	
+	public String toXML()
+	{
+		String output = "<pion>";
+		
+			output += "<id>" 		+ this.ID + 				"</id>";
+			output += "<type>" 		+ this.type.getID() + 		"</type>";
+			output += "<speler>" 	+ this.speler.getNaam() + 	"</speler>";
+		
+		output += "</pion>";
+		
+		return output;
+	}
 }

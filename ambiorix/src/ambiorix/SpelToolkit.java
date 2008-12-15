@@ -47,7 +47,8 @@ public class SpelToolkit {
 
 	// van Spelbord
 	
-	public Tegel getVolgendeTegel() {
+	public Tegel getVolgendeTegel() 
+	{
 		return spelbord.getVolgendeTegel();
 	}
 	
