@@ -15,6 +15,7 @@ import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
@@ -76,23 +77,14 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 
 	@Override
 	public synchronized void geklikt(TegelGebeurtenis tg) {
+		
+		
+		
+		hv.voegRegelToe("Geklikt op tegel: " + tg.tegelX + ", " + tg.tegelY + " op pixel " + tg.tegelPixelX + ", " + tg.tegelPixelY);
+		TegelBasis geklikteTegel = tg.tegel;
 		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
 		while(it.hasNext()) {
 			it.next().geklikt(tg);
-		}
-		
-		hv.voegRegelToe("Geklikt op tegel: " + tg.tegelX + ", " + tg.tegelY + " op pixel " + tg.tegelPixelX + ", " + tg.tegelPixelY);
-		Tegel geklikteTegel = tg.tegel;
-		if(geklikteTegel != null)
-		{
-			//TegelType tegelType = geklikteTegel.getType();
-			// TODO : nakijken door JENS : origineel staat hier in 3 regels commentaar, daaronder robin aanpassingen
-			/*TerreinType tt[][] = geklikteTegel.getTerrein();
-			int lengte = tt.length;
-			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());*/
-			
-			//int lengte = geklikteTegel.getTerreinHoogte();
-			//hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelY/100, lengte*tg.tegelPixelX/100) ).toString()  );
 		}
 	}
 	@Override
@@ -203,7 +195,6 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 			{
 				tg.voegPionToe(pion, pos);
 			}
-		}
-		
+		}	
 	}
 }

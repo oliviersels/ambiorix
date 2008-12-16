@@ -2,6 +2,8 @@ package ambiorix.gui;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.Terrein;
 import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 
@@ -34,7 +36,7 @@ public class Invoer {
 
 	}
 
-	public class SelecteerTegelGebied implements Runnable {
+	public class SelecteerTegelGebied implements Runnable, TegelKlikLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		
 		public SelecteerTegelGebied(InvoerLuisteraar il) {
@@ -42,14 +44,20 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			// TODO Opruimen
+			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelKlikLuisteraar(this);
 		}
 		
-			
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+			HoofdVenster.geefInstantie().geefTegelVeld().addTegelKlikLuisteraar(this);
 			
+		}
+		@Override
+		public void geklikt(TegelGebeurtenis tg) {
+			Antwoord a = new Antwoord();
+			a.getTegels().add((Tegel) tg.tegel);
+			a.getTerreinen().add((Terrein) tg.terrein);
+			invoerLuisteraar.invoerGebeurtenis(a);
 		}
 	}
 
@@ -63,19 +71,19 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelKlikLuisteraar(this);
+			HoofdVenster.geefInstantie().verwijderSelectieTegelLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			HoofdVenster.geefInstantie().geefTegelVeld().addTegelKlikLuisteraar(this);
+			HoofdVenster.geefInstantie().voegSelectieTegelLuisteraarToe(this);
 			
 		}
 
 		@Override
 		public void geklikt(TegelGebeurtenis tg) {
 			Antwoord a = new Antwoord();
-			a.getTegels().add(tg.tegel);
+			a.getTegels().add((Tegel) tg.tegel);
 			invoerLuisteraar.invoerGebeurtenis(a);
 		}
 
@@ -100,7 +108,7 @@ public class Invoer {
 		@Override
 		public void geklikt(TegelGeestGebeurtenis gtg) {
 			Antwoord a = new Antwoord();
-			a.getPosities().add(new BordPositie(gtg.tegel, gtg.richting));
+			a.getPosities().add(new BordPositie((Tegel) gtg.tegel, gtg.richting));
 			invoerluisteraar.invoerGebeurtenis(a);
 			
 		}

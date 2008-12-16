@@ -6,5 +6,5 @@ public interface TerreinBasis
 {	
 	public TerreinType getType();
 	public Punt getPositie();
-	public String toString();	
+	public String toString();
 }

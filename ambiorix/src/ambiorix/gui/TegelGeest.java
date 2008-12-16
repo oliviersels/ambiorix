@@ -11,8 +11,9 @@ import java.util.Vector;
 import javax.swing.JComponent;
 
 import ambiorix.spelbord.Tegel;
+import ambiorix.util.Punt;
 
-public class TegelGeest extends JComponent implements MouseListener{
+public class TegelGeest extends JComponent implements MouseListener, TegelVeldComponent{
 	private int xPos;
 	private int yPos;
 	private Tegel.RICHTING richting;
@@ -88,5 +89,10 @@ public class TegelGeest extends JComponent implements MouseListener{
 	}
 	public int getXPos() {
 		return xPos;
+	}
+
+	@Override
+	public Punt geefPositie() {
+		return new Punt(xPos, yPos);
 	}
 }

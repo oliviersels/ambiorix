@@ -21,6 +21,7 @@ import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
 public class HoofdVenster extends JFrame{
@@ -38,6 +39,12 @@ public class HoofdVenster extends JFrame{
 	private PionnenVeld pionnenVeld;
 	private JScrollPane tegelVeldScroll;
 	private TegelVeld tegelVeld;
+
+	private JSplitPane splitOnderkantLinksNogEenKeer;
+
+	private TegelSelectieVeld tegelSelecteer;
+
+	private JScrollPane tegelSelecteerScroll;
 	
 	/*
 	 * Hier start code van Olivier
@@ -71,11 +78,11 @@ public class HoofdVenster extends JFrame{
 			e.printStackTrace();
 		}
 		HoofdVenster hv = new HoofdVenster();
-		
+		/*
 		for(int i = 0; i <20; i++)
 			for(int y = 0; y <20 ;y++)
 				hv.voegTegelToe(i, y, null);
-				
+		*/
 	}
 	HoofdVenster()
 	{	
@@ -85,6 +92,7 @@ public class HoofdVenster extends JFrame{
 		knopHelp = new JButton();
 		splitOnderkant = new JSplitPane();
 		splitOnderkantLinks = new JSplitPane();
+		splitOnderkantLinksNogEenKeer = new JSplitPane();
 		chatVeldScroll = new JScrollPane();
 		chatVeld = new ChatVeld();
 		chatInvoer = new JTextField();
@@ -92,7 +100,8 @@ public class HoofdVenster extends JFrame{
 		pionnenVeld = new PionnenVeld(this);
 		tegelVeldScroll = new JScrollPane();
 		tegelVeld = new TegelVeld(this);
-		
+		tegelSelecteer  = new TegelSelectieVeld();
+		tegelSelecteerScroll = new JScrollPane();
 		//knoppen
 		knopBestand.setText("Bestand");
 		menuBalk.add(knopBestand);
@@ -126,9 +135,14 @@ public class HoofdVenster extends JFrame{
 		
 		//pionnenVeldScroll
 		pionnenVeldScroll.setViewportView(pionnenVeld);
-		splitOnderkant.setRightComponent(pionnenVeldScroll);
+		
+		splitOnderkant.setRightComponent(splitOnderkantLinksNogEenKeer);
+		splitOnderkantLinksNogEenKeer.setRightComponent(pionnenVeldScroll);
+		splitOnderkantLinksNogEenKeer.setLeftComponent(tegelSelecteerScroll);
+		//splitOnderkant.setRightComponent(pionnenVeldScroll);
 		
 		//tegelVeld
+		tegelSelecteerScroll.setViewportView(tegelSelecteer);
 		tegelVeldScroll.setViewportView(tegelVeld);
 		tegelVeld.setVisible(true);
 		pionnenVeld.setVisible(true);
@@ -161,6 +175,14 @@ public class HoofdVenster extends JFrame{
 	{
 		tegelVeld.voegTegelToe(tegel, bp);
 	}
+	public void voegSelectieTegelToe(TegelBasis tegel)
+	{
+		this.tegelSelecteer.voegTegelToe(tegel);
+	}
+	public void verwijderSelectieTegel(TegelBasis tegel)
+	{
+		this.tegelSelecteer.verwijderTegel(tegel);
+	}
 	public void tekenTerrein(Gebied gebied)
 	{
 		tegelVeld.tekenTerrein(gebied);
@@ -180,5 +202,18 @@ public class HoofdVenster extends JFrame{
 	public void verwijderPionLuisteraar(PionLuisteraar pl)
 	{
 		this.pionnenVeld.removePionLuisteraar(pl);
+	}
+	public void voegSelectieTegelLuisteraarToe(TegelKlikLuisteraar tkl)
+	{
+		this.tegelSelecteer.addTegelKlikLuisteraar(tkl);
+	}
+	public void verwijderSelectieTegelLuisteraar(TegelKlikLuisteraar tkl)
+	{
+		this.tegelSelecteer.removeTegelKlikLuisteraar(tkl);
+	}
+	public void wisPionnenEnSelectieTegels()
+	{
+		this.pionnenVeld.ledig();
+		this.tegelSelecteer.ledig();
 	}
 }

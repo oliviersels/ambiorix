@@ -18,9 +18,10 @@ import javax.swing.JComponent;
 
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class Tegel_Gui extends JComponent implements MouseListener{
+public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldComponent{
 	
 	public void update(Graphics g){paint(g);}
 	private BufferedImage mijnAfbeelding = null;
@@ -28,10 +29,10 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 	private Vector<Punt> gebiedenTeTekenen;
 	private Vector<Pion> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
 	private Vector<Punt> mijnPionPunten;
-	private Tegel tegel;
+	private TegelBasis tegel;
 	private Punt p;
 	
-	public Tegel_Gui(Tegel t)
+	public Tegel_Gui(TegelBasis t)
 	{
 		String fileNaam = t.getType().getID();
 		try {
@@ -133,7 +134,7 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		return p;
 	}
 	
-	public Tegel getTegel()
+	public TegelBasis getTegel()
 	{
 		return tegel;
 	}
@@ -178,6 +179,11 @@ public class Tegel_Gui extends JComponent implements MouseListener{
 		mijnPionnen.add(pion);
 		mijnPionPunten.add(pos);
 		
+	}
+
+	@Override
+	public Punt geefPositie() {
+		return p;
 	}
 	
 	

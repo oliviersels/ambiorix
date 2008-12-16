@@ -1,9 +1,10 @@
 package ambiorix.gui;
 
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelBasis;
 
 public class TegelGeestGebeurtenis {
-	public Tegel tegel = null;
+	public TegelBasis tegel = null;
 	public Tegel.RICHTING richting;
 	
 }

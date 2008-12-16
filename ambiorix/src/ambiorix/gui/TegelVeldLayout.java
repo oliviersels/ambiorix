@@ -8,14 +8,13 @@ import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.util.Vector;
 
+import ambiorix.util.Punt;
+
 public class TegelVeldLayout implements LayoutManager {
-	int i = 0;
 	int minHoogte = 0;
 	int minBreedte = 0;
 	@Override
 	public void addLayoutComponent(String s, Component c) {
-		System.out.println("in addLayoutComponent tegel");
-		i++;
 	}
 
 	@Override
@@ -25,7 +24,6 @@ public class TegelVeldLayout implements LayoutManager {
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
-		System.out.println("in preferredLayoutSize tegel");
 		Dimension dim = new Dimension(0, 0);
         int nComps = parent.getComponentCount();
         minBreedte = 0;
@@ -60,15 +58,27 @@ public class TegelVeldLayout implements LayoutManager {
 	}
 	
 	public void layoutContainer(Container parent) {
-		System.out.println("in layoutContainer tegel");
         int nComps = parent.getComponentCount();
-
+        int minH = 0;
+        int minB = 0;
 
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
            
+            Punt p = ((TegelVeldComponent)c).geefPositie();
+            if (p.getX() < minB)
+            	minB = p.getX();
+            if (p.getY() < minH)
+            	minH = p.getY();
+            
+        }
+        
+        for (int i = 0 ; i < nComps ; i++) {
+            Component c = parent.getComponent(i);
+           
             Rectangle rec = (c).getBounds();
-            c.setBounds(rec.x - minBreedte, rec.y - minHoogte, rec.width, rec.height);
+            Punt p = ((TegelVeldComponent)c).geefPositie();
+            c.setBounds((p.getX() - minB) * 100, (p.getY() - minH) * 100, rec.width, rec.height);
         }
     }
 

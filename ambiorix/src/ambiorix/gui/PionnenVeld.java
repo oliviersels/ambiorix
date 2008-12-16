@@ -33,7 +33,6 @@ public class PionnenVeld extends JPanel implements PionLuisteraar{
 		this.add(nieuwePion);
 		this.repaint();
 		this.revalidate();
-		System.out.println("pion toegevoegd!");
 	}
 	public synchronized void addPionLuisteraar(PionLuisteraar pl)
 	{
@@ -53,5 +52,12 @@ public class PionnenVeld extends JPanel implements PionLuisteraar{
 		while(it.hasNext()) {
 			it.next().geklikt(pg);
 		}
+	}
+
+	public void ledig() {
+		mijnPionnen.clear();
+		this.removeAll();
+		this.repaint();
+		this.revalidate();
 	}
 }
