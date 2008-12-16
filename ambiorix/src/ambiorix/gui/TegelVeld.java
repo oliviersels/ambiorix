@@ -34,7 +34,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 	public synchronized void removeTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
 	{
 		
-		tegelGeestLuisteraars.remove(tkl);
+		tegelKlikLuisteraars.remove(tkl);
 	}
 	
 	public synchronized void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
@@ -91,8 +91,8 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 			int lengte = tt.length;
 			hv.voegRegelToe(tt[lengte*tg.tegelPixelX/100][lengte*tg.tegelPixelY/100].toString());*/
 			
-			int lengte = geklikteTegel.getTerreinHoogte();
-			hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelY/100, lengte*tg.tegelPixelX/100) ).toString()  );
+			//int lengte = geklikteTegel.getTerreinHoogte();
+			//hv.voegRegelToe( geklikteTegel.getTerreinType( new Punt(lengte*tg.tegelPixelY/100, lengte*tg.tegelPixelX/100) ).toString()  );
 		}
 	}
 	@Override

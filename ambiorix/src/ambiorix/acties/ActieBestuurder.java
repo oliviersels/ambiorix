@@ -24,6 +24,8 @@ public class ActieBestuurder implements Runnable {
 			actieThread = new Thread(this);
 			actieThread.start();
 		}
+		
+		// TODO: Wachten op een notify
 	}
 
 	/**
@@ -33,6 +35,7 @@ public class ActieBestuurder implements Runnable {
 	public void stop() {		
 		if(actieThread != null && actieThread.isAlive()) {
 			actieThread.interrupt();
+			actieThread = null;
 		}
 	}
 
@@ -41,5 +44,7 @@ public class ActieBestuurder implements Runnable {
 		while(volgende != null) { // Dan is het gedaan
 			volgende = volgende.start();
 		}
+		System.out.println("Spel gedaan!");
+		// TODO: Notify geven
 	}
 }

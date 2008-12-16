@@ -28,7 +28,13 @@ public class TestInput {
 	
 	@Test
 	public void selecteerBordPositie() {
-		Antwoord a = speler.selecteerBordPositie();
+		Antwoord a;
+		try {
+			a = speler.selecteerBordPositie();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 		assertNotNull(a);
 		assertEquals(a.getPosities().size(), 1);
 		assertNotNull(a.getPosities().get(0));
@@ -38,7 +44,13 @@ public class TestInput {
 	}
 	@Test
 	public void selecteerSpelerTegel() {
-		Antwoord a = speler.selecteerSpelerTegel();
+		Antwoord a;
+		try {
+			a = speler.selecteerSpelerTegel();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 		assertNotNull(a);
 		assertEquals(a.getTegels().size(), 1);
 		assertNotNull(a.getTegels().get(0));
@@ -49,7 +61,13 @@ public class TestInput {
 	
 	@Test
 	public void selecteerTegelGebied() {
-		Antwoord a = speler.selecteerTegelGebied();
+		Antwoord a;
+		try {
+			a = speler.selecteerTegelGebied();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 		assertNotNull(a);
 		assertEquals(a.getTerreinen().size(), 1);
 		assertNotNull(a.getTerreinen().get(0));
@@ -60,7 +78,13 @@ public class TestInput {
 	
 	@Test
 	public void selecteerSpelerPion() {
-		Antwoord a = speler.selecteerSpelerPion();
+		Antwoord a;
+		try {
+			a = speler.selecteerSpelerPion();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 		assertNotNull(a);
 		assertEquals(a.getPionnen().size(), 1);
 		assertNotNull(a.getPionnen().get(0));

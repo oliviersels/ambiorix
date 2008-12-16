@@ -27,14 +27,10 @@ public abstract class Speler {
 		pionnen = new Vector<Pion>();
 	}
 	
-	public abstract void doeIets(); // TODO: Uitsplitsen naar meerdere functie -> zie behoeften anderen
-	
-	public abstract void zetTegel(Tegel t, BordPositie p);
-	
-	public abstract void zetPion(Pion p, Terrein t);
-	
-	public abstract Object vraagIets(); // TODO: Uitsplitsen naar meerdere functies -> zie behoeften anderen
-	
+	//public abstract Antwoord vraagIets();
+	//public abstract void geefAntwoord(Antwoord a);
+	//public abstract void doeIets();
+		
 	/**
 	 * Geeft terug welke positie de speler kiest om een tegel te
 	 * plaatsen. Dit geeft geen verandering weer in de GUI. Enkel dat de
@@ -42,7 +38,14 @@ public abstract class Speler {
 	 * @return Antwoord bevat:<br/>
 	 *   a) posities (0): De positie waar deze geplaatst wil worden.
 	 */
-	public abstract Antwoord selecteerBordPositie();
+	public abstract Antwoord selecteerBordPositie() throws InterruptedException;
+	
+	/**
+	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
+	 * positie op het bord heeft geselecteerd.
+	 * @param a Het antwoord van de andere speler.
+	 */
+	public abstract void antwoordBordPositieSelectie(Antwoord a);
 	
 	/**
 	 * Geeft terug welke tegel de gebruiker geselecteerd heeft (om op het
@@ -50,21 +53,47 @@ public abstract class Speler {
 	 * @return Antwoord bevat: <br/>
 	 *   a) tegels (0): De tegel die gekozen is.
 	 */
-	public abstract Antwoord selecteerSpelerTegel();
+	public abstract Antwoord selecteerSpelerTegel() throws InterruptedException;
+	
+	/**
+	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
+	 * tegel van een speler heeft geselecteerd.
+	 * @param a Het antwoord van de andere speler.
+	 */
+	public abstract void antwoordSpelerTegelSelectie(Antwoord a);
 	
 	/**
 	 * Geeft een terrein terug (een gebied op een tegel)
 	 * @return Antwoord bevat: <br/>
 	 *   a) terreinen (0): Het terrein dat gekozen is.
 	 */
-	public abstract Antwoord selecteerTegelGebied();
+	public abstract Antwoord selecteerTegelGebied() throws InterruptedException;
 	
 	/**
-	 * 
-	 * @return
+	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
+	 * terrein op een tegel heeft geselecteerd.
+	 * @param a Het antwoord van de andere speler.
 	 */
+	public abstract void antwoordTegelGebiedSelectie(Antwoord a);
 	
-	public abstract Antwoord selecteerSpelerPion();
+	/**
+	 * Geeft een pion terug van een speler
+	 * @return Antwoord bevat:<br/>
+	 *   a) pionnen (0): De pion die gekozen werd.
+	 */
+	public abstract Antwoord selecteerSpelerPion() throws InterruptedException;
+	
+	/**
+	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
+	 * pion van een speler heeft geselecteerd.
+	 * @param a Het antwoord van de andere speler.
+	 */
+	public abstract void antwoordSpelerPionSelectie(Antwoord a);
+	
+	
+	public abstract void zetTegel(Tegel t, BordPositie p);
+	
+	public abstract void zetPion(Pion p, Terrein t);
 
 	public Color getKleur() {
 		return kleur;

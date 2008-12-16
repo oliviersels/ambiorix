@@ -12,39 +12,6 @@ import ambiorix.spelbord.Terrein;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Antwoord huidigAntwoord = null;
-	
-	@Override
-	public void doeIets() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Object vraagIets() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public synchronized Antwoord selecteerBordPositie() {
-		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
-		
-		Invoer i = new Invoer();
-		Invoer.SelecteerBordPositie run = i.new SelecteerBordPositie(this);
-		SwingUtilities.invokeLater(run);
-		
-		try {
-			wait();
-		} catch (InterruptedException e) {
-			// TODO Dit betekent dat het spel gaat stoppen: NIET ZOMAAR System.exit doen!
-			e.printStackTrace();
-			System.exit(1);
-		}
-		
-		run.opruimen();
-		
-		return huidigAntwoord;
-	}
 
 	@Override
 	public synchronized void invoerGebeurtenis(Antwoord a) {
@@ -52,22 +19,17 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		huidigAntwoord = a;
 		notifyAll();
 	}
-
+	
 	@Override
-	public synchronized Antwoord selecteerSpelerTegel() {
-		/* We zullen aan de GUI moeten vragen welke tegel de speler wilt plaatsen */
+	public synchronized Antwoord selecteerBordPositie() throws InterruptedException {
+		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
 		Invoer i = new Invoer();
-		Invoer.SelecteerSpelerTegel run = i.new SelecteerSpelerTegel(this, this);
+		Invoer.SelecteerBordPositie run = i.new SelecteerBordPositie(this);
 		SwingUtilities.invokeLater(run);
 		
-		try {
-			wait();
-		} catch (InterruptedException e) {
-			// TODO Dit betekent dat het spel gaat stoppen: NIET ZOMAAR System.exit doen!
-			e.printStackTrace();
-			System.exit(1);
-		}
+
+		wait();
 		
 		run.opruimen();
 		
@@ -75,13 +37,28 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	}
 
 	@Override
-	public synchronized Antwoord selecteerTegelGebied() {
+	public synchronized Antwoord selecteerSpelerTegel() throws InterruptedException {
+		/* We zullen aan de GUI moeten vragen welke tegel de speler wilt plaatsen */
+		
+		Invoer i = new Invoer();
+		Invoer.SelecteerSpelerTegel run = i.new SelecteerSpelerTegel(this, this);
+		SwingUtilities.invokeLater(run);
+		
+		wait();
+
+		run.opruimen();
+		
+		return huidigAntwoord;
+	}
+
+	@Override
+	public synchronized Antwoord selecteerTegelGebied() throws InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public synchronized Antwoord selecteerSpelerPion() {
+	public synchronized Antwoord selecteerSpelerPion() throws InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -98,4 +75,16 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void antwoordBordPositieSelectie(Antwoord a) {}
+
+	@Override
+	public void antwoordSpelerTegelSelectie(Antwoord a) {}
+
+	@Override
+	public void antwoordSpelerPionSelectie(Antwoord a) {}
+
+	@Override
+	public void antwoordTegelGebiedSelectie(Antwoord a) {}
 }

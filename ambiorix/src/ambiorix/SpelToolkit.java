@@ -26,6 +26,7 @@ public class SpelToolkit {
 		return spelers.size();
 	}
 
+	@Deprecated
 	public Vector<Speler> getSpelers() {
 		return spelers;
 	}	
@@ -47,9 +48,8 @@ public class SpelToolkit {
 
 	// van Spelbord
 	
-	public Tegel getVolgendeTegel() 
-	{
-		return spelbord.getVolgendeTegel();
+	public boolean positieMogelijk(Tegel t, BordPositie p) {
+		return t.kanBuurAccepteren(p.getBuur(), p.getRichting());
 	}
 	
 	// van typeverzamelingen
@@ -64,23 +64,23 @@ public class SpelToolkit {
 	
 	// Van Speler
 	//  1) Input
-	public BordPositie selecteerBordPositie(Speler s) {
+	public BordPositie selecteerBordPositie(Speler s) throws InterruptedException {
 		Antwoord a = s.selecteerBordPositie();
 		return a.getPosities().get(0);
 	}
 	
-	public Tegel selecteerSpelerTegel(Speler s) {
+	public Tegel selecteerSpelerTegel(Speler s) throws InterruptedException {
 		Antwoord a = s.selecteerSpelerTegel();
 		return a.getTegels().get(0);
 	}
 	
 
-	public Terrein selecteerTegelGebied(Speler s) {
+	public Terrein selecteerTegelGebied(Speler s) throws InterruptedException {
 		Antwoord a = s.selecteerTegelGebied();
 		return a.getTerreinen().get(0);
 	}
 	
-	public Pion selecteerSpelerPion(Speler s) {
+	public Pion selecteerSpelerPion(Speler s) throws InterruptedException {
 		Antwoord a = s.selecteerSpelerPion();
 		return a.getPionnen().get(0);
 	}

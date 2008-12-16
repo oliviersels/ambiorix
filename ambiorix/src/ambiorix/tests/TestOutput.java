@@ -26,9 +26,20 @@ public class TestOutput {
 	
 	@Test
 	public void zetTegel() {
-		Antwoord a = speler.selecteerBordPositie();
+		Antwoord a;
+		try {
+			a = speler.selecteerBordPositie();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		speler.zetTegel(t, a.getPosities().get(0));
-		speler.selecteerBordPositie();
+		try {
+			speler.selecteerBordPositie();
+		} catch (InterruptedException e) {
+			System.out.println("Spel afgelopen op een schone manier");
+			return;
+		}
 	}
 }

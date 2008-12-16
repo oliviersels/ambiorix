@@ -14,6 +14,9 @@ public class StartSpel extends AbstractActie {
 
 	@Override
 	public AbstractActie doeActie() {
+		// TODO: Voeg alle tegels toe aan de pool
+		
+		// TODO: Zet de starttegel
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW"));
 		kit.zetTegel(kit.getActieveSpeler(), t, new BordPositie(null, null));
 		
@@ -22,13 +25,11 @@ public class StartSpel extends AbstractActie {
 
 	@Override
 	public boolean kanOngedaanMaken() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public AbstractActie maakOngedaan() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

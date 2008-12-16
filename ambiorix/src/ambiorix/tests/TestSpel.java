@@ -28,7 +28,7 @@ public class TestSpel {
 		assertEquals(spel.getActieveSpeler(), s1);
 		spel.start();
 		try {
-			System.out.println("test");
+			System.out.println("wacht 20 seconden");
 			Thread.sleep(20000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

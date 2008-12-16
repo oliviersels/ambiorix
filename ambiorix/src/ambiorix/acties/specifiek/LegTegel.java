@@ -17,6 +17,7 @@ public class LegTegel extends AbstractActie {
 	private boolean controleerPositie(BordPositie p, Tegel t) {
 		if(p == null || t == null)
 			return false;
+		//return kit.positieMogelijk(t, p);
 		return true;
 	}
 
@@ -29,10 +30,18 @@ public class LegTegel extends AbstractActie {
 		
 		while(!controleerPositie(positie, gekozenTegel)) {
 			System.out.println("legtegel -> vraag aan gebruiker welke tegel hij wilt leggen");
-			gekozenTegel = kit.selecteerSpelerTegel(actieveSpeler);
+			try {
+				gekozenTegel = kit.selecteerSpelerTegel(actieveSpeler);
+			} catch (InterruptedException e) {
+				return null; // Huidige spel is afgelopen
+			}
 			
 			System.out.println("legtegel -> vraag aan gebruiker waar hij deze wilt leggen");
-			positie = kit.selecteerBordPositie(actieveSpeler);
+			try {
+				positie = kit.selecteerBordPositie(actieveSpeler);
+			} catch (InterruptedException e) {
+				return null;
+			}
 		}
 		System.out.println("legtegel -> plaats de tegel op het bord");
 		kit.zetTegel(actieveSpeler, gekozenTegel, positie);
