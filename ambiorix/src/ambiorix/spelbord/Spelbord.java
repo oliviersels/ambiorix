@@ -6,6 +6,11 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.Collection;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
 
@@ -469,6 +474,24 @@ public class Spelbord
 		output += "</spelbord>";
 		
 		return output;
+	}
+	
+	public void fromXML(String input)
+	{
+		try
+		{
+	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	        factory.setValidating(true);
+	        factory.setNamespaceAware(false);
+	
+	
+	
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	
+	        Document doc = builder.parse(input);
+
+		}catch (Exception e) {e.printStackTrace();}
+		
 	}
 	
 }

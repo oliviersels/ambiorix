@@ -40,4 +40,6 @@ public interface TegelBasis
 	public TerreinType getTerreinType( Punt locatie );
 	public int getTerreinBreedte();
 	public int getTerreinHoogte();
+	
+	public TerreinBasis getTerrein( Punt locatie );
 }

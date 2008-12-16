@@ -218,7 +218,7 @@ public class Tegel implements TegelBasis
 		return terrein[ locatie.getX() ][ locatie.getY() ]; 
 	}
 	
-	public Terrein getTerrein(Punt locatie)
+	public TerreinBasis getTerrein(Punt locatie)
 	{
 		// TODO : controle op indices
 		return new Terrein( this, new Punt(locatie) );
