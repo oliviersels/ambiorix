@@ -3,6 +3,7 @@ package ambiorix;
 import java.util.Vector;
 
 import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
 import ambiorix.spelbord.Spelbord;
@@ -88,5 +89,55 @@ public class SpelToolkit {
 	//  2) Output
 	public void zetTegel(Speler s, Tegel t, BordPositie p) {
 		s.zetTegel(t, p);
+	}
+
+	// 3) spelbord functies ROBIN
+	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel,
+			boolean stopDirect) {
+		return spelbord.controleerGlobalePlaatsbaarheid(tegel, stopDirect);
+	}
+
+	public boolean controleerPlaatsbaarheid(Pion pion, Terrein terrein) {
+		return spelbord.controleerPlaatsbaarheid(pion, terrein);
+	}
+
+	public boolean controleerPlaatsbaarheid(Tegel tegel, BordPositie positie) {
+		return spelbord.controleerPlaatsbaarheid(tegel, positie);
+	}
+
+	public Gebied getGebied(Terrein start) {
+		return spelbord.getGebied(start);
+	}
+
+	public Tegel getLaatstGeplaatsteTegel() {
+		return spelbord.getLaatstGeplaatsteTegel();
+	}
+
+	public int getTegelAantal(String tegelType) {
+		return spelbord.getTegelAantal(tegelType);
+	}
+
+	public void plaatsPion(Pion pion, Terrein terrein) {
+		spelbord.plaatsPion(pion, terrein);
+	}
+
+	public void plaatsTegel(Tegel tegel, BordPositie positie) {
+		spelbord.plaatsTegel(tegel, positie);
+	}
+
+	public void setBegintegel(Tegel beginTegel) {
+		spelbord.setBegintegel(beginTegel);
+	}
+
+	public void verwijderPion(Pion pion) {
+		spelbord.verwijderPion(pion);
+	}
+
+	public void verwijderPion(Terrein positie) {
+		spelbord.verwijderPion(positie);
+	}
+
+	public void verwijderTegel(Tegel tegel) {
+		spelbord.verwijderTegel(tegel);
 	}
 }

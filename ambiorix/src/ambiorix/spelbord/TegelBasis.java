@@ -35,6 +35,7 @@ public interface TegelBasis
 	public int getID();
 	public TegelType getType();
 	public int getRotatie();
+	public void setRotatie(int rotatie);
 	public boolean isDraaibaar();
 	
 	public TerreinType getTerreinType( Punt locatie );

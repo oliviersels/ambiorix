@@ -2,6 +2,8 @@ package ambiorix.spelbord;
 
 import java.util.Vector;
 
+import org.w3c.dom.Node;
+
 import ambiorix.util.Punt;
 
 public class Tegel implements TegelBasis
@@ -265,7 +267,7 @@ public class Tegel implements TegelBasis
 	{
 		String output = "<tegel>";
 		
-			output += "<id>" 		+ this.ID + "			</id>";
+			output += "<id>" 		+ this.ID + 			"</id>";
 			output += "<type>" 		+ this.type.getID() + 	"</type>";
 			output += "<rotatie>" 	+ this.rotatie + 		"</rotatie>";
 			
@@ -278,7 +280,7 @@ public class Tegel implements TegelBasis
 					output += "<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>";
 					output += "<richting>" 	+ richting.toString() 						+ "</richting>";
 					output += "</buur>";
-					continue;
+					break;
 				}
 			}
 			
@@ -299,6 +301,15 @@ public class Tegel implements TegelBasis
 				output += "<pionnen>" + pionnen + "</pionnen>";
 				
 		output += "</tegel>";
+		
+		return output;
+	}
+	
+	public static Tegel fromXML(Node input)
+	{
+		Tegel output = new Tegel(null);
+		
+		
 		
 		return output;
 	}

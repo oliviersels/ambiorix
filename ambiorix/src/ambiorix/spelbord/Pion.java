@@ -41,7 +41,12 @@ public class Pion implements PionBasis
 		
 			output += "<id>" 		+ this.ID + 				"</id>";
 			output += "<type>" 		+ this.type.getID() + 		"</type>";
-			output += "<speler>" 	+ this.speler.getNaam() + 	"</speler>";
+			
+			if(speler != null)
+				output += "<speler>" 	+ this.speler.getNaam() + 	"</speler>";
+			else
+				output += "<speler>" 	+ "1" + 	"</speler>";
+				
 		
 		output += "</pion>";
 		
