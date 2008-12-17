@@ -482,9 +482,14 @@ public class Spelbord
 	
 	public static Spelbord fromXML(String input)
 	{
+		XmlNode root = XmlNode.fromString(input);
+        
+        return fromXML( root );
+	}
+	
+	public static Spelbord fromXML( XmlNode root )
+	{
 		Spelbord output = new Spelbord();
-
-        XmlNode root = XmlNode.fromString(input);
         
         //System.out.println("Spelbord::fromXML : " +  doc.getNodeName() );
         
@@ -496,16 +501,13 @@ public class Spelbord
         	//System.out.println("Spelbord::fromXML : " +  tegels.item(i).getNodeName() );
         	//System.out.println("Spelbord::fromXML : " +  tegels.item(i) );
 
-        	int id = Integer.parseInt( tegel.getElementByTagName("id").getValue() );
-        	String type = tegel.getElementByTagName("type").getValue();
-        	int rotatie = Integer.parseInt( tegel.getElementByTagName("rotatie").getValue() );
+        	Tegel nieuweTegel = Tegel.fromXML(tegel);
         	
-        	System.out.println("Spelbord::fromXML tegel : " +  id + " " + type + " " + rotatie );
+        	//System.out.println("Spelbord::fromXML tegel : " +  id + " " + type + " " + rotatie );
         	
         }
         
-		return output;
-		
+		return output;		
 	}
 	
 }

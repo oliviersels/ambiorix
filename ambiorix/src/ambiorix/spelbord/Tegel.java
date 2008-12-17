@@ -5,6 +5,7 @@ import java.util.Vector;
 import org.w3c.dom.Node;
 
 import ambiorix.util.Punt;
+import ambiorix.xml.XmlNode;
 
 public class Tegel implements TegelBasis
 {
@@ -309,11 +310,21 @@ public class Tegel implements TegelBasis
 		return output;
 	}
 	
-	public static Tegel fromXML(Node input)
+	/*
+	 * Deze functie maakt de tegel aan met de gegeven type, id en rotatie.
+	 * De tegel op het spelbord plaatsen (buren toekennen) en de pionnen eropzetten,
+	 * moet gedaan worden via spelbord, niet in deze functie.
+	 */
+	public static Tegel fromXML(XmlNode input)
 	{
-		Tegel output = new Tegel(null);
 		
+		int id = Integer.parseInt( input.getElementByTagName("id").getValue() );
+    	String type = input.getElementByTagName("type").getValue();
+    	int rotatie = Integer.parseInt( input.getElementByTagName("rotatie").getValue() );
 		
+		Tegel output = new Tegel( TegelTypeVerzameling.getInstantie().getType(type) );
+		output.setID(id);
+		output.setRotatie(rotatie);
 		
 		return output;
 	}

@@ -8,8 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ambiorix.gui.HoofdVenster;
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
-import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
-import ambiorix.spelbord.tegeltypes.TegelType_WGGWW;
+import ambiorix.spelbord.tegeltypes.*;
 import ambiorix.spelbord.terreintypes.*;
 import ambiorix.util.Punt;
 
@@ -361,15 +360,28 @@ public class systeem
 		TerreinType_Gras gras = new TerreinType_Gras();
 		TerreinType_Klooster klooster = new TerreinType_Klooster();
 		TerreinType_Weg weg = new TerreinType_Weg();
+		TerreinType_Burcht burcht = new TerreinType_Burcht();
 		TerreinTypeVerzameling.getInstantie().registreerType(gras);
 		TerreinTypeVerzameling.getInstantie().registreerType(klooster);
 		TerreinTypeVerzameling.getInstantie().registreerType(weg);
+		TerreinTypeVerzameling.getInstantie().registreerType(burcht);
 		
 		
 		TegelType_GGGGK ggggk = new TegelType_GGGGK();
 		TegelType_WGGWW wggww = new TegelType_WGGWW();
+		TegelType_BBBBB bbbbb = new TegelType_BBBBB();
+		TegelType_BurchtMetBochtweg bochtweg = new TegelType_BurchtMetBochtweg();
+		TegelType_Driesprong driesprong = new TegelType_Driesprong();
+		TegelType_EenZijdeBurcht eenzijdeBurcht = new TegelType_EenZijdeBurcht();
+		TegelType_RechteWeg rechteweg = new TegelType_RechteWeg();
+		
 		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
 		TegelTypeVerzameling.getInstantie().registreerType(wggww);
+		TegelTypeVerzameling.getInstantie().registreerType(bbbbb);
+		TegelTypeVerzameling.getInstantie().registreerType(bochtweg);
+		TegelTypeVerzameling.getInstantie().registreerType(driesprong);
+		TegelTypeVerzameling.getInstantie().registreerType(eenzijdeBurcht);
+		TegelTypeVerzameling.getInstantie().registreerType(rechteweg);
 	}
 	
 	Spel huidigeSpel;		
