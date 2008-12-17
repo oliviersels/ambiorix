@@ -90,6 +90,10 @@ public class SpelToolkit {
 	public void zetTegel(Speler s, Tegel t, BordPositie p) {
 		s.zetTegel(t, p);
 	}
+	
+	public void geefSpelerTegel(Tegel t, Speler s) {
+		s.addTegel(t);
+	}
 
 	// 3) spelbord functies ROBIN
 	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel,
@@ -127,6 +131,7 @@ public class SpelToolkit {
 
 	public void setBegintegel(Tegel beginTegel) {
 		spelbord.setBegintegel(beginTegel);
+		zetTegel(getActieveSpeler(), beginTegel, new BordPositie(null, null));
 	}
 
 	public void verwijderPion(Pion pion) {

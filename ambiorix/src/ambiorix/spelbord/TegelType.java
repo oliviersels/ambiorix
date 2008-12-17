@@ -63,7 +63,7 @@ public class TegelType extends Type
 			
 			while( teller <= midden )
 			{
-				// ganse kolom afgaan en waardes kopi‘ren naar gespiegelde kolom "aan de andere kant"
+				// ganse kolom afgaan en waardes kopiÃ«ren naar gespiegelde kolom "aan de andere kant"
 				for( int t = 0; t < terrein.length; t++)
 				{
 					hulp = output[ t ][ teller ];

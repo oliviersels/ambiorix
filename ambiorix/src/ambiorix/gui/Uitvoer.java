@@ -4,6 +4,7 @@ import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
+import ambiorix.spelers.Speler;
 
 public class Uitvoer {
 
@@ -38,5 +39,20 @@ public class Uitvoer {
 			hv.voegPionToe(terrein.getTegel(), pion, terrein.getPositie()); // TODO: terrein doorgeven ipv tegel en positie
 		}
 	}
+	
+	public class SpelerTegelGeven implements Runnable {
+		Speler speler;
+		Tegel tegel;
+		
+		public SpelerTegelGeven(Speler s, Tegel t) {
+			speler = s;
+			tegel = t;
+		}
 
+		@Override
+		public void run() {
+			HoofdVenster hv = HoofdVenster.geefInstantie();
+			hv.voegSelectieTegelToe(tegel);
+		}
+	}
 }

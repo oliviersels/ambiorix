@@ -19,12 +19,14 @@ public abstract class Speler {
 	private int score;
 	private String naam;
 	private Vector<Pion> pionnen;
+	private Vector<Tegel> tegels;
 	private STATUS status;
 	
 	public Speler() {
 		kleur = null;
 		naam = null;
 		pionnen = new Vector<Pion>();
+		tegels = new Vector<Tegel>();
 	}
 	
 	//public abstract Antwoord vraagIets();
@@ -121,6 +123,18 @@ public abstract class Speler {
 
 	public void setNaam(String naam) {
 		this.naam = naam;
+	}
+	
+	public void addTegel(Tegel tegel) {
+		tegels.add(tegel);
+	}
+	
+	public void deleteTegel(Tegel tegel) {
+		tegels.remove(tegel);
+	}
+	
+	public int getAantalTegels() {
+		return tegels.size();
 	}
 	
 	public void addPion(Pion pion) {

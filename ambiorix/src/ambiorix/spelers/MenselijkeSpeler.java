@@ -87,4 +87,31 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void antwoordTegelGebiedSelectie(Antwoord a) {}
+
+	@Override
+	public void addPion(Pion pion) {
+		super.addPion(pion);
+	}
+
+	@Override
+	public void addTegel(Tegel tegel) {
+		super.addTegel(tegel);
+		
+		Uitvoer u = new Uitvoer();
+		Uitvoer.SpelerTegelGeven run = u.new SpelerTegelGeven(this, tegel);
+		SwingUtilities.invokeLater(run);
+		System.out.println("Speler tegel geven");
+	}
+
+	@Override
+	public void deletePion(Pion pion) {
+		// TODO Auto-generated method stub
+		super.deletePion(pion);
+	}
+
+	@Override
+	public void deleteTegel(Tegel tegel) {
+		// TODO Auto-generated method stub
+		super.deleteTegel(tegel);
+	}
 }

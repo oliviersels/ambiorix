@@ -17,8 +17,7 @@ public class LegTegel extends AbstractActie {
 	private boolean controleerPositie(BordPositie p, Tegel t) {
 		if(p == null || t == null)
 			return false;
-		//return kit.positieMogelijk(t, p);
-		return true;
+		return kit.controleerPlaatsbaarheid(t, p);
 	}
 
 	@Override

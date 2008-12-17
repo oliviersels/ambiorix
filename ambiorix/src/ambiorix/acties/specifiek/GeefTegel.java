@@ -2,11 +2,16 @@ package ambiorix.acties.specifiek;
 
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
+import ambiorix.spelbord.Tegel;
 
 public class GeefTegel extends AbstractActie {
+	Tegel gegevenTegel;
+	
 
 	public GeefTegel(SpelToolkit kit, AbstractActie vorige) {
 		super(kit, vorige);
+		
+		gegevenTegel = null;
 	}
 
 	@Override
@@ -14,6 +19,8 @@ public class GeefTegel extends AbstractActie {
 		System.out.println("start -> geeftegel");
 		
 		System.out.println("geeftegel -> geef tegel aan huidige speler");
+		gegevenTegel = kit.getVolgendeTegel();
+		kit.geefSpelerTegel(gegevenTegel, kit.getActieveSpeler());
 		System.out.println("geeftegel -> verwacht geen input ofzo");
 		
 		System.out.println("geeftegel -> volgende -> LegTegel");
