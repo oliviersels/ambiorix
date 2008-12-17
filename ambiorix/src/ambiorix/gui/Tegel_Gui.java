@@ -20,6 +20,7 @@ import javax.swing.JComponent;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
+import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;
 
 public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionListener, TegelVeldComponent{
@@ -106,6 +107,9 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 		tg.tegelPixelX = e.getX();
 		tg.tegelPixelY = e.getY();
 		tg.me = e;
+		Punt p = new Punt((int)(((float)tg.tegelPixelY/100f) * (float)tg.tegel.getTerreinHoogte())
+				, (int)(((float)tg.tegelPixelX/100f) * (float)tg.tegel.getTerreinBreedte()));
+		tg.terrein = (Terrein) tg.tegel.getTerrein(p);
 		while(it.hasNext())
 		{
 			(it.next()).geklikt(tg);
