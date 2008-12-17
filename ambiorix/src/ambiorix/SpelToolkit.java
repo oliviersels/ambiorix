@@ -94,6 +94,14 @@ public class SpelToolkit {
 	public void geefSpelerTegel(Tegel t, Speler s) {
 		s.addTegel(t);
 	}
+	
+	public void geefSpelerPion(Pion p, Speler s) {
+		s.addPion(p);
+	}
+	
+	public void neemSpelerTegelAf(Tegel t, Speler s) {
+		s.deleteTegel(t);
+	}
 
 	// 3) spelbord functies ROBIN
 	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel,

@@ -28,6 +28,9 @@ public class LegTegel extends AbstractActie {
 		Speler actieveSpeler = kit.getActieveSpeler();
 		
 		while(!controleerPositie(positie, gekozenTegel)) {
+			if(gekozenTegel != null)
+				kit.geefSpelerTegel(gekozenTegel, actieveSpeler);
+			
 			System.out.println("legtegel -> vraag aan gebruiker welke tegel hij wilt leggen");
 			try {
 				gekozenTegel = kit.selecteerSpelerTegel(actieveSpeler);
@@ -41,6 +44,8 @@ public class LegTegel extends AbstractActie {
 			} catch (InterruptedException e) {
 				return null;
 			}
+			
+			kit.neemSpelerTegelAf(gekozenTegel, actieveSpeler);
 		}
 		System.out.println("legtegel -> plaats de tegel op het bord");
 		kit.zetTegel(actieveSpeler, gekozenTegel, positie);

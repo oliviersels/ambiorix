@@ -55,4 +55,36 @@ public class Uitvoer {
 			hv.voegSelectieTegelToe(tegel);
 		}
 	}
+	
+	public class SpelerPionGeven implements Runnable {
+		Speler speler;
+		Pion pion;
+		
+		public SpelerPionGeven(Speler s, Pion p) {
+			speler = s;
+			pion = p;
+		}
+
+		@Override
+		public void run() {
+			HoofdVenster hv = HoofdVenster.geefInstantie();
+			hv.voegPionToe(pion);
+		}
+	}
+	
+	public class NeemSpelerTegelAf implements Runnable {
+		Speler speler;
+		Tegel tegel;
+		
+		public NeemSpelerTegelAf(Speler s, Tegel t) {
+			speler = s;
+			tegel = t;
+		}
+
+		@Override
+		public void run() {
+			HoofdVenster hv = HoofdVenster.geefInstantie();
+			hv.verwijderSelectieTegel(tegel);
+		}
+	}
 }

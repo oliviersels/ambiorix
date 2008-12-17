@@ -82,6 +82,9 @@ public class TegelSelectieVeld extends JPanel implements TegelLuisteraar{
 			mijnTegels.remove(teVerwijderenTG);
 			this.remove(teVerwijderenComp);
 		}
+		
+		this.repaint();
+		this.revalidate();
 	}
 	public void ledig() {
 		mijnTegels.clear();

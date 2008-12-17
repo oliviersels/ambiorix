@@ -91,6 +91,10 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	@Override
 	public void addPion(Pion pion) {
 		super.addPion(pion);
+		
+		Uitvoer u = new Uitvoer();
+		Uitvoer.SpelerPionGeven run = u.new SpelerPionGeven(this, pion);
+		SwingUtilities.invokeLater(run);
 	}
 
 	@Override
@@ -100,7 +104,6 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		Uitvoer u = new Uitvoer();
 		Uitvoer.SpelerTegelGeven run = u.new SpelerTegelGeven(this, tegel);
 		SwingUtilities.invokeLater(run);
-		System.out.println("Speler tegel geven");
 	}
 
 	@Override
@@ -111,7 +114,10 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void deleteTegel(Tegel tegel) {
-		// TODO Auto-generated method stub
 		super.deleteTegel(tegel);
+		
+		Uitvoer u = new Uitvoer();
+		Uitvoer.NeemSpelerTegelAf run = u.new NeemSpelerTegelAf(this, tegel);
+		SwingUtilities.invokeLater(run);
 	}
 }
