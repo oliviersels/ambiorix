@@ -78,13 +78,8 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 		{
 			BufferedImage mijnPionImg = null;
 			// TODO image loader maken
-			try {
 				
-				mijnPionImg = ImageIO.read(new File("pion.png"));
-			} catch (IOException e) {
-				System.out.println("pion.png" + " niet gevonden in Tegel_Gui");
-			}
-			
+			mijnPionImg = AfbeeldingLader.geefAfbeelding("pion");
 			Punt p = mijnPionPunten.get(i);
 			g2.drawImage(mijnPionImg, (int)Math.round(((float)rec.width)/tb * (float)p.getY()),
 					(int)Math.round((float)(rec.height)/th * (float)p.getX()), (int)Math.ceil(100.0f/tb), (int)Math.ceil(100.0f/th), null);

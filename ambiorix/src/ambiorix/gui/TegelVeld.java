@@ -68,8 +68,8 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		this.add(nieuweTegel);
 		voegTegelGeestToe(x, y+1, nieuweTegel, Tegel.RICHTING.ONDER);
 		voegTegelGeestToe(x, y-1, nieuweTegel, Tegel.RICHTING.BOVEN);
-		voegTegelGeestToe(x+1, y, nieuweTegel, Tegel.RICHTING.LINKS);
-		voegTegelGeestToe(x-1, y, nieuweTegel, Tegel.RICHTING.RECHTS);
+		voegTegelGeestToe(x-1, y, nieuweTegel, Tegel.RICHTING.LINKS);
+		voegTegelGeestToe(x+1, y, nieuweTegel, Tegel.RICHTING.RECHTS);
 		verwijderTegelGeest(x, y);
 		this.repaint();
 		this.revalidate();
