@@ -22,8 +22,8 @@ public class systeem
 		//Robin();
 		//Jens();
 		//Robin();
-		Jens();
-		//TestGebiedAanduiding();
+		//Jens();
+		TestGebiedAanduiding();
 		//Jan();
 		//Olivier();
 	}

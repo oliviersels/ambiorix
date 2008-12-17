@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
+import ambiorix.xml.XmlNode;
 
 
 /*
@@ -482,49 +483,27 @@ public class Spelbord
 	public static Spelbord fromXML(String input)
 	{
 		Spelbord output = new Spelbord();
-		
-		try
-		{
-	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	        //factory.setValidating(true);
-	        factory.setNamespaceAware(false);
-	
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	
 
-	        byte currentXMLBytes[] = input.getBytes();
-	        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(currentXMLBytes);
-	        
+        XmlNode root = XmlNode.fromString(input);
+        
+        //System.out.println("Spelbord::fromXML : " +  doc.getNodeName() );
+        
+        root = root.getElementByTagName("spelbord");
+        Vector<XmlNode> tegels = root.getElementByTagName("tegels").getElementsByTagName("tegel");
+        
+        for( XmlNode tegel : tegels )
+        {
+        	//System.out.println("Spelbord::fromXML : " +  tegels.item(i).getNodeName() );
+        	//System.out.println("Spelbord::fromXML : " +  tegels.item(i) );
 
-	        Document root = builder.parse(byteArrayInputStream);
-	        
-	        //System.out.println("Spelbord::fromXML : " +  doc.getNodeName() );
-	        
-	        NodeList tegels = root.getElementsByTagName("tegels");
-	        tegels = tegels.item(0).getChildNodes();
-	        
-	        for( int i = 0; i < tegels.getLength(); i++ )
-	        {
-	        	//System.out.println("Spelbord::fromXML : " +  tegels.item(i).getNodeName() );
-	        	//System.out.println("Spelbord::fromXML : " +  tegels.item(i) );
-	        	
-	        	NodeList tegelEigenschappen = tegels.item(i).getChildNodes();
-		        for( int j = 0; j < tegelEigenschappen.getLength(); j++ )
-		        {
-		        	// TODO : aanpassen !!!!
-		        	if( tegelEigenschappen.item(j).getNodeName() == "test" )
-		        		return output;
-		        }
-	        	
-	        }
-	        
-
-		}
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
+        	int id = Integer.parseInt( tegel.getElementByTagName("id").getValue() );
+        	String type = tegel.getElementByTagName("type").getValue();
+        	int rotatie = Integer.parseInt( tegel.getElementByTagName("rotatie").getValue() );
+        	
+        	System.out.println("Spelbord::fromXML tegel : " +  id + " " + type + " " + rotatie );
+        	
+        }
+        
 		return output;
 		
 	}

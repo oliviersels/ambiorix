@@ -271,20 +271,24 @@ public class Tegel implements TegelBasis
 			output += "<type>" 		+ this.type.getID() + 	"</type>";
 			output += "<rotatie>" 	+ this.rotatie + 		"</rotatie>";
 			
+			String burenOut = "";
+			
 			// eerste beste buur meegeven ( = positie op het spelbord)
 			for( RICHTING richting : RICHTING.values() )
 			{
 				if( buren[ richting.ordinal() ] != null )
 				{
-					output += "<buur>";
-					output += "<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>";
-					output += "<richting>" 	+ richting.toString() 						+ "</richting>";
-					output += "</buur>";
+					burenOut += "<buur>";
+					burenOut += "<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>";
+					burenOut += "<richting>" 	+ richting.toString() 						+ "</richting>";
+					burenOut += "</buur>";
 					break;
 				}
 			}
 			
-			
+			if(burenOut != "")
+				output += "<buren>" + burenOut + "</buren>";
+				
 			String pionnen = "";
 			for(int i = 0; i < pionPosities.length; i++)
 			{
