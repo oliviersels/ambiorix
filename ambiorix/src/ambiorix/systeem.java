@@ -22,8 +22,8 @@ public class systeem
 		//Robin();
 		//Jens();
 		//Robin();
-		//Jens();
-		TestGebiedAanduiding();
+		Jens();
+		//TestGebiedAanduiding();
 		//Jan();
 		//Olivier();
 	}
@@ -75,8 +75,8 @@ public class systeem
 			hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
 
 		hv.tekenTerrein(gebied);
-		
-		
+		hv.voegSelectieTegelToe(spelbord.getVolgendeTegel());
+		hv.voegSelectieTegelToe(spelbord.getVolgendeTegel());
 	}
 	
 	private static void TestGebiedAanduiding()

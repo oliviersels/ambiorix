@@ -20,19 +20,19 @@ import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
 
-public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeestLuisteraar{
+public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuisteraar{
 	private Vector<Tegel_Gui> mijnTegels;
 	private Vector<TegelGeest> mijnTegelGeesten;
-	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
+	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private HoofdVenster hv; // TODO tijdelijk!!
 	
-	public synchronized void addTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
+	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
 		tegelKlikLuisteraars.add(tkl);
 	}
 	
-	public synchronized void removeTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
+	public synchronized void removeTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
 		
 		tegelKlikLuisteraars.remove(tkl);
@@ -55,7 +55,7 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 		mijnTegelGeesten = new Vector<TegelGeest>();
 		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
 		this.setLayout(new TegelVeldLayout());
-		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
+		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
 	}
 	
 	public void voegTegelToe(int x, int y, Tegel tegel)
@@ -77,16 +77,12 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 
 	@Override
 	public synchronized void geklikt(TegelGebeurtenis tg) {
-		
-		
-		
-		hv.voegRegelToe("Geklikt op tegel: " + tg.tegelX + ", " + tg.tegelY + " op pixel " + tg.tegelPixelX + ", " + tg.tegelPixelY);
-		TegelBasis geklikteTegel = tg.tegel;
-		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
+		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
 		while(it.hasNext()) {
 			it.next().geklikt(tg);
 		}
 	}
+	
 	@Override
 	public synchronized void geklikt(TegelGeestGebeurtenis gtg) {
 		Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
@@ -196,5 +192,14 @@ public class TegelVeld extends JPanel implements TegelKlikLuisteraar, TegelGeest
 				tg.voegPionToe(pion, pos);
 			}
 		}	
+	}
+
+	@Override
+	public void bewogen(TegelGebeurtenis tg) {
+		Punt p = new Punt((int)(((float)tg.tegelPixelY/100f) * (float)tg.tegel.getTerreinHoogte())
+				, (int)(((float)tg.tegelPixelX/100f) * (float)tg.tegel.getTerreinBreedte()));
+		Terrein ter = (Terrein) tg.tegel.getTerrein(p);
+		Tegel teg=(Tegel)tg.tegel;
+		tekenTerrein(teg.getGebied(ter));
 	}
 }

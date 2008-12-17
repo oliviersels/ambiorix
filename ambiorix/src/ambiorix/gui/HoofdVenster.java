@@ -203,11 +203,11 @@ public class HoofdVenster extends JFrame{
 	{
 		this.pionnenVeld.removePionLuisteraar(pl);
 	}
-	public void voegSelectieTegelLuisteraarToe(TegelKlikLuisteraar tkl)
+	public void voegSelectieTegelLuisteraarToe(TegelLuisteraar tkl)
 	{
 		this.tegelSelecteer.addTegelKlikLuisteraar(tkl);
 	}
-	public void verwijderSelectieTegelLuisteraar(TegelKlikLuisteraar tkl)
+	public void verwijderSelectieTegelLuisteraar(TegelLuisteraar tkl)
 	{
 		this.tegelSelecteer.removeTegelKlikLuisteraar(tkl);
 	}

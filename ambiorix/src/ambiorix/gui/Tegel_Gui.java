@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +22,11 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldComponent{
+public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionListener, TegelVeldComponent{
 	
 	public void update(Graphics g){paint(g);}
 	private BufferedImage mijnAfbeelding = null;
-	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
+	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<Punt> gebiedenTeTekenen;
 	private Vector<Pion> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
 	private Vector<Punt> mijnPionPunten;
@@ -42,7 +43,8 @@ public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldCom
 			System.out.println(fileNaam + " niet gevonden in Tegel_Gui");
 		}
 		this.addMouseListener(this);
-		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
+		this.addMouseMotionListener(this);
+		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
 		gebiedenTeTekenen = new Vector<Punt>();
 		mijnPionnen = new Vector<Pion>();
 		mijnPionPunten = new Vector<Punt>();
@@ -101,13 +103,14 @@ public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldCom
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
+		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
 		TegelGebeurtenis tg = new TegelGebeurtenis();
 		tg.tegel = this.tegel;
 		tg.tegelX = p.getX();
 		tg.tegelY = p.getY();
 		tg.tegelPixelX = e.getX();
 		tg.tegelPixelY = e.getY();
+		tg.me = e;
 		while(it.hasNext())
 		{
 			(it.next()).geklikt(tg);
@@ -160,7 +163,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldCom
 		
 	}
 	
-	public void addTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
+	public void addTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
 		
 		tegelKlikLuisteraars.add(tkl);
@@ -184,6 +187,29 @@ public class Tegel_Gui extends JComponent implements MouseListener, TegelVeldCom
 	@Override
 	public Punt geefPositie() {
 		return p;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO functie maken die een tg invult
+		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
+		TegelGebeurtenis tg = new TegelGebeurtenis();
+		tg.tegel = this.tegel;
+		tg.tegelX = p.getX();
+		tg.tegelY = p.getY();
+		tg.tegelPixelX = e.getX();
+		tg.tegelPixelY = e.getY();
+		tg.me = e;
+		while(it.hasNext())
+		{
+			(it.next()).bewogen(tg);
+		}
 	}
 	
 	

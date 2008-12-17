@@ -36,7 +36,7 @@ public class Invoer {
 
 	}
 
-	public class SelecteerTegelGebied implements Runnable, TegelKlikLuisteraar {
+	public class SelecteerTegelGebied implements Runnable, TegelLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		
 		public SelecteerTegelGebied(InvoerLuisteraar il) {
@@ -59,9 +59,15 @@ public class Invoer {
 			a.getTerreinen().add((Terrein) tg.terrein);
 			invoerLuisteraar.invoerGebeurtenis(a);
 		}
+
+		@Override
+		public void bewogen(TegelGebeurtenis tg) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
-	public class SelecteerSpelerTegel implements Runnable, TegelKlikLuisteraar {
+	public class SelecteerSpelerTegel implements Runnable, TegelLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		Speler speler;
 		
@@ -85,6 +91,12 @@ public class Invoer {
 			Antwoord a = new Antwoord();
 			a.getTegels().add((Tegel) tg.tegel);
 			invoerLuisteraar.invoerGebeurtenis(a);
+		}
+
+		@Override
+		public void bewogen(TegelGebeurtenis tg) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

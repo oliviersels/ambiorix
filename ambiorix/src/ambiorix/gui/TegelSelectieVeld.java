@@ -1,6 +1,7 @@
 package ambiorix.gui;
 
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -9,29 +10,39 @@ import javax.swing.JPanel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class TegelSelectieVeld extends JPanel implements TegelKlikLuisteraar{
+public class TegelSelectieVeld extends JPanel implements TegelLuisteraar{
 	private Vector<Tegel_Gui> mijnTegels;
-	private Vector<TegelKlikLuisteraar> tegelKlikLuisteraars;
+	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	
 	public TegelSelectieVeld() {
 		mijnTegels = new Vector<Tegel_Gui>();
 		this.setLayout(new TegelSelectieVeldLayout());
-		tegelKlikLuisteraars = new Vector<TegelKlikLuisteraar>();
+		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
 	}
 	
 	@Override
 	public synchronized void geklikt(TegelGebeurtenis tg) {
-		Iterator<TegelKlikLuisteraar> it = tegelKlikLuisteraars.iterator();
-		while(it.hasNext()) {
-			it.next().geklikt(tg);
+		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
+		if(tg.me.getButton() == MouseEvent.BUTTON3)
+		{
+			int huidigeRotatie = tg.tegel.getRotatie();
+			int nieuweRotatie = (huidigeRotatie + 90)%360;
+			tg.tegel.setRotatie(nieuweRotatie);
+			this.repaint();
+			this.revalidate();
+		}
+		else{
+			while(it.hasNext()) {
+				it.next().geklikt(tg);
+			}
 		}
 	}
-	public synchronized void addTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
+	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
 		tegelKlikLuisteraars.add(tkl);
 	}
 	
-	public synchronized void removeTegelKlikLuisteraar(TegelKlikLuisteraar tkl)
+	public synchronized void removeTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
 		
 		tegelKlikLuisteraars.remove(tkl);
@@ -69,5 +80,11 @@ public class TegelSelectieVeld extends JPanel implements TegelKlikLuisteraar{
 		this.removeAll();
 		this.repaint();
 		this.revalidate();
+	}
+
+	@Override
+	public void bewogen(TegelGebeurtenis tg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
