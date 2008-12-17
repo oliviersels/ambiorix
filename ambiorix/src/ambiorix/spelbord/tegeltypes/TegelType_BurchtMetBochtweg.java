@@ -23,9 +23,9 @@ public class TegelType_BurchtMetBochtweg extends TegelType
 		terrein[1][3] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		terrein[1][4] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		
-		terrein[2][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
-		terrein[2][1] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
-		terrein[2][2] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
+		terrein[2][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
+		terrein[2][1] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
+		terrein[2][2] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		terrein[2][3] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		terrein[2][4] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		
