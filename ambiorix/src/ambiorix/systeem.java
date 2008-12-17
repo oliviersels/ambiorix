@@ -10,6 +10,7 @@ import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.*;
 import ambiorix.spelbord.terreintypes.*;
+import ambiorix.util.File;
 import ambiorix.util.Punt;
 
 
@@ -119,6 +120,9 @@ public class systeem
 		// weg270    weg90   weg
 		
 		Spelbord bord = new Spelbord();
+		bord.setTegelAantal("TegelType_BBBBB", 20);
+		bord.setTegelAantal("TegelType_Driesprong", 15);
+		
 		
 		Tegel linksboven = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
 		Tegel middenboven = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
@@ -271,8 +275,20 @@ public class systeem
 		}*/
 		
 		//System.out.println( bord.toXML() );
+		File.writeContents(bord.toXML(), "xmlTest.xml");
+		String contents = File.getContents("xmlTest.xml");
 		
-		Spelbord b = Spelbord.fromXML("<spelbord><beginTegel>0</beginTegel><volgendeTegelID>9</volgendeTegelID><overgeblevenTegels></overgeblevenTegels><tegels><tegel><id>8</id><type>TegelType_WGGWW</type><rotatie>180</rotatie><buur><id>1</id><richting>BOVEN</richting></buur><pionnen><pion><id>11</id><type>PionType_Volgeling</type><speler>1</speler></pion></pionnen></tegel><tegel><id>3</id><type>TegelType_WGGWW</type><rotatie>270</rotatie><buur><id>2</id><richting>BOVEN</richting></buur></tegel><tegel><id>7</id><type>TegelType_GGGGK</type><rotatie>0</rotatie><buur><id>0</id><richting>BOVEN</richting></buur></tegel><tegel><id>4</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>3</id><richting>BOVEN</richting></buur></tegel><tegel><id>2</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>3</id><richting>ONDER</richting></buur></tegel><tegel><id>1</id><type>TegelType_WGGWW</type><rotatie>90</rotatie><buur><id>2</id><richting>RECHTS</richting></buur></tegel><tegel><id>0</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>1</id><richting>RECHTS</richting></buur></tegel><tegel><id>5</id><type>TegelType_WGGWW</type><rotatie>90</rotatie><buur><id>8</id><richting>BOVEN</richting></buur></tegel><tegel><id>6</id><type>TegelType_WGGWW</type><rotatie>270</rotatie><buur><id>7</id><richting>BOVEN</richting></buur></tegel></tegels></spelbord>");
+		contents.replace("\n", "");
+		contents.replace("\t", "");
+
+		System.out.println( contents );
+		//System.out.println( "TESTING");
+		
+		Spelbord nieuwTestBord = Spelbord.fromXML( contents );
+		File.writeContents(nieuwTestBord.toXML(), "xmlTestNIEUW.xml");
+		
+		
+		//Spelbord b = Spelbord.fromXML("<spelbord><beginTegel>0</beginTegel><volgendeTegelID>9</volgendeTegelID><overgeblevenTegels></overgeblevenTegels><tegels><tegel><id>8</id><type>TegelType_WGGWW</type><rotatie>180</rotatie><buur><id>1</id><richting>BOVEN</richting></buur><pionnen><pion><id>11</id><type>PionType_Volgeling</type><speler>1</speler></pion></pionnen></tegel><tegel><id>3</id><type>TegelType_WGGWW</type><rotatie>270</rotatie><buur><id>2</id><richting>BOVEN</richting></buur></tegel><tegel><id>7</id><type>TegelType_GGGGK</type><rotatie>0</rotatie><buur><id>0</id><richting>BOVEN</richting></buur></tegel><tegel><id>4</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>3</id><richting>BOVEN</richting></buur></tegel><tegel><id>2</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>3</id><richting>ONDER</richting></buur></tegel><tegel><id>1</id><type>TegelType_WGGWW</type><rotatie>90</rotatie><buur><id>2</id><richting>RECHTS</richting></buur></tegel><tegel><id>0</id><type>TegelType_WGGWW</type><rotatie>0</rotatie><buur><id>1</id><richting>RECHTS</richting></buur></tegel><tegel><id>5</id><type>TegelType_WGGWW</type><rotatie>90</rotatie><buur><id>8</id><richting>BOVEN</richting></buur></tegel><tegel><id>6</id><type>TegelType_WGGWW</type><rotatie>270</rotatie><buur><id>7</id><richting>BOVEN</richting></buur></tegel></tegels></spelbord>");
 		
 	}
 

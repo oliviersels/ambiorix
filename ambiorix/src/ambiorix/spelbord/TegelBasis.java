@@ -1,5 +1,7 @@
 package ambiorix.spelbord;
 
+import java.util.Comparator;
+
 import ambiorix.util.Punt;
 
 /*
@@ -30,6 +32,41 @@ public interface TegelBasis
 			// anders doet compiler moeilijk. Komt hier nooit.
 			return null;
 		}
+		
+		public static RICHTING fromString(String input)
+		{
+			if( input == RICHTING.BOVEN.name() )
+				return RICHTING.BOVEN;
+			if( input == RICHTING.ONDER.name() )
+				return RICHTING.ONDER;
+			if( input == RICHTING.RECHTS.name() )
+				return RICHTING.RECHTS;		
+			if( input == RICHTING.LINKS.name() )
+				return RICHTING.LINKS;				
+			
+			return null;
+		}
+	}
+	
+	public class Sorteerder implements Comparator<Tegel>
+	{
+		/*public Sorteerder()
+		{
+			
+		}*/
+		
+		public int compare(Tegel t1, Tegel t2)
+		{
+			System.out.println("COMPARE : " + t1.getID() + " <> " + t2.getID() );
+			
+			if( t1.getID() < t2.getID() )
+				return -1;
+			if( t1.getID() > t2.getID() )
+				return 1;
+			
+			return 0;
+		}
+		
 	}
 	
 	public int getID();

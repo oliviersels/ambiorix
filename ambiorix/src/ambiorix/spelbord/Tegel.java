@@ -266,29 +266,30 @@ public class Tegel implements TegelBasis
 	
 	public String toXML()
 	{
-		String output = "<tegel>";
+		String output = "\t\t<tegel>\n";
 		
-			output += "<id>" 		+ this.ID + 			"</id>";
-			output += "<type>" 		+ this.type.getID() + 	"</type>";
-			output += "<rotatie>" 	+ this.rotatie + 		"</rotatie>";
+			output += "\t\t\t<id>" 				+ this.ID + 			"</id>\n";
+			output += "\t\t\t<type>" 			+ this.type.getID() + 	"</type>\n";
+			output += "\t\t\t<rotatie>" 		+ this.rotatie + 		"</rotatie>\n";
 			
-			String burenOut = "";
 			
 			// eerste beste buur meegeven ( = positie op het spelbord)
 			for( RICHTING richting : RICHTING.values() )
 			{
 				if( buren[ richting.ordinal() ] != null )
 				{
-					burenOut += "<buur>";
-					burenOut += "<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>";
-					burenOut += "<richting>" 	+ richting.toString() 						+ "</richting>";
-					burenOut += "</buur>";
-					break;
+					// buur met lager ID nemen, anders kunnen we later in de problemen komen bij het
+					// terug inladen.
+					if( buren[ richting.ordinal() ].getID() < this.ID )
+					{
+						output += "\t\t\t<buur>\n";
+							output += "\t\t\t\t<id>" 		+ this.buren[ richting.ordinal() ].getID() 	+ "</id>\n";
+							output += "\t\t\t\t<richting>" 	+ richting.toString() 						+ "</richting>\n";
+						output += "\t\t\t</buur>\n";
+						break;
+					}
 				}
 			}
-			
-			if(burenOut != "")
-				output += "<buren>" + burenOut + "</buren>";
 				
 			String pionnen = "";
 			for(int i = 0; i < pionPosities.length; i++)
@@ -297,15 +298,15 @@ public class Tegel implements TegelBasis
 				{
 					if( pionPosities[i][j] != null )
 					{
-						pionnen += pionPosities[i][j].toXML(); 
+						pionnen += pionPosities[i][j].toXML( new Punt(i,j) ); 
 					}
 				}
 			} 
 			
 			if(pionnen != "")
-				output += "<pionnen>" + pionnen + "</pionnen>";
+				output += "\t\t\t<pionnen>\n" + pionnen + "\t\t\t</pionnen>\n";
 				
-		output += "</tegel>";
+		output += "\t\t</tegel>\n";
 		
 		return output;
 	}
@@ -318,9 +319,9 @@ public class Tegel implements TegelBasis
 	public static Tegel fromXML(XmlNode input)
 	{
 		
-		int id = Integer.parseInt( input.getElementByTagName("id").getValue() );
-    	String type = input.getElementByTagName("type").getValue();
-    	int rotatie = Integer.parseInt( input.getElementByTagName("rotatie").getValue() );
+		int id = 	  Integer.parseInt( input.getChild("id").getValue());
+    	String type = 					input.getChild("type").getValue();
+    	int rotatie = Integer.parseInt( input.getChild("rotatie").getValue());
 		
 		Tegel output = new Tegel( TegelTypeVerzameling.getInstantie().getType(type) );
 		output.setID(id);

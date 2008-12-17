@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXParseException;
 
 public class XmlNode
 {
@@ -19,9 +20,9 @@ public class XmlNode
 		this.node = node;
 	}
 
-	public XmlNode getElementByTagName( String name )
+	public XmlNode getChild( String name )
 	{
-		Vector<XmlNode> list = getElementsByTagName(name);
+		Vector<XmlNode> list = getChildren(name);
 		if(list != null)
 			return list.get(0);
 		else
@@ -31,7 +32,7 @@ public class XmlNode
 		}
 	}
 	
-	public Vector<XmlNode> getElementsByTagName( String name )
+	public Vector<XmlNode> getChildren( String name )
 	{
 		Vector<XmlNode> output = new Vector<XmlNode>();
 		
@@ -69,6 +70,11 @@ public class XmlNode
 	        Document root = builder.parse(byteArrayInputStream);
 	        
 	        output = new XmlNode( root );
+		}
+		catch(SAXParseException saxParseException) 
+		{
+		     System.out.println("Line Number:  " + saxParseException.getLineNumber());
+		     System.out.println("Column Number:  " + saxParseException.getColumnNumber());  
 		}
 		catch(Exception e)
 		{

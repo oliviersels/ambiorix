@@ -2,7 +2,9 @@ package ambiorix.spelbord;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
@@ -14,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import ambiorix.spelbord.TegelBasis.RICHTING;
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
 import ambiorix.xml.XmlNode;
@@ -99,6 +102,11 @@ public class Spelbord
 		{
 			volgendeTegelID++;
 			return (volgendeTegelID - 1);
+		}
+		
+		private void setVolgendeTegelID(int id)
+		{
+			volgendeTegelID = id;
 		}
 		
 		private TegelType getRandomTegelType()
@@ -352,8 +360,8 @@ public class Spelbord
 		tegelCoordinaten.put(nieuweCoordinaat, tegel);
 		
 		
-		// als tegel geen ID heeft (bijv. bij toevoegen vanuit file etc.)
-		// gaan we hem een ID moeten toekennen
+		// als tegel nog geen ID heeft gaan we hem een ID moeten toekennen
+		// OPM : normaal gezien zal dit nooit gebeuren!!!
 		if( tegel.getID() == -1)
 			tegel.setID( getVolgendeTegelID() );
 		
@@ -420,6 +428,19 @@ public class Spelbord
 			
 			return null;
 		}
+		
+		private Tegel getTegel( int id )
+		{
+			Collection<Tegel> tegels = tegelCoordinaten.values();
+			
+			for( Tegel tegel : tegels )
+			{
+				if( tegel.getID() == id )
+					return tegel;
+			}
+			
+			return null;
+		}
 	
 	/*
 	 * Gaat recursief rondom start zoeken voor terreinstukken van hetzelfde type.
@@ -441,38 +462,44 @@ public class Spelbord
 	
 	public String toXML()
 	{
-		String output = "<spelbord>";
+		String output = "<?xml version=\"1.0\"?>\n<spelbord>\n";
 		
-		output += "<beginTegel>" + this.beginTegel.getID() + "</beginTegel>";
+		output += "\t<beginTegel>\n" + this.beginTegel.toXML() + "\t</beginTegel>\n";
 		
 		// niet echt nodig, meer ter controle
-		output += "<volgendeTegelID>" + this.volgendeTegelID + "</volgendeTegelID>";
+		output += "\t<volgendeTegelID>" + this.volgendeTegelID + "</volgendeTegelID>\n";
 		
-		output += "<overgeblevenTegels>";
+		output += "\t<overgeblevenTegels>\n";
 		
 			// de tegelpool moeten we ook opslaan natuurlijk
 			Set<String> tegelTypes = this.overgeblevenTegels.keySet();
 			for( String tegelType : tegelTypes )
 			{
-				output += "<reeks>";
+				output += "\t\t<reeks>\n";
 				
-				output += "<type>"   + tegelType 								+ "</type>";
-				output += "<aantal>" + this.overgeblevenTegels.get(tegelType) 	+ "</aantal>";
+				output += "\t\t\t<type>"   + tegelType 								+ "</type>\n";
+				output += "\t\t\t<aantal>" + this.overgeblevenTegels.get(tegelType) 	+ "</aantal>\n";
 				
-				output += "</reeks>";
+				output += "\t\t</reeks>\n";
 			}
 		
-		output += "</overgeblevenTegels>";
+		output += "\t</overgeblevenTegels>\n";
 			
-		output += "<tegels>";
+		output += "\t<tegels>\n";
 			
 			Collection<Tegel> tegels = tegelCoordinaten.values();
-			for( Tegel tegel : tegels )
+			
+			// heel belangrijk om te sorteren. Anders gaan we bij het herinlezen de buren niet meer tegoei
+			// vinden. Dus ook heel belangrijk dat de id's overeenkomen met volgorde van toevoegen op spelbord !!!
+			Vector<Tegel> tegelLijst = new Vector<Tegel>(tegels);
+			Collections.sort(tegelLijst, new TegelBasis.Sorteerder());
+			
+			for( Tegel tegel : tegelLijst )
 			{
 				output += tegel.toXML();
 			}
 		
-		output += "</tegels>";
+		output += "\t</tegels>\n";
 		
 		
 		output += "</spelbord>";
@@ -490,11 +517,29 @@ public class Spelbord
 	public static Spelbord fromXML( XmlNode root )
 	{
 		Spelbord output = new Spelbord();
+		//Vector<XmlNode> toeTeVoegenBuren = new Vector<XmlNode>();
         
         //System.out.println("Spelbord::fromXML : " +  doc.getNodeName() );
         
-        root = root.getElementByTagName("spelbord");
-        Vector<XmlNode> tegels = root.getElementByTagName("tegels").getElementsByTagName("tegel");
+        root = root.getChild("spelbord");
+        
+        int volgendeTegelID = Integer.parseInt(root.getChild("volgendeTegelID").getValue());
+        output.setVolgendeTegelID(volgendeTegelID);
+        
+        
+        Vector<XmlNode> overgeblevenTegels = root.getChild("overgeblevenTegels").getChildren("reeks");
+        for( XmlNode reeks : overgeblevenTegels )
+        {
+        	output.setTegelAantal( reeks.getChild("type").getValue() , Integer.parseInt(reeks.getChild("aantal").getValue()) );
+        }
+        
+        
+        XmlNode beginTegel = root.getChild("beginTegel").getChild("tegel");
+        
+        Vector<XmlNode> tegels = root.getChild("tegels").getChildren("tegel");
+        tegels.add(0,beginTegel); // zodat hij deze zeker en vast altijd eerst neemt
+        
+        // tegels staan hoogstwaarschijnlijk niet in de goede volgorde.
         
         for( XmlNode tegel : tegels )
         {
@@ -502,6 +547,37 @@ public class Spelbord
         	//System.out.println("Spelbord::fromXML : " +  tegels.item(i) );
 
         	Tegel nieuweTegel = Tegel.fromXML(tegel);
+        	
+        	XmlNode buur = tegel.getChild("buur");
+        	
+        	if( buur == null )// beginTegel
+        	{
+        		output.setBegintegel(nieuweTegel);
+        	}
+        	else
+        	{
+	        	int buurId = Integer.parseInt(buur.getChild("id").getValue());
+	        	RICHTING richting = RICHTING.fromString( buur.getChild("richting").getValue() );
+	        	
+	        	Tegel buurTegel = output.getTegel(buurId);
+	        	// TODO : hier gaat hij nog def out in
+	        	output.plaatsTegel(nieuweTegel, new BordPositie(buurTegel, richting) );
+        	}
+        	
+        	
+        	XmlNode pionnenTag = tegel.getChild("pionnen");
+        	if( pionnenTag != null ) // anders geen pionnen op deze tegel
+        	{
+        		Vector<XmlNode> pionnen = pionnenTag.getChildren("pion");
+        		for( XmlNode pion : pionnen )
+        		{
+        			Pion nieuwePion = Pion.fromXML(pion);
+        			Punt locatie = Punt.fromString(pion.getChild("locatie").getValue());
+        			
+        			output.plaatsPion(nieuwePion, new Terrein(nieuweTegel, locatie) );
+        		}
+        	}
+
         	
         	//System.out.println("Spelbord::fromXML tegel : " +  id + " " + type + " " + rotatie );
         	
