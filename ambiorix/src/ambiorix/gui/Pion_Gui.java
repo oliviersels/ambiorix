@@ -29,11 +29,7 @@ public class Pion_Gui extends JComponent implements MouseListener{
 	public Pion_Gui(PionBasis pion) {
 		mijnPionLuisteraars = new Vector<PionLuisteraar>();
 		mijnPion = pion;
-		try {
-			mijnAfbeelding = ImageIO.read(new File("pion.png"));
-		} catch (IOException e) {
-			System.out.println("image niet gevonden in Pion_Gui");
-		}
+		mijnAfbeelding = AfbeeldingLader.geefAfbeelding("pion");
 		this.addMouseListener(this);
 		this.setBounds(0, 0, 20, 20);
 	}
