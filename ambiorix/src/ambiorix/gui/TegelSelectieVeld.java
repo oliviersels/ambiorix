@@ -61,18 +61,26 @@ public class TegelSelectieVeld extends JPanel implements TegelLuisteraar{
 	public void verwijderTegel(TegelBasis tegel)
 	{
 		Iterator<Tegel_Gui> it = mijnTegels.iterator();
+		Component teVerwijderenComp = null;
+		Tegel_Gui teVerwijderenTG = null;
 		while(it.hasNext()) {
 			Tegel_Gui tg= it.next();
 			if(tg.getTegel() == tegel)
-				mijnTegels.remove(tg);
+				teVerwijderenTG = tg;
 		}
 		Component[] comps = this.getComponents();
 		int lengte = comps.length;
+		
 		for(int i = 0; i < lengte; i++)
 		{
 			Tegel_Gui tg = (Tegel_Gui) comps[i];
 			if(tg.getTegel() == tegel)
-				this.remove(tg);
+				teVerwijderenComp = comps[i];
+		}
+		if(teVerwijderenComp != null && teVerwijderenTG != null)
+		{
+			mijnTegels.remove(teVerwijderenTG);
+			this.remove(teVerwijderenComp);
 		}
 	}
 	public void ledig() {
