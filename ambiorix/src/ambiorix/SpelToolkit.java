@@ -140,4 +140,9 @@ public class SpelToolkit {
 	public void verwijderTegel(Tegel tegel) {
 		spelbord.verwijderTegel(tegel);
 	}
+	
+	public Tegel getVolgendeTegel()
+	{
+		return spelbord.getVolgendeTegel();
+	}
 }
