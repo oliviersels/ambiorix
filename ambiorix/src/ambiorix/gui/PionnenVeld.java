@@ -34,7 +34,6 @@ public class PionnenVeld extends JPanel implements PionLuisteraar{
 		mijnPionnen.add(nieuwePion);
 		this.add(nieuwePion);
 		this.repaint();
-		this.revalidate();
 	}
 	
 	public void verwijderPion(PionBasis pion)
