@@ -8,6 +8,12 @@ import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 
 public class Invoer {
+	HoofdVenster gui;
+	
+	public Invoer(HoofdVenster hv) {
+		gui = hv;
+	}
+	
 	public class SelecteerSpelerPion implements Runnable, PionLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		Speler speler;
@@ -18,12 +24,12 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			HoofdVenster.geefInstantie().verwijderPionLuisteraar(this);
+			gui.verwijderPionLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			HoofdVenster.geefInstantie().voegPionLuisteraarToe(this);
+			gui.voegPionLuisteraarToe(this);
 			
 		}
 
@@ -44,12 +50,12 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelKlikLuisteraar(this);
+			gui.geefTegelVeld().removeTegelKlikLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			HoofdVenster.geefInstantie().geefTegelVeld().addTegelKlikLuisteraar(this);
+			gui.geefTegelVeld().addTegelKlikLuisteraar(this);
 			
 		}
 		@Override
@@ -77,12 +83,12 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			HoofdVenster.geefInstantie().verwijderSelectieTegelLuisteraar(this);
+			gui.verwijderSelectieTegelLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			HoofdVenster.geefInstantie().voegSelectieTegelLuisteraarToe(this);
+			gui.voegSelectieTegelLuisteraarToe(this);
 			
 		}
 
@@ -109,12 +115,12 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
-			HoofdVenster.geefInstantie().geefTegelVeld().removeTegelGeestLuisteraar(this);
+			gui.geefTegelVeld().removeTegelGeestLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
-			HoofdVenster.geefInstantie().geefTegelVeld().addTegelGeestLuisteraar(this);
+			gui.geefTegelVeld().addTegelGeestLuisteraar(this);
 		}
 
 		@Override

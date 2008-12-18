@@ -36,10 +36,10 @@ public class Systeem
 		gui = new HoofdVenster();
 		
 		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
-		Speler s1 = new MenselijkeSpeler();
+		Speler s1 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 		s1.setNaam("Jan");
 		huidigeSpel.addSpeler(s1);
-		Speler s2 = new MenselijkeSpeler();
+		Speler s2 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 		s1.setNaam("Piet");
 		huidigeSpel.addSpeler(s2);
 		

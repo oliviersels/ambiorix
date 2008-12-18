@@ -7,6 +7,11 @@ import ambiorix.spelbord.Terrein;
 import ambiorix.spelers.Speler;
 
 public class Uitvoer {
+	HoofdVenster gui;
+	
+	public Uitvoer(HoofdVenster hv) {
+		gui = hv;
+	}
 
 	public class ZetTegel implements Runnable {
 		Tegel tegel;
@@ -19,8 +24,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.voegTegelToe(tegel, positie);
+			gui.voegTegelToe(tegel, positie);
 		}
 	}
 	
@@ -35,8 +39,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.voegPionToe(terrein.getTegel(), pion, terrein.getPositie()); // TODO: terrein doorgeven ipv tegel en positie
+			gui.voegPionToe(terrein.getTegel(), pion, terrein.getPositie()); // TODO: terrein doorgeven ipv tegel en positie
 		}
 	}
 	
@@ -51,8 +54,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.voegSelectieTegelToe(tegel);
+			gui.voegSelectieTegelToe(tegel);
 		}
 	}
 	
@@ -67,8 +69,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.voegPionToe(pion);
+			gui.voegPionToe(pion);
 		}
 	}
 	
@@ -83,8 +84,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			HoofdVenster hv = HoofdVenster.geefInstantie();
-			hv.verwijderSelectieTegel(tegel);
+			gui.verwijderSelectieTegel(tegel);
 		}
 	}
 }

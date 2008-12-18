@@ -33,6 +33,9 @@ import ambiorix.util.Punt;
 public class HoofdVenster extends JFrame implements ActionListener {
 	private static HoofdVenster instantie = null; // Even singleton van gemaakt, moet opgelost kunnen worden
 	
+	private Invoer invoer;
+	private Uitvoer uitvoer;
+	
 	private JMenuBar menuBalk;
 	private JMenu menuBestand, menuHelp;
 	private JMenuItem startSpel, stopSpel;
@@ -55,11 +58,20 @@ public class HoofdVenster extends JFrame implements ActionListener {
 	/*
 	 * Hier start code van Olivier
 	 */
+	@Deprecated
 	public static HoofdVenster geefInstantie() {
 		if(instantie == null) {
 			instantie = new HoofdVenster();
 		}
 		return instantie;
+	}
+	
+	public Invoer getInvoer() {
+		return invoer;
+	}
+	
+	public Uitvoer getUitvoer() {
+		return uitvoer;
 	}
 	
 	protected TegelVeld geefTegelVeld() {
@@ -92,6 +104,9 @@ public class HoofdVenster extends JFrame implements ActionListener {
 	}
 	public HoofdVenster()
 	{	
+		invoer = new Invoer(this);
+		uitvoer = new Uitvoer(this);
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		splitOnderkant = new JSplitPane();
 		splitOnderkantLinks = new JSplitPane();

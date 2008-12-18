@@ -11,6 +11,16 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
 
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
+	Invoer invoer;
+	Uitvoer uitvoer;
+	
+	public MenselijkeSpeler(Invoer in, Uitvoer uit) {
+		super();
+		
+		invoer = in;
+		uitvoer = uit;
+	}
+
 	Antwoord huidigAntwoord = null;
 
 	@Override
@@ -24,8 +34,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public synchronized Antwoord selecteerBordPositie() throws InterruptedException {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
-		Invoer i = new Invoer();
-		Invoer.SelecteerBordPositie run = i.new SelecteerBordPositie(this);
+		Invoer.SelecteerBordPositie run = invoer.new SelecteerBordPositie(this);
 		SwingUtilities.invokeLater(run);
 		
 
@@ -40,8 +49,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public synchronized Antwoord selecteerSpelerTegel() throws InterruptedException {
 		/* We zullen aan de GUI moeten vragen welke tegel de speler wilt plaatsen */
 		
-		Invoer i = new Invoer();
-		Invoer.SelecteerSpelerTegel run = i.new SelecteerSpelerTegel(this, this);
+		Invoer.SelecteerSpelerTegel run = invoer.new SelecteerSpelerTegel(this, this);
 		SwingUtilities.invokeLater(run);
 		
 		wait();
@@ -65,8 +73,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void zetTegel(Tegel t, BordPositie p) {
-		Uitvoer u = new Uitvoer();
-		Uitvoer.ZetTegel run = u.new ZetTegel(t, p);
+		Uitvoer.ZetTegel run = uitvoer.new ZetTegel(t, p);
 		SwingUtilities.invokeLater(run);
 	}
 
@@ -92,8 +99,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public void addPion(Pion pion) {
 		super.addPion(pion);
 		
-		Uitvoer u = new Uitvoer();
-		Uitvoer.SpelerPionGeven run = u.new SpelerPionGeven(this, pion);
+		Uitvoer.SpelerPionGeven run = uitvoer.new SpelerPionGeven(this, pion);
 		SwingUtilities.invokeLater(run);
 	}
 
@@ -101,8 +107,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public void addTegel(Tegel tegel) {
 		super.addTegel(tegel);
 		
-		Uitvoer u = new Uitvoer();
-		Uitvoer.SpelerTegelGeven run = u.new SpelerTegelGeven(this, tegel);
+		Uitvoer.SpelerTegelGeven run = uitvoer.new SpelerTegelGeven(this, tegel);
 		SwingUtilities.invokeLater(run);
 	}
 
@@ -116,8 +121,7 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	public void deleteTegel(Tegel tegel) {
 		super.deleteTegel(tegel);
 		
-		Uitvoer u = new Uitvoer();
-		Uitvoer.NeemSpelerTegelAf run = u.new NeemSpelerTegelAf(this, tegel);
+		Uitvoer.NeemSpelerTegelAf run = uitvoer.new NeemSpelerTegelAf(this, tegel);
 		SwingUtilities.invokeLater(run);
 	}
 }
