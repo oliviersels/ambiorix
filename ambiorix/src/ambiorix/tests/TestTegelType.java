@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ambiorix.systeem;
+import ambiorix.Systeem;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
 import ambiorix.spelbord.tegeltypes.TegelType_WGGWW;
 import ambiorix.spelbord.*;
@@ -15,7 +15,7 @@ public class TestTegelType
 	@Test
 	public void testDraaiTerrein() 
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		TegelType_WGGWW type = new TegelType_WGGWW();
 		TerreinType[][] terrein = type.draaiTerrein( 90 );

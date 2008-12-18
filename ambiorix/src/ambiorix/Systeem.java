@@ -10,12 +10,53 @@ import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.*;
 import ambiorix.spelbord.terreintypes.*;
+import ambiorix.spelers.MenselijkeSpeler;
+import ambiorix.spelers.Speler;
 import ambiorix.util.File;
 import ambiorix.util.Punt;
 
 
-public class systeem 
+public class Systeem 
 {
+	private Spel huidigeSpel;
+	private HoofdVenster gui;
+	private static Systeem instantie;
+	
+	public static Systeem getInstantie() {
+		if(instantie == null)
+			instantie = new Systeem();
+		return instantie;
+	}
+	
+	protected Systeem() {
+		huidigeSpel = new Spel();
+	}
+	
+	public synchronized void startGUI() {
+		gui = new HoofdVenster();
+		
+		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
+		Speler s1 = new MenselijkeSpeler();
+		s1.setNaam("Jan");
+		huidigeSpel.addSpeler(s1);
+		Speler s2 = new MenselijkeSpeler();
+		s1.setNaam("Piet");
+		huidigeSpel.addSpeler(s2);
+		
+		try {
+			wait();
+		} catch (InterruptedException e) {}
+	}
+	
+	public synchronized void startSpel() {
+		huidigeSpel.start();
+	}
+	
+	public synchronized void stopSpel() {
+		huidigeSpel.stop();
+		
+		notify();
+	}
 
 	public static void main(String args[])
 	{	
@@ -81,7 +122,7 @@ public class systeem
 	
 	private static void TestGebiedAanduiding()
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -398,7 +439,5 @@ public class systeem
 		TegelTypeVerzameling.getInstantie().registreerType(driesprong);
 		TegelTypeVerzameling.getInstantie().registreerType(eenzijdeBurcht);
 		TegelTypeVerzameling.getInstantie().registreerType(rechteweg);
-	}
-	
-	Spel huidigeSpel;		
+	}	
 }

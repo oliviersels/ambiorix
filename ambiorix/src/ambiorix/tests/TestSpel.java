@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ambiorix.Spel;
-import ambiorix.systeem;
+import ambiorix.Systeem;
 import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 
@@ -14,9 +14,11 @@ public class TestSpel {
 	public void testActies() {
 		// TODO: Nog echte tests toevoegen
 		
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
-		Spel spel = new Spel();
+		Systeem.getInstantie().startGUI();
+		
+		/**Spel spel = new Spel();
 		Speler s1 = new MenselijkeSpeler();
 		s1.setNaam("Jan");
 		spel.addSpeler(s1);
@@ -28,12 +30,21 @@ public class TestSpel {
 		assertEquals(spel.getActieveSpeler(), s1);
 		spel.start();
 		try {
-			System.out.println("wacht 20 seconden");
-			Thread.sleep(20000);
+			System.out.println("wacht 180 seconden");
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		spel.stop();
+		spel.stop();*/
+	}
+	
+	private synchronized void sterf() {
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

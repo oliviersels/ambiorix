@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ambiorix.systeem;
+import ambiorix.Systeem;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
@@ -22,7 +22,7 @@ public class TestTegel {
 	@Test
 	public void testSetBuur() 
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK") );
 		
@@ -47,7 +47,7 @@ public class TestTegel {
 	@Test
 	public void testKanBuurAccepteren()
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		// testen met 2 tegels onder elkaar (basic)
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW") );
@@ -184,7 +184,7 @@ public class TestTegel {
 	@Test
 	public void testPlaatsPion() 
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK") );	
 		
 		Pion p = new Pion(0, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling") );
@@ -205,7 +205,7 @@ public class TestTegel {
 		// - terrein moet aangepast zijn
 		// - tegelGebiedBeheerder moet aangepast zijn
 		
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		Tegel t = new Tegel( TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK") );
 		TegelGebiedBeheerder origineleBeheerder = t.getGebiedBeheerder();

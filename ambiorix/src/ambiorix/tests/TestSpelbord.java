@@ -13,15 +13,15 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelTypeVerzameling;
 import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;
-import ambiorix.systeem;
+import ambiorix.Systeem;
 
-public class TestSpelbord 
+public class TestSpelbord
 {
 
 	@Test
 	public void testGetVolgendeTegel() 
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
@@ -45,7 +45,7 @@ public class TestSpelbord
 	@Test
 	public void testSetTegelAantal() 
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
@@ -59,7 +59,7 @@ public class TestSpelbord
 	@Test
 	public void testGetGebied()
 	{
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));
 		
@@ -92,7 +92,7 @@ public class TestSpelbord
 		//  3  2
 		// Controleren of alle buren gezet zijn op tegel, en alle gebieden gelinkt in TegelGebiedBeheerder
 		
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_GGGGK"));

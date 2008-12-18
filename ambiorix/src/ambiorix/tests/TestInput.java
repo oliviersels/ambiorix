@@ -1,6 +1,6 @@
 package ambiorix.tests;
 
-import ambiorix.systeem;
+import ambiorix.Systeem;
 import ambiorix.gui.HoofdVenster;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelTypeVerzameling;
@@ -17,7 +17,7 @@ public class TestInput {
 	
 	@Before
 	public void setUp() throws Exception {
-		systeem.prepareForTests();
+		Systeem.prepareForTests();
 		
 		speler = new MenselijkeSpeler();
 		HoofdVenster hv = HoofdVenster.geefInstantie();

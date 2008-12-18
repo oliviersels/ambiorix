@@ -2,10 +2,15 @@ package ambiorix.gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -16,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
+import ambiorix.Systeem;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
@@ -24,12 +30,12 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class HoofdVenster extends JFrame{
+public class HoofdVenster extends JFrame implements ActionListener {
 	private static HoofdVenster instantie = null; // Even singleton van gemaakt, moet opgelost kunnen worden
 	
-	private JToolBar menuBalk;
-	private JButton knopBestand;
-	private JButton knopHelp;
+	private JMenuBar menuBalk;
+	private JMenu menuBestand, menuHelp;
+	private JMenuItem startSpel, stopSpel;
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
 	private JScrollPane chatVeldScroll;
@@ -84,12 +90,9 @@ public class HoofdVenster extends JFrame{
 				hv.voegTegelToe(i, y, null);
 		*/
 	}
-	HoofdVenster()
+	public HoofdVenster()
 	{	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		menuBalk = new JToolBar();
-		knopBestand = new JButton();
-		knopHelp = new JButton();
 		splitOnderkant = new JSplitPane();
 		splitOnderkantLinks = new JSplitPane();
 		splitOnderkantLinksNogEenKeer = new JSplitPane();
@@ -102,11 +105,18 @@ public class HoofdVenster extends JFrame{
 		tegelVeld = new TegelVeld(this);
 		tegelSelecteer  = new TegelSelectieVeld();
 		tegelSelecteerScroll = new JScrollPane();
-		//knoppen
-		knopBestand.setText("Bestand");
-		menuBalk.add(knopBestand);
-		knopHelp.setText("help");
-		menuBalk.add(knopHelp);
+		// menubalk
+		menuBalk = new JMenuBar();
+		menuBestand = new JMenu("Bestand");
+		menuHelp = new JMenu("Help");
+		startSpel = new JMenuItem("Start");
+		startSpel.addActionListener(this);
+		stopSpel = new JMenuItem("Stop");
+		stopSpel.addActionListener(this);
+		menuBestand.add(startSpel);
+		menuBestand.add(stopSpel);
+		menuBalk.add(menuBestand);
+		menuBalk.add(menuHelp);
 		
 		//splitOnderkant
 		splitOnderkant.setMinimumSize(new Dimension(100, 160));
@@ -150,9 +160,9 @@ public class HoofdVenster extends JFrame{
 		setMinimumSize(new Dimension(800, 600));
 		Container container = this.getContentPane();
 		container.setLayout(new BorderLayout());
-		container.add(menuBalk, BorderLayout.NORTH);
 		container.add(splitOnderkant, BorderLayout.SOUTH);
 		container.add(tegelVeldScroll, BorderLayout.CENTER);
+		setJMenuBar(menuBalk);
 		this.pack();
 		this.setLocationRelativeTo(this.getOwner());
 
@@ -215,5 +225,15 @@ public class HoofdVenster extends JFrame{
 	{
 		this.pionnenVeld.ledig();
 		this.tegelSelecteer.ledig();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(startSpel)) {
+			Systeem.getInstantie().startSpel();
+		}
+		else if(e.getSource().equals(stopSpel)) {
+			Systeem.getInstantie().stopSpel();
+		}
 	}
 }
