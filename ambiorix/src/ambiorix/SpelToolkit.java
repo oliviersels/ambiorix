@@ -88,6 +88,7 @@ public class SpelToolkit {
 	
 	//  2) Output
 	public void zetTegel(Speler s, Tegel t, BordPositie p) {
+		spelbord.plaatsTegel(t, p);
 		s.zetTegel(t, p);
 	}
 	
@@ -139,7 +140,8 @@ public class SpelToolkit {
 
 	public void setBegintegel(Tegel beginTegel) {
 		spelbord.setBegintegel(beginTegel);
-		zetTegel(getActieveSpeler(), beginTegel, new BordPositie(null, null));
+		Speler actief = getActieveSpeler();
+		actief.zetTegel(beginTegel, new BordPositie(null, null));
 	}
 
 	public void verwijderPion(Pion pion) {
