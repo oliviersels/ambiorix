@@ -9,7 +9,7 @@ public class Pion implements PionBasis
 	private int ID = -1;
 	private PionType type = null;
 	
-	//private Speler speler = null;
+	private Speler speler = null;
 	
 	public Pion(int ID, PionType type)
 	{
@@ -27,7 +27,7 @@ public class Pion implements PionBasis
 		return type;
 	}
 
-	/*public Speler getSpeler() 
+	public Speler getSpeler() 
 	{
 		return speler;
 	}
@@ -35,7 +35,7 @@ public class Pion implements PionBasis
 	public void setSpeler(Speler speler) 
 	{
 		this.speler = speler;
-	}*/
+	}
 	
 	public String toXML(Punt locatie)
 	{
