@@ -219,6 +219,10 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		this.pionnenVeld.voegPionToe(pion);
 	}
+	public void verwijderPion(PionBasis pion)
+	{
+		pionnenVeld.verwijderPion(pion);
+	}
 	public void voegPionToe(Tegel tegel, Pion pion, Punt pos)
 	{
 		tegelVeld.voegPionToe(tegel, pion, pos);

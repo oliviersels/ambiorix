@@ -92,6 +92,11 @@ public class SpelToolkit {
 		s.zetTegel(t, p);
 	}
 	
+	public void zetPion(Speler s, Pion p, Terrein t) {
+		spelbord.plaatsPion(p, t);
+		s.zetPion(p, t);
+	}
+	
 	public void geefSpelerTegel(Tegel t, Speler s) {
 		s.addTegel(t);
 	}
@@ -102,6 +107,10 @@ public class SpelToolkit {
 	
 	public void neemSpelerTegelAf(Tegel t, Speler s) {
 		s.deleteTegel(t);
+	}
+	
+	public void neemSpelerPionAf(Pion p, Speler s) {
+		s.deletePion(p);
 	}
 
 	// 3) spelbord functies ROBIN

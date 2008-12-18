@@ -61,14 +61,26 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public synchronized Antwoord selecteerTegelGebied() throws InterruptedException {
-		// TODO Auto-generated method stub
-		return null;
+		Invoer.SelecteerTegelGebied run = invoer.new SelecteerTegelGebied(this);
+		SwingUtilities.invokeLater(run);
+
+		wait();
+		
+		run.opruimen();
+		
+		return huidigAntwoord;
 	}
 
 	@Override
 	public synchronized Antwoord selecteerSpelerPion() throws InterruptedException {
-		// TODO Auto-generated method stub
-		return null;
+		Invoer.SelecteerSpelerPion run = invoer.new SelecteerSpelerPion(this, this);
+		SwingUtilities.invokeLater(run);
+
+		wait();
+		
+		run.opruimen();
+		
+		return huidigAntwoord;
 	}
 
 	@Override
@@ -79,8 +91,8 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void zetPion(Pion p, Terrein t) {
-		// TODO Auto-generated method stub
-		
+		Uitvoer.ZetPion run = uitvoer.new ZetPion(p, t);
+		SwingUtilities.invokeLater(run);
 	}
 
 	@Override
@@ -113,8 +125,10 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 	@Override
 	public void deletePion(Pion pion) {
-		// TODO Auto-generated method stub
 		super.deletePion(pion);
+		
+		Uitvoer.NeemSpelerPionAf run = uitvoer.new NeemSpelerPionAf(this, pion);
+		SwingUtilities.invokeLater(run);
 	}
 
 	@Override

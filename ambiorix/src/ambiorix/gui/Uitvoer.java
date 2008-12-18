@@ -70,6 +70,7 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.voegPionToe(pion);
+			
 		}
 	}
 	
@@ -85,6 +86,21 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.verwijderSelectieTegel(tegel);
+		}
+	}
+	
+	public class NeemSpelerPionAf implements Runnable {
+		Speler speler;
+		Pion pion;
+		
+		public NeemSpelerPionAf(Speler s, Pion p) {
+			speler = s;
+			pion = p;
+		}
+
+		@Override
+		public void run() {
+			gui.verwijderPion(pion);
 		}
 	}
 }

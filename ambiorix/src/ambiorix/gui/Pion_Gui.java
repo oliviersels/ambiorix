@@ -34,6 +34,10 @@ public class Pion_Gui extends JComponent implements MouseListener{
 		this.setBounds(0, 0, 20, 20);
 	}
 	
+	public PionBasis getPion() {
+		return mijnPion;
+	}
+	
 	public void voegPionLuisteraarToe(PionLuisteraar pl)
 	{
 		mijnPionLuisteraars.add(pl);
