@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +32,7 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class HoofdVenster extends JFrame implements ActionListener {
+public class HoofdVenster extends JFrame implements ActionListener, WindowListener {
 	private static HoofdVenster instantie = null; // Even singleton van gemaakt, moet opgelost kunnen worden
 	
 	private Invoer invoer;
@@ -107,7 +109,8 @@ public class HoofdVenster extends JFrame implements ActionListener {
 		invoer = new Invoer(this);
 		uitvoer = new Uitvoer(this);
 		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(this);
 		splitOnderkant = new JSplitPane();
 		splitOnderkantLinks = new JSplitPane();
 		splitOnderkantLinksNogEenKeer = new JSplitPane();
@@ -251,4 +254,21 @@ public class HoofdVenster extends JFrame implements ActionListener {
 			Systeem.getInstantie().stopSpel();
 		}
 	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {}
+	@Override
+	public void windowClosed(WindowEvent arg0) {}
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		Systeem.getInstantie().stopSpel();
+	}
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {}
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {}
+	@Override
+	public void windowIconified(WindowEvent arg0) {}
+	@Override
+	public void windowOpened(WindowEvent arg0) {}
 }
