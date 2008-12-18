@@ -113,7 +113,7 @@ public class Systeem
 		hv.voegTegelToe(t2, new BordPositie(t, Tegel.RICHTING.ONDER));
 		Gebied gebied = spelbord.getGebied( new Terrein(t, new Punt(0,2)) );
 		for(int i = 0; i < 50; i++)
-			hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling")));
+			hv.voegPionToe(new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"), null));
 
 		hv.tekenTerrein(gebied);
 		hv.voegSelectieTegelToe(spelbord.getVolgendeTegel());
@@ -290,7 +290,7 @@ public class Systeem
 
 		hv.voegTegelToe(middenmidden, new BordPositie(linksmidden, Tegel.RICHTING.RECHTS) );
 		
-		Pion pion = new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		Pion pion = new Pion(11, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"), null);
 		
 		middenmidden.plaatsPion(new Punt(0,1), pion);
 		
@@ -306,7 +306,7 @@ public class Systeem
 		
 		gebied.print();
 		
-		Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"));
+		Pion vg = new Pion(0,PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"), null); // TODO: Oli fixt, maar speler moet niet null zijn
 		hv.voegPionToe(middenonder, vg, new Punt(0,0));
 		
 		// kloosters mogen er niet in

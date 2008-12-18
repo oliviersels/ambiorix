@@ -55,8 +55,8 @@ public class SpelToolkit {
 	
 	// van typeverzamelingen
 	
-	public Pion getPion(String piontype) {
-		return new Pion(0,PionTypeVerzameling.getInstantie().getType(piontype));
+	public Pion getPion(String piontype, Speler s) {
+		return new Pion(0,PionTypeVerzameling.getInstantie().getType(piontype), s);
 	}
 
 	public void setTegelAantal(String tegelType, int hoeveelheid) {

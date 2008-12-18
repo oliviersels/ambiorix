@@ -11,10 +11,11 @@ public class Pion implements PionBasis
 	
 	private Speler speler = null;
 	
-	public Pion(int ID, PionType type)
+	public Pion(int ID, PionType type, Speler s)
 	{
 		this.ID = ID;
 		this.type = type;
+		speler = s;
 	}
 
 	public int getID() 
@@ -63,6 +64,6 @@ public class Pion implements PionBasis
 		String type = input.getChild("type").getValue();
 		
 		
-		return new Pion(id, PionTypeVerzameling.getInstantie().getType(type));
+		return new Pion(id, PionTypeVerzameling.getInstantie().getType(type), null); // FIXME: Oli fixt maar robin doet de rest!
 	}
 }
