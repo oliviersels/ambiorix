@@ -211,10 +211,18 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		for(TegelGeest tg : mijnTegelGeesten)
 		{
 			tg.zetAfbeelding(null);
+			tg.zetRood(false);
 		}
-		if (true)
+		if(tePlaatsenTegel != null)
 		{
-			tgg.tegelGeest.zetAfbeelding(tePlaatsenTegel);
+			if (tgg.tegel.kanBuurAccepteren((Tegel)tePlaatsenTegel, tgg.richting))
+			{
+				tgg.tegelGeest.zetAfbeelding(tePlaatsenTegel);
+			}else
+			{
+				tgg.tegelGeest.zetAfbeelding(tePlaatsenTegel);
+				tgg.tegelGeest.zetRood(true);
+			}
 		}
 	}
 

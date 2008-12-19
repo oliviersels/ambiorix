@@ -1,6 +1,7 @@
 package ambiorix.gui;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -25,6 +26,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 	private Tegel_Gui buur;//1 buur is genoeg
 	private Vector <TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private TegelBasis teTekenenTegel = null;
+	private boolean isRood;
 	public TegelGeest(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
 	{
 		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
@@ -106,6 +108,13 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 			g2.drawImage(AfbeeldingLader.geefAfbeelding(teTekenenTegel.getType().getID())
 					, 1, 1, 98, 98, null);
 		}
+		if(isRood)
+		{
+			AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .4f);
+			g2.setComposite(ap);
+			g2.setColor(Color.red);
+			g2.fillRect(1, 1, 99, 99);
+		}
 	}
 	public void setYPos(int yPos) {
 		this.yPos = yPos;
@@ -146,6 +155,12 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 
 	public void zetAfbeelding(TegelBasis t) {
 		this.teTekenenTegel = t;
+		this.repaint();
+		this.revalidate();
+	}
+
+	public void zetRood(boolean b) {
+		isRood =b;
 		this.repaint();
 		this.revalidate();
 	}
