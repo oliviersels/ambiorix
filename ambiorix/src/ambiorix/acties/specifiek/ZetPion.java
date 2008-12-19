@@ -55,6 +55,9 @@ public class ZetPion extends AbstractActie {
 				} catch (InterruptedException e) {
 					return null; // Spel afgelopen
 				}
+				// We willen geen pion zetten!
+				if(gekozenPion == null)
+					break;
 				System.out.println("ZetPion -> kies een locatie (terrein)");
 				try {
 					gekozenTerrein = kit.selecteerTegelGebied(actieveSpeler);
@@ -63,8 +66,10 @@ public class ZetPion extends AbstractActie {
 				}
 				kit.neemSpelerPionAf(gekozenPion, actieveSpeler);
 			}
-			System.out.println("ZetPion -> Plaats pion op terrein");
-			kit.zetPion(actieveSpeler, gekozenPion, gekozenTerrein);
+			if(gekozenPion != null) {
+				System.out.println("ZetPion -> Plaats pion op terrein");
+				kit.zetPion(actieveSpeler, gekozenPion, gekozenTerrein);
+			}
 		}
 		
 		return new GeefTegel(kit, this);

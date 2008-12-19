@@ -35,11 +35,14 @@ public class Invoer {
 
 		@Override
 		public void geklikt(PionGebeurtenis pg) {
-			Antwoord a = new Antwoord();
-			a.getPionnen().add((Pion) pg.pion);
-			invoerLuisteraar.invoerGebeurtenis(a);
+			if(pg != null) {
+				Antwoord a = new Antwoord();
+				a.getPionnen().add((Pion) pg.pion);
+				invoerLuisteraar.invoerGebeurtenis(a);
+			}
+			else
+				invoerLuisteraar.invoerGebeurtenis(null);
 		}
-
 	}
 
 	public class SelecteerTegelGebied implements Runnable, TegelLuisteraar {

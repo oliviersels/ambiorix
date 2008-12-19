@@ -40,7 +40,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	
 	private JMenuBar menuBalk;
 	private JMenu menuBestand, menuHelp;
-	private JMenuItem startSpel, stopSpel;
+	private JMenuItem startSpel, stopSpel, geenPionZetten;
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
 	private JScrollPane chatVeldScroll;
@@ -131,8 +131,11 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		startSpel.addActionListener(this);
 		stopSpel = new JMenuItem("Stop");
 		stopSpel.addActionListener(this);
+		geenPionZetten = new JMenuItem("Zet geen pion");
+		geenPionZetten.addActionListener(this);
 		menuBestand.add(startSpel);
 		menuBestand.add(stopSpel);
+		menuBestand.add(geenPionZetten);
 		menuBalk.add(menuBestand);
 		menuBalk.add(menuHelp);
 		
@@ -260,6 +263,10 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		}
 		else if(e.getSource().equals(stopSpel)) {
 			Systeem.getInstantie().stopSpel();
+		}
+		else if(e.getSource().equals(geenPionZetten)) {
+			System.out.println("Geen pion zetten!");
+			pionnenVeld.geenPionSelecteren();
 		}
 	}
 

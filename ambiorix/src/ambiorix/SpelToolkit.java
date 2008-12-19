@@ -83,7 +83,10 @@ public class SpelToolkit {
 	
 	public Pion selecteerSpelerPion(Speler s) throws InterruptedException {
 		Antwoord a = s.selecteerSpelerPion();
-		return a.getPionnen().get(0);
+		if(a != null)
+			return a.getPionnen().get(0);
+		else
+			return null;
 	}
 	
 	//  2) Output
