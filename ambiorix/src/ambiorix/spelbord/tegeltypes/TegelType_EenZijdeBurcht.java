@@ -12,11 +12,11 @@ public class TegelType_EenZijdeBurcht extends TegelType
 		super("TegelType_EenZijdeBurcht");
 			
 		terrein = new TerreinType[5][5];
-		terrein[0][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
+		terrein[0][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard");
 		terrein[0][1] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht");
 		terrein[0][2] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht");
 		terrein[0][3] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht");
-		terrein[0][4] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
+		terrein[0][4] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard");
 	
 		terrein[1][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
 		terrein[1][1] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht");

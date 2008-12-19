@@ -25,7 +25,7 @@ public class TegelType_Driesprong extends TegelType
 		
 		terrein[2][0] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
 		terrein[2][1] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
-		terrein[2][2] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras");
+		terrein[2][2] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard");
 		terrein[2][3] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
 		terrein[2][4] = TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg");
 		

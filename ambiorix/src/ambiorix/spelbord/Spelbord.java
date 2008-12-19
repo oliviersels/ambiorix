@@ -86,12 +86,32 @@ public class Spelbord
 	{		
 		assertBegintegel();
 		
-		TegelType type = getRandomTegelType();
-		if(type == null) // geen tegels meer in de pool
-			return null;
+		Tegel tegel = null;
 		
-		Tegel tegel = new Tegel(type);
-		tegel.setID( getVolgendeTegelID() );
+		int teller = 0;
+		
+		while( (tegel == null) && (teller <= 100) )
+		{
+			TegelType type = getRandomTegelType();
+			if(type == null) // geen tegels meer in de pool
+				return null;
+			
+			tegel = new Tegel(type);
+			
+			if( controleerGlobalePlaatsbaarheid(tegel, true).size() != 0 )
+				tegel.setID( getVolgendeTegelID() );
+			else
+				tegel = null;
+			
+			teller++;
+		}
+		
+		// TODO : fatsoenlijk checken, NIET GEWOON null TERUGGEVEN !!!!
+		if( tegel == null ) // teller > 10, zelf checken of er nog eentje is
+		{
+			return null;
+		}
+
 		
 		return tegel;
 		
@@ -129,6 +149,7 @@ public class Spelbord
 					gevondenType = tegelType;
 			}
 			
+			overgeblevenTegels.put(gevondenType, overgeblevenTegels.get(gevondenType) - 1);
 			overgeblevenTegelAantal--;
 			return TegelTypeVerzameling.getInstantie().getType(gevondenType);
 			
@@ -196,7 +217,7 @@ public class Spelbord
 		
 		Gebied g = getGebied(terrein);
 		
-		output = (g.getPionnen().keySet().size() == 0);
+		output = (g.getPionnen().size() == 0);
 		
 		return output;
 	}

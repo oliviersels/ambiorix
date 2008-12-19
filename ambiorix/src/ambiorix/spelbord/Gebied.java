@@ -103,9 +103,14 @@ public class Gebied
 	}
 	
 	// TODO : mss ook een functie getPionnen die Vector<Pion> teruggeeft ?
-	public HashMap<Pion,Terrein> getPionnen()
+	public HashMap<Pion,Terrein> getPionnenEnPosities()
 	{
 		return pionnen;
+	}
+	
+	public Set<Pion> getPionnen()
+	{
+		return pionnen.keySet();
 	}
 	
 	public Vector<BordPositie> getOpenZijden()

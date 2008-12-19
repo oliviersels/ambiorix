@@ -88,7 +88,10 @@ public class TegelGebiedBeheerder
 			buurPunt = huidigeZijde.get(huidigPunt).getPositie();
 			buurTerrein = buur.tegel.getTerreinType(buurPunt);
 			
-			if( huidigTerrein != buurTerrein )
+			if( huidigTerrein == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard") )
+				continue;
+			
+			if( (huidigTerrein != buurTerrein) && (buurTerrein != TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard")) )
 				return false;
 		}			
 		

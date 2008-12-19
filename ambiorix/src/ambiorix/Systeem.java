@@ -438,10 +438,12 @@ public class Systeem
 		TerreinType_Klooster klooster = new TerreinType_Klooster();
 		TerreinType_Weg weg = new TerreinType_Weg();
 		TerreinType_Burcht burcht = new TerreinType_Burcht();
+		TerreinType_Wildcard wildcard = new TerreinType_Wildcard();
 		TerreinTypeVerzameling.getInstantie().registreerType(gras);
 		TerreinTypeVerzameling.getInstantie().registreerType(klooster);
 		TerreinTypeVerzameling.getInstantie().registreerType(weg);
 		TerreinTypeVerzameling.getInstantie().registreerType(burcht);
+		TerreinTypeVerzameling.getInstantie().registreerType(wildcard);
 		
 		
 		TegelType_GGGGK ggggk = new TegelType_GGGGK();
