@@ -89,7 +89,7 @@ public class Invoer {
 		@Override
 		public void run() {
 			gui.voegSelectieTegelLuisteraarToe(this);
-			
+			gui.startTegelSelectie();
 		}
 
 		@Override

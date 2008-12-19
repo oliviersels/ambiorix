@@ -21,7 +21,6 @@ import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
 import ambiorix.xml.XmlNode;
 
-
 /*
  * FLOW of CONTROL voor tegel plaatsen !
  * - getVolgendeTegel() wordt aan speler gegeven

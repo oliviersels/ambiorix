@@ -38,8 +38,17 @@ public class TegelSelectieVeld extends JPanel implements TegelLuisteraar{
 		}
 	}
 	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl)
-	{
+	{	
 		tegelKlikLuisteraars.add(tkl);
+	}
+	
+	public synchronized void startTegelSelectie()
+	{
+		if(mijnTegels.size() == 1) {
+			Tegel_Gui t = mijnTegels.get(0);
+			MouseEvent e = new MouseEvent(t, 0, 0, 0, 0, 0, 1, false);
+			t.mouseClicked(e);
+		}
 	}
 	
 	public synchronized void removeTegelKlikLuisteraar(TegelLuisteraar tkl)

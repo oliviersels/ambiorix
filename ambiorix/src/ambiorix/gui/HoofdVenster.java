@@ -248,6 +248,10 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		this.pionnenVeld.ledig();
 		this.tegelSelecteer.ledig();
 	}
+	
+	public void startTegelSelectie() {
+		tegelSelecteer.startTegelSelectie();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

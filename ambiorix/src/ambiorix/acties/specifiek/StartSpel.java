@@ -20,10 +20,10 @@ public class StartSpel extends AbstractActie {
 		// TODO: Voeg alle tegels toe aan de pool (juiste aantallen)
 		kit.setTegelAantal("TegelType_WGGWW", 4);
 		kit.setTegelAantal("TegelType_RechteWeg", 4);
-		kit.setTegelAantal("TegelType_Driesprong", 4);
-		kit.setTegelAantal("TegelType_EenZijdeBurcht", 4);
+		//kit.setTegelAantal("TegelType_Driesprong", 4);
+		//kit.setTegelAantal("TegelType_EenZijdeBurcht", 4);
 		//kit.setTegelAantal("TegelType_BBBBB", 2); // FIXME: BBBBB tegeltype werkt nog niet
-		kit.setTegelAantal("TegelType_GGGGK", 4);
+		//kit.setTegelAantal("TegelType_GGGGK", 4);
 		
 		// TODO: Spelers juiste pionnen geven
 		Speler s = kit.getActieveSpeler();
