@@ -80,4 +80,5 @@ public interface TegelBasis
 	public int getTerreinHoogte();
 	
 	public TerreinBasis getTerrein( Punt locatie );
+	public boolean kanBuurAccepteren(Tegel buur, RICHTING richting);
 }
