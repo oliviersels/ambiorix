@@ -26,6 +26,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private HoofdVenster hv; // TODO tijdelijk!!
+	private TegelBasis tePlaatsenTegel;
 	
 	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl)
 	{
@@ -60,6 +61,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	
 	public void voegTegelToe(int x, int y, Tegel tegel)
 	{
+		this.tePlaatsenTegel = null;
 		Tegel_Gui nieuweTegel = new Tegel_Gui(tegel);
 		nieuweTegel.zetPos(x, y);
 		mijnTegels.add(nieuweTegel);
@@ -156,6 +158,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	}
 
 	public void voegTegelToe(Tegel tegel, BordPositie bp) {
+		this.tePlaatsenTegel = null;
 		Tegel buur = bp.getBuur();
 		int grootte = mijnTegels.size();
 		if(buur != null)
@@ -201,5 +204,22 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		Terrein ter = (Terrein) tg.tegel.getTerrein(p);
 		Tegel teg=(Tegel)tg.tegel;
 		tekenTerrein(teg.getGebied(ter));
+	}
+
+	@Override
+	public void bewogen(TegelGeestGebeurtenis tgg) {
+		for(TegelGeest tg : mijnTegelGeesten)
+		{
+			tg.zetAfbeelding(null);
+		}
+		if (true)
+		{
+			tgg.tegelGeest.zetAfbeelding(tePlaatsenTegel);
+		}
+	}
+
+	public void zetTePlaatsenTegel(TegelBasis tb) {
+		this.tePlaatsenTegel = tb;
+		
 	}
 }

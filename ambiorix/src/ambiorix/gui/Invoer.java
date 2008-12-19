@@ -99,6 +99,7 @@ public class Invoer {
 		public void geklikt(TegelGebeurtenis tg) {
 			Antwoord a = new Antwoord();
 			a.getTegels().add((Tegel) tg.tegel);
+			gui.zetTePlaatsenTegel(tg.tegel);
 			invoerLuisteraar.invoerGebeurtenis(a);
 		}
 
@@ -131,6 +132,12 @@ public class Invoer {
 			Antwoord a = new Antwoord();
 			a.getPosities().add(new BordPositie((Tegel) gtg.tegel, gtg.richting));
 			invoerluisteraar.invoerGebeurtenis(a);
+			
+		}
+
+		@Override
+		public void bewogen(TegelGeestGebeurtenis tgg) {
+			// TODO Auto-generated method stub
 			
 		}
 	}

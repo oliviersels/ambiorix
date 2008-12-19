@@ -269,6 +269,11 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 			pionnenVeld.geenPionSelecteren();
 		}
 	}
+	
+	public void zetTePlaatsenTegel(TegelBasis tb)
+	{
+		this.tegelVeld.zetTePlaatsenTegel(tb);
+	}
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {}
