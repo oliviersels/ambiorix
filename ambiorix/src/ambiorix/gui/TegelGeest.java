@@ -54,6 +54,15 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 			if (rot == 360)
 				rot = 0;
 			this.teTekenenTegel.setRotatie(rot);
+			Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
+			TegelGeestGebeurtenis tgg = new TegelGeestGebeurtenis();
+			tgg.tegel = this.buur.getTegel();
+			tgg.richting = this.richting;
+			tgg.tegelGeest = this;
+			while(it.hasNext())
+			{
+				(it.next()).bewogen(tgg);
+			}
 			this.repaint();
 			this.revalidate();
 		}else
