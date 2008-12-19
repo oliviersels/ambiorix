@@ -78,7 +78,6 @@ public class PionnenVeld extends JPanel implements PionLuisteraar{
 	@Override
 	public synchronized void geklikt(PionGebeurtenis pg) {
 		Iterator<PionLuisteraar> it = mijnPionLuisteraars.iterator();
-		this.hv.voegRegelToe("Op een pion geklikt");
 		while(it.hasNext()) {
 			it.next().geklikt(pg);
 		}

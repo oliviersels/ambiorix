@@ -180,7 +180,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 			}
 		}else
 		{
-			this.voegTegelToe(3, 3, tegel);
+			this.voegTegelToe(1, 1, tegel);
 		}
 	}
 
