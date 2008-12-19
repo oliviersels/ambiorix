@@ -1,11 +1,13 @@
 package ambiorix.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -29,9 +31,23 @@ public class Pion_Gui extends JComponent implements MouseListener{
 	public Pion_Gui(PionBasis pion) {
 		mijnPionLuisteraars = new Vector<PionLuisteraar>();
 		mijnPion = pion;
-		mijnAfbeelding = AfbeeldingLader.geefAfbeelding("pion");
+		WritableRaster raster = AfbeeldingLader.geefAfbeelding("pion").copyData(null);
+		mijnAfbeelding = new BufferedImage(AfbeeldingLader.geefAfbeelding("pion").getColorModel(), raster, AfbeeldingLader.geefAfbeelding("pion").isAlphaPremultiplied(), null);
+		for(int y = 0; y < mijnAfbeelding.getHeight(); y++)
+			for(int x = 0; x < mijnAfbeelding.getWidth(); x++)
+			{
+				if(mijnAfbeelding.getRGB(x, y) == Color.WHITE.getRGB())
+				{
+					mijnAfbeelding.setRGB(x, y, pion.getSpeler().getKleur().getRGB());
+				}
+			}
 		this.addMouseListener(this);
 		this.setBounds(0, 0, 20, 20);
+	}
+	
+	public BufferedImage geefAfbeelding()
+	{
+		return this.mijnAfbeelding;
 	}
 	
 	public PionBasis getPion() {

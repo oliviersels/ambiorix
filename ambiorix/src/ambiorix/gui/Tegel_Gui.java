@@ -29,7 +29,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 	private BufferedImage mijnAfbeelding = null;
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<Punt> gebiedenTeTekenen;
-	private Vector<Pion> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
+	private Vector<Pion_Gui> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
 	private Vector<Punt> mijnPionPunten;
 	private TegelBasis tegel;
 	private Punt p;
@@ -42,7 +42,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 		this.addMouseMotionListener(this);
 		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
 		gebiedenTeTekenen = new Vector<Punt>();
-		mijnPionnen = new Vector<Pion>();
+		mijnPionnen = new Vector<Pion_Gui>();
 		mijnPionPunten = new Vector<Punt>();
 		tegel = t;
 		p = new Punt(0,0);
@@ -70,7 +70,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 					(int)Math.round((float)(rec.height)/th * (float)p.getX()), (int)Math.ceil(100.0f/tb), (int)Math.ceil(100.0f/th));
 		}
 		
-		AlphaComposite ap2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
+		AlphaComposite ap2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
 		g2.setComposite(ap2);
 		
 		int aantalPionnen = this.mijnPionnen.size();
@@ -79,7 +79,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 			BufferedImage mijnPionImg = null;
 			// TODO image loader maken
 				
-			mijnPionImg = AfbeeldingLader.geefAfbeelding("pion");
+			mijnPionImg = mijnPionnen.get(i).geefAfbeelding();
 			Punt p = mijnPionPunten.get(i);
 			g2.drawImage(mijnPionImg, (int)Math.round(((float)rec.width)/tb * (float)p.getY()),
 					(int)Math.round((float)(rec.height)/th * (float)p.getX()), (int)Math.ceil(100.0f/tb), (int)Math.ceil(100.0f/th), null);
@@ -172,9 +172,11 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 		gebiedenTeTekenen.clear();
 	}
 
-	public void voegPionToe(Pion pion, Punt pos) {
+	public void voegPionToe(Pion_Gui pion, Punt pos) {
 		mijnPionnen.add(pion);
 		mijnPionPunten.add(pos);
+		this.repaint();
+		this.revalidate();
 		
 	}
 

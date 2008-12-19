@@ -2,6 +2,8 @@ package ambiorix;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Color;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -38,9 +40,11 @@ public class Systeem
 		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
 		Speler s1 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 		s1.setNaam("Jan");
+		s1.setKleur(Color.RED);
 		huidigeSpel.addSpeler(s1);
 		Speler s2 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
-		s1.setNaam("Piet");
+		s2.setNaam("Piet");
+		s2.setKleur(Color.BLACK);
 		huidigeSpel.addSpeler(s2);
 		
 		try {

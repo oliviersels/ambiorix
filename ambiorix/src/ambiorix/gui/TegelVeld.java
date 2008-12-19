@@ -184,7 +184,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		}
 	}
 
-	public void voegPionToe(Tegel tegel, Pion pion, Punt pos) {
+	public void voegPionToe(Tegel tegel, Pion_Gui pion, Punt pos) {
 		for(Tegel_Gui tg: mijnTegels)
 		{
 			if(tg.getTegel().getID() == tegel.getID())

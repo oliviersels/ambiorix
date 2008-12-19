@@ -225,7 +225,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	}
 	public void voegPionToe(Tegel tegel, Pion pion, Punt pos)
 	{
-		tegelVeld.voegPionToe(tegel, pion, pos);
+		tegelVeld.voegPionToe(tegel, new Pion_Gui(pion), pos);
 	}
 	public void voegPionLuisteraarToe(PionLuisteraar pl)
 	{
