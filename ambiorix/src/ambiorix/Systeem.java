@@ -35,6 +35,22 @@ public class Systeem
 	}
 	
 	public synchronized void startGUI() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.exit(0);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			System.exit(0);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			System.exit(0);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
 		gui = new HoofdVenster();
 		
 		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
