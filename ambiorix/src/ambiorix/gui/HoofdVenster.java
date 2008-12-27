@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
+import ambiorix.spelers.Speler;
 import ambiorix.util.Punt;
 
 public class HoofdVenster extends JFrame implements ActionListener, WindowListener {
@@ -56,6 +58,8 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	private TegelSelectieVeld tegelSelecteer;
 
 	private JScrollPane tegelSelecteerScroll;
+	
+	private Vector <Speler_Gui> spelers; 
 	
 	/*
 	 * Hier start code van Olivier
@@ -273,6 +277,77 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	public void zetTePlaatsenTegel(TegelBasis tb)
 	{
 		this.tegelVeld.zetTePlaatsenTegel(tb);
+	}
+	
+	public void voegSpelerToe(Speler s)
+	{
+		Speler_Gui nieuweSpeler = new Speler_Gui(s);
+		spelers.add(nieuweSpeler);
+	}
+	public void voegPionToeAanSpeler(PionBasis pion, Speler s)
+	{
+		for(Speler_Gui sg : spelers)
+		{
+			if(sg.geefSpeler() == s)
+			{
+				sg.voegPionToe(pion);
+			}
+		}
+	}
+	public void voegTegelToeAanSpeler(TegelBasis tegel, Speler s)
+	{
+		for(Speler_Gui sg : spelers)
+		{
+			if(sg.geefSpeler() == s)
+			{
+				sg.voegTegelToe(tegel);
+			}
+		}
+	}
+	public void verwijderPionVanSpeler(PionBasis pion, Speler s)
+	{
+		for(Speler_Gui sg : spelers)
+		{
+			if(sg.geefSpeler() == s)
+			{
+				sg.verwijderPion(pion);
+			}
+		}
+	}
+	public void verwijderTegelVanSpeler(TegelBasis tegel, Speler s)
+	{
+		for(Speler_Gui sg : spelers)
+		{
+			if(sg.geefSpeler() == s)
+			{
+				sg.verwijderTegel(tegel);
+			}
+		}
+	}
+	public void zetActieveSpeler(Speler s)
+	{
+		Speler_Gui gevondenSpeler = null;
+		for(Speler_Gui sg : spelers)
+		{
+			if(sg.geefSpeler() == s)
+			{
+				gevondenSpeler = sg;
+			}
+		}
+		if(gevondenSpeler != null)
+		{
+			wisPionnenEnSelectieTegels();
+			int aantalPionnen = gevondenSpeler.geefAantalPionnen();
+			for(int i = 0; i < aantalPionnen; i++)
+			{
+				this.voegPionToe(gevondenSpeler.geefPion(i).getPion());
+			}
+			int aantalTegels = gevondenSpeler.geefAantalTegels();
+			for(int i = 0; i < aantalTegels; i++)
+			{
+				this.voegSelectieTegelToe(gevondenSpeler.geefTegel(i).getTegel());
+			}
+		}
 	}
 
 	@Override
