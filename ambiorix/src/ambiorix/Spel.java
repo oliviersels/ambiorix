@@ -5,6 +5,7 @@ import java.util.Vector;
 import ambiorix.acties.ActieBestuurder;
 import ambiorix.acties.specifiek.GeefTegel;
 import ambiorix.acties.specifiek.StartSpel;
+import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelers.Speler;
 
@@ -16,11 +17,11 @@ public class Spel {
 	private Spelbord spelbord;
 	private ActieBestuurder actieBestuurder;
 	
-	public Spel() {
+	public Spel(Uitvoer gui) {
 		spelers = new Vector<Speler>();
 		spelbord = new Spelbord();
 		actieBestuurder = new ActieBestuurder(); // TODO moet via reflectie
-		speltoolkit = new SpelToolkit(spelers, spelbord);
+		speltoolkit = new SpelToolkit(spelers, spelbord, gui);
 	}
 	
 	// Spel starten: uitbreidingen bepalen de startactie
@@ -36,11 +37,8 @@ public class Spel {
 	// spelers
 
 	public boolean addSpeler(Speler speler) {
-		if(getAantalSpelers() < 5) {
-			if(getAantalSpelers() == 0)
-				speler.zetActief(true);
+		if(getAantalSpelers() < 5)
 			return spelers.add(speler);
-		}
 		return false;
 	}
 

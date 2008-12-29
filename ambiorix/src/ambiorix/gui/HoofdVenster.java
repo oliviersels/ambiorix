@@ -112,6 +112,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{	
 		invoer = new Invoer(this);
 		uitvoer = new Uitvoer(this);
+		spelers = new Vector<Speler_Gui>();
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);

@@ -2,6 +2,10 @@ package ambiorix;
 
 import java.util.Vector;
 
+import javax.swing.SwingUtilities;
+
+import ambiorix.gui.Uitvoer;
+import ambiorix.gui.Uitvoer.SpelerPionGeven;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
@@ -15,10 +19,12 @@ import ambiorix.spelers.Speler;
 public class SpelToolkit {
 	private Vector<Speler> spelers;
 	private Spelbord spelbord;
+	private Uitvoer gui;
 
-	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord) {
+	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord, Uitvoer gui) {
 		this.spelers = spelers;
 		this.spelbord = spelbord;
+		this.gui = gui;
 	}
 
 	// van Spel
@@ -43,8 +49,11 @@ public class SpelToolkit {
 
 	public void setActieveSpeler(Speler actieveSpeler) {
 		Speler nuActief = getActieveSpeler();
-		nuActief.zetActief(false);
+		if(nuActief != null)
+			nuActief.zetActief(false);
 		actieveSpeler.zetActief(true);
+		Uitvoer.ZetActieveSpeler run = gui.new ZetActieveSpeler(actieveSpeler);
+		SwingUtilities.invokeLater(run);
 	}
 
 	// van Spelbord

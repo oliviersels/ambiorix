@@ -31,7 +31,7 @@ public class Systeem
 	}
 	
 	protected Systeem() {
-		huidigeSpel = new Spel();
+		//huidigeSpel = new Spel();
 	}
 	
 	public synchronized void startGUI() {
@@ -52,16 +52,21 @@ public class Systeem
 		}
 		
 		gui = new HoofdVenster();
+		// TODO Spel moet achteraf door gui gestart worden!
+		huidigeSpel = new Spel(gui.getUitvoer());
 		
 		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
 		Speler s1 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 		s1.setNaam("Jan");
 		s1.setKleur(Color.RED);
 		huidigeSpel.addSpeler(s1);
+		gui.voegSpelerToe(s1);
 		Speler s2 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 		s2.setNaam("Piet");
 		s2.setKleur(Color.BLACK);
 		huidigeSpel.addSpeler(s2);
+		gui.voegSpelerToe(s2);
+		//gui.zetActieveSpeler(s1);
 		
 		try {
 			wait();

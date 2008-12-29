@@ -14,6 +14,8 @@ public class Speler_Gui {
 	private Vector<Tegel_Gui> tegels;
 	public Speler_Gui(Speler s)
 	{
+		pionnen = new Vector<Pion_Gui>();
+		tegels = new Vector<Tegel_Gui>();
 		this.speler =s;
 	}
 	public String geefNaam()

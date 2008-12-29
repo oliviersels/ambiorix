@@ -31,6 +31,8 @@ public class StartSpel extends AbstractActie {
 			for(int i = 0; i < 7; i++)
 				kit.geefSpelerPion(new Pion(0, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"), s), s);
 		}
+		// Actieve Speler instellen (de eerste)
+		kit.setActieveSpeler(kit.getSpelers().get(0));
 		
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_BurchtMetBochtweg"));
 		kit.setBegintegel(t);

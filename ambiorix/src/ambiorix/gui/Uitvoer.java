@@ -54,7 +54,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			gui.voegSelectieTegelToe(tegel);
+			gui.voegTegelToeAanSpeler(tegel, speler);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			gui.voegPionToe(pion);
+			gui.voegPionToeAanSpeler(pion, speler);
 			
 		}
 	}
@@ -85,7 +85,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			gui.verwijderSelectieTegel(tegel);
+			gui.verwijderTegelVanSpeler(tegel, speler);
 		}
 	}
 	
@@ -100,7 +100,21 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			gui.verwijderPion(pion);
+			gui.verwijderPionVanSpeler(pion, speler);
 		}
+	}
+	
+	public class ZetActieveSpeler implements Runnable {
+		Speler speler;
+		
+		public ZetActieveSpeler(Speler s) {
+			speler = s;
+		}
+
+		@Override
+		public void run() {
+			gui.zetActieveSpeler(speler);
+		}
+		
 	}
 }
