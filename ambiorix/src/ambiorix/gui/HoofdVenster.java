@@ -59,6 +59,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 
 	private JScrollPane tegelSelecteerScroll;
 	
+	private Speler actieveSpeler = null;
 	private Vector <Speler_Gui> spelers; 
 	
 	/*
@@ -294,6 +295,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				sg.voegPionToe(pion);
 			}
 		}
+		kijkVoorSpelerHernieuwing(s);
 	}
 	public void voegTegelToeAanSpeler(TegelBasis tegel, Speler s)
 	{
@@ -304,6 +306,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				sg.voegTegelToe(tegel);
 			}
 		}
+		kijkVoorSpelerHernieuwing(s);
 	}
 	public void verwijderPionVanSpeler(PionBasis pion, Speler s)
 	{
@@ -314,6 +317,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				sg.verwijderPion(pion);
 			}
 		}
+		kijkVoorSpelerHernieuwing(s);
 	}
 	public void verwijderTegelVanSpeler(TegelBasis tegel, Speler s)
 	{
@@ -324,6 +328,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				sg.verwijderTegel(tegel);
 			}
 		}
+		kijkVoorSpelerHernieuwing(s);
 	}
 	public void zetActieveSpeler(Speler s)
 	{
@@ -349,8 +354,15 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				this.voegSelectieTegelToe(gevondenSpeler.geefTegel(i).getTegel());
 			}
 		}
+		actieveSpeler = s;
 	}
-
+	private void kijkVoorSpelerHernieuwing(Speler s)
+	{
+		if(actieveSpeler == s)
+		{
+			zetActieveSpeler(s);
+		}
+	}
 	@Override
 	public void windowActivated(WindowEvent arg0) {}
 	@Override
