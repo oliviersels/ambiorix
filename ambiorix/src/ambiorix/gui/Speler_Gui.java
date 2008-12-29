@@ -78,6 +78,6 @@ public class Speler_Gui {
 				teVerwijderenTegel = tg;
 			}
 		}
-		pionnen.remove(teVerwijderenTegel);
+		tegels.remove(teVerwijderenTegel);
 	}
 }
