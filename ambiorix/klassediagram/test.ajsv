@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)-->
+<ajsv>
+    <diagram style="standardDiagramStyles.diagramStyle.Standard Basic Style" version="1.5.3">
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Manhattan Lines" switchValue="dependence, fields, inheritance"/>
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Line Types" switchValue="dependence, field, inheritance"/>
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Signature Length" switchValue="short"/>
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Visibility" switchValue="public, protected, package, private"/>
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Members" switchValue="fields, methods, inners, initializers"/>
+        <class className="ambiorix.Spel" project="ambiorix" xLocation="3235" yLocation="46"/>
+        <class className="ambiorix.systeem" project="ambiorix" xLocation="2340" yLocation="764"/>
+        <class className="ambiorix.SpelToolkit" project="ambiorix" xLocation="2571" yLocation="88"/>
+        <class className="ambiorix.acties.ActieBestuurder" project="ambiorix" xLocation="3899" yLocation="379"/>
+        <class className="ambiorix.acties.AbstractActie" project="ambiorix" xLocation="3542" yLocation="84"/>
+        <class className="ambiorix.acties.Actie" project="ambiorix" xLocation="2895" yLocation="-97"/>
+        <class className="ambiorix.acties.specifiek.LegTegel" project="ambiorix" xLocation="2913" yLocation="101"/>
+        <class className="ambiorix.acties.specifiek.GeefTegel" project="ambiorix" xLocation="2569" yLocation="-160"/>
+        <class className="ambiorix.gui.PionGebeurtenis" project="ambiorix" xLocation="3262" yLocation="1174"/>
+        <class className="ambiorix.gui.TegelGeest" project="ambiorix" xLocation="866" yLocation="1928"/>
+        <class className="ambiorix.gui.Pion_Gui" project="ambiorix" xLocation="3898" yLocation="1010"/>
+        <class className="ambiorix.gui.ChatVeld" project="ambiorix" xLocation="3566" yLocation="1524"/>
+        <class className="ambiorix.gui.InvoerLuisteraar" project="ambiorix" xLocation="3266" yLocation="1366"/>
+        <class className="ambiorix.gui.TegelKlikLuisteraar" project="ambiorix" xLocation="899" yLocation="1713"/>
+        <class className="ambiorix.gui.TegelGeestLuisteraar" project="ambiorix" xLocation="484" yLocation="1437"/>
+        <class className="ambiorix.gui.Invoer" project="ambiorix" xLocation="2922" yLocation="1193"/>
+        <class className="ambiorix.gui.PionnenVeldLayout" project="ambiorix" xLocation="3274" yLocation="1798"/>
+        <class className="ambiorix.gui.Tegel_Gui" project="ambiorix" xLocation="1250" yLocation="1685"/>
+        <class className="ambiorix.gui.TegelVeldLayout" project="ambiorix" xLocation="462" yLocation="1635"/>
+        <class className="ambiorix.gui.Uitvoer" project="ambiorix" xLocation="2594" yLocation="1558"/>
+        <class className="ambiorix.gui.PionnenVeld" project="ambiorix" xLocation="3558" yLocation="1191"/>
+        <class className="ambiorix.gui.TegelGebeurtenis" project="ambiorix" xLocation="1624" yLocation="1887"/>
+        <class className="ambiorix.gui.PionLuisteraar" project="ambiorix" xLocation="3318" yLocation="986"/>
+        <class className="ambiorix.gui.TegelVeld" project="ambiorix" xLocation="1778" yLocation="2170"/>
+        <class className="ambiorix.gui.HoofdVenster" project="ambiorix" xLocation="2220" yLocation="1360"/>
+        <class className="ambiorix.gui.TegelGeestGebeurtenis" project="ambiorix" xLocation="473" yLocation="1226"/>
+        <class className="ambiorix.spelbord.TerreinTypeVerzameling" project="ambiorix" xLocation="949" yLocation="122"/>
+        <class className="ambiorix.spelbord.Type" project="ambiorix" xLocation="1071" yLocation="354"/>
+        <class className="ambiorix.spelbord.PionType" project="ambiorix" xLocation="3586" yLocation="570"/>
+        <class className="ambiorix.spelbord.TypeVerzameling" project="ambiorix" xLocation="1871" yLocation="-310"/>
+        <class className="ambiorix.spelbord.TegelBasis" project="ambiorix" xLocation="814" yLocation="1263"/>
+        <class className="ambiorix.spelbord.TegelTypeVerzameling" project="ambiorix" xLocation="1854" yLocation="211"/>
+        <class className="ambiorix.spelbord.BordPositie" project="ambiorix" xLocation="2151" yLocation="1115"/>
+        <class className="ambiorix.spelbord.TerreinBasis" project="ambiorix" xLocation="1593" yLocation="330"/>
+        <class className="ambiorix.spelbord.TegelGebiedBeheerder" project="ambiorix" xLocation="1043" yLocation="823"/>
+        <class className="ambiorix.spelbord.TerreinType" project="ambiorix" xLocation="1308" yLocation="592"/>
+        <class className="ambiorix.spelbord.PionTypeVerzameling" project="ambiorix" xLocation="1877" yLocation="-18"/>
+        <class className="ambiorix.spelbord.Terrein" project="ambiorix" xLocation="1649" yLocation="808"/>
+        <class className="ambiorix.spelbord.Pion" project="ambiorix" xLocation="2679" yLocation="550"/>
+        <class className="ambiorix.spelbord.Gebied" project="ambiorix" xLocation="1451" yLocation="1152"/>
+        <class className="ambiorix.spelbord.PionBasis" project="ambiorix" xLocation="3322" yLocation="560"/>
+        <class className="ambiorix.spelbord.Tegel" project="ambiorix" xLocation="1786" yLocation="1144"/>
+        <class className="ambiorix.spelbord.TegelType" project="ambiorix" xLocation="766" yLocation="633"/>
+        <class className="ambiorix.spelbord.Spelbord" project="ambiorix" xLocation="1913" yLocation="438"/>
+        <class className="ambiorix.spelbord.piontypes.PionType_Volgeling" project="ambiorix" xLocation="3570" yLocation="789"/>
+        <class className="ambiorix.spelbord.tegeltypes.TegelType_GGGGK" project="ambiorix" xLocation="723" yLocation="947"/>
+        <class className="ambiorix.spelbord.tegeltypes.TegelType_WGGWW" project="ambiorix" xLocation="409" yLocation="931"/>
+        <class className="ambiorix.spelbord.terreintypes.TerreinType_Klooster" project="ambiorix" xLocation="2242" yLocation="2007"/>
+        <class className="ambiorix.spelbord.terreintypes.TerreinType_Burcht" project="ambiorix" xLocation="165" yLocation="1124"/>
+        <class className="ambiorix.spelbord.terreintypes.TerreinType_Gras" project="ambiorix" xLocation="2597" yLocation="1844"/>
+        <class className="ambiorix.spelbord.terreintypes.TerreinType_Weg" project="ambiorix" xLocation="2897" yLocation="1925"/>
+        <class className="ambiorix.spelers.MenselijkeSpeler" project="ambiorix" xLocation="2592" yLocation="1206"/>
+        <class className="ambiorix.spelers.Speler" project="ambiorix" xLocation="2955" yLocation="408"/>
+        <class className="ambiorix.spelers.Antwoord" project="ambiorix" xLocation="2676" yLocation="871"/>
+        <class className="ambiorix.tests.TestSpel" project="ambiorix" xLocation="3321" yLocation="786"/>
+        <class className="ambiorix.tests.TestSpelbord" project="ambiorix" xLocation="1920" yLocation="1887"/>
+        <class className="ambiorix.tests.Testtest" project="ambiorix" xLocation="2589" yLocation="2048"/>
+        <class className="ambiorix.tests.TestInput" project="ambiorix" xLocation="2211" yLocation="153"/>
+        <class className="ambiorix.tests.TestTegelType" project="ambiorix" xLocation="781" yLocation="440"/>
+        <class className="ambiorix.tests.TestTegel" project="ambiorix" xLocation="1584" yLocation="558"/>
+        <class className="ambiorix.tests.TestOutput" project="ambiorix" xLocation="2341" yLocation="535"/>
+        <class className="ambiorix.tests.VoorbeeldTest" project="ambiorix" xLocation="3262" yLocation="1559"/>
+        <class className="ambiorix.util.Punt" project="ambiorix" xLocation="1155" yLocation="1261"/>
+        <class className="ambiorix.util.PuntMap" project="ambiorix" xLocation="1300" yLocation="268"/>
+    </diagram>
+</ajsv>
