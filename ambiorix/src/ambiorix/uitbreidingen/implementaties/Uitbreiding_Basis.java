@@ -17,15 +17,7 @@ public class Uitbreiding_Basis extends UitbreidingImplementatie
 	{
 		System.out.println("DIT IS DE BASISUITBREIKlasseLader INGELADEN, JOCHEI");
 		
-		try
-		{
-			KlasseLader<TerreinType> terreinLader = new KlasseLader<TerreinType>(uitbreidingPad);
-			TerreinType lava = terreinLader.LaadKlasse("ambiorix.spelbord.terreintypes.TerreinType_Lava").newInstance();
-			TerreinTypeVerzameling.getInstantie().registreerType(lava);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		super.bereidVoor();
+		
 	}
 }

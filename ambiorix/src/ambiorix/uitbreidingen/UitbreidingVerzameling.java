@@ -18,22 +18,10 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 	public void vulMetUitbreidingenUit(String pad)
 	{
 		// jammer genoeg kan File niet gewoon alle directories listen zonder de files...
-		// thumbs.db en .DS_Store enzo moeten dus gefilterd worden...
+		// thumbs.db en .DS_Store enzo moeten dus gefilterd worden... om nog maar te zwijgen van .svn :)
 		// ActionScript in Flex kan dit trouwens WEL gewoon, take THAT java
 		
-		File map = new File(pad);
-		/*File[] uitbreidingenMappen = map.listFiles(); // ipv gewoon list()
-		
-		for( File uitbreidingMap : uitbreidingenMappen )
-		{
-			if( uitbreidingMap.isDirectory() )
-			{
-				Uitbreiding uitbreiding = new Uitbreiding(pad, uitbreidingMap.getName());
-				this.registreerType(uitbreiding);
-			}
-		}*/
-		
-		
+		File map = new File(pad);		
 		String[] uitbreidingenMappen = map.list();
 		
 		for(String uitbreidingMap : uitbreidingenMappen)
