@@ -15,6 +15,7 @@ import ambiorix.spelbord.terreintypes.*;
 import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 import ambiorix.uitbreidingen.Uitbreiding;
+import ambiorix.uitbreidingen.UitbreidingVerzameling;
 import ambiorix.util.File;
 import ambiorix.util.Punt;
 import ambiorix.util.TypeVerzameling;
@@ -99,16 +100,24 @@ public class Systeem
 	
 	private static void TestUitbreidingen()
 	{
-		Uitbreiding uitbreiding = new Uitbreiding("Basis");
-		System.out.println(uitbreiding.getAfbeelding());
-		System.out.println(uitbreiding.getBeschrijving());
+		UitbreidingVerzameling.getInstantie().vulMetUitbreidingenUit("uitbreidingen/");
+		//Uitbreiding uitbreiding = new Uitbreiding("Basis");
+		//System.out.println(uitbreiding.getAfbeelding());
+		//System.out.println(uitbreiding.getBeschrijving());
 		
-		uitbreiding.bereidVoor();
+		for( String naam : UitbreidingVerzameling.getInstantie().getTypes() )
+		{
+			Uitbreiding uitbreiding = UitbreidingVerzameling.getInstantie().getType(naam);
+			System.out.println(uitbreiding.getNaam());
+			System.out.println(uitbreiding.getID());
+			System.out.println(uitbreiding.getAfbeelding());
+			System.out.println(uitbreiding.getBeschrijving());
+		}
 		
 		
-		TypeVerzameling<TerreinType> terreinVerz = TerreinTypeVerzameling.getInstantie();
-		System.out.println( terreinVerz.getType("TerreinType_Lava").getID() );
-		String test = ";";		
+		//TypeVerzameling<TerreinType> terreinVerz = TerreinTypeVerzameling.getInstantie();
+		//System.out.println( terreinVerz.getType("TerreinType_Lava").getID() );
+		//String test = ";";		
 	}
 	
 	private static void Olivier()

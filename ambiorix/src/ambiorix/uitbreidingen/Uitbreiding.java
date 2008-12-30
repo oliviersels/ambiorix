@@ -22,10 +22,10 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 	private String afbeelding = null;
 	private String beschrijving = null;
 	
-	public Uitbreiding(String naam)
+	public Uitbreiding(String pad, String naam)
 	{
 		this.naam = naam;
-		uitbreidingPad = "uitbreidingen/" + naam + "/";
+		uitbreidingPad = pad + naam + "/";
 		// zoeken naar de Uitbreiding met deze naam
 		File uitbreiding = new File( uitbreidingPad + "info.xml");
 		if( !uitbreiding.exists() )
