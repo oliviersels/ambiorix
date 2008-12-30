@@ -1,4 +1,4 @@
-package ambiorix.spelbord;
+package ambiorix.util;
 
 public class Type
 {

@@ -1,8 +1,9 @@
-package ambiorix.spelbord;
+package ambiorix.util;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
 
 // TODO : toelaten dat ze veranderen tot die key 1x is opgevraagd. Daarna mag het natuurlijk niet meer!
 public class TypeVerzameling<T>

@@ -1,5 +1,7 @@
 package ambiorix.spelbord;
 
+import ambiorix.util.TypeVerzameling;
+
 public class TegelTypeVerzameling extends TypeVerzameling<TegelType>
 {
 	protected TegelTypeVerzameling()

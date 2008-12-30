@@ -1,5 +1,7 @@
 package ambiorix.spelbord;
 
+import ambiorix.util.Type;
+
 public class TegelType extends Type
 {
 	protected TerreinType[][] terrein = null;

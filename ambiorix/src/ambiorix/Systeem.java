@@ -14,8 +14,10 @@ import ambiorix.spelbord.tegeltypes.*;
 import ambiorix.spelbord.terreintypes.*;
 import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
+import ambiorix.uitbreidingen.Uitbreiding;
 import ambiorix.util.File;
 import ambiorix.util.Punt;
+import ambiorix.util.TypeVerzameling;
 
 
 public class Systeem 
@@ -89,9 +91,24 @@ public class Systeem
 		//Jens();
 		//Robin();
 		//Jens();
-		TestGebiedAanduiding();
+		//TestGebiedAanduiding();
 		//Jan();
 		//Olivier();
+		TestUitbreidingen();
+	}
+	
+	private static void TestUitbreidingen()
+	{
+		Uitbreiding uitbreiding = new Uitbreiding("Basis");
+		System.out.println(uitbreiding.getAfbeelding());
+		System.out.println(uitbreiding.getBeschrijving());
+		
+		uitbreiding.bereidVoor();
+		
+		
+		TypeVerzameling<TerreinType> terreinVerz = TerreinTypeVerzameling.getInstantie();
+		System.out.println( terreinVerz.getType("TerreinType_Lava").getID() );
+		String test = ";";		
 	}
 	
 	private static void Olivier()

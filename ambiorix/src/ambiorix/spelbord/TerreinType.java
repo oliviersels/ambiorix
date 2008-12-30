@@ -1,5 +1,7 @@
 package ambiorix.spelbord;
 
+import ambiorix.util.Type;
+
 public class TerreinType extends Type
 {
 	protected boolean toegankelijk = false;

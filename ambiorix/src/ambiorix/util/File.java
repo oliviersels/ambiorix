@@ -10,10 +10,9 @@ import java.io.IOException;
 
 public class File 
 {
-	public static String getContents(String filename)
+	public static String getContents(java.io.File file)
 	{
 		String output = "";
-		java.io.File file = new java.io.File(filename);
 		
 		try
 		{
@@ -34,6 +33,13 @@ public class File
 		}
 		
 		return output;
+	}
+	
+	public static String getContents(String filename)
+	{
+		java.io.File file = new java.io.File(filename);
+		
+		return getContents(file);
 	}
 	
 	public static void writeContents(String contents, String filename)
