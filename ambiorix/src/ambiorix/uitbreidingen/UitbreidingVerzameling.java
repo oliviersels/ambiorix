@@ -22,7 +22,7 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 		// ActionScript in Flex kan dit trouwens WEL gewoon, take THAT java
 		
 		File map = new File(pad);
-		File[] uitbreidingenMappen = map.listFiles(); // ipv gewoon list()
+		/*File[] uitbreidingenMappen = map.listFiles(); // ipv gewoon list()
 		
 		for( File uitbreidingMap : uitbreidingenMappen )
 		{
@@ -30,6 +30,19 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 			{
 				Uitbreiding uitbreiding = new Uitbreiding(pad, uitbreidingMap.getName());
 				this.registreerType(uitbreiding);
+			}
+		}*/
+		
+		
+		String[] uitbreidingenMappen = map.list();
+		
+		for(String uitbreidingMap : uitbreidingenMappen)
+		{
+			File test = new File( pad + uitbreidingMap + "/info.xml" );
+			if( test.exists() )
+			{
+				Uitbreiding uitbreiding = new Uitbreiding(pad, uitbreidingMap);
+				this.registreerType(uitbreiding);				
 			}
 		}
 	}
