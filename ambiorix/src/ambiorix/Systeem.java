@@ -16,6 +16,7 @@ import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 import ambiorix.uitbreidingen.Uitbreiding;
 import ambiorix.uitbreidingen.UitbreidingVerzameling;
+import ambiorix.uitbreidingmenu.UitbreidingMenu;
 import ambiorix.util.File;
 import ambiorix.util.Punt;
 import ambiorix.util.TypeVerzameling;
@@ -118,6 +119,8 @@ public class Systeem
 		//TypeVerzameling<TerreinType> terreinVerz = TerreinTypeVerzameling.getInstantie();
 		//System.out.println( terreinVerz.getType("TerreinType_Lava").getID() );
 		//String test = ";";		
+		UitbreidingMenu um = new UitbreidingMenu();
+		um.setVisible(true);
 	}
 	
 	private static void Olivier()
