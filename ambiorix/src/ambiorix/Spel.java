@@ -47,6 +47,15 @@ public class Spel {
 	}
 	
 	/**
+	 * Geeft het spelbord. Wordt gebruikt in de AI, gelieve NIET te verwijderen!
+	 * @return het huidige spelbord waarop we spelen.
+	 */
+	public Spelbord getSpelbord()
+	{
+		return spelbord;
+	}
+	
+	/**
 	 * Geeft de actieve speler. Enkel gebruiken voor het spel begonnen is.
 	 * @return de active speler of null indien er geen actief is.
 	 */

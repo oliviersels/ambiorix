@@ -18,8 +18,8 @@ public abstract class Speler {
 	private Color kleur;
 	private int score;
 	private String naam;
-	private Vector<Pion> pionnen;
-	private Vector<Tegel> tegels;
+	protected Vector<Pion> pionnen;
+	protected Vector<Tegel> tegels;
 	private STATUS status;
 	
 	public Speler() {

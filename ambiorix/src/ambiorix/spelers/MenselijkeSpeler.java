@@ -2,6 +2,7 @@ package ambiorix.spelers;
 
 import javax.swing.SwingUtilities;
 
+import ambiorix.Spel;
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
 import ambiorix.gui.Uitvoer;
