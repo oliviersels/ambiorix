@@ -1,5 +1,9 @@
 <info>
+	<nr>1</nr>
 	<type>Uitbreiding_Basis</type>
 	<afbeelding>afbeeldingen/logo.png</afbeelding >
-	<beschrijving>Dit is de beschrijving van de basisuitbreiding</beschrijving>
+	<beschrijving>Dit is de beschrijving van de basisuitbreiding</beschrijving>	
+	<compatibel_met>
+		<uitbreiding>*</uitbreiding>
+	</compatibel_met>
 </info>

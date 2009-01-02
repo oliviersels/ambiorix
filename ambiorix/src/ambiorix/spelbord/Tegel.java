@@ -18,6 +18,7 @@ public class Tegel implements TegelBasis
 	// positieindexen komen overeen met indexen op type.terrein
 	private Pion[][] pionPosities = null; 
 	private TerreinType[][] terrein = null;
+	private Vector<Punt> gebiedBeginPunten = null;
 	
 	private Tegel[] buren = new Tegel[4];
 	
@@ -77,7 +78,48 @@ public class Tegel implements TegelBasis
 		
 		terrein = type.draaiTerrein(rotatie);
 		gebiedBeheerder = new TegelGebiedBeheerder(this);
+		
+		// lokale gebieden berekenen en voor elk stukje een startpunt bijhouden.
+		// We doen dat hier 1x, omdat het daarna toch niet meer veranderd
+		// dit is nodig voor scoreberekening !
+		berekenGebiedBeginPunten();
+		
 	}
+	
+		private void berekenGebiedBeginPunten()
+		{
+			gebiedBeginPunten = new Vector<Punt>();
+			Vector<Gebied> gevondenGebieden = new Vector<Gebied>();
+
+			// alle stukjes terrein afgaan. 
+			// Als ze nog niet tot een gevonden gebied behoren, zijn ze het begin van een nieuw gebied
+			for( int i = 0; i < terrein.length; i++)
+			{
+				for( int j = 0; j < terrein[0].length; j++ )
+				{
+					Terrein temp = new Terrein( this, new Punt( i,j ) );
+					
+					// kijken in alle reeds gevonden gebieden
+					boolean isBeginPunt = true;
+					
+					for( Gebied gevonden : gevondenGebieden )
+					{
+						if( gevonden.bevatTerrein(temp) )
+						{
+							isBeginPunt = false;
+							break;
+						}
+					}
+					
+					if(isBeginPunt)
+					{
+						gebiedBeginPunten.add( new Punt(i,j) );
+						gevondenGebieden.add( gebiedBeheerder.getBeperktGebied(temp) );
+					}
+				}
+			}
+		}
+	
 	
 	public boolean kanBuurAccepteren(Tegel buur, RICHTING richting)
 	{
@@ -189,6 +231,10 @@ public class Tegel implements TegelBasis
 		}
 	}
 	
+	public Vector<Punt> getGebiedBeginPunten()
+	{
+		return gebiedBeginPunten;
+	}
 	
 	public Gebied getGebied(Terrein start)
 	{
@@ -227,6 +273,25 @@ public class Tegel implements TegelBasis
 		return new Terrein( this, new Punt(locatie) );
 	}
 	
+	/*
+	 * Gaat het eerste terrein teruggeven dat hij op deze tegel vind van het gespecifieerde type
+	 * Dit is handig als we een gebied moeten berekenen.
+	 */
+	public Terrein getTerreinVanType(TerreinType terreinType)
+	{
+		// alle stukjes terrein afgaan tot we iets vinden
+		for( int i = 0; i < this.terrein.length; i++)
+		{
+			for( int j = 0; j < terrein[0].length; j++ )
+			{
+				if( terrein[i][j] == terreinType )
+					return new Terrein( this, new Punt(i,j) );
+			}
+		}
+		
+		return null;
+	}
+	
 	public int getTerreinBreedte()
 	{
 		return terrein[0].length;
@@ -237,7 +302,8 @@ public class Tegel implements TegelBasis
 		return terrein.length;
 	}
 	
-	// TODO : deze moet hier weg !
+	// enkel mede-tegels and alike mogen hieraan !
+	// TODO : protected maken ipv public, maar dan beginnen de Tests moeilijk te doen
 	public TegelGebiedBeheerder getGebiedBeheerder()
 	{
 		return this.gebiedBeheerder;
@@ -247,6 +313,8 @@ public class Tegel implements TegelBasis
 	{
 		return draaibaar;
 	}
+	
+	
 	
 	
 	public void print()

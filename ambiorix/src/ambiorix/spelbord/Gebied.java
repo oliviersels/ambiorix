@@ -35,12 +35,6 @@ public class Gebied
 		this.type = type;
 	}	
 	
-	// TODO : deze moet nog weg !!!
-	public void setTerreinStukken( Vector<Terrein> stukken )
-	{
-		this.terreinStukken = stukken;
-	}
-	
 	/*
 	 * Geef true als het gebied helemaal afgesloten is aan alle kanten (geen open zijden meer)
 	 */
@@ -89,8 +83,22 @@ public class Gebied
 			}
 		}*/
 		
-	
-
+	/*
+	 * Rekenintensieve functie. Gebruik enkel als het gebied niet te groot is !
+	 */
+	public boolean bevatTerrein( Terrein terrein )
+	{
+		for( Terrein test : terreinStukken )
+		{
+			if( terrein.getTegel() == test.getTegel() )
+			{
+				if( terrein.getPositie().toString() == test.getPositie().toString() )
+					return true;
+			}
+		}
+		
+		return false;
+	}
 
 	public Vector<Terrein> getTerreinStukken() 
 	{
@@ -102,7 +110,6 @@ public class Gebied
 		return tegels;
 	}
 	
-	// TODO : mss ook een functie getPionnen die Vector<Pion> teruggeeft ?
 	public HashMap<Pion,Terrein> getPionnenEnPosities()
 	{
 		return pionnen;

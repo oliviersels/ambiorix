@@ -107,7 +107,7 @@ public class Spelbord
 		}
 		
 		// TODO : fatsoenlijk checken, NIET GEWOON null TERUGGEVEN !!!!
-		if( tegel == null ) // teller > 10, zelf checken of er nog eentje is
+		if( tegel == null ) // teller > 100, zelf checken of er nog eentje is
 		{
 			return null;
 		}
@@ -401,7 +401,6 @@ public class Spelbord
 			}
 			else
 			{
-				// TODO : remove
 				//System.out.println(" spelbord::PlaatsTegel : geen buur gevonden op " + buurCoordinaat);
 			}
 		}
@@ -465,7 +464,6 @@ public class Spelbord
 	/*
 	 * Gaat recursief rondom start zoeken voor terreinstukken van hetzelfde type.
 	 * 
-	 * TODO : gebied ook nog laten bijhouden waar het nog niet "af is" (Tegel + zijde) ?
 	 * 
 	 */
 	public Gebied getGebied(Terrein start)

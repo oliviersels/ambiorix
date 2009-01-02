@@ -122,6 +122,19 @@ public class TegelGebiedBeheerder
 		}
 	}
 	
+	public Gebied getBeperktGebied(Terrein start)
+	{
+		Gebied gebied = new Gebied();
+		gebied.setType(start.getType());
+		
+		Vector<String> gesloten = new Vector<String>();
+		
+		//rondom het startterrein zoeken naar aangrenzende stukjes terrein van hetzelfde type
+		berekenGebied(gebied, start, gesloten, true);
+		
+		return gebied;		
+	}
+	
 	public Gebied getGebied(Terrein start)
 	{
 		Gebied gebied = new Gebied();
@@ -130,7 +143,7 @@ public class TegelGebiedBeheerder
 		Vector<String> gesloten = new Vector<String>();
 		
 		//rondom het startterrein zoeken naar aangrenzende stukjes terrein van hetzelfde type
-		berekenGebied(gebied, start, gesloten);
+		berekenGebied(gebied, start, gesloten, false);
 		
 		return gebied;
 	}
@@ -139,7 +152,7 @@ public class TegelGebiedBeheerder
 		 * Helpfunctie die recursief het gebied gaat berekenen.
 		 */
 		// TODO : gesloten (de check op dubbele terreinen) naar gebied brengen, niet in functie houden
-		private void berekenGebied( Gebied gebied, Terrein start, Vector<String> gesloten )
+		private void berekenGebied( Gebied gebied, Terrein start, Vector<String> gesloten, boolean beperkTotTegel )
 		{
 			// we gaan ervanuit dat START nog niet in het gebied zit
 			// - eerst kijken of hij erbij moet
@@ -245,6 +258,10 @@ public class TegelGebiedBeheerder
 							doorgaanNaarVolgende = false;
 						}	
 						
+						// slechts de starttegel bekijken, niet verdergaan naar aangrenzende
+						if( beperkTotTegel )
+							doorgaanNaarVolgende = false;
+						
 						// als op een andere tegel
 						// => zoek het juiste punt op de buur
 						if(doorgaanNaarVolgende)
@@ -270,7 +287,7 @@ public class TegelGebiedBeheerder
 						if( nieuw != null ) // anders moeten we niet meer verdergaan
 						{
 							if( !gesloten.contains(nieuw.toString()) )
-								berekenGebied(gebied, nieuw, gesloten);
+								berekenGebied(gebied, nieuw, gesloten, beperkTotTegel);
 						}
 						
 					}// einde richtingen iteratie

@@ -2,11 +2,14 @@ package ambiorix.spelbord.scoreberekenaars;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Vector;
 
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.spelbord.Tegel;
+import ambiorix.spelbord.TegelTypeVerzameling;
+import ambiorix.spelbord.Terrein;
 import ambiorix.spelbord.TerreinTypeVerzameling;
 import ambiorix.spelbord.TegelBasis.RICHTING;
 import ambiorix.spelers.Speler;
@@ -41,8 +44,22 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 		}
 		else if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht") )
 		{
-			// kasteel is (tegels * 2) + (schilden * 2) // TODO : wat met schilden ???
-			return ( 2 * gebied.getTegels().size() );	
+			// kasteel is (tegels * 2) + (schilden * 2)
+			
+			Vector<Tegel> tegels = gebied.getTegels();
+			int result = 2 * tegels.size();
+			
+			for( Tegel tegel : tegels )
+			{
+				// enkel die heeft voorlopig schildjes mogelijk
+				// als er nog andere zouden bijkomen moeten we daar hier gewoon ook op checken
+				if( tegel.getType() == TegelTypeVerzameling.getInstantie().getType("TegelType_BBBBB_MetSchild") )
+				{
+					result += 2;
+				}
+			}
+			
+			return result;
 		}
 		else if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Klooster") )
 		{
@@ -116,7 +133,43 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 			// mogelijk algoritme : alle tegels in gebied afgaan en kijken welke een stuk kasteel op zich hebben.
 			// daar braaf de kastelen berekenen, en zo weten we welke volledig zijn.
 			
-			return gebied.getTegels().size();
+			Vector<Tegel> tegels = gebied.getTegels();
+			Vector<Gebied> gevondenSteden = new Vector<Gebied>();
+			
+			/*
+			 * De boeren verzorgen enkel afgewerkte steden langs
+				hun weiland. Voor elke afgewerkte stad krijgt de speler met de meeste boeren
+				in dat weiland 4 punten.
+			*/
+			
+			int result = 0;
+			for( Tegel tegel : tegels )
+			{
+				//TODO : REKENING HOUDEN MET MEERDERE STEDEN-STUKKEN OP 1 TEGEL !!!!
+				// hoewel dit maar HEEEEL zelden zal voorkomen, dus laten we dit momenteel EVENTJES buiten beschouwing
+				
+				Terrein burchtStart = tegel.getTerreinVanType( TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht") );
+				if( burchtStart != null ) // anders geen Burcht op deze tegel
+				{
+					// eersrt kijken of het Terrein nog geen stukje is van een reeds gevonden burcht
+					for( Gebied burchtGebied : gevondenSteden )
+					{
+						for( Tegel burchtTegel : burchtGebied.getTegels() )
+						{
+							if( burchtTegel == burchtStart.getTegel() )
+								continue;
+						}
+					}
+					
+					Gebied burcht = tegel.getGebied(burchtStart);
+					gevondenSteden.add(burcht);
+					
+					if( burcht.isVolledig() )
+						result += 4;
+				}	
+			}
+			
+			return result;
 		}
 	}
 	

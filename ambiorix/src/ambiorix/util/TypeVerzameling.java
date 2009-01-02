@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.Vector;
 
 
-// TODO : toelaten dat ze veranderen tot die key 1x is opgevraagd. Daarna mag het natuurlijk niet meer!
 public class TypeVerzameling<T>
 {
 	private HashMap<String, T> types = new HashMap<String, T>();	
@@ -19,7 +18,6 @@ public class TypeVerzameling<T>
 	
 	public void registreerType(T type)
 	{
-		//TODO : check of ie nog niet bestaat mss ? om ervoor te zorgen dat niet zomaar kan overschreven worden
 		types.put(( (Type) type).getID(), type);
 	}
 	
