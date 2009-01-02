@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
@@ -59,7 +60,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
 	}
 	
-	public void voegTegelToe(int x, int y, Tegel tegel)
+	public void voegTegelToe(int x, int y, TegelBasis tegel)
 	{
 		this.tePlaatsenTegel = null;
 		Tegel_Gui nieuweTegel = new Tegel_Gui(tegel);
@@ -157,7 +158,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		this.revalidate();
 	}
 
-	public void voegTegelToe(Tegel tegel, BordPositie bp) {
+	public void voegTegelToe(TegelBasis tegel, BordPositie bp) {
 		this.tePlaatsenTegel = null;
 		Tegel buur = bp.getBuur();
 		int grootte = mijnTegels.size();
@@ -229,5 +230,26 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	public void zetTePlaatsenTegel(TegelBasis tb) {
 		this.tePlaatsenTegel = tb;
 		
+	}
+
+	public void verwijderPion(PionBasis pion) {
+		for(Tegel_Gui tg : this.mijnTegels)
+		{
+			tg.verwijderPion(pion);
+		}
+	}
+
+	public void verwijderTegel(TegelBasis tegel) {
+		int index = -1;
+		int i = 0;
+		for(Tegel_Gui tg : this.mijnTegels)
+		{
+			if(tg.getTegel().equals(tegel))
+			{
+				index = i;
+			}
+			i++;
+		}
+		mijnTegels.remove(index);
 	}
 }

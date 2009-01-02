@@ -208,9 +208,13 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		tegelVeld.voegTegelToe(x, y, tegel);
 	}
-	public void voegTegelToe(Tegel tegel, BordPositie bp)
+	public void voegTegelToe(TegelBasis tegel, BordPositie bp)
 	{
 		tegelVeld.voegTegelToe(tegel, bp);
+	}
+	public void verwijderTegel(TegelBasis tegel)
+	{
+		tegelVeld.verwijderTegel(tegel);
 	}
 	public void voegSelectieTegelToe(TegelBasis tegel)
 	{
@@ -280,7 +284,10 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		this.tegelVeld.zetTePlaatsenTegel(tb);
 	}
-	
+	public void verwijderPionVanSpelbord(PionBasis pion)
+	{
+		this.tegelVeld.verwijderPion(pion);
+	}
 	public void voegSpelerToe(Speler s)
 	{
 		Speler_Gui nieuweSpeler = new Speler_Gui(s);

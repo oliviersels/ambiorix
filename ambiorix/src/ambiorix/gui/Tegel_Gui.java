@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
@@ -29,7 +30,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 	private BufferedImage mijnAfbeelding = null;
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<Punt> gebiedenTeTekenen;
-	private Vector<Pion_Gui> mijnPionnen;// TODO moet eventueel in 1 lijst / klasse
+	private Vector<Pion_Gui> mijnPionnen;
 	private Vector<Punt> mijnPionPunten;
 	private TegelBasis tegel;
 	private Punt p;
@@ -135,7 +136,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 	{
 		return tegel;
 	}
-	
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -207,6 +208,21 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 			(it.next()).bewogen(tg);
 		}
 	}
-	
-	
+
+	public void verwijderPion(PionBasis pion) {
+		int index = -1;
+		int i = 0;
+		for(Pion_Gui pg : this.mijnPionnen)
+		{
+			if(pg.getPion() == pion)
+				index = i;
+			i++;
+		}
+		if(index != -1)
+		{
+			mijnPionnen.remove(index);
+			mijnPionPunten.remove(index);
+			repaint();
+		}
+	}	
 }
