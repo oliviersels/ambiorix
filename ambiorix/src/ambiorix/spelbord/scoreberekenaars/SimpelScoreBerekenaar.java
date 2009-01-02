@@ -126,7 +126,7 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 			return aantalBuren;
 			
 		}
-		else // gras
+		else if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras") )
 		{
 			// punten per AFGEWERKT KASTEEL dat grenst aan gras...
 			//  TODO : berekenen van graspunten
@@ -171,6 +171,8 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 			
 			return result;
 		}
+		else
+			return 0;
 	}
 	
 	/*
@@ -182,7 +184,10 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 		HashMap<Speler, Integer> pionnenPerSpeler = getPionnenPerSpeler(gebied);
 		int besteAantal = 0;
 		
-		int spelerAantal = pionnenPerSpeler.get(speler);
+		int spelerAantal = -1;
+		
+		if( pionnenPerSpeler.get(speler) != null )
+			spelerAantal = pionnenPerSpeler.get(speler);
 		
 		Set<Speler> spelers = pionnenPerSpeler.keySet();
 		for( Speler spelerIt : spelers )
