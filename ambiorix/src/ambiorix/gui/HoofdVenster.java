@@ -52,7 +52,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	private PionnenVeld pionnenVeld;
 	private JScrollPane tegelVeldScroll;
 	private TegelVeld tegelVeld;
-
+	private ScoreVeld scoreVeld;
 	private JSplitPane splitOnderkantLinksNogEenKeer;
 
 	private TegelSelectieVeld tegelSelecteer;
@@ -62,9 +62,6 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	private Speler actieveSpeler = null;
 	private Vector <Speler_Gui> spelers; 
 	
-	/*
-	 * Hier start code van Olivier
-	 */
 	@Deprecated
 	public static HoofdVenster geefInstantie() {
 		if(instantie == null) {
@@ -145,6 +142,9 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		menuBalk.add(menuBestand);
 		menuBalk.add(menuHelp);
 		
+		//scoreVeld;
+		scoreVeld = new ScoreVeld();
+		
 		//splitOnderkant
 		splitOnderkant.setMinimumSize(new Dimension(100, 160));
 		splitOnderkant.setPreferredSize(new Dimension(800, 160));
@@ -187,6 +187,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		setMinimumSize(new Dimension(800, 600));
 		Container container = this.getContentPane();
 		container.setLayout(new BorderLayout());
+		container.add(scoreVeld, BorderLayout.EAST);
 		container.add(splitOnderkant, BorderLayout.SOUTH);
 		container.add(tegelVeldScroll, BorderLayout.CENTER);
 		setJMenuBar(menuBalk);
@@ -292,6 +293,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		Speler_Gui nieuweSpeler = new Speler_Gui(s);
 		spelers.add(nieuweSpeler);
+		scoreVeld.voegSpelerToe(s);
 	}
 	public void voegPionToeAanSpeler(PionBasis pion, Speler s)
 	{
@@ -361,7 +363,12 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 				this.voegSelectieTegelToe(gevondenSpeler.geefTegel(i).getTegel());
 			}
 		}
+		scoreVeld.zetActieveSpeler(s);
 		actieveSpeler = s;
+	}
+	public void updateScores()
+	{
+		scoreVeld.updateScores();
 	}
 	private void kijkVoorSpelerHernieuwing(Speler s)
 	{

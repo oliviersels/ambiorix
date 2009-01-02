@@ -250,6 +250,10 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 			}
 			i++;
 		}
+		this.remove(mijnTegels.get(index));
 		mijnTegels.remove(index);
+		this.revalidate();
+		this.repaint();
+		//TODO: tegelgeesten wegdoen
 	}
 }
