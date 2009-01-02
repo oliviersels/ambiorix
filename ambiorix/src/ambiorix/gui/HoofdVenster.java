@@ -2,18 +2,21 @@ package ambiorix.gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -45,6 +48,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	private JMenuItem startSpel, stopSpel, geenPionZetten;
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
+	private JSplitPane splitVoorOnderkant;
 	private JScrollPane chatVeldScroll;
 	private ChatVeld chatVeld;
 	private JTextField chatInvoer;
@@ -54,14 +58,16 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	private TegelVeld tegelVeld;
 	private ScoreVeld scoreVeld;
 	private JSplitPane splitOnderkantLinksNogEenKeer;
-
+	private JButton knop_undo;
+	private JButton knop_volgendeSpeler;
+	private JPanel knoppenPanel;
 	private TegelSelectieVeld tegelSelecteer;
 
 	private JScrollPane tegelSelecteerScroll;
 	
 	private Speler actieveSpeler = null;
 	private Vector <Speler_Gui> spelers; 
-	
+	private Vector <HoofdVensterLuisteraar> hoofdVensterLuisteraars = new Vector <HoofdVensterLuisteraar>();
 	@Deprecated
 	public static HoofdVenster geefInstantie() {
 		if(instantie == null) {
@@ -114,7 +120,9 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
+		splitVoorOnderkant = new JSplitPane();
 		splitOnderkant = new JSplitPane();
+		
 		splitOnderkantLinks = new JSplitPane();
 		splitOnderkantLinksNogEenKeer = new JSplitPane();
 		chatVeldScroll = new JScrollPane();
@@ -126,6 +134,17 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		tegelVeld = new TegelVeld(this);
 		tegelSelecteer  = new TegelSelectieVeld();
 		tegelSelecteerScroll = new JScrollPane();
+		knoppenPanel = new JPanel(new GridLayout(0,1));
+		knop_undo = new JButton("<-");
+		knop_undo.setActionCommand("undo");
+		knop_volgendeSpeler = new JButton("->");
+		knop_volgendeSpeler.setActionCommand("volgendeSpeler");
+		//knoppenPanel
+		knoppenPanel.add(knop_undo);
+		knoppenPanel.add(knop_volgendeSpeler);
+		//splitvoorOnderkant
+		splitVoorOnderkant.setLeftComponent(splitOnderkant);
+		splitVoorOnderkant.setRightComponent(knoppenPanel);
 		// menubalk
 		menuBalk = new JMenuBar();
 		menuBestand = new JMenu("Bestand");
@@ -188,7 +207,8 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		Container container = this.getContentPane();
 		container.setLayout(new BorderLayout());
 		container.add(scoreVeld, BorderLayout.EAST);
-		container.add(splitOnderkant, BorderLayout.SOUTH);
+		container.add(splitVoorOnderkant, BorderLayout.SOUTH);
+		//container.add(splitOnderkant, BorderLayout.SOUTH);
 		container.add(tegelVeldScroll, BorderLayout.CENTER);
 		setJMenuBar(menuBalk);
 		this.pack();
@@ -269,7 +289,20 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(startSpel)) {
+		if(e.equals("undo"))
+		{
+			for(HoofdVensterLuisteraar hvl : this.hoofdVensterLuisteraars)
+			{
+				hvl.undo();
+			}
+		}else if(e.equals("volgendeSpeler"))
+		{
+			for(HoofdVensterLuisteraar hvl : this.hoofdVensterLuisteraars)
+			{
+				hvl.volgendeSpeler();
+			}
+		}
+		else if(e.getSource().equals(startSpel)) {
 			Systeem.getInstantie().startSpel();
 		}
 		else if(e.getSource().equals(stopSpel)) {
@@ -369,6 +402,14 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	public void updateScores()
 	{
 		scoreVeld.updateScores();
+	}
+	public void voegHoofdVensterLuisteraarToe(HoofdVensterLuisteraar hvl)
+	{
+		this.hoofdVensterLuisteraars.add(hvl);
+	}
+	public void verwijderHoofdVensterLuisteraar(HoofdVensterLuisteraar hvl)
+	{
+		this.hoofdVensterLuisteraars.remove(hvl);
 	}
 	private void kijkVoorSpelerHernieuwing(Speler s)
 	{
