@@ -92,7 +92,7 @@ public class Gebied
 		{
 			if( terrein.getTegel() == test.getTegel() )
 			{
-				if( terrein.getPositie().toString() == test.getPositie().toString() )
+				if( terrein.getPositie().toString().equals(test.getPositie().toString()) )
 					return true;
 			}
 		}

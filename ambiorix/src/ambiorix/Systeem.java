@@ -8,6 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import ambiorix.acties.ActieVerzameling;
+import ambiorix.acties.specifiek.BerekenScore;
 import ambiorix.acties.specifiek.GeefTegel;
 import ambiorix.acties.specifiek.LegTegel;
 import ambiorix.acties.specifiek.StartSpel;
@@ -505,10 +506,12 @@ public class Systeem
 		StartSpel startSpel = new StartSpel(null, null);
 		GeefTegel geefTegel = new GeefTegel(null, null);
 		ZetPion zetPion = new ZetPion(null, null, null);
+		BerekenScore berekenScore = new BerekenScore(null, null, null);
 		
 		ActieVerzameling.getInstantie().registreerType(legTegel);
 		ActieVerzameling.getInstantie().registreerType(startSpel);
 		ActieVerzameling.getInstantie().registreerType(geefTegel);
 		ActieVerzameling.getInstantie().registreerType(zetPion);
+		ActieVerzameling.getInstantie().registreerType(berekenScore);
 	}	
 }

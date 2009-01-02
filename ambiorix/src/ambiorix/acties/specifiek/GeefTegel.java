@@ -19,17 +19,11 @@ public class GeefTegel extends AbstractActie {
 
 	@Override
 	public AbstractActie doeActie() {
-		System.out.println("start -> geeftegel");
-		
-		System.out.println("geeftegel -> geef tegel aan huidige speler");
 		gegevenTegel = kit.getVolgendeTegel();
 		if(gegevenTegel == null) {
 			return null; // Onmiddelijk stoppen
 		}
 		kit.geefSpelerTegel(gegevenTegel, kit.getActieveSpeler());
-		System.out.println("geeftegel -> verwacht geen input ofzo");
-		
-		System.out.println("geeftegel -> volgende -> LegTegel");
 		
 		try {
 			Object[] param = {kit, this};

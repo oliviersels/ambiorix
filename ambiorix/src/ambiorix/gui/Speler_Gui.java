@@ -61,7 +61,7 @@ public class Speler_Gui {
 		Pion_Gui teVerwijderenPion = null;
 		for( Pion_Gui pg : pionnen)
 		{
-			if(pg.getPion().getID() == pion.getID())
+			if(pg.getPion() == pion)
 			{
 				teVerwijderenPion = pg;
 			}

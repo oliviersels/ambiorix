@@ -23,15 +23,15 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 	
 	@Override
 	public int berekenScore(Gebied gebied, Speler speler) 
-	{ 
+	{
 		// voor weiden moet het gebied niet volledig zijn
 		if( (!gebied.isVolledig()) && (gebied.getType() != TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras")) )
 			return 0;
-		
+				
 		// als er geen pionnen op staan, kunnen we ook geen score hebben
 		if( gebied.getPionnen().size() == 0 )
 			return 0;
-		
+				
 		int spelerHeeftMeestePionnen = spelerHeeftMeestePionnen(gebied,speler);
 		if( spelerHeeftMeestePionnen == -1 )
 			return 0;

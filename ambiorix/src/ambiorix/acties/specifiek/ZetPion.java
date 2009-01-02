@@ -2,6 +2,7 @@ package ambiorix.acties.specifiek;
 
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
+import ambiorix.acties.ActieVerzameling;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
@@ -36,9 +37,7 @@ public class ZetPion extends AbstractActie {
 	}
 
 	@Override
-	public AbstractActie doeActie() {
-		System.out.println("ZetPion -> Wil de speler een pion zetten? Hij zal wel moeten.. want dit gaat nog niet");
-		
+	public AbstractActie doeActie() {		
 		Speler actieveSpeler = kit.getActieveSpeler();
 		
 		// Heeft de speler nog pionnen?
@@ -49,7 +48,6 @@ public class ZetPion extends AbstractActie {
 			while(!controleerPositie(gekozenPion, gekozenTerrein)) {
 				if(gekozenPion != null)
 					kit.geefSpelerPion(gekozenPion, actieveSpeler);
-				System.out.println("ZetPion -> kies pion");
 				try {
 					gekozenPion = kit.selecteerSpelerPion(actieveSpeler);
 				} catch (InterruptedException e) {
@@ -58,7 +56,6 @@ public class ZetPion extends AbstractActie {
 				// We willen geen pion zetten!
 				if(gekozenPion == null)
 					break;
-				System.out.println("ZetPion -> kies een locatie (terrein)");
 				try {
 					gekozenTerrein = kit.selecteerTegelGebied(actieveSpeler);
 				} catch (InterruptedException e) {
@@ -67,12 +64,19 @@ public class ZetPion extends AbstractActie {
 				kit.neemSpelerPionAf(gekozenPion, actieveSpeler);
 			}
 			if(gekozenPion != null) {
-				System.out.println("ZetPion -> Plaats pion op terrein");
 				kit.zetPion(actieveSpeler, gekozenPion, gekozenTerrein);
 			}
 		}
-		
-		return new GeefTegel(kit, this);
+		System.out.println("voor score bereken");
+		try {
+			Object[] param = {kit, this, vorigeTegel};
+			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class, Tegel.class};
+			return ActieVerzameling.getInstantie().getNewInstantie("BerekenScore", param, paramKlassen);
+		} catch (Exception e) {
+			System.err.println("Unexpected Exception: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}		
 	}
 
 	@Override

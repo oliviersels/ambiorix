@@ -10,9 +10,11 @@ import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
+import ambiorix.spelbord.scoreberekenaars.SimpelScoreBerekenaar;
 import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 
@@ -33,7 +35,6 @@ public class SpelToolkit {
 		return spelers.size();
 	}
 
-	@Deprecated
 	public Vector<Speler> getSpelers() {
 		return spelers;
 	}	
@@ -180,5 +181,9 @@ public class SpelToolkit {
 	public Tegel getVolgendeTegel()
 	{
 		return spelbord.getVolgendeTegel();
+	}
+	
+	public ScoreBerekenaar getScoreBerekenaar() {
+		return new SimpelScoreBerekenaar(); // TODO: Aanpassen en opvragen op Spel
 	}
 }

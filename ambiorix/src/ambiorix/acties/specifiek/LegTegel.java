@@ -23,7 +23,6 @@ public class LegTegel extends AbstractActie {
 
 	@Override
 	public AbstractActie doeActie() {
-		System.out.println("start -> legtegel");
 		gekozenTegel = null;
 		positie = null;
 		Speler actieveSpeler = kit.getActieveSpeler();
@@ -32,14 +31,12 @@ public class LegTegel extends AbstractActie {
 			if(gekozenTegel != null)
 				kit.geefSpelerTegel(gekozenTegel, actieveSpeler);
 			
-			System.out.println("legtegel -> vraag aan gebruiker welke tegel hij wilt leggen");
 			try {
 				gekozenTegel = kit.selecteerSpelerTegel(actieveSpeler);
 			} catch (InterruptedException e) {
 				return null; // Huidige spel is afgelopen
 			}
 			
-			System.out.println("legtegel -> vraag aan gebruiker waar hij deze wilt leggen");
 			try {
 				positie = kit.selecteerBordPositie(actieveSpeler);
 			} catch (InterruptedException e) {
@@ -48,7 +45,6 @@ public class LegTegel extends AbstractActie {
 			
 			kit.neemSpelerTegelAf(gekozenTegel, actieveSpeler);
 		}
-		System.out.println("legtegel -> plaats de tegel op het bord");
 		kit.zetTegel(actieveSpeler, gekozenTegel, positie);
 
 		try {
