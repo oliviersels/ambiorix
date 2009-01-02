@@ -4,6 +4,8 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.HashMap;
 
+import ambiorix.spelers.Speler;
+
 public class Gebied 
 {
 	private TerreinType type;
@@ -157,6 +159,19 @@ public class Gebied
 		
 	}
 	
+	public boolean bezetenDoor(Speler speler)
+	{
+		Pion []pionnenLijst = getPionnen().toArray( new Pion[0] );			// zet set om naar array -> spelers kunnen aanspreken
+		int aantalSpelers = getPionnen().size();
 		
-	
+		for( int j = 0; j < aantalSpelers; ++j )												
+		{
+			if( pionnenLijst[j].getSpeler().getNaam().equals( speler.getNaam() ) )
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

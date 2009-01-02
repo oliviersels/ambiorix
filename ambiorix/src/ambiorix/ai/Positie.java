@@ -145,4 +145,30 @@ public class Positie
 			scores.add(0, s);
 		}
 	}
+	
+	public boolean bevatSpeler(Speler speler)
+	{
+		for( int i = 0; i < scores.size(); ++i )
+		{
+			if( scores.elementAt(i).getSpeler().toString().equals( speler.toString() ) )
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public int getScore( Speler speler )
+	{
+		for( int i = 0; i < scores.size(); ++i )
+		{
+			if( scores.elementAt(i).getSpeler().toString().equals( speler.toString() ) )
+			{
+				return scores.elementAt(i).getScore();
+			}
+		}
+		
+		return 0;
+	}
 }

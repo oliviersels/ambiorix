@@ -9,19 +9,22 @@ import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
 import ambiorix.spelers.Antwoord;
+import ambiorix.spelers.Speler;
 import ambiorix.util.Punt;
 
-public class StandaardAi extends Ai {
-
-	public StandaardAi(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen)
+public class StandaardAi extends Ai
+{
+	private Speler speler;
+	
+	public StandaardAi(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen, Speler speler)
 	{
 		super(b, tegels, pionnen);
+		this.speler = speler;
 	}
 
 	@Override
 	public double berekenKans(BordPositie positie)
 	{
-		
 		return 0;
 	}
 
@@ -34,8 +37,91 @@ public class StandaardAi extends Ai {
 	@Override
 	public Vector<Antwoord> berekenZet()
 	{
+		Positie huidigMaximum = null;
+		int huidigMaximumWaarde = 0;
+		Vector<Antwoord> antwoorden = new Vector<Antwoord>();
 		
-		return null;
+		for( int i = 0; i < positieLijst.size(); ++i )
+		{
+			if( positieLijst.elementAt(i).bevatSpeler( speler ) )// als punten van de speler beinvloed worden
+			{
+				Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten(); // bereken beginpunten vd gebieden
+				
+				for( int j = 0; j < beginpunten.size(); ++j )
+				{
+					Terrein terrein = new Terrein( tegels.elementAt(0), beginpunten.elementAt(j) );
+					Gebied gebied = tegels.elementAt(0).getGebied( terrein );	// bereken gebieden
+					
+					if( gebied.bezetenDoor( speler ) )
+					{
+						if( gebied.getPionnen().size() == 1 ) // speler is enige bezitter
+						{
+							if( gebied.isVolledig() )
+							{
+								// vermenigvuldig met hoge factor
+							}
+							else
+							{
+								// vermenigvuldigen met ( gebied.getOpenZijden().size() * lage factor )
+							}
+						}
+						else // speler is een vd bezitters
+						{
+							if( gebied.isVolledig() )
+							{
+								// vermenigvuldig met hoge factor
+							}
+							else
+							{
+								// vermenigvuldigen met ( gebied.getOpenZijden().size() * lage factor )
+							}
+						}
+					}
+					else // speler is geen bezitter
+					{
+						if( gebied.isVolledig() )
+						{
+							// vermenigvuldig met lage factor
+						}
+						else
+						{
+							// vermenigvuldigen met ( gebied.getOpenZijden().size() * hoge factor )
+						}
+					}
+				}
+			}
+			
+			if( positieLijst.elementAt(i).getScore(speler) > huidigMaximumWaarde )
+			{
+				huidigMaximum = positieLijst.elementAt(i);
+				huidigMaximumWaarde = positieLijst.elementAt(i).getScore(speler);
+			}
+		}
+		
+		// -- antwoorden aanmaken
+		Antwoord a1 = new Antwoord();
+		a1.getTegels().add( tegels.elementAt(0) );
+		antwoorden.add( a1 );
+		//------
+		Antwoord a2 = new Antwoord();
+		a2.getPosities().add( huidigMaximum.getPositie() );
+		antwoorden.add( a2 );
+		//------
+		if( huidigMaximum.getPion() != null )
+		{
+			Antwoord a3 = new Antwoord();
+			a3.getPionnen().add( huidigMaximum.getPion() );
+			antwoorden.add( a3 );
+		}
+		//------
+		if( huidigMaximum.getPion() != null )
+		{
+			Antwoord a4 = new Antwoord();
+			a4.getTerreinen().add( huidigMaximum.getLocatie() );
+			antwoorden.add( a4 );
+		}
+		
+		return antwoorden;
 	}
 
 	@Override
@@ -71,5 +157,4 @@ public class StandaardAi extends Ai {
 		//return null;
 		return Plijst;
 	}
-
 }

@@ -43,6 +43,10 @@ public class AiSpeler extends Speler
 		{
 			run();
 		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
 		
 		Antwoord nieuw = antwoorden.elementAt(0);
 		
@@ -59,6 +63,10 @@ public class AiSpeler extends Speler
 		if( aiElement == null )
 		{
 			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
 		}
 		
 		Antwoord nieuw = antwoorden.elementAt(0);
@@ -77,6 +85,10 @@ public class AiSpeler extends Speler
 		{
 			run();
 		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
 		
 		Antwoord nieuw = antwoorden.elementAt(0);
 		
@@ -94,6 +106,10 @@ public class AiSpeler extends Speler
 		{
 			run();
 		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
 		
 		Antwoord nieuw = antwoorden.elementAt(0);
 		
@@ -109,7 +125,7 @@ public class AiSpeler extends Speler
 	
 	public void run()
 	{
-		aiElement = new StandaardAi(bord, tegels, pionnen);// is pionnen hier juist?
+		aiElement = new StandaardAi(bord, tegels, pionnen, this);// is pionnen hier juist?
 		antwoorden = aiElement.berekenZet();
 	}
 
