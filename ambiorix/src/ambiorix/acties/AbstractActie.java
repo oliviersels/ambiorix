@@ -1,6 +1,7 @@
 package ambiorix.acties;
 
 import ambiorix.SpelToolkit;
+import ambiorix.util.Type;
 
 /**
  * Deze klasse biedt basisfunctionaliteit voor concrete Acties. Tot deze
@@ -12,7 +13,7 @@ import ambiorix.SpelToolkit;
  * gemaakt moet worden. Dit moet maar tot de vorige input gebeuren.
  * @author olivier
  */
-public abstract class AbstractActie implements Actie {
+public abstract class AbstractActie extends Type implements Actie {
 	protected SpelToolkit kit;
 	protected AbstractActie vorigeActie;
 	protected AbstractActie volgendeActie;
@@ -21,7 +22,10 @@ public abstract class AbstractActie implements Actie {
 		this.kit = kit;
 		vorigeActie = vorige;
 		volgendeActie = null;
+		ID = getSpecifiekID();
 	}
+	
+	protected abstract String getSpecifiekID();
 	
 	/**
 	 * Subklassen van AbstractActie moeten niet start() overwriten maar 

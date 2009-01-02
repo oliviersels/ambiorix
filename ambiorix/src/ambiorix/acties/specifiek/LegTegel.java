@@ -2,6 +2,7 @@ package ambiorix.acties.specifiek;
 
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
+import ambiorix.acties.ActieVerzameling;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelers.Speler;
@@ -50,8 +51,15 @@ public class LegTegel extends AbstractActie {
 		System.out.println("legtegel -> plaats de tegel op het bord");
 		kit.zetTegel(actieveSpeler, gekozenTegel, positie);
 
-		System.out.println("Volgende actie is zetpion");
-		return new ZetPion(kit, this, gekozenTegel); // TODO: return zetPion actie
+		try {
+			Object[] param = {kit, this, gekozenTegel};
+			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class, Tegel.class};
+			return ActieVerzameling.getInstantie().getNewInstantie("ZetPion", param, paramKlassen);
+		} catch (Exception e) {
+			System.err.println("Unexpected Exception: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -65,6 +73,11 @@ public class LegTegel extends AbstractActie {
 		System.out.println("legtegel -> tegel verwijderen van speelbord en teruggeven aan speler");
 
 		return null;
+	}
+
+	@Override
+	protected String getSpecifiekID() {
+		return "LegTegel";
 	}
 	
 	

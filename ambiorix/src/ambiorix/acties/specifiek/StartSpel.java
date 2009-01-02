@@ -1,7 +1,10 @@
 package ambiorix.acties.specifiek;
 
+import java.lang.reflect.InvocationTargetException;
+
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
+import ambiorix.acties.ActieVerzameling;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionTypeVerzameling;
@@ -37,7 +40,15 @@ public class StartSpel extends AbstractActie {
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_BurchtMetBochtweg"));
 		kit.setBegintegel(t);
 		
-		return new GeefTegel(kit, this);
+		try {
+			Object[] param = {kit, this};
+			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
+			return ActieVerzameling.getInstantie().getNewInstantie("GeefTegel", param, paramKlassen);
+		} catch (Exception e) {
+			System.err.println("Unexpected Exception: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -48,6 +59,11 @@ public class StartSpel extends AbstractActie {
 	@Override
 	public AbstractActie maakOngedaan() {
 		return null;
+	}
+
+	@Override
+	protected String getSpecifiekID() {
+		return "StartSpel";
 	}
 
 }

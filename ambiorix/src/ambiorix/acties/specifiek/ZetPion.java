@@ -87,4 +87,9 @@ public class ZetPion extends AbstractActie {
 		return null;
 	}
 
+	@Override
+	protected String getSpecifiekID() {
+		return "ZetPion";
+	}
+
 }

@@ -7,6 +7,11 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import ambiorix.acties.ActieVerzameling;
+import ambiorix.acties.specifiek.GeefTegel;
+import ambiorix.acties.specifiek.LegTegel;
+import ambiorix.acties.specifiek.StartSpel;
+import ambiorix.acties.specifiek.ZetPion;
 import ambiorix.gui.HoofdVenster;
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
@@ -495,5 +500,15 @@ public class Systeem
 		TegelTypeVerzameling.getInstantie().registreerType(driesprong);
 		TegelTypeVerzameling.getInstantie().registreerType(eenzijdeBurcht);
 		TegelTypeVerzameling.getInstantie().registreerType(rechteweg);
+		
+		LegTegel legTegel = new LegTegel(null, null);
+		StartSpel startSpel = new StartSpel(null, null);
+		GeefTegel geefTegel = new GeefTegel(null, null);
+		ZetPion zetPion = new ZetPion(null, null, null);
+		
+		ActieVerzameling.getInstantie().registreerType(legTegel);
+		ActieVerzameling.getInstantie().registreerType(startSpel);
+		ActieVerzameling.getInstantie().registreerType(geefTegel);
+		ActieVerzameling.getInstantie().registreerType(zetPion);
 	}	
 }
