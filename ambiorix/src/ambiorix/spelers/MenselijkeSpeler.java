@@ -138,4 +138,20 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		Uitvoer.NeemSpelerTegelAf run = uitvoer.new NeemSpelerTegelAf(this, tegel);
 		SwingUtilities.invokeLater(run);
 	}
+
+	@Override
+	public void setScore(int score) {
+		super.setScore(score);
+		
+		Uitvoer.UpdateScore run = uitvoer.new UpdateScore();
+		SwingUtilities.invokeLater(run);
+	}
+	
+	@Override
+	public void addScore(int score) {
+		super.addScore(score);
+		
+		Uitvoer.UpdateScore run = uitvoer.new UpdateScore();
+		SwingUtilities.invokeLater(run);
+	}
 }

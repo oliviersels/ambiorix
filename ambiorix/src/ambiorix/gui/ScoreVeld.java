@@ -50,7 +50,7 @@ public class ScoreVeld extends JPanel {
 		int i =0;
 		for(JLabel jl : spelerLabels)
 		{
-			jl.setText(spelers.get(i).getNaam() + "\n" + spelers.get(i).getScore());
+			jl.setText(spelers.get(i).getNaam() + ": " + spelers.get(i).getScore());
 			i++;
 		}
 	}

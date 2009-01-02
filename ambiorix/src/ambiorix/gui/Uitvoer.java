@@ -117,4 +117,14 @@ public class Uitvoer {
 		}
 		
 	}
+	
+	public class UpdateScore implements Runnable {
+		public UpdateScore() {}
+
+		@Override
+		public void run() {
+			gui.updateScores();
+		}
+		
+	}
 }
