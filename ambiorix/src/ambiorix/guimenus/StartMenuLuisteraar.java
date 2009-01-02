@@ -1,4 +1,4 @@
-package ambiorix.startmenu;
+package ambiorix.guimenus;
 
 public interface StartMenuLuisteraar {
 	public void nieuwSpel();

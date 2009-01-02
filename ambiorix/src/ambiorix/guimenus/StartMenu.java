@@ -1,4 +1,4 @@
-package ambiorix.startmenu;
+package ambiorix.guimenus;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;

@@ -1,9 +1,11 @@
-package ambiorix.uitbreidingmenu;
+package ambiorix.guimenus;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import javax.swing.JTextField;
 import ambiorix.uitbreidingen.Uitbreiding;
 import ambiorix.uitbreidingen.UitbreidingVerzameling;
 
-public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar{
+public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, ActionListener{
 	private JPanel knoppenPanel;
 	private JButton knop_vorige;
 	private JButton knop_volgende;
@@ -34,7 +36,7 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar{
 	private Vector<Uitbreiding_Gui> uitbreidingPanels;
 	private JScrollPane beschrijvingScroller;
 	private JTextArea uitbreidingBeschrijving;
-
+	private Vector <MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
 
 	public UitbreidingMenu() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -61,11 +63,15 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar{
 		knoppenPanel.setLayout(new GridLayout());
 
 		//---- knop_vorige ----
+		knop_vorige.setActionCommand("vorige");
+		knop_vorige.addActionListener(this);
 		knoppenPanel.add(knop_vorige);
 
 		//---- knop_volgende ----
+		knop_volgende.setActionCommand("volgende");
+		knop_volgende.addActionListener(this);
 		knoppenPanel.add(knop_volgende);
-
+		
 		contentPane.add(knoppenPanel, BorderLayout.SOUTH);
 
 		//======== splitter ========
@@ -125,5 +131,36 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar{
 	@Override
 	public void muisBinnenKomst(Uitbreiding_Gui ug) {
 		this.uitbreidingBeschrijving.setText(ug.getUitbreiding().getBeschrijving());
+	}
+	/**
+	 * Gaat al de MenuLuisteraars waarschuwen dat er op een knop is geklikt.
+	 */
+	@Override
+	public void actionPerformed(ActionEvent AE) {
+		if(AE.equals("vorige"))
+		{
+			for(MenuLuisteraar ml : menuLuisteraars)
+				ml.vorige();
+		}else if(AE.equals("volgende"))
+		{
+			for(MenuLuisteraar ml : menuLuisteraars)
+				ml.volgende();
+		}
+	}
+	/**
+	 * Voegt een MenuLuisteraar toe.
+	 * @param ML De MenuLuisteraar om toe te voegen.
+	 */
+	public void voegMenuLuisteraarToe(MenuLuisteraar ML)
+	{
+		this.menuLuisteraars.add(ML);
+	}
+	/**
+	 * Verwijder een MenuLuisteraar.
+	 * @param ML De MenuLuisteraar om te verwijderen.
+	 */
+	public void verwijderMenuLuisteraar(MenuLuisteraar ML)
+	{
+		this.menuLuisteraars.remove(ML);
 	}
 }

@@ -1,4 +1,4 @@
-package ambiorix.uitbreidingmenu;
+package ambiorix.guimenus;
 
 import java.awt.Color;
 import java.awt.GridLayout;

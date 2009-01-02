@@ -43,9 +43,8 @@ public class HulpItem {
 		s.replace("<br>", "\n");
 		String split[] = s.split(scheiding);
 		naam = split[0];
-		System.out.println(naam);
 		beschrijving = split[1];
-		System.out.println(beschrijving);
+
 	}
 	@Override
 	/**
