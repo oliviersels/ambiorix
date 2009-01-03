@@ -24,6 +24,7 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
+			gui.enableUndo(false);
 			gui.enableSkip(false);
 			gui.verwijderPionLuisteraar(this);
 			gui.verwijderHoofdVensterLuisteraar(this);
@@ -33,6 +34,7 @@ public class Invoer {
 		public void run() {
 			gui.voegRegelToe("Selecteer één van je pionnen.");
 			gui.enableSkip(true);
+			gui.enableUndo(true);
 			gui.voegPionLuisteraarToe(this);
 			gui.voegHoofdVensterLuisteraarToe(this);
 		}
@@ -50,13 +52,11 @@ public class Invoer {
 
 		@Override
 		public void undo() {
-			// TODO Auto-generated method stub
-			
+			invoerLuisteraar.undoGebeurtenis();
 		}
 
 		@Override
 		public void volgendeSpeler() {
-			System.out.println("skip");
 			invoerLuisteraar.invoerGebeurtenis(null);
 		}
 	}

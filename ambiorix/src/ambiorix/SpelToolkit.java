@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javax.swing.SwingUtilities;
 
+import ambiorix.acties.UndoException;
 import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
@@ -75,23 +76,23 @@ public class SpelToolkit {
 	
 	// Van Speler
 	//  1) Input
-	public BordPositie selecteerBordPositie(Speler s) throws InterruptedException {
+	public BordPositie selecteerBordPositie(Speler s) throws InterruptedException, UndoException {
 		Antwoord a = s.selecteerBordPositie();
 		return a.getPosities().get(0);
 	}
 	
-	public Tegel selecteerSpelerTegel(Speler s) throws InterruptedException {
+	public Tegel selecteerSpelerTegel(Speler s) throws InterruptedException, UndoException {
 		Antwoord a = s.selecteerSpelerTegel();
 		return a.getTegels().get(0);
 	}
 	
 
-	public Terrein selecteerTegelGebied(Speler s) throws InterruptedException {
+	public Terrein selecteerTegelGebied(Speler s) throws InterruptedException, UndoException {
 		Antwoord a = s.selecteerTegelGebied();
 		return a.getTerreinen().get(0);
 	}
 	
-	public Pion selecteerSpelerPion(Speler s) throws InterruptedException {
+	public Pion selecteerSpelerPion(Speler s) throws InterruptedException, UndoException {
 		Antwoord a = s.selecteerSpelerPion();
 		if(a != null)
 			return a.getPionnen().get(0);
@@ -178,6 +179,8 @@ public class SpelToolkit {
 
 	public void verwijderTegel(Tegel tegel) {
 		spelbord.verwijderTegel(tegel);
+		Uitvoer.VerwijderTegel run = gui.new VerwijderTegel(tegel);
+		SwingUtilities.invokeLater(run);
 	}
 	
 	public Tegel getVolgendeTegel()

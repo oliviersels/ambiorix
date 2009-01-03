@@ -3,6 +3,7 @@ package ambiorix.spelers;
 import javax.swing.SwingUtilities;
 
 import ambiorix.Spel;
+import ambiorix.acties.UndoException;
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;
 import ambiorix.gui.Uitvoer;
@@ -14,6 +15,8 @@ import ambiorix.spelbord.Terrein;
 public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	Invoer invoer;
 	Uitvoer uitvoer;
+	Antwoord huidigAntwoord = null;
+	boolean undo = false;
 	
 	public MenselijkeSpeler(Invoer in, Uitvoer uit) {
 		super();
@@ -22,17 +25,24 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		uitvoer = uit;
 	}
 
-	Antwoord huidigAntwoord = null;
-
 	@Override
 	public synchronized void invoerGebeurtenis(Antwoord a) {
 		// Ik handel het vanaf hier terug af.
+		undo = false;
 		huidigAntwoord = a;
 		notifyAll();
 	}
 	
 	@Override
-	public synchronized Antwoord selecteerBordPositie() throws InterruptedException {
+	public synchronized void undoGebeurtenis() {
+		undo = true;
+		huidigAntwoord = null;
+		
+		notifyAll();
+	}
+	
+	@Override
+	public synchronized Antwoord selecteerBordPositie() throws InterruptedException, UndoException {
 		/* We zullen aan de GUI moeten vragen waar de tegel geplaatst zal worden */
 		
 		Invoer.SelecteerBordPositie run = invoer.new SelecteerBordPositie(this);
@@ -43,11 +53,14 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		
 		run.opruimen();
 		
+		if(undo)
+			throw new UndoException();
+		
 		return huidigAntwoord;
 	}
 
 	@Override
-	public synchronized Antwoord selecteerSpelerTegel() throws InterruptedException {
+	public synchronized Antwoord selecteerSpelerTegel() throws InterruptedException, UndoException {
 		/* We zullen aan de GUI moeten vragen welke tegel de speler wilt plaatsen */
 		
 		Invoer.SelecteerSpelerTegel run = invoer.new SelecteerSpelerTegel(this, this);
@@ -57,11 +70,14 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 
 		run.opruimen();
 		
+		if(undo)
+			throw new UndoException();
+		
 		return huidigAntwoord;
 	}
 
 	@Override
-	public synchronized Antwoord selecteerTegelGebied() throws InterruptedException {
+	public synchronized Antwoord selecteerTegelGebied() throws InterruptedException, UndoException {
 		Invoer.SelecteerTegelGebied run = invoer.new SelecteerTegelGebied(this);
 		SwingUtilities.invokeLater(run);
 
@@ -69,17 +85,23 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		
 		run.opruimen();
 		
+		if(undo)
+			throw new UndoException();
+		
 		return huidigAntwoord;
 	}
 
 	@Override
-	public synchronized Antwoord selecteerSpelerPion() throws InterruptedException {
+	public synchronized Antwoord selecteerSpelerPion() throws InterruptedException, UndoException {
 		Invoer.SelecteerSpelerPion run = invoer.new SelecteerSpelerPion(this, this);
 		SwingUtilities.invokeLater(run);
 
 		wait();
 		
 		run.opruimen();
+		
+		if(undo)
+			throw new UndoException();
 		
 		return huidigAntwoord;
 	}

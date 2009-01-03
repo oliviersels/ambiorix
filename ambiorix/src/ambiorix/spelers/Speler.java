@@ -3,6 +3,7 @@ package ambiorix.spelers;
 import java.awt.Color;
 import java.util.Vector;
 
+import ambiorix.acties.UndoException;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
@@ -39,8 +40,9 @@ public abstract class Speler {
 	 * gebruiker een keuze gemaakt heeft.
 	 * @return Antwoord bevat:<br/>
 	 *   a) posities (0): De positie waar deze geplaatst wil worden.
+	 * @throws UndoException 
 	 */
-	public abstract Antwoord selecteerBordPositie() throws InterruptedException;
+	public abstract Antwoord selecteerBordPositie() throws InterruptedException, UndoException;
 	
 	/**
 	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
@@ -54,8 +56,9 @@ public abstract class Speler {
 	 * bord te leggen.
 	 * @return Antwoord bevat: <br/>
 	 *   a) tegels (0): De tegel die gekozen is.
+	 * @throws UndoException 
 	 */
-	public abstract Antwoord selecteerSpelerTegel() throws InterruptedException;
+	public abstract Antwoord selecteerSpelerTegel() throws InterruptedException, UndoException;
 	
 	/**
 	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
@@ -68,8 +71,9 @@ public abstract class Speler {
 	 * Geeft een terrein terug (een gebied op een tegel)
 	 * @return Antwoord bevat: <br/>
 	 *   a) terreinen (0): Het terrein dat gekozen is.
+	 * @throws UndoException 
 	 */
-	public abstract Antwoord selecteerTegelGebied() throws InterruptedException;
+	public abstract Antwoord selecteerTegelGebied() throws InterruptedException, UndoException;
 	
 	/**
 	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
@@ -82,8 +86,9 @@ public abstract class Speler {
 	 * Geeft een pion terug van een speler
 	 * @return Antwoord bevat:<br/>
 	 *   a) pionnen (0): De pion die gekozen werd.
+	 * @throws UndoException 
 	 */
-	public abstract Antwoord selecteerSpelerPion() throws InterruptedException;
+	public abstract Antwoord selecteerSpelerPion() throws InterruptedException, UndoException;
 	
 	/**
 	 * Wordt aangeroepen door speltoolkit nadat een andere speler een

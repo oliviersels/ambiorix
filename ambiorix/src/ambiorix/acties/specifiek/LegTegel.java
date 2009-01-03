@@ -3,6 +3,7 @@ package ambiorix.acties.specifiek;
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;
+import ambiorix.acties.UndoException;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelers.Speler;
@@ -35,12 +36,16 @@ public class LegTegel extends AbstractActie {
 				gekozenTegel = kit.selecteerSpelerTegel(actieveSpeler);
 			} catch (InterruptedException e) {
 				return null; // Huidige spel is afgelopen
+			} catch (UndoException e) {
+				return vorigeActie; // UNDO!
 			}
 			
 			try {
 				positie = kit.selecteerBordPositie(actieveSpeler);
 			} catch (InterruptedException e) {
 				return null;
+			} catch (UndoException e) {
+				return vorigeActie; // UNDO!
 			}
 			
 			kit.neemSpelerTegelAf(gekozenTegel, actieveSpeler);
@@ -60,15 +65,18 @@ public class LegTegel extends AbstractActie {
 
 	@Override
 	public boolean kanOngedaanMaken() {
-		return false; // TODO: Ongedaan maken van LegTegel
+		return true; // TODO: Ongedaan maken van LegTegel
 	}
 
 	@Override
 	public AbstractActie maakOngedaan() {
 		System.out.println("legtegel -> Ongedaan maken");
 		System.out.println("legtegel -> tegel verwijderen van speelbord en teruggeven aan speler");
-
-		return null;
+		
+		kit.verwijderTegel(gekozenTegel);
+		kit.geefSpelerTegel(gekozenTegel, kit.getActieveSpeler());
+		
+		return doeActie();
 	}
 
 	@Override

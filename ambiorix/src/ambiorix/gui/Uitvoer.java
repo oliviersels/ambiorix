@@ -140,4 +140,17 @@ public class Uitvoer {
 			gui.verwijderPionVanSpelbord(pion);
 		}
 	}
+	
+	public class VerwijderTegel implements Runnable {
+		Tegel tegel;
+		
+		public VerwijderTegel(Tegel t) {
+			tegel = t;
+		}
+
+		@Override
+		public void run() {
+			gui.verwijderTegel(tegel);
+		}
+	}
 }

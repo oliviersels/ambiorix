@@ -317,12 +317,12 @@ public class Spelbord
 					// tegel zelf ook aanpassen, mss wille we hem terug opnieuw gebruiken later (UNDO)
 					tegel.verwijderBuur(richting);
 				}
-				else
+				/*else
 				{
 					// TODO : Exception
-					System.out.println("Spelbord::verwijderTegel : Kan tegel op buurpositie niet vinden !");
+					System.out.println("Spelbord::verwijderTegel : Kan tegel op buurpositie niet vinden !" + richting);
 					return;
-				}
+				}*/
 			}
 			// else is er daar geen buur, dus moeten we ook niks laten weten
 		}

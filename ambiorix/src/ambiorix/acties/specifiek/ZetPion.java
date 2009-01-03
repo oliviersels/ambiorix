@@ -3,6 +3,7 @@ package ambiorix.acties.specifiek;
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;
+import ambiorix.acties.UndoException;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
@@ -52,6 +53,8 @@ public class ZetPion extends AbstractActie {
 					gekozenPion = kit.selecteerSpelerPion(actieveSpeler);
 				} catch (InterruptedException e) {
 					return null; // Spel afgelopen
+				} catch (UndoException e) {
+					return vorigeActie;
 				}
 				// We willen geen pion zetten!
 				if(gekozenPion == null)
@@ -60,6 +63,8 @@ public class ZetPion extends AbstractActie {
 					gekozenTerrein = kit.selecteerTegelGebied(actieveSpeler);
 				} catch (InterruptedException e) {
 					return null; // Spel gedaan
+				} catch (UndoException e) {
+					return vorigeActie;
 				}
 				kit.neemSpelerPionAf(gekozenPion, actieveSpeler);
 			}
