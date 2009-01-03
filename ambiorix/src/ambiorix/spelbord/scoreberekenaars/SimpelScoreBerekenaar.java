@@ -16,17 +16,41 @@ import ambiorix.spelers.Speler;
 
 public class SimpelScoreBerekenaar implements ScoreBerekenaar 
 {
+	public boolean eindeSpel;
+
 	public SimpelScoreBerekenaar()
 	{
 		
 	}
 	
+	@Override	
+	public void zetEindeSpel(boolean eindeSpel)
+	{
+		this.eindeSpel = eindeSpel;
+	}
+	
+	@Override	
+	public boolean isEindeSpel()
+	{
+		return eindeSpel;
+	}
+	
 	@Override
 	public int berekenScore(Gebied gebied, Speler speler) 
 	{
-		// voor weiden moet het gebied niet volledig zijn
-		if( (!gebied.isVolledig()) && (gebied.getType() != TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras")) )
-			return 0;
+		// KORTE OPMERKING :
+		// KLOOSTER-gebieden zijn ALTIJD volledig als er een tegel met een klooster is geplaatst.
+		// De berekening isVolledig kijkt immers NIET of er 9 tegels rondliggen!!! (ander concept)
+		// hier dus rekening mee houden !
+		
+		if( !eindeSpel )
+		{
+			// tijdens het spel krijg je enkel punten voor VOLLEDIGE gebieden
+			if( !gebied.isVolledig() )
+				return 0;
+			
+			// na het spel krijg je ook punten voor onafgewerkte gebieden
+		}
 				
 		// als er geen pionnen op staan, kunnen we ook geen score hebben
 		if( gebied.getPionnen().size() == 0 )
@@ -40,14 +64,24 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 		if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg") )
 		{
 			// aantal tegels waaruit de weg bestaat is meteen ook de score
+			// bij eindeSpel is dit nog altijd zo, dus geen aanpassingen nodig
 			return gebied.getTegels().size();
 		}
 		else if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Burcht") )
 		{
-			// kasteel is (tegels * 2) + (schilden * 2)
+			// kasteel is (tegels * 2) + (schilden * 2) als volledig
+			// als niet volledig bij eindeSpel : * 1
+			
+			int vermenigvuldiger = 2;
+			
+			if( eindeSpel )
+			{
+				if( !gebied.isVolledig() ) // anders blijft de score *2 natuurlijk
+					vermenigvuldiger = 1;
+			}
 			
 			Vector<Tegel> tegels = gebied.getTegels();
-			int result = 2 * tegels.size();
+			int result = vermenigvuldiger * tegels.size();
 			
 			for( Tegel tegel : tegels )
 			{
@@ -55,7 +89,7 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 				// als er nog andere zouden bijkomen moeten we daar hier gewoon ook op checken
 				if( tegel.getType() == TegelTypeVerzameling.getInstantie().getType("TegelType_BBBBB_MetSchild") )
 				{
-					result += 2;
+					result += vermenigvuldiger;
 				}
 			}
 			
@@ -65,11 +99,12 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 		{
 			// klooster volledig omringd is 9 punten
 			// anders 1 punt per tegel errond
-			// => gebied is altijd afgemaakt natuurlijk, we moeten de tegel gaan controleren op zijn buren
+			// dat dan nog eens + 1
+			// => gebied is altijd afgemaakt natuurlijk, we moeten de tegel gaan controleren op zijn buren !
 			
 			Tegel tegel = gebied.getTegels().get(0);
 			
-			int aantalBuren = 0;
+			int aantalBuren = 1;
 			
 			Tegel bovenBuur = 	tegel.getBuur(RICHTING.BOVEN);
 			Tegel onderBuur = 	tegel.getBuur(RICHTING.ONDER);
@@ -123,13 +158,21 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar
 						aantalBuren++;
 			}
 			
-			return aantalBuren;
+			if( !eindeSpel )
+			{
+				// enkel punten als er 8 tegels rond liggen
+				// checken op 9 want aantalBuren begint op 1 (dan is het automatisch gelijk aan het aantal punten)
+				if( aantalBuren != 9 )
+					return 0;
+			}
 			
+			return aantalBuren;
 		}
 		else if( gebied.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras") )
 		{
+			// OPM : we komen hier enkel bij eindeSpel !
+			
 			// punten per AFGEWERKT KASTEEL dat grenst aan gras...
-			//  TODO : berekenen van graspunten
 			// mogelijk algoritme : alle tegels in gebied afgaan en kijken welke een stuk kasteel op zich hebben.
 			// daar braaf de kastelen berekenen, en zo weten we welke volledig zijn.
 			

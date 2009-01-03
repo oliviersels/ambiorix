@@ -515,7 +515,7 @@ public class Spelbord
 			// heel belangrijk om te sorteren. Anders gaan we bij het herinlezen de buren niet meer tegoei
 			// vinden. Dus ook heel belangrijk dat de id's overeenkomen met volgorde van toevoegen op spelbord !!!
 			Vector<Tegel> tegelLijst = new Vector<Tegel>(tegels);
-			Collections.sort(tegelLijst, new TegelBasis.Sorteerder());
+			Collections.sort(tegelLijst, tegelLijst.get(0).new Sorteerder());
 			
 			for( Tegel tegel : tegelLijst )
 			{

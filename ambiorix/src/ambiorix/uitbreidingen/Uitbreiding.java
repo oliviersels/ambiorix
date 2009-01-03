@@ -1,11 +1,10 @@
 package ambiorix.uitbreidingen;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
+import java.util.Comparator;
 import java.util.Vector;
 
-import ambiorix.spelbord.*;
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.util.Type;
 import ambiorix.xml.XmlNode;
 
@@ -22,6 +21,7 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 	
 	private String afbeelding = null;
 	private String beschrijving = null;
+	private int volgnummer = -1;
 	
 	private Vector<String> compatibelMet = new Vector<String>();
 	
@@ -42,6 +42,7 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 		XmlNode info = XmlNode.fromString(xmlinhoud);
 		info = info.getChild("info");
 		
+		this.volgnummer = Integer.parseInt( info.getChild("nr").getValue() );
 		this.afbeelding = info.getChild("afbeelding").getValue();
 		this.beschrijving = info.getChild("beschrijving").getValue();
 		this.ID = info.getChild("type").getValue();
@@ -73,11 +74,12 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 		}
 	}
 	
-	public void bereidVoor()
+	@Override
+	public void bereidVoor(Vector<String> andereUitbreidingen)
 	{
 		laadImplementatie();
 		
-		implementatie.bereidVoor();
+		implementatie.bereidVoor(andereUitbreidingen);
 
 	}
 	
@@ -107,15 +109,45 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 		return naam;
 	}
 	
-	/*public void leesIn()
+	public int getVolgnummer()
 	{
-		// terreintypes
-		File terreinTypeDir = new File( uitbreidingPad + "terreintypes/" );
-		String[] terreinTypeFiles = terreinTypeDir.list();
+		return this.volgnummer;
+	}
+	
+	@Override
+	public String getEersteActie() 
+	{
+		laadImplementatie();
 		
-		for( String terreinType : terreinTypeFiles )
+		return implementatie.getEersteActie();
+	}
+
+	@Override
+	public ScoreBerekenaar getScoreBerekenaar() 
+	{
+		laadImplementatie();
+		
+		return implementatie.getScoreBerekenaar();
+	}
+	
+
+	public class Sorteerder implements Comparator<Uitbreiding>
+	{
+		public int compare(Uitbreiding t1, Uitbreiding t2)
 		{
+			//System.out.println("COMPARE : " + t1.getID() + " <> " + t2.getID() );
 			
-		}
-	}*/
+			if( t1.getVolgnummer() < t2.getVolgnummer() )
+				return -1;
+			if( t1.getVolgnummer() > t2.getVolgnummer() )
+				return 1;
+			
+			return 0;
+		}	
+	}
+
+
+
+
+		
 }

@@ -1,9 +1,8 @@
 package ambiorix.uitbreidingen.implementaties;
 
-import ambiorix.spelbord.TerreinType;
-import ambiorix.spelbord.TerreinTypeVerzameling;
-import ambiorix.spelbord.terreintypes.TerreinType_Burcht;
-import ambiorix.uitbreidingen.KlasseLader;
+import java.util.Vector;
+
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.uitbreidingen.UitbreidingImplementatie;
 
 public class Uitbreiding_Basis extends UitbreidingImplementatie 
@@ -13,11 +12,15 @@ public class Uitbreiding_Basis extends UitbreidingImplementatie
 		uitbreidingPad = "uitbreidingen/Basis/";
 	}
 	
-	public void bereidVoor()
+	public void bereidVoor(Vector<String> andereUitbreidingen)
 	{
 		System.out.println("DIT IS DE BASISUITBREIKlasseLader INGELADEN, JOCHEI");
 		
-		super.bereidVoor();
-		
+		super.bereidVoor(andereUitbreidingen);
+	}
+	
+	public String getEersteActie()
+	{
+		return "StartSpel";
 	}
 }

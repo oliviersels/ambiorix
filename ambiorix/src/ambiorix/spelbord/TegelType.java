@@ -11,9 +11,11 @@ public class TegelType extends Type
 		this.ID = ID;
 	}
 	
-	public TerreinType[][] getTerrein()
+	public String getAfbeelding()
 	{
-		return terrein;
+		// dit is standaard, als de images ergens anders zitten (bijv. bij uitbreidingen)
+		// moet deze functie overschreven worden door de specifieke tegelTypes
+		return "uitbreidingen/Basis/afbeeldingen/tegels/" + this.ID + ".png";
 	}
 	
 	

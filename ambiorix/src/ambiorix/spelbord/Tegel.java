@@ -1,5 +1,6 @@
 package ambiorix.spelbord;
 
+import java.util.Comparator;
 import java.util.Vector;
 
 import org.w3c.dom.Node;
@@ -396,6 +397,24 @@ public class Tegel implements TegelBasis
 		output.setRotatie(rotatie);
 		
 		return output;
+	}
+	
+
+	
+	public class Sorteerder implements Comparator<Tegel>
+	{	
+		public int compare(Tegel t1, Tegel t2)
+		{
+			//System.out.println("COMPARE : " + t1.getID() + " <> " + t2.getID() );
+			
+			if( t1.getID() < t2.getID() )
+				return -1;
+			if( t1.getID() > t2.getID() )
+				return 1;
+			
+			return 0;
+		}
+		
 	}
 	
 }

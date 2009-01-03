@@ -48,27 +48,6 @@ public interface TegelBasis
 		}
 	}
 	
-	public class Sorteerder implements Comparator<Tegel>
-	{
-		/*public Sorteerder()
-		{
-			
-		}*/
-		
-		public int compare(Tegel t1, Tegel t2)
-		{
-			System.out.println("COMPARE : " + t1.getID() + " <> " + t2.getID() );
-			
-			if( t1.getID() < t2.getID() )
-				return -1;
-			if( t1.getID() > t2.getID() )
-				return 1;
-			
-			return 0;
-		}
-		
-	}
-	
 	public int getID();
 	public TegelType getType();
 	public int getRotatie();

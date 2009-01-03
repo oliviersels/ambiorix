@@ -1,11 +1,16 @@
 package ambiorix.uitbreidingen;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Vector;
 
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.util.TypeVerzameling;
 
 public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding> 
 {	
+	private Vector<Uitbreiding> ingeladenUitbreidingen = null;
+	
 	protected UitbreidingVerzameling()
 	{
 		
@@ -41,6 +46,59 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 				this.registreerType(uitbreiding);				
 			}
 		}
+	}
+	
+	public void bereidUitbreidingenVoor( Vector<String> uitbreidingenIDS )
+	{
+		// de uitbreidingen moeten in een bepaalde VOLGORDE worden ingelezen 
+		// dit om overschrijfbaarheid te behouden.
+		
+		// eerst rangschikken op volgnummer dus
+		
+		ingeladenUitbreidingen = new Vector<Uitbreiding>();
+		
+		for( String uitbreidingID : uitbreidingenIDS )
+		{
+			ingeladenUitbreidingen.add( this.getType(uitbreidingID) );
+		}
+		
+		if( uitbreidingenIDS.size()  > 0 )
+			Collections.sort(ingeladenUitbreidingen, this.getType(uitbreidingenIDS.get(0)).new Sorteerder());
+		
+		for( Uitbreiding uitbreiding : ingeladenUitbreidingen )
+			uitbreiding.bereidVoor(uitbreidingenIDS);
+	}
+	
+	public String getEersteActie()
+	{
+		// gaan ervanuit dat de lijst gesorteerd is
+		// zodat de meest recente uitbreiding eerst wordt ingelezen
+		
+		for( int i = ingeladenUitbreidingen.size() - 1; i >= 0; i-- )
+		{
+			if( ingeladenUitbreidingen.get(i).getEersteActie() != null )
+				return ingeladenUitbreidingen.get(i).getEersteActie();
+		}
+		
+		// FIXME : THROW EXCEPTION
+		System.out.println( "UitbreidingVerzameling::getEersteActie : geen gevonden" );
+		return null;
+	}
+	
+	public ScoreBerekenaar getScoreBerekenaar()
+	{
+		// gaan ervanuit dat de lijst gesorteerd is
+		// zodat de meest recente uitbreiding eerst wordt ingelezen
+		
+		for( int i = ingeladenUitbreidingen.size() - 1; i >= 0; i-- )
+		{
+			if( ingeladenUitbreidingen.get(i).getScoreBerekenaar() != null )
+				return ingeladenUitbreidingen.get(i).getScoreBerekenaar();
+		}
+		
+		// FIXME : THROW EXCEPTION
+		System.out.println( "UitbreidingVerzameling::getScoreBerekenaar : geen gevonden" );
+		return null;
 	}
 	
 	private static UitbreidingVerzameling instantie = null;
