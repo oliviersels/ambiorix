@@ -117,6 +117,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		this.teTekenenTegel = null;
+		this.zetRood(false);
 		this.repaint();
 		this.revalidate();
 		

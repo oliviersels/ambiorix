@@ -208,8 +208,17 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		Punt p = new Punt((int)(((float)tg.tegelPixelY/100f) * (float)tg.tegel.getTerreinHoogte())
 				, (int)(((float)tg.tegelPixelX/100f) * (float)tg.tegel.getTerreinBreedte()));
 		Terrein ter = (Terrein) tg.tegel.getTerrein(p);
-		Tegel teg=(Tegel)tg.tegel;
-		tekenTerrein(teg.getGebied(ter));
+		if(ter.getType().isToegankelijk() == true)
+		{
+			Tegel teg=(Tegel)tg.tegel;
+			tekenTerrein(teg.getGebied(ter));
+		}else
+		{
+			for(Tegel_Gui tgui: mijnTegels)
+			{
+				tgui.wisGebiedenTeTekenen();
+			}
+		}
 	}
 
 	@Override
