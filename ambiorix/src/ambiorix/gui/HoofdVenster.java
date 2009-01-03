@@ -131,7 +131,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		pionnenVeldScroll = new JScrollPane();
 		pionnenVeld = new PionnenVeld(this);
 		tegelVeldScroll = new JScrollPane();
-		tegelVeld = new TegelVeld(this);
+		tegelVeld = new TegelVeld();
 		tegelSelecteer  = new TegelSelectieVeld();
 		tegelSelecteerScroll = new JScrollPane();
 		knoppenPanel = new JPanel(new GridLayout(0,1));

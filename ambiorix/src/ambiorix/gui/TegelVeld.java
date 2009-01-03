@@ -26,7 +26,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	private Vector<TegelGeest> mijnTegelGeesten;
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
-	private HoofdVenster hv; // TODO tijdelijk!!
+	private Vector<TegelGeest> mijnVerwijderdeTegelGeesten; //wordt gebruikt om bij een undo de TegelGeest terug te plaatsen
 	private TegelBasis tePlaatsenTegel;
 	
 	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl)
@@ -51,10 +51,10 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		tegelGeestLuisteraars.remove(tgl);
 	}
 	
-	public TegelVeld(HoofdVenster hv) {
-		this.hv = hv;
+	public TegelVeld() {
 		mijnTegels = new Vector<Tegel_Gui>();
 		mijnTegelGeesten = new Vector<TegelGeest>();
+		mijnVerwijderdeTegelGeesten = new Vector<TegelGeest>();
 		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
 		this.setLayout(new TegelVeldLayout());
 		tegelKlikLuisteraars = new Vector<TegelLuisteraar>();
@@ -137,6 +137,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 			if(huidig.getXPos() == x && huidig.getYPos() == y)
 			{
 				this.remove(huidig);
+				mijnVerwijderdeTegelGeesten.add(huidig);
 				it.remove();
 			}
 		}
@@ -294,6 +295,14 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		this.remove(mijnTegels.get(index));
 		mijnTegels.remove(index);
 		
+		//voeg de laatst verwijderde TegelGeest terug toe
+		TegelGeest tgeest = mijnVerwijderdeTegelGeesten.lastElement();
+		if(tgeest != null)
+		{
+			this.add(tgeest);
+			this.mijnTegelGeesten.add(tgeest);
+			mijnVerwijderdeTegelGeesten.remove(tgeest);
+		}
 		this.revalidate();
 		this.repaint();
 	}
