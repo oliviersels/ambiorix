@@ -189,8 +189,10 @@ public class Spelbord
 		Punt nieuweCoordinaat = getAangrenzendeCoordinaat( buurCoordinaat, richting );		
 
 		// staat al een tegel daar, zeker niet plaatsbaar dus
-		if( tegelCoordinaten.get(nieuweCoordinaat) != null )
+		if( tegelCoordinaten.get(nieuweCoordinaat) != null ) {
+			System.out.println("Staat al een tegel");
 			return false;
+		}
 		
 		// alle buren afgaan en kijken of tegel kan gezet worden
 		for( Tegel.RICHTING r : Tegel.RICHTING.values() )
