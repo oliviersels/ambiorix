@@ -1,6 +1,7 @@
 package ambiorix.acties.specifiek;
 
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
@@ -9,9 +10,6 @@ import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.TerreinTypeVerzameling;
-import ambiorix.spelers.Speler;
-import ambiorix.util.Punt;
 
 public class BerekenScore extends AbstractActie {
 	Tegel geplaatsteTegel;
@@ -30,28 +28,35 @@ public class BerekenScore extends AbstractActie {
 	public AbstractActie doeActie() {
 		System.out.println("begin scoreberekenen");
 		if(geplaatsteTegel != null) {
-			Vector<Punt> punten = geplaatsteTegel.getGebiedBeginPunten();
-			for(Punt p : punten) {
-				Terrein terrein = (Terrein)geplaatsteTegel.getTerrein(p);
-				if(terrein.getType() == TerreinTypeVerzameling.getInstantie().getType("TerreinType_Gras"))
-					continue;
-				Gebied g = kit.getGebied((Terrein)geplaatsteTegel.getTerrein(p));
-				int score = 0;
+			/*
+			 * We gaan alle pionnen opvragen.. Daar gebieden van berekenen en dan
+			 * van scorende gebieden pionnen afhalen.
+			 */
+			HashMap<Pion, Terrein> pionnen = kit.getPionnenEnPosities();
+			Iterator<Pion> it = pionnen.keySet().iterator();
+			while(it.hasNext()) {
+				Pion p = it.next();
+				Terrein t = pionnen.get(p);
+				Gebied g = kit.getGebied(t);
 				boolean gescoord = false;
-				for(Speler s : kit.getSpelers()) {
-					score = kit.getScoreBerekenaar().berekenScore(g, s);
+				for(Pion p2 : g.getPionnen()) {
+					int score = 0;
+					score = kit.getScoreBerekenaar().berekenScore(g, p2.getSpeler());
 					if(score > 0) {
+						p2.getSpeler().addScore(score);
 						gescoord = true;
-						s.addScore(score);
 					}
 				}
 				if(gescoord) {
-					for(Pion pion : g.getPionnen()) {
-						kit.geefSpelerPion(pion, pion.getSpeler());
-						kit.verwijderPion(pion);
+					for(Pion p3 : g.getPionnen()) {
+						kit.geefSpelerPion(p3, p3.getSpeler());
+						kit.verwijderPion(p3);
 					}
+					pionnen = kit.getPionnenEnPosities();
+					it = pionnen.keySet().iterator();
 				}
 			}
+			
 			try {
 				Object[] param = {kit, this};
 				Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};

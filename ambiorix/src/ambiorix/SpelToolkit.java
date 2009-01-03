@@ -1,11 +1,11 @@
 package ambiorix;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.SwingUtilities;
 
 import ambiorix.gui.Uitvoer;
-import ambiorix.gui.Uitvoer.SpelerPionGeven;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
@@ -187,5 +187,9 @@ public class SpelToolkit {
 	
 	public ScoreBerekenaar getScoreBerekenaar() {
 		return new SimpelScoreBerekenaar(); // TODO: Aanpassen en opvragen op Spel
+	}
+	
+	public HashMap<Pion, Terrein> getPionnenEnPosities() {
+		return spelbord.getPionnenEnPosities();
 	}
 }
