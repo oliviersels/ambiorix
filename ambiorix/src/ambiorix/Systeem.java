@@ -461,11 +461,14 @@ public class Systeem
 		TerreinType_Weg weg = new TerreinType_Weg();
 		TerreinType_Burcht burcht = new TerreinType_Burcht();
 		TerreinType_Wildcard wildcard = new TerreinType_Wildcard();
+		TerreinType_Lava lava = new TerreinType_Lava();
+		
 		TerreinTypeVerzameling.getInstantie().registreerType(gras);
 		TerreinTypeVerzameling.getInstantie().registreerType(klooster);
 		TerreinTypeVerzameling.getInstantie().registreerType(weg);
 		TerreinTypeVerzameling.getInstantie().registreerType(burcht);
 		TerreinTypeVerzameling.getInstantie().registreerType(wildcard);
+		TerreinTypeVerzameling.getInstantie().registreerType(lava);
 		
 		
 		TegelType_GGGGK ggggk = new TegelType_GGGGK();
@@ -475,6 +478,18 @@ public class Systeem
 		TegelType_Driesprong driesprong = new TegelType_Driesprong();
 		TegelType_EenZijdeBurcht eenzijdeBurcht = new TegelType_EenZijdeBurcht();
 		TegelType_RechteWeg rechteweg = new TegelType_RechteWeg();
+		
+		TegelType_LavaRecht lavaRecht = new TegelType_LavaRecht();
+		TegelType_LavaMetBurchten lavaMetBurchten = new TegelType_LavaMetBurchten();
+		TegelType_LavaBocht lavaBocht = new TegelType_LavaBocht();
+		TegelType_LavaMetWeg lavaMetWeg = new TegelType_LavaMetWeg();
+		
+		TegelTypeVerzameling.getInstantie().registreerType(lavaRecht);	
+		TegelTypeVerzameling.getInstantie().registreerType(lavaMetBurchten);
+		TegelTypeVerzameling.getInstantie().registreerType(lavaBocht);
+		TegelTypeVerzameling.getInstantie().registreerType(lavaMetWeg);	
+		
+		
 		
 		TegelTypeVerzameling.getInstantie().registreerType(ggggk);
 		TegelTypeVerzameling.getInstantie().registreerType(wggww);

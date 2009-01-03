@@ -71,6 +71,6 @@ public class PuntMap<T>
 	
 	public void remove(Punt key)
 	{
-		map.remove(key);
+		map.remove(key.toString());
 	}
 }

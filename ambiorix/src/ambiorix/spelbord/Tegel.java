@@ -187,6 +187,7 @@ public class Tegel implements TegelBasis
 				return;
 		
 		// als alle buren weg zijn
+		// TODO : eig. moeten we ook nog checken of alle pionnen weg zijn
 		draaibaar = true;
 	}
 	
