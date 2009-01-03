@@ -45,8 +45,10 @@ public class SpelerController implements MenuLuisteraar {
 			gui.voegSpelerToe(s);
 		}
 		
+		gui.setLocationRelativeTo(gui);
 		gui.setVisible(true);
 		menu.setVisible(false);
+		gui.requestFocus();
 		spel.start();
 	}
 

@@ -30,8 +30,10 @@ public class StartController implements StartMenuLuisteraar {
 		spelerMenu = new SpelerMenu();
 		spelerController = new SpelerController(spelerMenu);
 		spelerMenu.voegMenuLuisteraarToe(spelerController);
+		spelerMenu.setLocationRelativeTo(startMenu);
 		spelerMenu.setVisible(true);
 		startMenu.setVisible(false);
+		spelerMenu.requestFocus();
 	}
 
 	@Override
