@@ -155,11 +155,12 @@ public class Gebied
 		{
 			System.out.println(pion.getID() + " op " + pionnen.get(pion).toString() );
 		}
-		
-		
 	}
 	
-	public boolean bezetenDoor(Speler speler)
+	/**
+	 * Geeft terug of een Speler een of meerdere pionnen in het gebied heeft
+	 */
+	public boolean isGevestigdIn(Speler speler)
 	{
 		Pion []pionnenLijst = getPionnen().toArray( new Pion[0] );			// zet set om naar array -> spelers kunnen aanspreken
 		int aantalSpelers = getPionnen().size();
@@ -173,5 +174,25 @@ public class Gebied
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Geeft terug of een Speler eigenaar is van het gebied
+	 */
+	public boolean isEigenaar(Speler speler)
+	{
+		Pion []pionnenLijst = getPionnen().toArray( new Pion[0] );			// zet set om naar array -> spelers kunnen aanspreken
+		int aantalSpelers = getPionnen().size();							// aantal elementen in de array
+		int aantalPionnen = speler.getAantalPionnen();						// aantal pionnen van de speler in het gebied
+		
+		for( int j = 0; j < aantalSpelers; ++j )												
+		{
+			if( pionnenLijst[j].getSpeler().getAantalPionnen() > aantalPionnen )
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

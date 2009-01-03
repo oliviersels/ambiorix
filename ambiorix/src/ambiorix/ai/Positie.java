@@ -70,6 +70,17 @@ public class Positie
 		}
 	}
 	
+	public void setScore(Speler speler, int score)
+	{
+		for( int i = 0; i < scores.size(); ++i )
+		{
+			if( speler.getNaam().toString().equals( scores.elementAt(i).getSpeler().getNaam().toString() ) )
+			{
+				scores.elementAt(i).setScore(score);
+			}
+		}
+	}
+	
 	public void setScores(Vector<Score> s)
 	{
 		scores = new Vector<Score>();

@@ -21,7 +21,7 @@ public class StandaardAi extends Ai
 		super(b, tegels, pionnen);
 		this.speler = speler;
 	}
-
+	
 	@Override
 	public double berekenKans(BordPositie positie)
 	{
@@ -38,31 +38,35 @@ public class StandaardAi extends Ai
 	public Vector<Antwoord> berekenZet()
 	{
 		Positie huidigMaximum = null;
-		int huidigMaximumWaarde = 0;
+		int huidigMaximumWaarde = 0, tijdelijkTotaal;
 		Vector<Antwoord> antwoorden = new Vector<Antwoord>();
 		
 		for( int i = 0; i < positieLijst.size(); ++i )
 		{
+			tijdelijkTotaal = 0;
 			if( positieLijst.elementAt(i).bevatSpeler( speler ) )// als punten van de speler beinvloed worden
 			{
 				Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten(); // bereken beginpunten vd gebieden
+				tijdelijkTotaal = positieLijst.elementAt(i).getScore( speler );
 				
 				for( int j = 0; j < beginpunten.size(); ++j )
 				{
 					Terrein terrein = new Terrein( tegels.elementAt(0), beginpunten.elementAt(j) );
 					Gebied gebied = tegels.elementAt(0).getGebied( terrein );	// bereken gebieden
 					
-					if( gebied.bezetenDoor( speler ) )
+					if( gebied.isEigenaar( speler ) )
 					{
 						if( gebied.getPionnen().size() == 1 ) // speler is enige bezitter
 						{
 							if( gebied.isVolledig() )
 							{
 								// vermenigvuldig met hoge factor
+								tijdelijkTotaal += 10 * positieLijst.elementAt(i).getScore( speler );
 							}
 							else
 							{
 								// vermenigvuldigen met ( gebied.getOpenZijden().size() * lage factor )
+								tijdelijkTotaal += 2 * ( 5 * gebied.getOpenZijden().size() + positieLijst.elementAt(i).getScore( speler ) );
 							}
 						}
 						else // speler is een vd bezitters
@@ -70,10 +74,12 @@ public class StandaardAi extends Ai
 							if( gebied.isVolledig() )
 							{
 								// vermenigvuldig met hoge factor
+								tijdelijkTotaal += 5 * positieLijst.elementAt(i).getScore( speler );
 							}
 							else
 							{
 								// vermenigvuldigen met ( gebied.getOpenZijden().size() * lage factor )
+								tijdelijkTotaal += 2 * ( 2 * gebied.getOpenZijden().size() + positieLijst.elementAt(i).getScore( speler ) );
 							}
 						}
 					}
@@ -82,13 +88,17 @@ public class StandaardAi extends Ai
 						if( gebied.isVolledig() )
 						{
 							// vermenigvuldig met lage factor
+							tijdelijkTotaal -= 10 * positieLijst.elementAt(i).getScore( speler );
 						}
 						else
 						{
 							// vermenigvuldigen met ( gebied.getOpenZijden().size() * hoge factor )
+							tijdelijkTotaal += 2 * ( 5 * gebied.getOpenZijden().size() + positieLijst.elementAt(i).getScore( speler ) );
 						}
 					}
 				}
+				
+				positieLijst.elementAt(i).setScore(speler, tijdelijkTotaal);
 			}
 			
 			if( positieLijst.elementAt(i).getScore(speler) > huidigMaximumWaarde )
