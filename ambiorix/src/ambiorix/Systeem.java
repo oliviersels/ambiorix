@@ -14,6 +14,7 @@ import ambiorix.acties.specifiek.GeefTegel;
 import ambiorix.acties.specifiek.LegTegel;
 import ambiorix.acties.specifiek.StartSpel;
 import ambiorix.acties.specifiek.ZetPion;
+import ambiorix.controller.StartController;
 import ambiorix.gui.HoofdVenster;
 import ambiorix.guimenus.StartMenu;
 import ambiorix.spelbord.*;
@@ -31,8 +32,6 @@ import ambiorix.util.TypeVerzameling;
 
 public class Systeem 
 {
-	private Spel huidigeSpel;
-	private HoofdVenster gui;
 	private static Systeem instantie;
 	
 	public static Systeem getInstantie() {
@@ -42,7 +41,6 @@ public class Systeem
 	}
 	
 	protected Systeem() {
-		//huidigeSpel = new Spel();
 	}
 	
 	public synchronized void startGUI() {
@@ -62,41 +60,17 @@ public class Systeem
 			System.exit(0);
 		}
 		
-		StartMenu test = new StartMenu();
-		
-		gui = new HoofdVenster();
-		// TODO Spel moet achteraf door gui gestart worden!
-		huidigeSpel = new Spel(gui.getUitvoer());
-		
-		// TODO: Deze spelers moeten achteraf via de gui toegevoegd worden
-		Speler s1 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
-		s1.setNaam("Jan");
-		s1.setKleur(Color.RED);
-		huidigeSpel.addSpeler(s1);
-		gui.voegSpelerToe(s1);
-		Speler s2 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
-		s2.setNaam("Piet");
-		s2.setKleur(Color.BLACK);
-		huidigeSpel.addSpeler(s2);
-		gui.voegSpelerToe(s2);
-		Speler s3 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
-		s3.setNaam("Gijs");
-		s3.setKleur(Color.GREEN);
-		huidigeSpel.addSpeler(s3);
-		gui.voegSpelerToe(s3);
-		
+		StartMenu start = new StartMenu();
+		StartController sc = new StartController(start);
+		start.voegStartMenuLuisteraarToe(sc);
+		start.setVisible(true);
+
 		try {
 			wait();
 		} catch (InterruptedException e) {}
 	}
 	
-	public synchronized void startSpel() {
-		huidigeSpel.start();
-	}
-	
-	public synchronized void stopSpel() {
-		huidigeSpel.stop();
-		
+	public synchronized void stopSpel() {		
 		notify();
 	}
 

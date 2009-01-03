@@ -214,7 +214,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		this.pack();
 		this.setLocationRelativeTo(this.getOwner());
 
-		setVisible(true);
+		//setVisible(true);
 		
 		/*for(int i = 0; i <20; i++)
 			for(int y = 0; y <20 ;y++)
@@ -303,7 +303,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 			}
 		}
 		else if(e.getSource().equals(startSpel)) {
-			Systeem.getInstantie().startSpel();
+			//Systeem.getInstantie().startSpel();
 		}
 		else if(e.getSource().equals(stopSpel)) {
 			Systeem.getInstantie().stopSpel();

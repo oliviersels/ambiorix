@@ -44,8 +44,8 @@ public class SpelerMenu extends JFrame implements ActionListener{
 			JPanel nieuwPanel = new JPanel();
 			nieuwPanel.setLayout(new GridLayout());
 			JTextField naamVeld = new JTextField();
-			JComboBox typeVeld = new JComboBox(KLEUREN);
-			JComboBox kleurVeld = new JComboBox(SPELER_TYPES);
+			JComboBox typeVeld = new JComboBox(SPELER_TYPES);
+			JComboBox kleurVeld = new JComboBox(KLEUREN);
 			
 			spelerNamen.add(naamVeld);
 			spelerTypes.add(typeVeld);
@@ -86,11 +86,11 @@ public class SpelerMenu extends JFrame implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent AE) {
-		if(AE.equals("vorige"))
+		if(AE.getActionCommand().equals("vorige"))
 		{
 			for(MenuLuisteraar ml : menuLuisteraars)
 				ml.vorige();
-		}else if(AE.equals("volgende"))
+		}else if(AE.getActionCommand().equals("volgende"))
 		{
 			for(MenuLuisteraar ml : menuLuisteraars)
 				ml.volgende();
@@ -122,6 +122,7 @@ public class SpelerMenu extends JFrame implements ActionListener{
 			so.kleur = COLORS[this.spelerKleuren.get(i).getSelectedIndex()];
 			so.naam = this.spelerNamen.get(i).getText();
 			String typeString = SPELER_TYPES[this.spelerTypes.get(i).getSelectedIndex()];
+			System.out.println(spelerTypes.get(i).getSelectedIndex());
 			if(typeString.equals("Hot Seat"))
 			{
 				so.type = SpelerOpties.SpelerOptiesType.HOT_SEAT;

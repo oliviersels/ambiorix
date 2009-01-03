@@ -23,12 +23,16 @@ public class StartMenu extends JFrame implements ActionListener{
 		super("Ambiorix");
 		knop_nieuwSpel = new JButton("Start spel");
 		knop_nieuwSpel.setActionCommand("nieuwSpel");
+		knop_nieuwSpel.addActionListener(this);
 		knop_laadSpel = new JButton("Laad spel");
 		knop_laadSpel.setActionCommand("laadSpel");
+		knop_laadSpel.addActionListener(this);
 		knop_bekijkHighscores = new JButton("Highscores");
 		knop_bekijkHighscores.setActionCommand("highscores");
+		knop_bekijkHighscores.addActionListener(this);
 		knop_stop = new JButton("Stop");
 		knop_stop.setActionCommand("stop");
+		knop_stop.addActionListener(this);
 	
 		this.setLayout(new GridLayout(0,1));
 		this.add(knop_nieuwSpel);
