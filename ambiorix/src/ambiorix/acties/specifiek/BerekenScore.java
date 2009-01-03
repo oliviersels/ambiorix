@@ -39,16 +39,11 @@ public class BerekenScore extends AbstractActie {
 				int score = 0;
 				for(Speler s : kit.getSpelers()) {
 					score = kit.getScoreBerekenaar().berekenScore(g, s);
-					if(score > 0) {
+					if(score > 0)
 						s.addScore(score);
-						System.out.println("Speler " + s.getNaam() + " krijgt extra score " + score);
-						break;
-					}
 				}
 				if(score > 0) {
-					Pion pionnen[] = new Pion[0];
-					pionnen = g.getPionnen().toArray(pionnen);
-					for(Pion pion : pionnen) {
+					for(Pion pion : g.getPionnen()) {
 						kit.geefSpelerPion(pion, pion.getSpeler());
 						kit.verwijderPion(pion);
 					}

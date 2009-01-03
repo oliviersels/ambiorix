@@ -29,6 +29,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
+			gui.voegRegelToe("Selecteer één van je pionnen.");
 			gui.voegPionLuisteraarToe(this);
 			
 		}
@@ -58,6 +59,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
+			gui.voegRegelToe("Selecteer een gebied op een tegel.");
 			gui.geefTegelVeld().addTegelKlikLuisteraar(this);
 			
 		}
@@ -91,6 +93,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
+			gui.voegRegelToe("Selecteer één van je tegels.");
 			gui.voegSelectieTegelLuisteraarToe(this);
 			gui.startTegelSelectie();
 		}
@@ -124,6 +127,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
+			gui.voegRegelToe("Kies een positie op het bord.");
 			gui.geefTegelVeld().addTegelGeestLuisteraar(this);
 		}
 

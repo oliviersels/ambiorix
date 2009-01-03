@@ -76,7 +76,11 @@ public class Systeem
 		s2.setKleur(Color.BLACK);
 		huidigeSpel.addSpeler(s2);
 		gui.voegSpelerToe(s2);
-		//gui.zetActieveSpeler(s1);
+		Speler s3 = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
+		s3.setNaam("Gijs");
+		s3.setKleur(Color.GREEN);
+		huidigeSpel.addSpeler(s3);
+		gui.voegSpelerToe(s3);
 		
 		try {
 			wait();
