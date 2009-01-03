@@ -45,7 +45,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	
 	private JMenuBar menuBalk;
 	private JMenu menuBestand, menuHelp;
-	private JMenuItem startSpel, stopSpel, geenPionZetten;
+	private JMenuItem stopSpel;
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
 	private JSplitPane splitVoorOnderkant;
@@ -137,8 +137,12 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		knoppenPanel = new JPanel(new GridLayout(0,1));
 		knop_undo = new JButton("<-");
 		knop_undo.setActionCommand("undo");
+		knop_undo.addActionListener(this);
+		knop_undo.setEnabled(false);
 		knop_volgendeSpeler = new JButton("->");
 		knop_volgendeSpeler.setActionCommand("volgendeSpeler");
+		knop_volgendeSpeler.addActionListener(this);
+		knop_volgendeSpeler.setEnabled(false);
 		//knoppenPanel
 		knoppenPanel.add(knop_undo);
 		knoppenPanel.add(knop_volgendeSpeler);
@@ -149,15 +153,9 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		menuBalk = new JMenuBar();
 		menuBestand = new JMenu("Bestand");
 		menuHelp = new JMenu("Help");
-		startSpel = new JMenuItem("Start");
-		startSpel.addActionListener(this);
 		stopSpel = new JMenuItem("Stop");
 		stopSpel.addActionListener(this);
-		geenPionZetten = new JMenuItem("Zet geen pion");
-		geenPionZetten.addActionListener(this);
-		menuBestand.add(startSpel);
 		menuBestand.add(stopSpel);
-		menuBestand.add(geenPionZetten);
 		menuBalk.add(menuBestand);
 		menuBalk.add(menuHelp);
 		
@@ -220,7 +218,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 			for(int y = 0; y <20 ;y++)
 				voegTegelToe(i, y, null);*/
 	}
-	public void voegRegelToe(String str)
+	public synchronized void voegRegelToe(String str)
 	{
 		chatVeld.voegRegelToe(str);
 	}
@@ -229,19 +227,19 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		tegelVeld.voegTegelToe(x, y, tegel);
 	}
-	public void voegTegelToe(TegelBasis tegel, BordPositie bp)
+	public synchronized void voegTegelToe(TegelBasis tegel, BordPositie bp)
 	{
 		tegelVeld.voegTegelToe(tegel, bp);
 	}
-	public void verwijderTegel(TegelBasis tegel)
+	public synchronized void verwijderTegel(TegelBasis tegel)
 	{
 		tegelVeld.verwijderTegel(tegel);
 	}
-	public void voegSelectieTegelToe(TegelBasis tegel)
+	public synchronized void voegSelectieTegelToe(TegelBasis tegel)
 	{
 		this.tegelSelecteer.voegTegelToe(tegel);
 	}
-	public void verwijderSelectieTegel(TegelBasis tegel)
+	public synchronized void verwijderSelectieTegel(TegelBasis tegel)
 	{
 		this.tegelSelecteer.verwijderTegel(tegel);
 	}
@@ -249,31 +247,31 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		tegelVeld.tekenTerrein(gebied);
 	}
-	public void voegPionToe(PionBasis pion)
+	public synchronized void voegPionToe(PionBasis pion)
 	{
 		this.pionnenVeld.voegPionToe(pion);
 	}
-	public void verwijderPion(PionBasis pion)
+	public synchronized void verwijderPion(PionBasis pion)
 	{
 		pionnenVeld.verwijderPion(pion);
 	}
-	public void voegPionToe(Tegel tegel, Pion pion, Punt pos)
+	public synchronized void voegPionToe(Tegel tegel, Pion pion, Punt pos)
 	{
 		tegelVeld.voegPionToe(tegel, new Pion_Gui(pion), pos);
 	}
-	public void voegPionLuisteraarToe(PionLuisteraar pl)
+	public synchronized void voegPionLuisteraarToe(PionLuisteraar pl)
 	{
 		this.pionnenVeld.addPionLuisteraar(pl);
 	}
-	public void verwijderPionLuisteraar(PionLuisteraar pl)
+	public synchronized void verwijderPionLuisteraar(PionLuisteraar pl)
 	{
 		this.pionnenVeld.removePionLuisteraar(pl);
 	}
-	public void voegSelectieTegelLuisteraarToe(TegelLuisteraar tkl)
+	public synchronized void voegSelectieTegelLuisteraarToe(TegelLuisteraar tkl)
 	{
 		this.tegelSelecteer.addTegelKlikLuisteraar(tkl);
 	}
-	public void verwijderSelectieTegelLuisteraar(TegelLuisteraar tkl)
+	public synchronized void verwijderSelectieTegelLuisteraar(TegelLuisteraar tkl)
 	{
 		this.tegelSelecteer.removeTegelKlikLuisteraar(tkl);
 	}
@@ -288,29 +286,22 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.equals("undo"))
+	public synchronized void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("undo"))
 		{
 			for(HoofdVensterLuisteraar hvl : this.hoofdVensterLuisteraars)
 			{
 				hvl.undo();
 			}
-		}else if(e.equals("volgendeSpeler"))
+		}else if(e.getActionCommand().equals("volgendeSpeler"))
 		{
 			for(HoofdVensterLuisteraar hvl : this.hoofdVensterLuisteraars)
 			{
 				hvl.volgendeSpeler();
 			}
 		}
-		else if(e.getSource().equals(startSpel)) {
-			//Systeem.getInstantie().startSpel();
-		}
 		else if(e.getSource().equals(stopSpel)) {
 			Systeem.getInstantie().stopSpel();
-		}
-		else if(e.getSource().equals(geenPionZetten)) {
-			System.out.println("Geen pion zetten!");
-			pionnenVeld.geenPionSelecteren();
 		}
 	}
 	
@@ -403,11 +394,11 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	{
 		scoreVeld.updateScores();
 	}
-	public void voegHoofdVensterLuisteraarToe(HoofdVensterLuisteraar hvl)
+	public synchronized void voegHoofdVensterLuisteraarToe(HoofdVensterLuisteraar hvl)
 	{
 		this.hoofdVensterLuisteraars.add(hvl);
 	}
-	public void verwijderHoofdVensterLuisteraar(HoofdVensterLuisteraar hvl)
+	public synchronized void verwijderHoofdVensterLuisteraar(HoofdVensterLuisteraar hvl)
 	{
 		this.hoofdVensterLuisteraars.remove(hvl);
 	}
@@ -418,6 +409,15 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 			zetActieveSpeler(s);
 		}
 	}
+	
+	public void enableUndo(boolean enable) {
+		knop_undo.setEnabled(enable);
+	}
+	
+	public void enableSkip(boolean enable) {
+		knop_volgendeSpeler.setEnabled(enable);
+	}
+	
 	@Override
 	public void windowActivated(WindowEvent arg0) {}
 	@Override

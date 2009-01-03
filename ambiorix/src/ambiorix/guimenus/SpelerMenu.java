@@ -122,7 +122,6 @@ public class SpelerMenu extends JFrame implements ActionListener{
 			so.kleur = COLORS[this.spelerKleuren.get(i).getSelectedIndex()];
 			so.naam = this.spelerNamen.get(i).getText();
 			String typeString = SPELER_TYPES[this.spelerTypes.get(i).getSelectedIndex()];
-			System.out.println(spelerTypes.get(i).getSelectedIndex());
 			if(typeString.equals("Hot Seat"))
 			{
 				so.type = SpelerOpties.SpelerOptiesType.HOT_SEAT;

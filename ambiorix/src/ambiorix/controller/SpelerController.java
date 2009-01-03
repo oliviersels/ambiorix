@@ -28,9 +28,7 @@ public class SpelerController implements MenuLuisteraar {
 	public void volgende() {
 		Vector<SpelerOpties> spelerO = menu.geefSpelers();
 		for(SpelerOpties so : spelerO) {
-			System.out.println("Speler: " + so.naam + " - " + so.type);
 			if(so.type == SpelerOptiesType.HOT_SEAT) {
-				System.out.println("Hotseat!");
 				MenselijkeSpeler s = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
 				s.setKleur(so.kleur);
 				s.setNaam(so.naam);

@@ -82,13 +82,6 @@ public class PionnenVeld extends JPanel implements PionLuisteraar{
 			it.next().geklikt(pg);
 		}
 	}
-	
-	public synchronized void geenPionSelecteren()
-	{
-		for(PionLuisteraar pl : mijnPionLuisteraars) {
-			pl.geklikt(null);
-		}
-	}
 
 	public void ledig() {
 		mijnPionnen.clear();

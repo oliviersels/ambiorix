@@ -14,7 +14,7 @@ public class Invoer {
 		gui = hv;
 	}
 	
-	public class SelecteerSpelerPion implements Runnable, PionLuisteraar {
+	public class SelecteerSpelerPion implements Runnable, PionLuisteraar, HoofdVensterLuisteraar {
 		InvoerLuisteraar invoerLuisteraar;
 		Speler speler;
 		
@@ -24,14 +24,17 @@ public class Invoer {
 		}
 		
 		public void opruimen() {
+			gui.enableSkip(false);
 			gui.verwijderPionLuisteraar(this);
+			gui.verwijderHoofdVensterLuisteraar(this);
 		}
 		
 		@Override
 		public void run() {
 			gui.voegRegelToe("Selecteer één van je pionnen.");
+			gui.enableSkip(true);
 			gui.voegPionLuisteraarToe(this);
-			
+			gui.voegHoofdVensterLuisteraarToe(this);
 		}
 
 		@Override
@@ -43,6 +46,18 @@ public class Invoer {
 			}
 			else
 				invoerLuisteraar.invoerGebeurtenis(null);
+		}
+
+		@Override
+		public void undo() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void volgendeSpeler() {
+			System.out.println("skip");
+			invoerLuisteraar.invoerGebeurtenis(null);
 		}
 	}
 
