@@ -1,7 +1,5 @@
 package ambiorix.acties.specifiek;
 
-import java.lang.reflect.InvocationTargetException;
-
 import ambiorix.SpelToolkit;
 import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;

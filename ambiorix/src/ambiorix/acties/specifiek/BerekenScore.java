@@ -1,6 +1,5 @@
 package ambiorix.acties.specifiek;
 
-import java.util.Set;
 import java.util.Vector;
 
 import ambiorix.SpelToolkit;
@@ -41,7 +40,7 @@ public class BerekenScore extends AbstractActie {
 				for(Speler s : kit.getSpelers()) {
 					score = kit.getScoreBerekenaar().berekenScore(g, s);
 					if(score > 0) {
-						s.addScore(score); // TODO: Moet via speltoolkit
+						s.addScore(score);
 						System.out.println("Speler " + s.getNaam() + " krijgt extra score " + score);
 						break;
 					}
@@ -50,6 +49,7 @@ public class BerekenScore extends AbstractActie {
 					Pion pionnen[] = new Pion[0];
 					pionnen = g.getPionnen().toArray(pionnen);
 					for(Pion pion : pionnen) {
+						kit.geefSpelerPion(pion, pion.getSpeler());
 						kit.verwijderPion(pion);
 					}
 				}
@@ -57,7 +57,7 @@ public class BerekenScore extends AbstractActie {
 			try {
 				Object[] param = {kit, this};
 				Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
-				return ActieVerzameling.getInstantie().getNewInstantie("GeefTegel", param, paramKlassen);
+				return ActieVerzameling.getInstantie().getNewInstantie("EindeBeurt", param, paramKlassen);
 			} catch (Exception e) {
 				System.err.println("Unexpected Exception: " + e.getMessage());
 				e.printStackTrace();

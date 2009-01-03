@@ -127,4 +127,17 @@ public class Uitvoer {
 		}
 		
 	}
+	
+	public class VerwijderPion implements Runnable {
+		Pion pion;
+		
+		public VerwijderPion(Pion p) {
+			pion = p;
+		}
+
+		@Override
+		public void run() {
+			gui.verwijderPionVanSpelbord(pion);
+		}
+	}
 }

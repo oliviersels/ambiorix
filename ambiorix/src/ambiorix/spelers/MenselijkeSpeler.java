@@ -155,4 +155,10 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 		Uitvoer.UpdateScore run = uitvoer.new UpdateScore();
 		SwingUtilities.invokeLater(run);
 	}
+
+	@Override
+	public void verwijderPion(Pion p) {
+		Uitvoer.VerwijderPion run = uitvoer.new VerwijderPion(p);
+		SwingUtilities.invokeLater(run);
+	}
 }

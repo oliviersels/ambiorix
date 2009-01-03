@@ -96,6 +96,8 @@ public abstract class Speler {
 	public abstract void zetTegel(Tegel t, BordPositie p);
 	
 	public abstract void zetPion(Pion p, Terrein t);
+	
+	public abstract void verwijderPion(Pion p);
 
 	public Color getKleur() {
 		return kleur;

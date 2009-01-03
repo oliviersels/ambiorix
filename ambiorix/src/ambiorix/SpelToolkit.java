@@ -125,7 +125,7 @@ public class SpelToolkit {
 	public void neemSpelerPionAf(Pion p, Speler s) {
 		s.deletePion(p);
 	}
-
+	
 	// 3) spelbord functies ROBIN
 	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel,
 			boolean stopDirect) {
@@ -168,8 +168,10 @@ public class SpelToolkit {
 
 	public void verwijderPion(Pion pion) {
 		spelbord.verwijderPion(pion);
+		getActieveSpeler().verwijderPion(pion);
 	}
 
+	@Deprecated
 	public void verwijderPion(Terrein positie) {
 		spelbord.verwijderPion(positie);
 	}

@@ -140,4 +140,10 @@ public class AiSpeler extends Speler
 	{
 		// niet van belang voor de AI
 	}
+
+	@Override
+	public void verwijderPion(Pion p) {
+		// FIXME Auto-generated method stub
+		
+	}
 }
