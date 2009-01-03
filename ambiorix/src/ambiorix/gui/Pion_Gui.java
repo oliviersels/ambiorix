@@ -31,8 +31,8 @@ public class Pion_Gui extends JComponent implements MouseListener{
 	public Pion_Gui(PionBasis pion) {
 		mijnPionLuisteraars = new Vector<PionLuisteraar>();
 		mijnPion = pion;
-		WritableRaster raster = AfbeeldingLader.geefAfbeelding("pion").copyData(null);
-		mijnAfbeelding = new BufferedImage(AfbeeldingLader.geefAfbeelding("pion").getColorModel(), raster, AfbeeldingLader.geefAfbeelding("pion").isAlphaPremultiplied(), null);
+		WritableRaster raster = AfbeeldingLader.geefAfbeelding(pion.getType().getAfbeelding()).copyData(null);
+		mijnAfbeelding = new BufferedImage(AfbeeldingLader.geefAfbeelding(pion.getType().getAfbeelding()).getColorModel(), raster, AfbeeldingLader.geefAfbeelding(pion.getType().getAfbeelding()).isAlphaPremultiplied(), null);
 		for(int y = 0; y < mijnAfbeelding.getHeight(); y++)
 			for(int x = 0; x < mijnAfbeelding.getWidth(); x++)
 			{

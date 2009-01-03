@@ -40,7 +40,6 @@ public class ScoreVeld extends JPanel {
 		if(index != -1)
 		{
 			spelerLabels.get(index).setBackground(Color.WHITE);
-			System.out.println("wit gemaakt");
 		}
 		this.revalidate();
 		this.repaint();

@@ -37,7 +37,7 @@ public class Tegel_Gui extends JComponent implements MouseListener, MouseMotionL
 	
 	public Tegel_Gui(TegelBasis t)
 	{
-		String fileNaam = t.getType().getID();
+		String fileNaam = t.getType().getAfbeelding();
 		mijnAfbeelding = AfbeeldingLader.geefAfbeelding(fileNaam);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);

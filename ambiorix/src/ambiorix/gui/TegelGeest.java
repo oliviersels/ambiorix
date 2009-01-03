@@ -144,7 +144,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 			g2.rotate(Math.toRadians(rot), 50, 50);
 			AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f);
 			g2.setComposite(ap);
-			g2.drawImage(AfbeeldingLader.geefAfbeelding(teTekenenTegel.getType().getID())
+			g2.drawImage(AfbeeldingLader.geefAfbeelding(teTekenenTegel.getType().getAfbeelding())
 					, 1, 1, 98, 98, null);
 		}
 		if(isRood)

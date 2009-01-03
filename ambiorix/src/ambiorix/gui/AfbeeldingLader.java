@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 public class AfbeeldingLader {
 	private static Vector<BufferedImage> geladenAfbeeldingen = new Vector <BufferedImage>();
 	private static Vector<String> geladenAfbeeldingNamen = new Vector <String>();
-	private static String afBeeldingMap = "afbeeldingen/";
+	private static String afBeeldingMap = "";
 	public static BufferedImage geefAfbeelding(String naam)
 	{
 		int index = geladenAfbeeldingNamen.indexOf(naam);
@@ -20,7 +20,7 @@ public class AfbeeldingLader {
 		}else
 		{
 			try {
-				BufferedImage nieuweAfbeelding = ImageIO.read(new File(afBeeldingMap + naam + ".png"));
+				BufferedImage nieuweAfbeelding = ImageIO.read(new File(afBeeldingMap + naam));
 				if(nieuweAfbeelding != null)
 				{
 					geladenAfbeeldingen.add(nieuweAfbeelding);
