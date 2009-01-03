@@ -362,6 +362,11 @@ public class Spelbord
 			verwijderPion(positie);
 	}
 	
+	public HashMap<Pion,Terrein> getPionnenEnPosities()
+	{
+		return pionnen;
+	}
+	
 	/*
 	 * Deze functie gaat tegel toevoegen aan het spelbord, naast de gespecifieerde buur.
 	 * De richting geeft aan hoe de nieuwe tegel ligt tov de buur.
