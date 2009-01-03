@@ -41,8 +41,19 @@ public class StandaardAi extends Ai
 		int huidigMaximumWaarde = 0, tijdelijkTotaal;
 		Vector<Antwoord> antwoorden = new Vector<Antwoord>();
 		
+		positieLijst = maakPosities(bord);
+		//System.out.println( positieLijst.size());
+		
+		//System.out.println( positieLijst.elementAt(0).getPositie().toString());
+		//System.out.println( positieLijst.elementAt(0).getPion().toString());
+		//System.out.println( positieLijst.elementAt(0).getLocatie().toString());
+		//System.out.println( positieLijst.elementAt(0).getScores().elementAt(0).getScore());
+		
+		
 		for( int i = 0; i < positieLijst.size(); ++i )
 		{
+			positieLijst.elementAt(i).printPositie();
+			
 			tijdelijkTotaal = 0;
 			if( positieLijst.elementAt(i).bevatSpeler( speler ) )// als punten van de speler beinvloed worden
 			{
@@ -114,6 +125,7 @@ public class StandaardAi extends Ai
 		antwoorden.add( a1 );
 		//------
 		Antwoord a2 = new Antwoord();
+		//huidigMaximum.getPositie();
 		a2.getPosities().add( huidigMaximum.getPositie() );
 		antwoorden.add( a2 );
 		//------
@@ -124,7 +136,7 @@ public class StandaardAi extends Ai
 			antwoorden.add( a3 );
 		}
 		//------
-		if( huidigMaximum.getPion() != null )
+		if( huidigMaximum.getLocatie() != null )
 		{
 			Antwoord a4 = new Antwoord();
 			a4.getTerreinen().add( huidigMaximum.getLocatie() );
@@ -135,7 +147,7 @@ public class StandaardAi extends Ai
 	}
 
 	@Override
-	public Vector<Positie> MaakPosities(Spelbord bord)
+	public Vector<Positie> maakPosities(Spelbord bord)
 	{
 		Vector<BordPositie> BPLijst = bord.controleerGlobalePlaatsbaarheid( tegels.elementAt(0), false );
 		Vector<Positie> Plijst = new Vector<Positie>();
@@ -153,6 +165,7 @@ public class StandaardAi extends Ai
 				if( gebied.getPionnen().size() == 0 && pionnen.size() > 0 )				// als gebied leeg en nog pionnen over
 				{
 					p.setPion( pionnen.elementAt(0) );									// zet pion in gebied
+					p.setLocatie( terrein );
 					Plijst.add( p );													// voeg Positie toe aan lijst
 					p.berekenScores( tegels.elementAt(0) );								// bereken score van deze Positie
 				}

@@ -146,4 +146,16 @@ public class AiSpeler extends Speler
 		// FIXME Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void zetActief(boolean actief)
+	{
+		super.zetActief(actief);
+		
+		if(actief == false)
+		{
+			aiElement = null;
+		}
+	}
+
 }

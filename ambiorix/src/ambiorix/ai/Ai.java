@@ -26,7 +26,7 @@ public abstract class Ai
 	
 	//---------------------------------------------------------------------------------
 	
-	public abstract Vector<Positie> MaakPosities(Spelbord bord);
+	public abstract Vector<Positie> maakPosities(Spelbord bord);
 	
 	public abstract Vector<Antwoord> berekenZet();
 	
