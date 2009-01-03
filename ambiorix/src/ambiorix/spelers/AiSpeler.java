@@ -20,7 +20,6 @@ import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelers.Speler.STATUS;
 
 
 public class AiSpeler extends Speler
@@ -37,47 +36,84 @@ public class AiSpeler extends Speler
 	}
 	
 	Antwoord huidigAntwoord = null;
-	
-	@Override
+
 	public Antwoord selecteerBordPositie() throws InterruptedException
 	{
-		return selecteerVolgendAntwoord();
+		if( aiElement == null )
+		{
+			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
+		
+		Antwoord nieuw = antwoorden.elementAt(0);
+		
+		return nieuw;
 	}
 	
-	@Override
 	public void antwoordBordPositieSelectie(Antwoord a)
 	{
 		// niet van belang voor de AI
 	}
 	
-	@Override
 	public Antwoord selecteerSpelerTegel() throws InterruptedException
 	{
-		return selecteerVolgendAntwoord();
+		if( aiElement == null )
+		{
+			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
+		
+		Antwoord nieuw = antwoorden.elementAt(0);
+		
+		return nieuw;
 	}
 	
-	@Override
 	public void antwoordSpelerTegelSelectie(Antwoord a)
 	{
 		// niet van belang voor de AI
 	}
 	
-	@Override
 	public Antwoord selecteerTegelGebied() throws InterruptedException
 	{
-		return selecteerVolgendAntwoord();
+		if( aiElement == null )
+		{
+			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
+		
+		Antwoord nieuw = antwoorden.elementAt(0);
+		
+		return nieuw;
 	}
 	
-	@Override
 	public void antwoordTegelGebiedSelectie(Antwoord a)
 	{
 		// niet van belang voor de AI
 	}
 	
-	@Override
 	public Antwoord selecteerSpelerPion() throws InterruptedException
 	{
-		return selecteerVolgendAntwoord();
+		if( aiElement == null )
+		{
+			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
+		
+		Antwoord nieuw = antwoorden.elementAt(0);
+		
+		return nieuw;
 	}
 	
 	public void antwoordSpelerPionSelectie(Antwoord a)
@@ -85,16 +121,12 @@ public class AiSpeler extends Speler
 		// niet van belang voor de AI
 	}
 	
-	@Override
-	public void zetActief(boolean actief)
+	//---------------------------------------------------------------------------------
+	
+	public void run()
 	{
-		super.zetActief(actief);
-		
-		if(actief == false)
-		{
-			// Beurt stopt; aiElement terug op null zetten zodat we in de volgende beurt opnieuw berekeningen kunnen laten uitvoeren
-			aiElement = null;
-		}
+		aiElement = new StandaardAi(bord, tegels, pionnen, this);// is pionnen hier juist?
+		antwoorden = aiElement.berekenZet();
 	}
 
 	@Override
@@ -110,42 +142,8 @@ public class AiSpeler extends Speler
 	}
 
 	@Override
-	public void verwijderPion(Pion p)
-	{
+	public void verwijderPion(Pion p) {
+		// FIXME Auto-generated method stub
 		
-	}
-	
-//---------------------------------------------------------------------------------
-	
-	public void run()
-	{
-		aiElement = new StandaardAi(bord, tegels, pionnen, this);// is pionnen hier juist?
-		antwoorden = aiElement.berekenZet();
-	}
-	
-	public Antwoord selecteerVolgendAntwoord() throws InterruptedException
-	{
-		if( aiElement == null )
-		{
-			// berekeningen uitvoeren
-			run();
-		}
-		else
-		{
-			// er is al een berekening geweest
-			//		-> er is al een Antwoord verstuurd
-			//		-> eerste element (hetgene dat reedsverstuurd is) uit de lijst verwijderen
-			antwoorden.remove(0);
-		}
-		
-		if( !antwoorden.isEmpty() )
-		{
-			// volgende Antwoord meegeven
-			return antwoorden.elementAt(0);
-		}
-		else
-		{
-			return null;
-		}
 	}
 }

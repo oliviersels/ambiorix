@@ -8,6 +8,7 @@ import ambiorix.guimenus.MenuLuisteraar;
 import ambiorix.guimenus.SpelerMenu;
 import ambiorix.guimenus.SpelerOpties;
 import ambiorix.guimenus.SpelerOpties.SpelerOptiesType;
+import ambiorix.spelers.AiSpeler;
 import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 
@@ -35,7 +36,10 @@ public class SpelerController implements MenuLuisteraar {
 				spelers.add(s);
 			}
 			else if(so.type == SpelerOptiesType.AI) {
-				
+				AiSpeler s = new AiSpeler(spel.getSpelbord());
+				s.setKleur(so.kleur);
+				s.setNaam(so.naam);
+				spelers.add(s);
 			}
 		}
 		for(Speler s : spelers) {
