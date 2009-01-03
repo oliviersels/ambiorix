@@ -104,25 +104,43 @@ public class Positie
 	 */
 	public void berekenScores(Tegel t)
 	{
-		//System.out.println("*----------*\n begin scoreberekening" );
+		System.out.println("*--- begin scoreberekening --- *" );
 		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
 		Vector<Punt> beginpunten = t.getGebiedBeginPunten();						// bereken startpunten vd gebieden op de tegel
 		//System.out.println("aantal beginpunten: " + beginpunten.size() );
+		
 		for( int i = 0; i < beginpunten.size(); ++i )								// voor elk beginpunt
 		{
-			System.out.println("---\n beginpunt " + i + ": " );
+			//System.out.println("---\n beginpunt " + i + ": " );
 			Terrein terrein = new Terrein( t, beginpunten.elementAt(i) );
 			Gebied gebied = t.getGebied( terrein );									// bereken het gebied van dit beginpunt
+			
 			Pion []pionnen = gebied.getPionnen().toArray( new Pion[0] );			// zet set om naar array -> spelers kunnen aanspreken
 			int aantalSpelers = gebied.getPionnen().size();
 			System.out.println("aantal pionnen: " + gebied.getPionnen().size() );
 			
 			for( int j = 0; j < aantalSpelers; ++j )												
 			{
-				voegScoreToe(pionnen[j].getSpeler(), simpel.berekenScore( gebied, pionnen[j].getSpeler() ) );		// bereken score voor elke speler en voeg die toe
+				boolean gevonden = false;
+				
+				for( int s = 0; s < scores.size() && gevonden == false; ++s )
+				{
+					if( scores.elementAt(s).getSpeler().getNaam().toString().equals( pionnen[j].getSpeler().toString() ) )
+					{
+						// speler heeft al punten gehad door deze plaatsing -> punten bijtellen
+						scores.elementAt(s).setScore( scores.elementAt(s).getScore() + simpel.berekenScore( gebied, pionnen[j].getSpeler() ) );
+						gevonden = true;
+					}
+				}
+				
+				if( !gevonden )
+				{
+					// nieuwe speler die score toegewezen krijgt -> nieuwe score invoegen
+					voegScoreToe(pionnen[j].getSpeler(), simpel.berekenScore( gebied, pionnen[j].getSpeler() ) );		// bereken score voor elke speler en voeg die toe
+				}
 			}
 		}
-		System.out.println("einde scoreberekening\n*----------*" );
+		//System.out.println("einde scoreberekening\n*----------*" );
 		sorteer();																	// sorteer de lijst van groot naar klein
 	}
 	
@@ -194,6 +212,7 @@ public class Positie
 		System.out.println( "---" );
 		System.out.println( "aantal scores: " + scores.size() );
 		System.out.println( "---" );
+		
 		for( int i = 0; i < scores.size(); ++i )
 		{
 			System.out.println( "\t\t" + scores.elementAt(i).getScore() );

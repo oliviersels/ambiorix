@@ -98,8 +98,8 @@ public class AiSpeler extends Speler
 	}
 
 	@Override
-	public void verwijderPion(Pion p) {
-		// FIXME Auto-generated method stub
+	public void verwijderPion(Pion p)
+	{
 		
 	}
 	
