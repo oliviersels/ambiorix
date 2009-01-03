@@ -37,12 +37,15 @@ public class BerekenScore extends AbstractActie {
 					continue;
 				Gebied g = kit.getGebied((Terrein)geplaatsteTegel.getTerrein(p));
 				int score = 0;
+				boolean gescoord = false;
 				for(Speler s : kit.getSpelers()) {
 					score = kit.getScoreBerekenaar().berekenScore(g, s);
-					if(score > 0)
+					if(score > 0) {
+						gescoord = true;
 						s.addScore(score);
+					}
 				}
-				if(score > 0) {
+				if(gescoord) {
 					for(Pion pion : g.getPionnen()) {
 						kit.geefSpelerPion(pion, pion.getSpeler());
 						kit.verwijderPion(pion);
