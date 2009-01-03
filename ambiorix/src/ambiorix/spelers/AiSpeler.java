@@ -39,18 +39,7 @@ public class AiSpeler extends Speler
 
 	public Antwoord selecteerBordPositie() throws InterruptedException
 	{
-		if( aiElement == null )
-		{
-			run();
-		}
-		else
-		{
-			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
-		}
-		
-		Antwoord nieuw = antwoorden.elementAt(0);
-		
-		return nieuw;
+		return selecteerVolgendAntwoord();
 	}
 	
 	public void antwoordBordPositieSelectie(Antwoord a)
@@ -60,18 +49,7 @@ public class AiSpeler extends Speler
 	
 	public Antwoord selecteerSpelerTegel() throws InterruptedException
 	{
-		if( aiElement == null )
-		{
-			run();
-		}
-		else
-		{
-			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
-		}
-		
-		Antwoord nieuw = antwoorden.elementAt(0);
-		
-		return nieuw;
+		return selecteerVolgendAntwoord();
 	}
 	
 	public void antwoordSpelerTegelSelectie(Antwoord a)
@@ -81,18 +59,7 @@ public class AiSpeler extends Speler
 	
 	public Antwoord selecteerTegelGebied() throws InterruptedException
 	{
-		if( aiElement == null )
-		{
-			run();
-		}
-		else
-		{
-			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
-		}
-		
-		Antwoord nieuw = antwoorden.elementAt(0);
-		
-		return nieuw;
+		return selecteerVolgendAntwoord();
 	}
 	
 	public void antwoordTegelGebiedSelectie(Antwoord a)
@@ -102,18 +69,7 @@ public class AiSpeler extends Speler
 	
 	public Antwoord selecteerSpelerPion() throws InterruptedException
 	{
-		if( aiElement == null )
-		{
-			run();
-		}
-		else
-		{
-			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
-		}
-		
-		Antwoord nieuw = antwoorden.elementAt(0);
-		
-		return nieuw;
+		return selecteerVolgendAntwoord();
 	}
 	
 	public void antwoordSpelerPionSelectie(Antwoord a)
@@ -157,5 +113,25 @@ public class AiSpeler extends Speler
 			aiElement = null;
 		}
 	}
-
+	
+	public Antwoord selecteerVolgendAntwoord()
+	{
+		if( aiElement == null )
+		{
+			run();
+		}
+		else
+		{
+			antwoorden.remove(0);	// er is al een berekening geweest, dus eerste entry verwijderen
+		}
+		
+		if ( !antwoorden.isEmpty() )
+		{
+			return antwoorden.elementAt(0);
+		}
+		else
+		{
+			return null;
+		}
+	}
 }

@@ -155,29 +155,37 @@ public class StandaardAi extends Ai
 		for( int i = 0; i < BPLijst.size(); ++i )
 		{
 			Positie p = new Positie( BPLijst.elementAt(i) );
-			Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten();		// bereken startpunten vd gebieden op de tegel
 			
-			for( int j = 0; j < beginpunten.size(); ++j )								// voor elk beginpunt
+			// als we nog pionnen over hebben
+			if( pionnen.size() > 0 )
 			{
-				Terrein terrein = new Terrein( tegels.elementAt(0), beginpunten.elementAt(j) );
-				Gebied gebied = tegels.elementAt(0).getGebied( terrein );				// bereken het gebied van dit beginpunt
+				Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten();		// bereken startpunten vd gebieden op de tegel
 				
-				if( gebied.getPionnen().size() == 0 && pionnen.size() > 0 )				// als gebied leeg en nog pionnen over
+				for( int j = 0; j < beginpunten.size(); ++j )								// voor elk beginpunt
 				{
-					p.setPion( pionnen.elementAt(0) );									// zet pion in gebied
-					p.setLocatie( terrein );
-					Plijst.add( p );													// voeg Positie toe aan lijst
-					p.berekenScores( tegels.elementAt(0) );								// bereken score van deze Positie
+					Terrein terrein = new Terrein( tegels.elementAt(0), beginpunten.elementAt(j) );
+					
+					if( bord.controleerPlaatsbaarheid( pionnen.elementAt(0), terrein) )		// als gebied leeg is
+					{
+						tegels.elementAt(0).plaatsPion( beginpunten.elementAt(j), pionnen.elementAt(0) );	// plaats pion VOORLOPIG op de tegel
+						//----
+						p.setPion( pionnen.elementAt(0) );									// zet pion IN POSITIE
+						p.setLocatie( terrein );											// zet terrein waarop pion geplaatst wordt IN POSITIE
+						p.berekenScores( tegels.elementAt(0) );								// bereken score van deze Positie
+						Plijst.add( p );													// voeg Positie toe aan lijst
+						//----
+						tegels.elementAt(0).verwijderPion( beginpunten.elementAt(j) );		// pion opnieuw verwijderen van spelbord
+					}
 				}
-				
-				p.setPion(null);														// Pion terug op null zetten
 			}
 			
-			Plijst.add( p );															// voeg Positie toe aan lijst zonder pion
-			p.berekenScores( tegels.elementAt(0) );										// bereken score van deze Positie
+			// lege tegel zetten
+			p.setPion(null);
+			p.setLocatie(null);
+			p.berekenScores( tegels.elementAt(0) );
+			Plijst.add( p );
 		}
 		
-		//return null;
 		return Plijst;
 	}
 }

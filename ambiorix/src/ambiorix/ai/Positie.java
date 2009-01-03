@@ -104,10 +104,10 @@ public class Positie
 	 */
 	public void berekenScores(Tegel t)
 	{
-		System.out.println("*----------*\n begin scoreberekening" );
+		//System.out.println("*----------*\n begin scoreberekening" );
 		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
 		Vector<Punt> beginpunten = t.getGebiedBeginPunten();						// bereken startpunten vd gebieden op de tegel
-		System.out.println("aantal beginpunten: " + beginpunten.size() );
+		//System.out.println("aantal beginpunten: " + beginpunten.size() );
 		for( int i = 0; i < beginpunten.size(); ++i )								// voor elk beginpunt
 		{
 			System.out.println("---\n beginpunt " + i + ": " );
