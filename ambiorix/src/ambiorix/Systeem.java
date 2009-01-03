@@ -15,6 +15,7 @@ import ambiorix.acties.specifiek.LegTegel;
 import ambiorix.acties.specifiek.StartSpel;
 import ambiorix.acties.specifiek.ZetPion;
 import ambiorix.gui.HoofdVenster;
+import ambiorix.guimenus.StartMenu;
 import ambiorix.spelbord.*;
 import ambiorix.spelbord.piontypes.PionType_Volgeling;
 import ambiorix.spelbord.tegeltypes.*;
@@ -60,6 +61,8 @@ public class Systeem
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
+		StartMenu test = new StartMenu();
 		
 		gui = new HoofdVenster();
 		// TODO Spel moet achteraf door gui gestart worden!
