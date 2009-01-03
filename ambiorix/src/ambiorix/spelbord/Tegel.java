@@ -181,6 +181,13 @@ public class Tegel implements TegelBasis
 	{
 		buren[ richting.ordinal() ] = null;
 		gebiedBeheerder.verwijderBuur(richting);
+		
+		for( Tegel buur : buren )
+			if( buur != null )
+				return;
+		
+		// als alle buren weg zijn
+		draaibaar = true;
 	}
 	
 	public Tegel getBuur(RICHTING richting)

@@ -313,6 +313,9 @@ public class Spelbord
 				if(buur != null)
 				{
 					buur.verwijderBuur(richting.getTegenovergestelde());
+					
+					// tegel zelf ook aanpassen, mss wille we hem terug opnieuw gebruiken later (UNDO)
+					tegel.verwijderBuur(richting);
 				}
 				else
 				{
