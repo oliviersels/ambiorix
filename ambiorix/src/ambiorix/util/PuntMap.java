@@ -68,4 +68,9 @@ public class PuntMap<T>
 		
 		return null;
 	}
+	
+	public void remove(Punt key)
+	{
+		map.remove(key);
+	}
 }

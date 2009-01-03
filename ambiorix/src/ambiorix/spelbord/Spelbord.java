@@ -288,7 +288,7 @@ public class Spelbord
 	 */
 	public void verwijderTegel(Tegel tegel)
 	{
-		// ook verwijderen uit coordinatentabel !!!
+		
 		Punt positie = tegelCoordinaten.getKey(tegel);
 		if(positie == null)
 		{
@@ -326,6 +326,9 @@ public class Spelbord
 			}
 			// else is er daar geen buur, dus moeten we ook niks laten weten
 		}
+		
+		// ook verwijderen uit coordinatentabel !!!
+		tegelCoordinaten.remove(positie);
 	}
 	
 	/*
