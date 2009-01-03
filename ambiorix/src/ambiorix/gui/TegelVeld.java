@@ -95,14 +95,18 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	}
 	private void voegTegelGeestToe(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
 	{
-		boolean gevonden = false;
+		//we moeten controleren of er al een TegelGeest of TegelGui op deze positie staat
+		boolean TegelGeestGevonden = false;
+		boolean TegelGuiGevonden = false;
 		Iterator<TegelGeest> it = mijnTegelGeesten.iterator();
 		while(it.hasNext())
 		{
 			TegelGeest huidig = it.next();
 			if(huidig.getXPos() == x && huidig.getYPos() == y)
 			{
-				gevonden = true;
+				//indien er hier al een TegelGeestStaat, voegen we meteen een buur toe
+				huidig.voegBuurToe(tg, richting);
+				TegelGeestGevonden = true;
 			}
 		}
 		Iterator<Tegel_Gui> it2 = mijnTegels.iterator();
@@ -112,10 +116,11 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 			Tegel_Gui huidig = it2.next();
 			if(huidig.getXPos() == x && huidig.getYPos() == y)
 			{
-				gevonden = true;
+				TegelGuiGevonden = true;
 			}
 		}
-		if(!gevonden)
+
+		if(!TegelGeestGevonden && !TegelGuiGevonden)
 		{
 			TegelGeest nieuweTegelGeest = new TegelGeest(x, y, tg, richting);
 			nieuweTegelGeest.addTegelGeestLuisteraar(this);
@@ -216,7 +221,19 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		}
 		if(tePlaatsenTegel != null)
 		{
-			if (tgg.tegel.kanBuurAccepteren((Tegel)tePlaatsenTegel, tgg.richting))
+			boolean tePlaatsen = true;
+			Vector<Tegel_Gui> tgs = tgg.tegelGeest.geefBuren();
+			Vector<Tegel.RICHTING> richtingen = tgg.tegelGeest.geefRichtingen();
+			int i =0;
+			for(Tegel_Gui tg: tgs)
+			{
+				if(!tg.getTegel().kanBuurAccepteren((Tegel)tePlaatsenTegel, richtingen.get(i)))
+				{
+					tePlaatsen = false;
+				}
+				i++;
+			}
+			if (tePlaatsen)
 			{
 				tgg.tegelGeest.zetAfbeelding(tePlaatsenTegel);
 			}else
@@ -250,10 +267,25 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 			}
 			i++;
 		}
+		Tegel_Gui teVerwijderen = mijnTegels.get(index);
+		Vector <TegelGeest> teVerwijderenTegelGeesten = new Vector<TegelGeest>();
+		for(TegelGeest tg : mijnTegelGeesten)
+		{
+			tg.verwijderBuur(teVerwijderen);
+			if(tg.geefBuren().size() == 0)
+			{
+				teVerwijderenTegelGeesten.add(tg);
+			}
+		}
+		for(TegelGeest tg : teVerwijderenTegelGeesten)
+		{
+			this.remove(tg);
+			mijnTegelGeesten.remove(tg);
+		}
 		this.remove(mijnTegels.get(index));
 		mijnTegels.remove(index);
+		
 		this.revalidate();
 		this.repaint();
-		//TODO: tegelgeesten wegdoen
 	}
 }
