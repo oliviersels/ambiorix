@@ -44,13 +44,13 @@ public class StartMenu extends JFrame implements ActionListener{
 		this.setMinimumSize(d);
 		this.setResizable(false);
 		setLocationRelativeTo(getOwner());
-		this.setVisible(true);
 		
 	}
 	
 	public static void main(String args[])
 	{
 		StartMenu startMenu = new StartMenu();
+		startMenu.setVisible(true);
 	}
 
 	public void voegStartMenuLuisteraarToe(StartMenuLuisteraar sml)

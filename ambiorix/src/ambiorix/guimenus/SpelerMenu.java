@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 public class SpelerMenu extends JFrame implements ActionListener{
 	private static final int MAX_AANTAL_SPELERS = 5;
-	private static final String[] KLEUREN = {"Rood", "Groen", "Blauw", "Geel", "Zwart", "Roos", "Oranje"};
+	private static final String[] KLEUREN = {"Rood", "Groen", "Blauw", "Geel", "Zwart", "Roze", "Oranje"};
 	private static final Color[] COLORS = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK, Color.PINK, Color.ORANGE};
 	private static final String[] SPELER_TYPES = {"Gesloten" ,"Hot Seat", "AI"};
 	private JPanel ondersteKnoppenPanel;
