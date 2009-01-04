@@ -8,6 +8,7 @@ import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
 
@@ -26,7 +27,6 @@ public class BerekenScore extends AbstractActie {
 
 	@Override
 	public AbstractActie doeActie() {
-		System.out.println("begin scoreberekenen");
 		if(geplaatsteTegel != null) {
 			/*
 			 * We gaan alle pionnen opvragen.. Daar gebieden van berekenen en dan
@@ -34,6 +34,7 @@ public class BerekenScore extends AbstractActie {
 			 */
 			HashMap<Pion, Terrein> pionnen = kit.getPionnenEnPosities();
 			Iterator<Pion> it = pionnen.keySet().iterator();
+			ScoreBerekenaar sb = kit.getScoreBerekenaar();
 			while(it.hasNext()) {
 				Pion p = it.next();
 				Terrein t = pionnen.get(p);
@@ -41,7 +42,7 @@ public class BerekenScore extends AbstractActie {
 				boolean gescoord = false;
 				for(Pion p2 : g.getPionnen()) {
 					int score = 0;
-					score = kit.getScoreBerekenaar().berekenScore(g, p2.getSpeler());
+					score = sb.berekenScore(g, p2.getSpeler());
 					if(score > 0) {
 						p2.getSpeler().addScore(score);
 						gescoord = true;

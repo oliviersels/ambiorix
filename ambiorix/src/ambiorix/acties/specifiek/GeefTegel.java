@@ -19,7 +19,16 @@ public class GeefTegel extends AbstractActie {
 	public AbstractActie doeActie() {
 		gegevenTegel = kit.getVolgendeTegel();
 		if(gegevenTegel == null) {
-			return null; // Onmiddelijk stoppen
+			/* Einde van het spel! */
+			try {
+				Object[] param = {kit, this};
+				Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
+				return ActieVerzameling.getInstantie().getNewInstantie("EindeSpel", param, paramKlassen);
+			} catch (Exception e) {
+				System.err.println("Unexpected Exception: " + e.getMessage());
+				e.printStackTrace();
+				return null;
+			}
 		}
 		kit.geefSpelerTegel(gegevenTegel, kit.getActieveSpeler());
 		

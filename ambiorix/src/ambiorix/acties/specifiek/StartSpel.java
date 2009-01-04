@@ -21,18 +21,18 @@ public class StartSpel extends AbstractActie {
 	@Override
 	public AbstractActie doeActie() {
 		// TODO: Voeg alle tegels toe aan de pool (juiste aantallen)
-		/*kit.setTegelAantal("TegelType_WGGWW", 4);
+		kit.setTegelAantal("TegelType_WGGWW", 4);
 		kit.setTegelAantal("TegelType_RechteWeg", 4);
 		kit.setTegelAantal("TegelType_Driesprong", 4);
 		kit.setTegelAantal("TegelType_EenZijdeBurcht", 4);
 		//kit.setTegelAantal("TegelType_BBBBB", 4);
 		kit.setTegelAantal("TegelType_GGGGK", 2);
-		kit.setTegelAantal("TegelType_BurchtMetBochtweg", 2);*/
+		kit.setTegelAantal("TegelType_BurchtMetBochtweg", 2);
 		
-		kit.setTegelAantal("TegelType_LavaMetWeg", 4);
-		kit.setTegelAantal("TegelType_LavaMetBurchten", 4);
-		kit.setTegelAantal("TegelType_LavaBocht", 4);
-		kit.setTegelAantal("TegelType_LavaRecht", 4);
+		//kit.setTegelAantal("TegelType_LavaMetWeg", 4);
+		//kit.setTegelAantal("TegelType_LavaMetBurchten", 4);
+		//kit.setTegelAantal("TegelType_LavaBocht", 4);
+		//kit.setTegelAantal("TegelType_LavaRecht", 4);
 		
 		// TODO: Spelers juiste pionnen geven
 		for(Speler s : kit.getSpelers()) {
