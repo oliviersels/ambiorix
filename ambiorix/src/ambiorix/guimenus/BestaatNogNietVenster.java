@@ -6,15 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BestaatNogNietVenster extends JDialog implements ActionListener{
+public class BestaatNogNietVenster extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	public BestaatNogNietVenster()
-	{
+	public BestaatNogNietVenster() {
 		super();
 		this.setTitle("Fout");
 		JPanel boodSchapPanel = new JPanel();
@@ -35,6 +33,6 @@ public class BestaatNogNietVenster extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		this.setVisible(false);
 		this.dispose();
-		
+
 	}
 }

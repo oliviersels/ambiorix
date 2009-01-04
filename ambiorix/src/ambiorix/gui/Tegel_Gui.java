@@ -16,7 +16,6 @@ import javax.swing.JComponent;
 
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.TegelBasis;
-import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;
 
 public class Tegel_Gui extends JComponent implements MouseListener,

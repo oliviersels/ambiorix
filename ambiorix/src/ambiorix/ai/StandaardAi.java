@@ -50,14 +50,14 @@ public class StandaardAi extends Ai {
 
 			tijdelijkTotaal = 0;
 			if (positieLijst.elementAt(i).bevatSpeler(speler))// als punten van
-																// de speler
-																// beinvloed
-																// worden
+			// de speler
+			// beinvloed
+			// worden
 			{
 				// System.out.println( "speler wordt beinvloed" );
 				Vector<Punt> beginpunten = tegels.elementAt(0)
 						.getGebiedBeginPunten(); // bereken beginpunten vd
-													// gebieden
+				// gebieden
 				tijdelijkTotaal = positieLijst.elementAt(i).getScore(speler);
 				// System.out.println("tijdelijkTotaal bij begin positie " + (i
 				// + 1) + ": " + tijdelijkTotaal);
@@ -66,11 +66,11 @@ public class StandaardAi extends Ai {
 					Terrein terrein = new Terrein(tegels.elementAt(0),
 							beginpunten.elementAt(j));
 					Gebied gebied = tegels.elementAt(0).getGebied(terrein); // bereken
-																			// gebieden
+					// gebieden
 
 					if (gebied.isEigenaar(speler)) {
 						if (gebied.getPionnen().size() == 1) // speler is enige
-																// bezitter
+						// bezitter
 						{
 							if (gebied.isEnigeEigenaar(speler)) {
 								// vermenigvuldig met hoge factor
@@ -171,10 +171,10 @@ public class StandaardAi extends Ai {
 			if (pionnen.size() > 0) {
 				Vector<Punt> beginpunten = tegels.elementAt(0)
 						.getGebiedBeginPunten(); // bereken startpunten vd
-													// gebieden op de tegel
+				// gebieden op de tegel
 
 				for (int j = 0; j < beginpunten.size(); ++j) // voor elk
-																// beginpunt
+				// beginpunt
 				{
 					Terrein terrein = new Terrein(tegels.elementAt(0),
 							beginpunten.elementAt(j));
@@ -185,24 +185,24 @@ public class StandaardAi extends Ai {
 					{
 						tegels.elementAt(0).plaatsPion(
 								beginpunten.elementAt(j), pionnen.elementAt(0)); // plaats
-																					// pion
-																					// VOORLOPIG
-																					// op
-																					// de
-																					// tegel
+						// pion
+						// VOORLOPIG
+						// op
+						// de
+						// tegel
 						// ----
 						p.setPion(pionnen.elementAt(0)); // zet pion IN POSITIE
 						p.setLocatie(terrein); // zet terrein waarop pion
-												// geplaatst wordt IN POSITIE
+						// geplaatst wordt IN POSITIE
 						p.berekenScores(tegels.elementAt(0)); // bereken score
-																// van deze
-																// Positie
+						// van deze
+						// Positie
 						Plijst.add(p); // voeg Positie toe aan lijst
 						// ----
 						tegels.elementAt(0).verwijderPion(
 								beginpunten.elementAt(j)); // pion opnieuw
-															// verwijderen van
-															// spelbord
+						// verwijderen van
+						// spelbord
 					}
 				}
 			}

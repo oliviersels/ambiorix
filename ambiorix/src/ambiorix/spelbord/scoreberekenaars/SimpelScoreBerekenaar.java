@@ -70,7 +70,7 @@ public class SimpelScoreBerekenaar implements ScoreBerekenaar {
 
 			if (eindeSpel) {
 				if (!gebied.isVolledig()) // anders blijft de score *2
-											// natuurlijk
+					// natuurlijk
 					vermenigvuldiger = 1;
 			}
 

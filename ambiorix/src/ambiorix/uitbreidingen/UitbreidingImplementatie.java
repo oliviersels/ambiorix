@@ -42,7 +42,7 @@ public class UitbreidingImplementatie extends Type implements
 
 				for (String terreinTypeNaam : terreinTypesNamen) {
 					if (terreinTypeNaam.contains(".class")) // anders geen
-															// geldige file
+					// geldige file
 					{
 						TerreinType terreinType = terreinLader.LaadKlasse(
 								"ambiorix.spelbord.terreintypes."
@@ -65,7 +65,7 @@ public class UitbreidingImplementatie extends Type implements
 
 				for (String tegelTypeNaam : tegelTypesNamen) {
 					if (tegelTypeNaam.contains(".class")) // anders geen geldige
-															// file
+					// file
 					{
 						TegelType tegelType = tegelLader.LaadKlasse(
 								"ambiorix.spelbord.tegeltypes."
@@ -88,7 +88,7 @@ public class UitbreidingImplementatie extends Type implements
 
 				for (String pionTypeNaam : pionTypesNamen) {
 					if (pionTypeNaam.contains(".class")) // anders geen geldige
-															// file
+					// file
 					{
 						PionType pionType = pionLader.LaadKlasse(
 								"ambiorix.spelbord.piontypes."
@@ -112,7 +112,7 @@ public class UitbreidingImplementatie extends Type implements
 
 				for (String actieNaam : actieNamen) {
 					if (actieNaam.contains(".class")) // anders geen geldige
-														// file
+					// file
 					{
 						Class<AbstractActie> actie = actieLader
 								.LaadKlasse("ambiorix.acties.specifiek."

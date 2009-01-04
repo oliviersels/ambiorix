@@ -139,11 +139,11 @@ public class Gebied {
 	 */
 	public boolean isGevestigdIn(Speler speler) {
 		Pion[] pionnenLijst = getPionnen().toArray(new Pion[0]); // zet set om
-																	// naar
-																	// array ->
-																	// spelers
-																	// kunnen
-																	// aanspreken
+		// naar
+		// array ->
+		// spelers
+		// kunnen
+		// aanspreken
 		int aantalSpelers = getPionnen().size();
 
 		for (int j = 0; j < aantalSpelers; ++j) {
@@ -160,14 +160,14 @@ public class Gebied {
 	 */
 	public boolean isEigenaar(Speler speler) {
 		Pion[] pionnenLijst = getPionnen().toArray(new Pion[0]); // zet set om
-																	// naar
-																	// array ->
-																	// spelers
-																	// kunnen
-																	// aanspreken
+		// naar
+		// array ->
+		// spelers
+		// kunnen
+		// aanspreken
 		int aantalSpelers = getPionnen().size(); // aantal elementen in de array
 		int aantalPionnen = speler.getAantalPionnen(); // aantal pionnen van de
-														// speler in het gebied
+		// speler in het gebied
 
 		for (int j = 0; j < aantalSpelers; ++j) {
 			if (pionnenLijst[j].getSpeler().getAantalPionnen() > aantalPionnen) {

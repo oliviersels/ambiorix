@@ -20,9 +20,9 @@ public class TegelVeld extends JPanel implements TegelLuisteraar,
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private Vector<TegelGeest> mijnVerwijderdeTegelGeesten; // wordt gebruikt om
-															// bij een undo de
-															// TegelGeest terug
-															// te plaatsen
+	// bij een undo de
+	// TegelGeest terug
+	// te plaatsen
 	private TegelBasis tePlaatsenTegel;
 
 	public synchronized void addTegelKlikLuisteraar(TegelLuisteraar tkl) {

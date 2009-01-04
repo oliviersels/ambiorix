@@ -102,7 +102,7 @@ public class AiSpeler extends Speler {
 			run();
 		} else {
 			antwoorden.remove(0); // er is al een berekening geweest, dus eerste
-									// entry verwijderen
+			// entry verwijderen
 		}
 
 		if (!antwoorden.isEmpty()) {

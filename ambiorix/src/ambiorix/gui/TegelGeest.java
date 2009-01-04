@@ -22,8 +22,8 @@ public class TegelGeest extends JComponent implements MouseMotionListener,
 	private int yPos;
 	private Vector<Tegel.RICHTING> richtingen;
 	private Vector<Tegel_Gui> buren;// oorspronkelijk was 1 buur genoeg, maar om
-									// in de gui te controleren of een tegel
-									// plaatsbaar is
+	// in de gui te controleren of een tegel
+	// plaatsbaar is
 	// en om de TegelGeesten terug te kunnen verwijderen hebben we er meerdere
 	// nodig
 	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;

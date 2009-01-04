@@ -59,9 +59,9 @@ public class Punt {
 			int aantalRijen = (int) Math.sqrt(array.length);
 
 			int elementInLaatsteRij = (aantalRijen - 1) * aantalRijen; // eerste
-																		// in
-																		// laatste
-																		// rij
+			// in
+			// laatste
+			// rij
 			int oudeIndexTeller = elementInLaatsteRij;
 
 			while (nieuweIndexTeller < array.length) {

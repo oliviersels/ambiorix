@@ -40,12 +40,12 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.voegPionToe(terrein.getTegel(), pion, terrein.getPositie()); // TODO:
-																				// terrein
-																				// doorgeven
-																				// ipv
-																				// tegel
-																				// en
-																				// positie
+			// terrein
+			// doorgeven
+			// ipv
+			// tegel
+			// en
+			// positie
 		}
 	}
 

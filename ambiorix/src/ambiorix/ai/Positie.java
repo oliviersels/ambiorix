@@ -88,9 +88,9 @@ public class Positie {
 		// System.out.println("*--- begin scoreberekening --- *" );
 		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
 		Vector<Punt> beginpunten = t.getGebiedBeginPunten(); // bereken
-																// startpunten
-																// vd gebieden
-																// op de tegel
+		// startpunten
+		// vd gebieden
+		// op de tegel
 		// System.out.println("aantal beginpunten: " + beginpunten.size() );
 
 		for (int i = 0; i < beginpunten.size(); ++i) // voor elk beginpunt
@@ -98,17 +98,17 @@ public class Positie {
 			// System.out.println("---\n beginpunt " + i + ": " );
 			Terrein terrein = new Terrein(t, beginpunten.elementAt(i));
 			Gebied gebied = t.getGebied(terrein); // bereken het gebied van dit
-													// beginpunt
+			// beginpunt
 
 			Pion[] pionnen = gebied.getPionnen().toArray(new Pion[0]); // zet
-																		// set
-																		// om
-																		// naar
-																		// array
-																		// ->
-																		// spelers
-																		// kunnen
-																		// aanspreken
+			// set
+			// om
+			// naar
+			// array
+			// ->
+			// spelers
+			// kunnen
+			// aanspreken
 			int aantalSpelers = gebied.getPionnen().size();
 			// System.out.println("aantal pionnen: " +
 			// gebied.getPionnen().size() );
@@ -134,9 +134,9 @@ public class Positie {
 					// invoegen
 					voegScoreToe(pionnen[j].getSpeler(), simpel.berekenScore(
 							gebied, pionnen[j].getSpeler())); // bereken score
-																// voor elke
-																// speler en
-																// voeg die toe
+					// voor elke
+					// speler en
+					// voeg die toe
 				}
 			}
 		}

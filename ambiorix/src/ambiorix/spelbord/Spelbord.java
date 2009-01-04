@@ -541,7 +541,7 @@ public class Spelbord {
 
 		Vector<XmlNode> tegels = root.getChild("tegels").getChildren("tegel");
 		tegels.add(0, beginTegel); // zodat hij deze zeker en vast altijd eerst
-									// neemt
+		// neemt
 
 		// tegels staan hoogstwaarschijnlijk niet in de goede volgorde.
 
