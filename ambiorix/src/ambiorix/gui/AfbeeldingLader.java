@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-
+/**
+ * Deze klasse wordt gebruikt om er voor te zorgen dat dezelfde afbeelding niet meerdere keren moet ingeladen worden.
+ * @author Jens
+ *
+ */
 public class AfbeeldingLader {
 	private static Vector<BufferedImage> geladenAfbeeldingen = new Vector <BufferedImage>();
 	private static Vector<String> geladenAfbeeldingNamen = new Vector <String>();
 	private static String afBeeldingMap = "";
+
 	public static BufferedImage geefAfbeelding(String naam)
 	{
 		int index = geladenAfbeeldingNamen.indexOf(naam);

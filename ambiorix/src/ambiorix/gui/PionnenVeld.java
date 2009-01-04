@@ -4,23 +4,21 @@ import java.awt.Component;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
-import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
-
+/**
+ * Wordt gebruikt om pionnen weer te geven die daarna geselecteerd kunnen worden.
+ * @author Jens
+ *
+ */
 public class PionnenVeld extends JPanel implements PionLuisteraar{
+
+	private static final long serialVersionUID = 1L;
 	private Vector<Pion_Gui> mijnPionnen;
 	private Vector<PionLuisteraar> mijnPionLuisteraars;
-	private HoofdVenster hv; // TODO tijdelijk!! (voor printjes te kunnen doen)
 	
-	public PionnenVeld(HoofdVenster hv) {
-		this.hv = hv;
+	public PionnenVeld() {
 		mijnPionnen = new Vector<Pion_Gui>();
 		mijnPionLuisteraars = new Vector<PionLuisteraar>();
 		this.setLayout(new PionnenVeldLayout());

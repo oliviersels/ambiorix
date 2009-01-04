@@ -143,7 +143,7 @@ public class Systeem
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HoofdVenster hv = HoofdVenster.geefInstantie();
+		HoofdVenster hv = new HoofdVenster();
 		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_WGGWW"));
 		
 		Spelbord spelbord = new Spelbord();
@@ -182,7 +182,7 @@ public class Systeem
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HoofdVenster hv = HoofdVenster.geefInstantie();
+		HoofdVenster hv = new HoofdVenster();
 		
 		
 		

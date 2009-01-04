@@ -8,21 +8,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
-import ambiorix.util.Punt;
+/**
+ * De klasse die gebruikt wordt om een pion weer te geven.
+ * Nadat de afbeelding van de pion is ingeladen wordt deze aangepast.
+ * Elke pixel die volledig wit is, wordt vervangen door de kleur van de speler die eigenaar is van de pion.
+ * @author Jens
+ *
+ */
 
 public class Pion_Gui extends JComponent implements MouseListener{
-	private static final int width = 20;
-	private static final int height = 20;
+	private static final long serialVersionUID = 1L;
 	private PionBasis mijnPion;
 	private BufferedImage mijnAfbeelding = null;
 	private Vector<PionLuisteraar> mijnPionLuisteraars;
@@ -42,7 +43,6 @@ public class Pion_Gui extends JComponent implements MouseListener{
 				}
 			}
 		this.addMouseListener(this);
-		this.setBounds(0, 0, 20, 20);
 	}
 	
 	public BufferedImage geefAfbeelding()
