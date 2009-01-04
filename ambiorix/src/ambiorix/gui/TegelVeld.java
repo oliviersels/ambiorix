@@ -1,5 +1,6 @@
 package ambiorix.gui;
 
+import java.awt.Component;
 import java.awt.Rectangle;
 import java.util.Iterator;
 import java.util.Vector;
@@ -70,9 +71,6 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		verwijderTegelGeest(x, y);
 		this.repaint();
 		this.revalidate();
-		Rectangle rec = nieuweTegel.getBounds();
-		rec.grow(200, 200);
-		this.scrollRectToVisible(rec);
 	}
 
 	@Override

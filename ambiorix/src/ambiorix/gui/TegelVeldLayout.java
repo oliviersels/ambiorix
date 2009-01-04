@@ -77,7 +77,9 @@ public class TegelVeldLayout implements LayoutManager {
            
             Rectangle rec = (c).getBounds();
             Punt p = ((TegelVeldComponent)c).geefPositie();
+            
             c.setBounds((p.getX() - minB) * 100, (p.getY() - minH) * 100, rec.width, rec.height);
+            
         }
     }
 
