@@ -41,21 +41,26 @@ public class StandaardAi extends Ai
 		int huidigMaximumWaarde = 0, tijdelijkTotaal;
 		Vector<Antwoord> antwoorden = new Vector<Antwoord>();
 		
+		System.out.println("te plaatsen tegel: " + tegels.elementAt(0).getType().getID());
+		
 		positieLijst = maakPosities(bord);
 		//telScores(positieLijst);
 		//printScores( positieLijst );
+		printPositieLijst( positieLijst );
 		System.out.println("grootte positieLijst: " + positieLijst.size());
 		
 		for( int i = 0; i < positieLijst.size(); ++i )
 		{
+			System.out.println("for-lus positieLijst op positie: " + (i+1) );
 			positieLijst.elementAt(i).printPositie();
 			
 			tijdelijkTotaal = 0;
 			if( positieLijst.elementAt(i).bevatSpeler( speler ) )// als punten van de speler beinvloed worden
 			{
+				System.out.println( "speler wordt beinvloed" );
 				Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten(); // bereken beginpunten vd gebieden
 				tijdelijkTotaal = positieLijst.elementAt(i).getScore( speler );
-				System.out.println("tijdelijkTotaal bij begin positie " + (i + 1) + ": " + tijdelijkTotaal);
+				//System.out.println("tijdelijkTotaal bij begin positie " + (i + 1) + ": " + tijdelijkTotaal);
 				
 				for( int j = 0; j < beginpunten.size(); ++j )
 				{
@@ -66,7 +71,7 @@ public class StandaardAi extends Ai
 					{
 						if( gebied.getPionnen().size() == 1 ) // speler is enige bezitter
 						{
-							if( gebied.isVolledig() )
+							if( gebied.isEnigeEigenaar( speler ) )
 							{
 								// vermenigvuldig met hoge factor
 								tijdelijkTotaal += 10 * positieLijst.elementAt(i).getScore( speler );
@@ -113,6 +118,7 @@ public class StandaardAi extends Ai
 			
 			if( positieLijst.elementAt(i).getScore(speler) > huidigMaximumWaarde )
 			{
+				System.out.println("maximumwaarde aangepast" );
 				huidigMaximum = positieLijst.elementAt(i);
 				huidigMaximumWaarde = positieLijst.elementAt(i).getScore(speler);
 			}
@@ -190,7 +196,14 @@ public class StandaardAi extends Ai
 			// lege tegel zetten
 			p.setPion(null);
 			p.setLocatie(null);
-			p.berekenScores( tegels.elementAt(0) );
+			if( tegels.elementAt(0).getType().getID().equals( "TegelType_LavaMetBurchten" ) || tegels.elementAt(0).getType().getID().equals( "TegelType_BBBBB" ) )
+			{
+				p.berekenScores2( tegels.elementAt(0) );
+			}
+			else
+			{
+				p.berekenScores2( tegels.elementAt(0) );
+			}
 			Plijst.add( p );
 		}
 		
@@ -256,6 +269,17 @@ public class StandaardAi extends Ai
 				System.out.println( " - " + lijst.elementAt(i).getScores().elementAt(j).getScore() );
 			}
 			//System.out.println( "---- " );
+		}
+	}
+	
+	public void printPositieLijst(Vector<Positie> lijst)
+	{
+		
+		for( int i = 0; i < lijst.size(); ++i )
+		{
+			System.out.println( "printPositieLijst op positie " + i );
+			
+			lijst.elementAt(i).printPositie();
 		}
 	}
 }

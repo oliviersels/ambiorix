@@ -195,4 +195,54 @@ public class Gebied
 		
 		return true;
 	}
+	
+	public boolean isEnigeEigenaar(Speler speler)
+	{
+		HashMap<Speler, Integer> pionnenPerSpeler = getPionnenPerSpeler();
+		int besteAantal = 0;
+		
+		int spelerAantal = -1;
+		
+		if( pionnenPerSpeler.get(speler) != null )
+			spelerAantal = pionnenPerSpeler.get(speler);
+		
+		Set<Speler> spelers = pionnenPerSpeler.keySet();
+		for( Speler spelerIt : spelers )
+		{
+			if( pionnenPerSpeler.get(spelerIt) > besteAantal )
+			{
+				besteAantal = pionnenPerSpeler.get(spelerIt);
+			}
+		}
+		
+		/*if( besteAantal == spelerAantal  )
+			return 0;
+		if( besteAantal > spelerAantal )
+			return -1;
+		else // speler heeft wel beste
+			return 1;*/
+		
+		if( besteAantal < spelerAantal )
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private HashMap<Speler, Integer> getPionnenPerSpeler()
+	{
+		HashMap<Speler, Integer> output = new HashMap<Speler, Integer>();
+		
+		Set<Pion> pionLijst = getPionnen();
+		for( Pion pion : pionLijst )
+		{
+			if( output.get( pion.getSpeler() ) == null )
+				output.put(pion.getSpeler(), 1);
+			else
+				output.put(pion.getSpeler(), output.get(pion.getSpeler()) + 1);
+		}
+		
+		return output;
+	}
 }
