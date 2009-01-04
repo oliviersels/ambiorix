@@ -291,4 +291,9 @@ public class StandaardAi extends Ai
 			lijst.elementAt(i).printPositie();
 		}
 	}
+
+	@Override
+	public void reset() {
+		positieLijst = new Vector<Positie>();		
+	}
 }

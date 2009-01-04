@@ -40,7 +40,7 @@ public class UitbreidingController implements MenuLuisteraar {
 				spelers.add(s);
 			}
 			else if(so.type == SpelerOptiesType.AI) {
-				AiSpeler s = new AiSpeler(spel.getSpelbord(), gui.getUitvoer());
+				AiSpeler s = new AiSpeler(spel.getSpelbord(), gui.getUitvoer(), UitbreidingVerzameling.getInstantie().getAi());
 				s.setKleur(so.kleur);
 				s.setNaam(so.naam);
 				spelers.add(s);

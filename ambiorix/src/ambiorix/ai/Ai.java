@@ -40,4 +40,6 @@ public abstract class Ai
 	public abstract void berekenScore(BordPositie positie);
 	
 	public abstract double berekenKans(BordPositie positie);
+	
+	public abstract void reset();
 }

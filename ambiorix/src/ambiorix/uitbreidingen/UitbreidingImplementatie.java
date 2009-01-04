@@ -149,7 +149,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		try
 		{
 			KlasseLader<Ai> aiLader = new KlasseLader<Ai>(uitbreidingPad);
-			ai = aiLader.LaadKlasse("ambiorix.ai.specifiek." + getClassNaam(aiNamen[0].getName()) ).newInstance();
+			ai = aiLader.LaadKlasse("ambiorix.ai." + getClassNaam(aiNamen[0].getName()) ).newInstance();
 		}
 		catch(Exception e)
 		{

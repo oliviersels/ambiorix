@@ -17,16 +17,19 @@ import ambiorix.spelbord.Terrein;
 public class AiSpeler extends Speler
 {
 	private Ai aiElement;
+	private boolean moetRunnen;
 	private Spelbord bord;
 	private Vector<Antwoord> antwoorden;
 	private Uitvoer gui;
 	
-	public AiSpeler(Spelbord b, Uitvoer uit)
+	public AiSpeler(Spelbord b, Uitvoer uit, Ai ai)
 	{
 		bord = b;
-		aiElement = null;
+		//aiElement = null;
 		antwoorden = new Vector<Antwoord>();
 		gui = uit;
+		aiElement = ai;
+		moetRunnen = true;
 	}
 	
 	Antwoord huidigAntwoord = null;
@@ -55,7 +58,9 @@ public class AiSpeler extends Speler
 	
 	public void run()
 	{
-		aiElement = new StandaardAi();// is pionnen hier juist?
+		moetRunnen = false;
+		//aiElement = new StandaardAi();// is pionnen hier juist?
+		aiElement.reset();
 		aiElement.initialiseer(bord, tegels, pionnen, this);
 		antwoorden = aiElement.berekenZet();
 	}
@@ -98,13 +103,13 @@ public class AiSpeler extends Speler
 		
 		if(actief == false)
 		{
-			aiElement = null;
+			moetRunnen = true;
 		}
 	}
 	
 	public Antwoord selecteerVolgendAntwoord()
 	{
-		if( aiElement == null )
+		if( moetRunnen )
 		{
 			run();
 		}
