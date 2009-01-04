@@ -31,6 +31,7 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 
 	public UitbreidingMenu() {
 		super("Ambiorix");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		knoppenPanel = new JPanel();
 		knop_vorige = new JButton("Terug");
 		knop_volgende = new JButton("Volgende");

@@ -33,7 +33,7 @@ import ambiorix.util.Punt;
  * @author Jens
  *
  */
-public class HoofdVenster extends JFrame implements ActionListener, WindowListener {
+public class HoofdVenster extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -85,8 +85,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		uitvoer = new Uitvoer(this);
 		spelers = new Vector<Speler_Gui>();
 		
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(this);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		splitVoorOnderkant = new JSplitPane();
 		splitOnderkant = new JSplitPane();
 		
@@ -303,7 +302,7 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 			}
 		}
 		else if(e.getSource().equals(stopSpel)) {
-			Systeem.getInstantie().stopSpel();
+			//Systeem.getInstantie().stopSpel();
 		}
 	}
 	/**
@@ -430,21 +429,4 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 	public void enableSkip(boolean enable) {
 		knop_volgendeSpeler.setEnabled(enable);
 	}
-	
-	@Override
-	public void windowActivated(WindowEvent arg0) {}
-	@Override
-	public void windowClosed(WindowEvent arg0) {}
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		Systeem.getInstantie().stopSpel();
-	}
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {}
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {}
-	@Override
-	public void windowIconified(WindowEvent arg0) {}
-	@Override
-	public void windowOpened(WindowEvent arg0) {}
 }

@@ -20,6 +20,7 @@ public class StartMenu extends JFrame implements ActionListener{
 	public StartMenu()
 	{
 		super("Ambiorix");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		knop_nieuwSpel = new JButton("Start spel");
 		knop_nieuwSpel.setActionCommand("nieuwSpel");
 		knop_nieuwSpel.addActionListener(this);

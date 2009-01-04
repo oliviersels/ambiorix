@@ -30,6 +30,7 @@ public class SpelerMenu extends JFrame implements ActionListener{
 	private Vector <MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
 	public SpelerMenu() {
 		super("Ambiorix");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		ondersteKnoppenPanel = new JPanel();
 		knop_vorige = new JButton();
 		knop_volgende = new JButton();
