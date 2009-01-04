@@ -72,7 +72,6 @@ public class ZetPion extends AbstractActie {
 				kit.zetPion(actieveSpeler, gekozenPion, gekozenTerrein);
 			}
 		}
-		System.out.println("voor score bereken");
 		try {
 			Object[] param = { kit, this, vorigeTegel };
 			Class<?>[] paramKlassen = { SpelToolkit.class, AbstractActie.class,

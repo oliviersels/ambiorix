@@ -20,7 +20,6 @@ public class LegTegel extends AbstractActie {
 		if (p == null || t == null) {
 			return false;
 		}
-		System.out.println(kit.controleerPlaatsbaarheid(t, p));
 		return kit.controleerPlaatsbaarheid(t, p);
 	}
 
@@ -74,10 +73,6 @@ public class LegTegel extends AbstractActie {
 
 	@Override
 	public AbstractActie maakOngedaan() {
-		System.out.println("legtegel -> Ongedaan maken");
-		System.out
-				.println("legtegel -> tegel verwijderen van speelbord en teruggeven aan speler");
-
 		kit.verwijderTegel(gekozenTegel);
 		kit.geefSpelerTegel(gekozenTegel, kit.getActieveSpeler());
 

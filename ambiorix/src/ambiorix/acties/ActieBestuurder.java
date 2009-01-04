@@ -44,7 +44,5 @@ public class ActieBestuurder implements Runnable {
 		while (volgende != null) { // Dan is het gedaan
 			volgende = volgende.start();
 		}
-		System.out.println("Spel gedaan!");
-		// TODO: Notify geven
 	}
 }

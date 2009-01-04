@@ -85,17 +85,14 @@ public class Positie {
 	 * uitmaakt.
 	 */
 	public void berekenScores(Tegel t) {
-		// System.out.println("*--- begin scoreberekening --- *" );
 		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
 		Vector<Punt> beginpunten = t.getGebiedBeginPunten(); // bereken
 		// startpunten
 		// vd gebieden
 		// op de tegel
-		// System.out.println("aantal beginpunten: " + beginpunten.size() );
 
 		for (int i = 0; i < beginpunten.size(); ++i) // voor elk beginpunt
 		{
-			// System.out.println("---\n beginpunt " + i + ": " );
 			Terrein terrein = new Terrein(t, beginpunten.elementAt(i));
 			Gebied gebied = t.getGebied(terrein); // bereken het gebied van dit
 			// beginpunt
@@ -110,7 +107,6 @@ public class Positie {
 			// kunnen
 			// aanspreken
 			int aantalSpelers = gebied.getPionnen().size();
-			// System.out.println("aantal pionnen: " +
 			// gebied.getPionnen().size() );
 
 			for (int j = 0; j < aantalSpelers; ++j) {
@@ -140,7 +136,6 @@ public class Positie {
 				}
 			}
 		}
-		// System.out.println("einde scoreberekening\n*----------*" );
 		sorteer(); // sorteer de lijst van groot naar klein
 	}
 
@@ -194,24 +189,5 @@ public class Positie {
 		}
 
 		return 0;
-	}
-
-	public void printPositie() {
-		System.out.println("positie: " + positie.toString());
-		if (pion != null) {
-			System.out.println("---");
-			System.out.println("pion: " + pion.getID());
-			System.out.println("locatie: " + locatie.getType().getID());
-		}
-		System.out.println("---");
-		System.out.println("aantal scores: " + scores.size());
-		System.out.println("---");
-
-		for (int i = 0; i < scores.size(); ++i) {
-			System.out.println("\t\t" + scores.elementAt(i).getSpeler() + " - "
-					+ scores.elementAt(i).getScore());
-		}
-		System.out
-				.println("-----------------------------------------------------");
 	}
 }

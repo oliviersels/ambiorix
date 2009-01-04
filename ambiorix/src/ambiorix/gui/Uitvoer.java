@@ -1,5 +1,7 @@
 package ambiorix.gui;
 
+import javax.swing.JOptionPane;
+
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Tegel;
@@ -39,13 +41,7 @@ public class Uitvoer {
 
 		@Override
 		public void run() {
-			gui.voegPionToe(terrein.getTegel(), pion, terrein.getPositie()); // TODO:
-			// terrein
-			// doorgeven
-			// ipv
-			// tegel
-			// en
-			// positie
+			gui.voegPionToe(terrein.getTegel(), pion, terrein.getPositie());
 		}
 	}
 
@@ -159,6 +155,16 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.verwijderTegel(tegel);
+		}
+	}
+	
+	public class EindeSpel implements Runnable {
+
+		public EindeSpel() {}
+
+		@Override
+		public void run() {
+			JOptionPane.showMessageDialog(gui, "Het spel is gedaan!", "Gedaan!", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

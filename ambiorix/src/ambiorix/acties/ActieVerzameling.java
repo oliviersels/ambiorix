@@ -34,7 +34,6 @@ public class ActieVerzameling {
 			if (ID.lastIndexOf("_") != -1)
 				ID = ID.substring(ID.lastIndexOf("_") + 1);
 
-			System.out.println("ActieVerzameling::registreerType : id : " + ID);
 			types.put(ID, type);
 		} catch (Exception e) {
 			e.printStackTrace();

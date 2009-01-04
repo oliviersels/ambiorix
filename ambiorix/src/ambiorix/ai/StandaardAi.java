@@ -46,7 +46,6 @@ public class StandaardAi extends Ai {
 
 		for (int i = 0; i < positieLijst.size(); ++i) {
 			// System.out.println("for-lus positieLijst op positie: " + (i+1) );
-			positieLijst.elementAt(i).printPositie();
 
 			tijdelijkTotaal = 0;
 			if (positieLijst.elementAt(i).bevatSpeler(speler))// als punten van
@@ -127,10 +126,6 @@ public class StandaardAi extends Ai {
 						.getScore(speler);
 			}
 		}
-
-		System.out.println("ooooooooooooooooooooooooooo\n");
-		huidigMaximum.printPositie();
-		System.out.println("ooooooooooooooooooooooooooo\n");
 
 		// -- antwoorden aanmaken
 		Antwoord a1 = new Antwoord();
@@ -227,62 +222,10 @@ public class StandaardAi extends Ai {
 		return Plijst;
 	}
 
-	public void printAntwoorden(Vector<Antwoord> antwoorden) {
-		for (int i = 0; i < antwoorden.size(); ++i) {
-			if (i == 0) {
-				System.out.println("--- Tegels ---");
-				for (int j = 0; j < antwoorden.elementAt(i).getTegels().size(); ++j) {
-					System.out.println(antwoorden.elementAt(i).getTegels()
-							.elementAt(j).toString());
-				}
-			} else if (i == 1) {
-				System.out.println("--- Posities ---");
-				if (antwoorden.elementAt(i).getPosities().size() > 0) {
-					System.out.println(" true ");
-				}
-			} else if (i == 2) {
-				System.out.println("--- Pionnen ---");
-				if (antwoorden.elementAt(i).getPionnen().size() > 0) {
-					System.out.println(" true ");
-				}
-			} else if (i == 3) {
-				System.out.println("--- Terreinen ---");
-				for (int j = 0; j < antwoorden.elementAt(i).getTerreinen()
-						.size(); ++j) {
-					System.out.println(antwoorden.elementAt(i).getTerreinen()
-							.elementAt(j).toString());
-				}
-			}
-		}
-	}
-
 	public void telScores(Vector<Positie> lijst) {
 		for (int j = 0; j < lijst.size(); ++j) {
 			System.out.println("element " + (j + 1) + ": "
 					+ lijst.elementAt(j).getScores().size());
-		}
-	}
-
-	public void printScores(Vector<Positie> lijst) {
-		for (int i = 0; i < lijst.size(); ++i) {
-			System.out.println(" -- NEW -- ");
-			System.out.println("element " + (i + 1) + ": ");
-
-			for (int j = 0; j < lijst.elementAt(i).getScores().size(); ++j) {
-				System.out.println(" - "
-						+ lijst.elementAt(i).getScores().elementAt(j)
-								.getScore());
-			}
-			// System.out.println( "---- " );
-		}
-	}
-
-	public void printPositieLijst(Vector<Positie> lijst) {
-
-		for (int i = 0; i < lijst.size(); ++i) {
-			System.out.println("printPositieLijst op positie " + i);
-
-			lijst.elementAt(i).printPositie();
 		}
 	}
 

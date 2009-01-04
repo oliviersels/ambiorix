@@ -200,4 +200,9 @@ public class SpelToolkit {
 	public HashMap<Pion, Terrein> getPionnenEnPosities() {
 		return spelbord.getPionnenEnPosities();
 	}
+	
+	public void toonEindeSpel() {
+		Uitvoer.EindeSpel run = gui.new EindeSpel();
+		SwingUtilities.invokeLater(run);
+	}
 }

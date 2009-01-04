@@ -52,10 +52,6 @@ public class GeefTegel extends AbstractActie {
 
 	@Override
 	public AbstractActie maakOngedaan() {
-		System.out
-				.println("geeftegel -> tegel van speler terug naar de verzameling");
-		System.out.println("Terug aan speler vragen om tegel te leggen");
-
 		return vorigeActie;
 	}
 
