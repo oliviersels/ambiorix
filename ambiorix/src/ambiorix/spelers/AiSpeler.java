@@ -55,7 +55,8 @@ public class AiSpeler extends Speler
 	
 	public void run()
 	{
-		aiElement = new StandaardAi(bord, tegels, pionnen, this);// is pionnen hier juist?
+		aiElement = new StandaardAi();// is pionnen hier juist?
+		aiElement.initialiseer(bord, tegels, pionnen, this);
 		antwoorden = aiElement.berekenZet();
 	}
 

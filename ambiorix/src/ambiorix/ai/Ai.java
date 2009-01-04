@@ -7,6 +7,7 @@ import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelers.Antwoord;
+import ambiorix.spelers.Speler;
 
 
 
@@ -17,7 +18,12 @@ public abstract class Ai
 	protected Vector<Tegel> tegels;
 	protected Vector<Pion> pionnen;
 	
-	public Ai(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen)
+	public Ai()
+	{
+		
+	}
+	
+	public void initialiseer(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen, Speler speler)
 	{
 		bord = b;
 		this.tegels = tegels;

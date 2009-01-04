@@ -16,9 +16,17 @@ public class StandaardAi extends Ai
 {
 	private Speler speler;
 	
-	public StandaardAi(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen, Speler speler)
+	public StandaardAi()
 	{
-		super(b, tegels, pionnen);
+		
+	}
+	
+	public void initialiseer(Spelbord b, Vector<Tegel> tegels, Vector<Pion> pionnen, Speler speler)
+	{
+		bord = b;
+		this.tegels = tegels;
+		this.pionnen = pionnen;
+		positieLijst = new Vector<Positie>();
 		this.speler = speler;
 	}
 	
@@ -57,7 +65,7 @@ public class StandaardAi extends Ai
 			tijdelijkTotaal = 0;
 			if( positieLijst.elementAt(i).bevatSpeler( speler ) )// als punten van de speler beinvloed worden
 			{
-				System.out.println( "speler wordt beinvloed" );
+				//System.out.println( "speler wordt beinvloed" );
 				Vector<Punt> beginpunten = tegels.elementAt(0).getGebiedBeginPunten(); // bereken beginpunten vd gebieden
 				tijdelijkTotaal = positieLijst.elementAt(i).getScore( speler );
 				//System.out.println("tijdelijkTotaal bij begin positie " + (i + 1) + ": " + tijdelijkTotaal);
@@ -167,8 +175,6 @@ public class StandaardAi extends Ai
 		
 		for( int i = 0; i < BPLijst.size(); ++i )
 		{
-			//Positie p = new Positie( BPLijst.elementAt(i) );
-			
 			// als we nog pionnen over hebben
 			if( pionnen.size() > 0 )
 			{
@@ -178,7 +184,6 @@ public class StandaardAi extends Ai
 				{
 					Terrein terrein = new Terrein( tegels.elementAt(0), beginpunten.elementAt(j) );
 					Positie p = new Positie( BPLijst.elementAt(i) );
-					//p.getScores().clear();
 					
 					if( bord.controleerPlaatsbaarheid( pionnen.elementAt(0), terrein) )		// als gebied leeg is
 					{
