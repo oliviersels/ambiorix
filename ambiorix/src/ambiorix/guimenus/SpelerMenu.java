@@ -74,6 +74,11 @@ public class SpelerMenu extends JFrame implements ActionListener{
 		Dimension d = new Dimension(800,600);
 		this.setMinimumSize(d);
 		this.setSize(800,600);
+		spelerNamen.get(0).setText("Maximus Decimus Meridius");
+		spelerTypes.get(0).setSelectedIndex(1);
+		spelerNamen.get(1).setText("Batman");
+		spelerTypes.get(1).setSelectedIndex(2);
+		spelerKleuren.get(1).setSelectedIndex(4);
 	}
 
 	public static void main(String args[])
