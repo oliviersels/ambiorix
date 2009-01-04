@@ -70,8 +70,6 @@ public abstract class AbstractActie extends Type implements Actie {
 	 * dit slaat op het ongedaan maken vanaf het einde tot de laatste invoer.
 	 * Als de rest van de actie niet ongedaan gemaakt kan worden, dan moet toch
 	 * true teruggegeven worden.
-	 * 
-	 * @return
 	 */
 	public abstract boolean kanOngedaanMaken();
 }
