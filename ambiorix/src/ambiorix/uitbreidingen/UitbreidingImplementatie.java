@@ -133,7 +133,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		// standaard is er maar 1 Ai per uitbreiding
 		// dus de eerste class in de juiste folder is standaard de juiste.
 		
-		File aiMap = new File( uitbreidingPad + "ambiorix/ai/specifiek/" );
+		File aiMap = new File( uitbreidingPad + "ambiorix/ai/" );
 		
 		File[] aiNamen = aiMap.listFiles( new FileFilter() {
 			public boolean accept(File pathName) {
@@ -149,7 +149,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		try
 		{
 			KlasseLader<Ai> aiLader = new KlasseLader<Ai>(uitbreidingPad);
-			ai = aiLader.LaadKlasse("ambiorix.ai.specifiek." + aiNamen[0].getName() ).newInstance();
+			ai = aiLader.LaadKlasse("ambiorix.ai.specifiek." + getClassNaam(aiNamen[0].getName()) ).newInstance();
 		}
 		catch(Exception e)
 		{

@@ -10,7 +10,7 @@ public class LavaScoreBerekenaar extends SimpelScoreBerekenaar
 {
 	@Override
 	public int berekenScore(Gebied gebied, Speler speler) 
-	{
+	{	
 		// enkel iets speciaal voor wegen
 		if( gebied.getType() != TerreinTypeVerzameling.getInstantie().getType("TerreinType_Weg") )
 			return super.berekenScore(gebied, speler);

@@ -15,17 +15,18 @@ public class Uitbreiding_Lava extends UitbreidingImplementatie
 	
 	public void bereidVoor(Vector<String> andereUitbreidingen)
 	{
-		System.out.println("DIT IS DE LAVAUITBREIDING @@@@@@@@@: INGELADEN, JOCHEI");
+		System.out.println("Lavauitbreiding is ingeladen");
 		
 		super.bereidVoor(andereUitbreidingen);
 	}	
 	
 
-	/*public ScoreBerekenaar getScoreBerekenaar()
+	public ScoreBerekenaar getScoreBerekenaar()
 	{
 		// rekenen op scoreberekenaar van de onderliggende uitbreidingen
-		return null;
-	}*/
+		//System.out.println("We zitten in de getScoreBerekenaar van Lava");
+		return super.getScoreBerekenaar();
+	}
 	
 	public String getEersteActie()
 	{

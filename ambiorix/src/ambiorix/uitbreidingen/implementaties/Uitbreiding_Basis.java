@@ -13,7 +13,7 @@ public class Uitbreiding_Basis extends UitbreidingImplementatie
 	
 	public void bereidVoor(Vector<String> andereUitbreidingen)
 	{
-		System.out.println("DIT IS DE BASISUITBREIKlasseLader INGELADEN, JOCHEI");
+		System.out.println("Basisuitbreiding is ingeladen");
 		
 		super.bereidVoor(andereUitbreidingen);
 	}
