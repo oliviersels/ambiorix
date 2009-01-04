@@ -66,13 +66,24 @@ public class AiSpeler extends Speler
 	public void zetPion(Pion p, Terrein t)
 	{
 		Uitvoer.ZetPion run = gui.new ZetPion(p, t);
-		SwingUtilities.invokeLater(run);	}
+		SwingUtilities.invokeLater(run);
+		
+		/* Korte pauze zodat het zichtbaar is */
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {}
+	}
 
 	@Override
 	public void zetTegel(Tegel t, BordPositie p)
 	{
 		Uitvoer.ZetTegel run = gui.new ZetTegel(t, p);
 		SwingUtilities.invokeLater(run);
+		
+		/* Korte pauze zodat het zichtbaar is */
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {}
 	}
 
 	@Override
