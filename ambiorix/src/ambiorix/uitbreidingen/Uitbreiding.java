@@ -46,7 +46,7 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 		this.volgnummer = Integer.parseInt( info.getChild("nr").getValue() );
 		this.afbeelding = info.getChild("afbeelding").getValue();
 		this.beschrijving = info.getChild("beschrijving").getValue();
-		this.ID = info.getChild("type").getValue();
+		ID = info.getChild("type").getValue();
 		
 		XmlNode compatibelMetNode = info.getChild("compatibel_met");
 		Vector<XmlNode> compatibeleUitbreidingen = compatibelMetNode.getChildren("uitbreiding");
@@ -65,6 +65,7 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 			try
 			{
 				KlasseLader<UitbreidingImplementatie> lader = new KlasseLader<UitbreidingImplementatie>(uitbreidingPad);
+				System.out.println( ID );
 				Class<UitbreidingImplementatie> imp = lader.LaadKlasse("ambiorix.uitbreidingen.implementaties." + ID );
 				implementatie = imp.newInstance();
 			}

@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;
 import ambiorix.acties.specifiek.BerekenScore;
 import ambiorix.acties.specifiek.EindeBeurt;
@@ -98,13 +99,13 @@ public class Testtest {
 		EindeBeurt eindeBeurt = new EindeBeurt(null, null);
 		EindeSpel eindeSpel = new EindeSpel(null, null);
 		
-		ActieVerzameling.getInstantie().registreerType(legTegel);
+		/*ActieVerzameling.getInstantie().registreerType((Class<AbstractActie>) legTegel.getClass());
 		ActieVerzameling.getInstantie().registreerType(startSpel);
 		ActieVerzameling.getInstantie().registreerType(geefTegel);
 		ActieVerzameling.getInstantie().registreerType(zetPion);
 		ActieVerzameling.getInstantie().registreerType(berekenScore);
 		ActieVerzameling.getInstantie().registreerType(eindeBeurt);
-		ActieVerzameling.getInstantie().registreerType(eindeSpel);
+		ActieVerzameling.getInstantie().registreerType(eindeSpel);*/
 	}
 
 	@AfterClass

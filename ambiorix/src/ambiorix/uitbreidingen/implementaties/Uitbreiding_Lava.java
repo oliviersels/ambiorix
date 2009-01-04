@@ -15,21 +15,20 @@ public class Uitbreiding_Lava extends UitbreidingImplementatie
 	
 	public void bereidVoor(Vector<String> andereUitbreidingen)
 	{
-		System.out.println("DIT IS DE LAVAUITBREIDING : INGELADEN, JOCHEI");
+		System.out.println("DIT IS DE LAVAUITBREIDING @@@@@@@@@: INGELADEN, JOCHEI");
 		
 		super.bereidVoor(andereUitbreidingen);
 	}	
 	
 
-	public ScoreBerekenaar getScoreBerekenaar()
+	/*public ScoreBerekenaar getScoreBerekenaar()
 	{
 		// rekenen op scoreberekenaar van de onderliggende uitbreidingen
 		return null;
-	}
+	}*/
 	
 	public String getEersteActie()
 	{
-		return null;
+		return "StartSpel";
 	}
-	
 }

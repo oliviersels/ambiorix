@@ -87,7 +87,6 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		}
 		
 		// ACTIES
-		// TODO : olivier, gewoon exact zelfde als hierboven, maar dan met ActieVerzameling en ambiorix.acties.acties of zoiets...
 		
 		File actiesMap = new File( uitbreidingPad + "ambiorix/acties/specifiek/" );
 		
@@ -100,7 +99,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 			{
 				if( actieNaam.contains(".class") ) // anders geen geldige file
 				{
-					AbstractActie actie = actieLader.LaadKlasse("ambiorix.acties.specifiek." + getClassNaam(actieNaam) ).newInstance();
+					Class<AbstractActie> actie = actieLader.LaadKlasse("ambiorix.acties.specifiek." + getClassNaam(actieNaam) );
 					ActieVerzameling.getInstantie().registreerType(actie);
 				}
 			}
