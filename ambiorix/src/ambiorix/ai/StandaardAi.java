@@ -29,18 +29,6 @@ public class StandaardAi extends Ai
 		positieLijst = new Vector<Positie>();
 		this.speler = speler;
 	}
-	
-	@Override
-	public double berekenKans(BordPositie positie)
-	{
-		return 0;
-	}
-
-	@Override
-	public void berekenScore(BordPositie positie)
-	{
-		
-	}
 
 	@Override
 	public Vector<Antwoord> berekenZet()
@@ -167,7 +155,6 @@ public class StandaardAi extends Ai
 		return antwoorden;
 	}
 
-	@Override
 	public Vector<Positie> maakPosities(Spelbord bord)
 	{
 		Vector<BordPositie> BPLijst = bord.controleerGlobalePlaatsbaarheid( tegels.elementAt(0), false );

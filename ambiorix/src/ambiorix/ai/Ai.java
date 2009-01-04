@@ -32,14 +32,8 @@ public abstract class Ai
 	}
 	
 	//---------------------------------------------------------------------------------
-	
-	public abstract Vector<Positie> maakPosities(Spelbord bord);
-	
+		
 	public abstract Vector<Antwoord> berekenZet();
-	
-	public abstract void berekenScore(BordPositie positie);
-	
-	public abstract double berekenKans(BordPositie positie);
 	
 	public abstract void reset();
 }

@@ -21,7 +21,7 @@ public class KlasseLader<T>
 	    try 
 	    {
 	        // Convert File to a URL
-	        URL url = file.toURL();
+	        URL url = file.toURI().toURL();
 	        URL[] urls = new URL[]{url};
 	    
 	        // Create a new class loader with the directory
@@ -35,7 +35,7 @@ public class KlasseLader<T>
 	
 	public Class<T> LaadKlasse(String naam)
 	{
-	    Class output = null;
+	    Class<?> output = null;
 	    
 	    try 
 	    {
@@ -46,6 +46,6 @@ public class KlasseLader<T>
 	    	e.printStackTrace();
 	    }	
 	    
-	    return output;
+	    return (Class<T>) output;
 	}
 }
