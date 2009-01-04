@@ -41,7 +41,7 @@ public class HoofdVenster extends JFrame implements ActionListener {
 	private Uitvoer uitvoer;
 	
 	private JMenuBar menuBalk;
-	private JMenu menuBestand, menuHelp;
+	private JMenu menuBestand;
 	private JMenuItem stopSpel;
 	private JSplitPane splitOnderkant;
 	private JSplitPane splitOnderkantLinks;
@@ -118,12 +118,10 @@ public class HoofdVenster extends JFrame implements ActionListener {
 		// menubalk
 		menuBalk = new JMenuBar();
 		menuBestand = new JMenu("Bestand");
-		menuHelp = new JMenu("Help");
 		stopSpel = new JMenuItem("Stop");
 		stopSpel.addActionListener(this);
 		menuBestand.add(stopSpel);
 		menuBalk.add(menuBestand);
-		menuBalk.add(menuHelp);
 		
 		//scoreVeld;
 		scoreVeld = new ScoreVeld();
