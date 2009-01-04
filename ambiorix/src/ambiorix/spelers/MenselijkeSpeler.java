@@ -119,18 +119,6 @@ public class MenselijkeSpeler extends Speler implements InvoerLuisteraar {
 	}
 
 	@Override
-	public void antwoordBordPositieSelectie(Antwoord a) {}
-
-	@Override
-	public void antwoordSpelerTegelSelectie(Antwoord a) {}
-
-	@Override
-	public void antwoordSpelerPionSelectie(Antwoord a) {}
-
-	@Override
-	public void antwoordTegelGebiedSelectie(Antwoord a) {}
-
-	@Override
 	public void addPion(Pion pion) {
 		super.addPion(pion);
 		

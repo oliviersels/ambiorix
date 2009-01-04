@@ -36,7 +36,7 @@ public class SpelerController implements MenuLuisteraar {
 				spelers.add(s);
 			}
 			else if(so.type == SpelerOptiesType.AI) {
-				AiSpeler s = new AiSpeler(spel.getSpelbord());
+				AiSpeler s = new AiSpeler(spel.getSpelbord(), gui.getUitvoer());
 				s.setKleur(so.kleur);
 				s.setNaam(so.naam);
 				spelers.add(s);

@@ -45,13 +45,6 @@ public abstract class Speler {
 	public abstract Antwoord selecteerBordPositie() throws InterruptedException, UndoException;
 	
 	/**
-	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
-	 * positie op het bord heeft geselecteerd.
-	 * @param a Het antwoord van de andere speler.
-	 */
-	public abstract void antwoordBordPositieSelectie(Antwoord a);
-	
-	/**
 	 * Geeft terug welke tegel de gebruiker geselecteerd heeft (om op het
 	 * bord te leggen.
 	 * @return Antwoord bevat: <br/>
@@ -59,13 +52,6 @@ public abstract class Speler {
 	 * @throws UndoException 
 	 */
 	public abstract Antwoord selecteerSpelerTegel() throws InterruptedException, UndoException;
-	
-	/**
-	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
-	 * tegel van een speler heeft geselecteerd.
-	 * @param a Het antwoord van de andere speler.
-	 */
-	public abstract void antwoordSpelerTegelSelectie(Antwoord a);
 	
 	/**
 	 * Geeft een terrein terug (een gebied op een tegel)
@@ -76,27 +62,12 @@ public abstract class Speler {
 	public abstract Antwoord selecteerTegelGebied() throws InterruptedException, UndoException;
 	
 	/**
-	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
-	 * terrein op een tegel heeft geselecteerd.
-	 * @param a Het antwoord van de andere speler.
-	 */
-	public abstract void antwoordTegelGebiedSelectie(Antwoord a);
-	
-	/**
 	 * Geeft een pion terug van een speler
 	 * @return Antwoord bevat:<br/>
 	 *   a) pionnen (0): De pion die gekozen werd.
 	 * @throws UndoException 
 	 */
 	public abstract Antwoord selecteerSpelerPion() throws InterruptedException, UndoException;
-	
-	/**
-	 * Wordt aangeroepen door speltoolkit nadat een andere speler een
-	 * pion van een speler heeft geselecteerd.
-	 * @param a Het antwoord van de andere speler.
-	 */
-	public abstract void antwoordSpelerPionSelectie(Antwoord a);
-	
 	
 	public abstract void zetTegel(Tegel t, BordPositie p);
 	

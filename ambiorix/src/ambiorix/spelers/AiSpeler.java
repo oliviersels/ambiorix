@@ -5,19 +5,14 @@ import java.util.Vector;
 import javax.swing.SwingUtilities;
 
 import ambiorix.ai.Ai;
-import ambiorix.ai.Positie;
 import ambiorix.ai.StandaardAi;
-import ambiorix.gui.Invoer;
 import ambiorix.gui.Uitvoer;
-import ambiorix.gui.Invoer.SelecteerBordPositie;
-import ambiorix.gui.Invoer.SelecteerSpelerTegel;
-import ambiorix.gui.Uitvoer.NeemSpelerTegelAf;
-import ambiorix.gui.Uitvoer.SpelerPionGeven;
-import ambiorix.gui.Uitvoer.SpelerTegelGeven;
+import ambiorix.gui.Uitvoer.VerwijderPion;
+import ambiorix.gui.Uitvoer.ZetPion;
 import ambiorix.gui.Uitvoer.ZetTegel;
-import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
 
@@ -27,12 +22,14 @@ public class AiSpeler extends Speler
 	private Ai aiElement;
 	private Spelbord bord;
 	private Vector<Antwoord> antwoorden;
+	private Uitvoer gui;
 	
-	public AiSpeler(Spelbord b)
+	public AiSpeler(Spelbord b, Uitvoer uit)
 	{
 		bord = b;
 		aiElement = null;
 		antwoorden = new Vector<Antwoord>();
+		gui = uit;
 	}
 	
 	Antwoord huidigAntwoord = null;
@@ -42,19 +39,9 @@ public class AiSpeler extends Speler
 		return selecteerVolgendAntwoord();
 	}
 	
-	public void antwoordBordPositieSelectie(Antwoord a)
-	{
-		// niet van belang voor de AI
-	}
-	
 	public Antwoord selecteerSpelerTegel() throws InterruptedException
 	{
 		return selecteerVolgendAntwoord();
-	}
-	
-	public void antwoordSpelerTegelSelectie(Antwoord a)
-	{
-		// niet van belang voor de AI
 	}
 	
 	public Antwoord selecteerTegelGebied() throws InterruptedException
@@ -62,19 +49,9 @@ public class AiSpeler extends Speler
 		return selecteerVolgendAntwoord();
 	}
 	
-	public void antwoordTegelGebiedSelectie(Antwoord a)
-	{
-		// niet van belang voor de AI
-	}
-	
 	public Antwoord selecteerSpelerPion() throws InterruptedException
 	{
 		return selecteerVolgendAntwoord();
-	}
-	
-	public void antwoordSpelerPionSelectie(Antwoord a)
-	{
-		// niet van belang voor de AI
 	}
 	
 	//---------------------------------------------------------------------------------
@@ -88,19 +65,21 @@ public class AiSpeler extends Speler
 	@Override
 	public void zetPion(Pion p, Terrein t)
 	{
-		// niet van belang voor de AI
-	}
+		Uitvoer.ZetPion run = gui.new ZetPion(p, t);
+		SwingUtilities.invokeLater(run);	}
 
 	@Override
 	public void zetTegel(Tegel t, BordPositie p)
 	{
-		// niet van belang voor de AI
+		Uitvoer.ZetTegel run = gui.new ZetTegel(t, p);
+		SwingUtilities.invokeLater(run);
 	}
 
 	@Override
 	public void verwijderPion(Pion p)
 	{
-		
+		Uitvoer.VerwijderPion run = gui.new VerwijderPion(p);
+		SwingUtilities.invokeLater(run);
 	}
 	
 	@Override
