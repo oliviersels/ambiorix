@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.Vector;
 
+import ambiorix.ai.Ai;
 import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.util.Type;
 import ambiorix.xml.XmlNode;
@@ -128,6 +129,13 @@ public class Uitbreiding extends Type implements UitbreidingInterface
 		laadImplementatie();
 		
 		return implementatie.getScoreBerekenaar();
+	}
+	
+	@Override 
+	public Ai getAi()
+	{
+		laadImplementatie();
+		return implementatie.getAi();
 	}
 	
 

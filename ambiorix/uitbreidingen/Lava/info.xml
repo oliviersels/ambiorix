@@ -1,0 +1,9 @@
+<info>
+	<nr>2</nr>
+	<type>Uitbreiding_Lava</type>
+	<afbeelding>afbeeldingen/logo.png</afbeelding >
+	<beschrijving>Dit is de beschrijving van de lavauitbreiding. ( niet te verwarren met de lava-lamp! )</beschrijving>
+	<compatibel_met>
+		<uitbreiding>Uitbreiding_Basis</uitbreiding>
+	</compatibel_met>
+</info>

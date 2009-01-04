@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import ambiorix.acties.AbstractActie;
 import ambiorix.acties.ActieVerzameling;
+import ambiorix.ai.Ai;
 import ambiorix.spelbord.PionType;
 import ambiorix.spelbord.PionTypeVerzameling;
 import ambiorix.spelbord.ScoreBerekenaar;
@@ -107,6 +108,39 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 	{
 		// deze moet best wel ingesteld worden !!
 		return null;
+	}
+	
+	@Override
+	public Ai getAi()
+	{
+		// standaard is er maar 1 Ai per uitbreiding
+		// dus de eerste class in de juiste folder is standaard de juiste.
+		
+		File aiMap = new File( uitbreidingPad + "ambiorix/ai/specifiek/" );
+		
+		File[] aiNamen = aiMap.listFiles( new FileFilter() {
+			public boolean accept(File pathName) {
+				return pathName.getName().contains(".class");
+			}
+			});
+		
+		if( aiNamen.length == 0 )
+			return null;
+
+		Ai ai = null;
+		
+		try
+		{
+			KlasseLader<Ai> aiLader = new KlasseLader<Ai>(uitbreidingPad);
+			ai = aiLader.LaadKlasse("ambiorix.ai.specifiek." + aiNamen[0].getName() ).newInstance();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return ai;		
+		
 	}
 
 	@Override

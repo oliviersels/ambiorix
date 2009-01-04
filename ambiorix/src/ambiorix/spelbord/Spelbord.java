@@ -217,6 +217,10 @@ public class Spelbord
 		// TODO : berekening gebied aanpassen zodat hij stopt op 1 pion gevonden !
 		boolean output = true;
 		
+		// als het terrein niet toegankelijk is, kunnen we zoiezo geen pion erop plaatsen
+		if( !terrein.getType().isToegankelijk() )
+			return false;
+		
 		Gebied g = getGebied(terrein);
 		
 		output = (g.getPionnen().size() == 0);

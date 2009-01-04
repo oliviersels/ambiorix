@@ -50,6 +50,9 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 	
 	public void bereidUitbreidingenVoor( Vector<String> uitbreidingenIDS )
 	{
+		// Basis moet er ALTIJD bij, dus deze zelf toevoegen
+		uitbreidingenIDS.add("Uitbreiding_Basis");
+		
 		// de uitbreidingen moeten in een bepaalde VOLGORDE worden ingelezen 
 		// dit om overschrijfbaarheid te behouden.
 		
@@ -99,6 +102,19 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding>
 		// FIXME : THROW EXCEPTION
 		System.out.println( "UitbreidingVerzameling::getScoreBerekenaar : geen gevonden" );
 		return null;
+	}
+	
+	@Override
+	public Vector<String> getTypes()
+	{
+		Vector<String> output = super.getTypes();
+		
+		// Basis uitbreiding moet er altijd bij. Dit doen we hardcoded binnen deze verzameling. Dus niet
+		// zichtbaar maken aan de buitenwereld.
+		output.remove( output.indexOf("Uitbreiding_Basis") );
+		
+		
+		return output;
 	}
 	
 	private static UitbreidingVerzameling instantie = null;
