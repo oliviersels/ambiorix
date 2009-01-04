@@ -32,7 +32,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
-			gui.voegRegelToe("Selecteer één van je pionnen.");
+			gui.voegRegelToe("Selecteer 1 van je pionnen.");
 			gui.enableSkip(true);
 			gui.enableUndo(true);
 			gui.voegPionLuisteraarToe(this);
@@ -108,7 +108,7 @@ public class Invoer {
 		
 		@Override
 		public void run() {
-			gui.voegRegelToe("Selecteer één van je tegels.");
+			gui.voegRegelToe("Selecteer 1 van je tegels.");
 			gui.voegSelectieTegelLuisteraarToe(this);
 			gui.startTegelSelectie();
 		}
