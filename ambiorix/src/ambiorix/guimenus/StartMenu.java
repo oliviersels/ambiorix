@@ -8,7 +8,6 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class StartMenu extends JFrame implements ActionListener{
 	private JButton knop_nieuwSpel;

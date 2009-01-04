@@ -4,11 +4,9 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -16,7 +14,6 @@ import javax.swing.JComponent;
 
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
-import ambiorix.spelbord.TegelType;
 import ambiorix.util.Punt;
 
 public class TegelGeest extends JComponent implements MouseMotionListener, MouseListener, TegelVeldComponent{

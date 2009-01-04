@@ -1,12 +1,11 @@
 package ambiorix.spelbord;
 
+import java.util.Set;
+import java.util.Vector;
+
 import ambiorix.spelbord.TegelBasis.RICHTING;
 import ambiorix.util.Punt;
 import ambiorix.util.PuntMap;
-
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Vector;
 
 public class TegelGebiedBeheerder 
 {

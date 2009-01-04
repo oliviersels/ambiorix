@@ -1,6 +1,6 @@
 package ambiorix.ai;
 
-import ambiorix.spelers.*;
+import ambiorix.spelers.Speler;
 
 
 /**

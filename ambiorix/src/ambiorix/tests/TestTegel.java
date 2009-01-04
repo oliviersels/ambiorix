@@ -1,6 +1,7 @@
 package ambiorix.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import org.junit.Test;
 
@@ -14,7 +15,6 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelGebiedBeheerder;
 import ambiorix.spelbord.TegelTypeVerzameling;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
 
 public class TestTegel {

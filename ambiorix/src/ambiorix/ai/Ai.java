@@ -2,10 +2,11 @@ package ambiorix.ai;
 
 import java.util.Vector;
 
-import ambiorix.Spel;
-import ambiorix.spelbord.*;
-import ambiorix.spelers.*;
-import ambiorix.ai.*;
+import ambiorix.spelbord.BordPositie;
+import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.Spelbord;
+import ambiorix.spelbord.Tegel;
+import ambiorix.spelers.Antwoord;
 
 
 

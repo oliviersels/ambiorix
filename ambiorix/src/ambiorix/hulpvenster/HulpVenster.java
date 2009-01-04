@@ -3,7 +3,6 @@ package ambiorix.hulpvenster;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Vector;
@@ -12,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import ambiorix.util.File;
 
 public class HulpVenster extends JFrame{
 	private Vector<HulpItem> hulpItems = new Vector<HulpItem>();

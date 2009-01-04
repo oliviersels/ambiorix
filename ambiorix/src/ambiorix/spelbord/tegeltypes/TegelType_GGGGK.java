@@ -1,6 +1,8 @@
 package ambiorix.spelbord.tegeltypes;
 
-import ambiorix.spelbord.*;
+import ambiorix.spelbord.TegelType;
+import ambiorix.spelbord.TerreinType;
+import ambiorix.spelbord.TerreinTypeVerzameling;
 
 public class TegelType_GGGGK extends TegelType
 {

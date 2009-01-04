@@ -1,13 +1,14 @@
 package ambiorix.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import ambiorix.Systeem;
+import ambiorix.spelbord.TegelType;
+import ambiorix.spelbord.TerreinType;
 import ambiorix.spelbord.tegeltypes.TegelType_GGGGK;
 import ambiorix.spelbord.tegeltypes.TegelType_WGGWW;
-import ambiorix.spelbord.*;
 
 public class TestTegelType 
 {

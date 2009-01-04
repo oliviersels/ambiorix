@@ -1,16 +1,13 @@
 package ambiorix.ai;
 
-import java.util.Set;
 import java.util.Vector;
-import java.util.Collections;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
-import ambiorix.spelbord.PionType;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.scoreberekenaars.*;
+import ambiorix.spelbord.scoreberekenaars.SimpelScoreBerekenaar;
 import ambiorix.spelers.Speler;
 import ambiorix.util.Punt;
 

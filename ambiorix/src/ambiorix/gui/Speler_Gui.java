@@ -2,9 +2,7 @@ package ambiorix.gui;
 
 import java.util.Vector;
 
-import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
-import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelers.Speler;
 

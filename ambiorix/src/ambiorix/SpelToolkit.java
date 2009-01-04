@@ -15,7 +15,6 @@ import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.spelbord.Spelbord;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.scoreberekenaars.SimpelScoreBerekenaar;
 import ambiorix.spelers.Antwoord;
 import ambiorix.spelers.Speler;
 

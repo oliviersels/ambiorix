@@ -2,7 +2,6 @@ package ambiorix.gui;
 
 import java.awt.event.MouseEvent;
 
-import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.TerreinBasis;
 import ambiorix.spelbord.TerreinType;

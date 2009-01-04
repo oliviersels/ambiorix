@@ -2,7 +2,6 @@ package ambiorix.uitbreidingen.implementaties;
 
 import java.util.Vector;
 
-import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.uitbreidingen.UitbreidingImplementatie;
 
 public class Uitbreiding_Basis extends UitbreidingImplementatie 

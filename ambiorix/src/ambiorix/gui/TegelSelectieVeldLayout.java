@@ -5,8 +5,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 
-import ambiorix.util.Punt;
-
 public class TegelSelectieVeldLayout implements LayoutManager {
 	int minH = 0;
     int minB = 100;

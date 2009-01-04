@@ -2,11 +2,7 @@ package ambiorix;
 
 import java.util.Vector;
 
-import ambiorix.acties.AbstractActie;
-import ambiorix.acties.Actie;
 import ambiorix.acties.ActieBestuurder;
-import ambiorix.acties.ActieVerzameling;
-import ambiorix.acties.specifiek.GeefTegel;
 import ambiorix.acties.specifiek.StartSpel;
 import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.ScoreBerekenaar;

@@ -3,8 +3,6 @@ package ambiorix.spelbord;
 import java.util.Comparator;
 import java.util.Vector;
 
-import org.w3c.dom.Node;
-
 import ambiorix.util.Punt;
 import ambiorix.xml.XmlNode;
 

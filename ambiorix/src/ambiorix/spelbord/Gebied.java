@@ -1,8 +1,8 @@
 package ambiorix.spelbord;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
-import java.util.HashMap;
 
 import ambiorix.spelers.Speler;
 

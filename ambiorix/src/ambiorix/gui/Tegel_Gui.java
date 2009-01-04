@@ -9,17 +9,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
-import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;

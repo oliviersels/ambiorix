@@ -1,20 +1,11 @@
 package ambiorix.spelbord;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
-import java.util.Collection;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import ambiorix.spelbord.TegelBasis.RICHTING;
 import ambiorix.util.Punt;

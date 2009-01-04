@@ -1,11 +1,10 @@
 package ambiorix.tests;
 
-import static org.junit.Assert.*;
-
-import java.util.Vector;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import ambiorix.Systeem;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Spelbord;
@@ -13,7 +12,6 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelTypeVerzameling;
 import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;
-import ambiorix.Systeem;
 
 public class TestSpelbord
 {

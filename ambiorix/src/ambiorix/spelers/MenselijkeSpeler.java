@@ -2,7 +2,6 @@ package ambiorix.spelers;
 
 import javax.swing.SwingUtilities;
 
-import ambiorix.Spel;
 import ambiorix.acties.UndoException;
 import ambiorix.gui.Invoer;
 import ambiorix.gui.InvoerLuisteraar;

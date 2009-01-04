@@ -1,6 +1,5 @@
 package ambiorix.uitbreidingen;
 
-import java.util.Comparator;
 import java.util.Vector;
 
 import ambiorix.ai.Ai;

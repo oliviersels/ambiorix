@@ -1,26 +1,17 @@
 package ambiorix.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
-import ambiorix.spelbord.Pion;
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.TerreinType;
 import ambiorix.util.Punt;
 
 public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuisteraar{

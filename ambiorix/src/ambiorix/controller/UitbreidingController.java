@@ -3,9 +3,6 @@ package ambiorix.controller;
 import java.util.Vector;
 
 import ambiorix.Spel;
-import ambiorix.SpelToolkit;
-import ambiorix.acties.AbstractActie;
-import ambiorix.acties.ActieVerzameling;
 import ambiorix.gui.HoofdVenster;
 import ambiorix.guimenus.MenuLuisteraar;
 import ambiorix.guimenus.SpelerOpties;

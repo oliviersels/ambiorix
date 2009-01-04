@@ -8,7 +8,6 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import ambiorix.spelbord.TegelBasis;
-import ambiorix.util.Punt;
 
 public class TegelSelectieVeld extends JPanel implements TegelLuisteraar{
 	private Vector<Tegel_Gui> mijnTegels;

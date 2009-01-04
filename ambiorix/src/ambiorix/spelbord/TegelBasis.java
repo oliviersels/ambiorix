@@ -1,7 +1,5 @@
 package ambiorix.spelbord;
 
-import java.util.Comparator;
-
 import ambiorix.util.Punt;
 
 /*
