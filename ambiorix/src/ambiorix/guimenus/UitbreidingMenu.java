@@ -39,8 +39,7 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 	private Vector <MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
 
 	public UitbreidingMenu() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Jens Bruggemans
+		super("Ambiorix");
 		knoppenPanel = new JPanel();
 		knop_vorige = new JButton("Terug");
 		knop_volgende = new JButton("Volgende");
@@ -107,7 +106,6 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 		contentPane.add(splitter, BorderLayout.CENTER);
 		this.setSize(800, 600);
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
 	public Vector<String> geefGeselecteerdeUitbreidingen()

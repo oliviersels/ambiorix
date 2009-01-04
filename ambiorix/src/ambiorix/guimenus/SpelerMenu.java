@@ -30,6 +30,7 @@ public class SpelerMenu extends JFrame implements ActionListener{
 	private Vector <JComboBox>  spelerKleuren = new Vector <JComboBox>();
 	private Vector <MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
 	public SpelerMenu() {
+		super("Ambiorix");
 		ondersteKnoppenPanel = new JPanel();
 		knop_vorige = new JButton();
 		knop_volgende = new JButton();

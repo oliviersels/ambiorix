@@ -88,32 +88,9 @@ public class HoofdVenster extends JFrame implements ActionListener, WindowListen
 		return tegelVeld;
 	}
 	
-	public static void main(String args[])
-	{
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		HoofdVenster hv = new HoofdVenster();
-		/*
-		for(int i = 0; i <20; i++)
-			for(int y = 0; y <20 ;y++)
-				hv.voegTegelToe(i, y, null);
-		*/
-	}
 	public HoofdVenster()
 	{	
+		super("Ambiorix");
 		invoer = new Invoer(this);
 		uitvoer = new Uitvoer(this);
 		spelers = new Vector<Speler_Gui>();

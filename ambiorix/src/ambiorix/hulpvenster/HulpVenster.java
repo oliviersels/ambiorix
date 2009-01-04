@@ -23,6 +23,7 @@ public class HulpVenster extends JFrame{
 	
 	public HulpVenster()
 	{
+		super("Ambiorix - Hulp");
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		hulpNaam.setEditable(false);
