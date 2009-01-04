@@ -2,6 +2,7 @@ package ambiorix.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -10,6 +11,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
@@ -52,6 +54,7 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 	}
 	
 	public TegelVeld() {
+		super();
 		mijnTegels = new Vector<Tegel_Gui>();
 		mijnTegelGeesten = new Vector<TegelGeest>();
 		mijnVerwijderdeTegelGeesten = new Vector<TegelGeest>();
@@ -76,6 +79,9 @@ public class TegelVeld extends JPanel implements TegelLuisteraar, TegelGeestLuis
 		verwijderTegelGeest(x, y);
 		this.repaint();
 		this.revalidate();
+		Rectangle rec = nieuweTegel.getBounds();
+		rec.grow(200, 200);
+		this.scrollRectToVisible(rec);
 	}
 
 	@Override
