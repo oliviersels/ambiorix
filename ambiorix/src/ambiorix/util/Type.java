@@ -1,11 +1,9 @@
 package ambiorix.util;
 
-public class Type
-{
+public class Type {
 	protected String ID = null;
-	
-	public String getID()
-	{
+
+	public String getID() {
 		return ID;
 	}
 }

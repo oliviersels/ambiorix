@@ -2,102 +2,91 @@ package ambiorix.util;
 
 import java.awt.Point;
 
-public class Punt
-{
+public class Punt {
 	int x;
 	int y;
-	
-	public Punt(int x, int y)
-	{
+
+	public Punt(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
-	public Punt(Punt punt)
-	{
+
+	public Punt(Punt punt) {
 		this.x = punt.getX();
 		this.y = punt.getY();
 	}
-	
-	public int getX()
-	{
+
+	public int getX() {
 		return x;
 	}
-	
-	public int getY()
-	{
+
+	public int getY() {
 		return y;
 	}
-	
-	public void setY(int y)
-	{
+
+	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public void setX(int x)
-	{
+
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	
-	
-	public static int getArrayCoord(Point p, int length)
-	{
-		int position = ( ( (int) Math.sqrt(length)) * ((int) p.getY())) + ((int) p.getX());
-		
-		if( (position < 0) || (position > length) )
+	public static int getArrayCoord(Point p, int length) {
+		int position = (((int) Math.sqrt(length)) * ((int) p.getY()))
+				+ ((int) p.getX());
+
+		if ((position < 0) || (position > length))
 			return -1;
 		else
 			return position;
 	}
-	
-	public static Object[] rotateArray( Object[] array, int rotation)
-	{
-		if(rotation == 0)
+
+	public static Object[] rotateArray(Object[] array, int rotation) {
+		if (rotation == 0)
 			return array;
-		else if( (rotation == 90) || (rotation == 180) || (rotation == 270) )
-		{
+		else if ((rotation == 90) || (rotation == 180) || (rotation == 270)) {
 			// 1ste van laatste rij = 0
 			// die - dimensie = 1
 			// die - dimensie = 2
 			// 2de van laatste rij = 3
 			// die - dimensie = 4
 			// etc.
-			
+
 			Object[] output = new Object[array.length];
-			
+
 			int nieuweIndexTeller = 0;
 			int aantalRijen = (int) Math.sqrt(array.length);
-			
-			int elementInLaatsteRij =   (aantalRijen - 1) * aantalRijen; // eerste in laatste rij
+
+			int elementInLaatsteRij = (aantalRijen - 1) * aantalRijen; // eerste
+																		// in
+																		// laatste
+																		// rij
 			int oudeIndexTeller = elementInLaatsteRij;
-			
-			while( nieuweIndexTeller < array.length )
-			{
-				while(oudeIndexTeller > 0)
-				{
+
+			while (nieuweIndexTeller < array.length) {
+				while (oudeIndexTeller > 0) {
 					output[nieuweIndexTeller] = array[oudeIndexTeller];
 					nieuweIndexTeller++;
 					oudeIndexTeller -= aantalRijen;
 				}
-				
+
 				oudeIndexTeller = ++elementInLaatsteRij;
 			}
-			
+
 			return output;
-		}
-		else
+		} else
 			return null;
 	}
-	
-	public String toString()
-	{
+
+	@Override
+	public String toString() {
 		return x + "," + y;
 	}
-	
-	public static Punt fromString(String input)
-	{
+
+	public static Punt fromString(String input) {
 		String[] delen = input.split(",");
-		return new Punt( Integer.valueOf(delen[0]).intValue(), Integer.valueOf(delen[1]).intValue() );
+		return new Punt(Integer.valueOf(delen[0]).intValue(), Integer.valueOf(
+				delen[1]).intValue());
 	}
 }

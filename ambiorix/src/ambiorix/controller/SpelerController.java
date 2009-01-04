@@ -12,16 +12,18 @@ public class SpelerController implements MenuLuisteraar {
 	SpelerMenu spelerMenu;
 	UitbreidingMenu uitbreidingMenu;
 	UitbreidingController uitbreidingController;
-	
+
 	public SpelerController(SpelerMenu menu) {
 		spelerMenu = menu;
 	}
 
 	@Override
 	public void volgende() {
-		UitbreidingVerzameling.getInstantie().vulMetUitbreidingenUit("uitbreidingen" + File.separator);
+		UitbreidingVerzameling.getInstantie().vulMetUitbreidingenUit(
+				"uitbreidingen" + File.separator);
 		uitbreidingMenu = new UitbreidingMenu();
-		uitbreidingController = new UitbreidingController(uitbreidingMenu, spelerMenu.geefSpelers());
+		uitbreidingController = new UitbreidingController(uitbreidingMenu,
+				spelerMenu.geefSpelers());
 		uitbreidingMenu.voegMenuLuisteraarToe(uitbreidingController);
 		uitbreidingMenu.setLocationRelativeTo(spelerMenu);
 		uitbreidingMenu.setVisible(true);
@@ -32,7 +34,7 @@ public class SpelerController implements MenuLuisteraar {
 	@Override
 	public void vorige() {
 		new BestaatNogNietVenster();
-		
+
 	}
 
 }

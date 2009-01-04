@@ -12,14 +12,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class HulpVenster extends JFrame{
+public class HulpVenster extends JFrame {
 	private Vector<HulpItem> hulpItems = new Vector<HulpItem>();
 	private JTextField hulpNaam = new JTextField();
 	private JScrollPane beschrijvingScroller = new JScrollPane();
 	private JTextArea hulpBeschrijving = new JTextArea();
-	
-	public HulpVenster()
-	{
+
+	public HulpVenster() {
 		super("Ambiorix - Hulp");
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -32,84 +31,90 @@ public class HulpVenster extends JFrame{
 		this.add(beschrijvingScroller, BorderLayout.CENTER);
 		this.setSize(800, 600);
 	}
+
 	/**
-	 * Voegt een HulpItem toe.
-	 * Indien er al een HulpItem is met dezelfde naam, wordt dit vervangen.
-	 * @param naam De naam voor het HulpItem.
-	 * @param beschrijving De beschrijving van het HulpItem.
+	 * Voegt een HulpItem toe. Indien er al een HulpItem is met dezelfde naam,
+	 * wordt dit vervangen.
+	 * 
+	 * @param naam
+	 *            De naam voor het HulpItem.
+	 * @param beschrijving
+	 *            De beschrijving van het HulpItem.
 	 */
-	public void voegHulpItemToe(String naam, String beschrijving)
-	{
+	public void voegHulpItemToe(String naam, String beschrijving) {
 		HulpItem hi = new HulpItem(naam, beschrijving);
 		hulpItems.remove(hi);
 		hulpItems.add(hi);
 	}
+
 	/**
-	 * Laadt hulpItems in van uit een bestand.
-	 * Een hulpItem waarvoor er al een entry bestaat wordt vervangen.
-	 * @param FileNaam De naam van het bestand.
+	 * Laadt hulpItems in van uit een bestand. Een hulpItem waarvoor er al een
+	 * entry bestaat wordt vervangen.
+	 * 
+	 * @param FileNaam
+	 *            De naam van het bestand.
 	 */
-	public void laadVanBestand(String FileNaam)
-	{
+	public void laadVanBestand(String FileNaam) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(FileNaam));
 			String lijn;
-			while((lijn = in.readLine()) != null)
-			{
+			while ((lijn = in.readLine()) != null) {
 				System.out.println("joe");
 				HulpItem hi = new HulpItem(lijn);
 				hulpItems.remove(hi);
 				hulpItems.add(hi);
 			}
 			in.close();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Sla de HulpItems op in een bestand.
-	 * @param FileNaam De naam van het bestand.
+	 * 
+	 * @param FileNaam
+	 *            De naam van het bestand.
 	 */
-	public void slaOpInBestand(String FileNaam)
-	{
+	public void slaOpInBestand(String FileNaam) {
 		try {
 			BufferedWriter uit = new BufferedWriter(new FileWriter(FileNaam));
 			String lijn;
-			for(HulpItem hi : this.hulpItems)
-			{
+			for (HulpItem hi : this.hulpItems) {
 				uit.write(hi.naarString() + "\n");
 			}
 			uit.close();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 
-	 * @param naam De naam van het te tonen HulpItem.
+	 * @param naam
+	 *            De naam van het te tonen HulpItem.
 	 */
-	public void toonHulp(String naam)
-	{
+	public void toonHulp(String naam) {
 		HulpItem teTonen = new HulpItem("NIET GEVONDEN", "");
 		HulpItem teZoeken = new HulpItem(naam, "");
 		int index;
-		if((index = hulpItems.indexOf(teZoeken)) != -1)
+		if ((index = hulpItems.indexOf(teZoeken)) != -1)
 			teTonen = hulpItems.get(index);
 		hulpNaam.setText(teTonen.getNaam());
 		hulpBeschrijving.setText(teTonen.getBeschrijving());
 	}
-	public static void main(String args[])
-	{
+
+	public static void main(String args[]) {
 		HulpVenster hv = new HulpVenster();
 		hv.setVisible(true);
 		hv.laadVanBestand("hulpFiles/hulptest1.txt");
-		//hv.voegHulpItemToe("test1", "beschrijving van test 1");
+		// hv.voegHulpItemToe("test1", "beschrijving van test 1");
 		hv.voegHulpItemToe("test3", "beschrijving van test 3");
 		hv.toonHulp("test2");
-		//hv.slaOpInBestand("hulpFiles/hulptest1.txt");
+		// hv.slaOpInBestand("hulpFiles/hulptest1.txt");
 	}
 }

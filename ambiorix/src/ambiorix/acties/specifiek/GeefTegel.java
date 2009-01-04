@@ -7,23 +7,24 @@ import ambiorix.spelbord.Tegel;
 
 public class GeefTegel extends AbstractActie {
 	Tegel gegevenTegel;
-	
 
 	public GeefTegel(SpelToolkit kit, AbstractActie vorige) {
 		super(kit, vorige);
-		
+
 		gegevenTegel = null;
 	}
 
 	@Override
 	public AbstractActie doeActie() {
 		gegevenTegel = kit.getVolgendeTegel();
-		if(gegevenTegel == null) {
+		if (gegevenTegel == null) {
 			/* Einde van het spel! */
 			try {
-				Object[] param = {kit, this};
-				Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
-				return ActieVerzameling.getInstantie().getNewInstantie("EindeSpel", param, paramKlassen);
+				Object[] param = { kit, this };
+				Class<?>[] paramKlassen = { SpelToolkit.class,
+						AbstractActie.class };
+				return ActieVerzameling.getInstantie().getNewInstantie(
+						"EindeSpel", param, paramKlassen);
 			} catch (Exception e) {
 				System.err.println("Unexpected Exception: " + e.getMessage());
 				e.printStackTrace();
@@ -31,11 +32,12 @@ public class GeefTegel extends AbstractActie {
 			}
 		}
 		kit.geefSpelerTegel(gegevenTegel, kit.getActieveSpeler());
-		
+
 		try {
-			Object[] param = {kit, this};
-			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
-			return ActieVerzameling.getInstantie().getNewInstantie("LegTegel", param, paramKlassen);
+			Object[] param = { kit, this };
+			Class<?>[] paramKlassen = { SpelToolkit.class, AbstractActie.class };
+			return ActieVerzameling.getInstantie().getNewInstantie("LegTegel",
+					param, paramKlassen);
 		} catch (Exception e) {
 			System.err.println("Unexpected Exception: " + e.getMessage());
 			e.printStackTrace();
@@ -50,9 +52,10 @@ public class GeefTegel extends AbstractActie {
 
 	@Override
 	public AbstractActie maakOngedaan() {
-		System.out.println("geeftegel -> tegel van speler terug naar de verzameling");
+		System.out
+				.println("geeftegel -> tegel van speler terug naar de verzameling");
 		System.out.println("Terug aan speler vragen om tegel te leggen");
-		
+
 		return vorigeActie;
 	}
 

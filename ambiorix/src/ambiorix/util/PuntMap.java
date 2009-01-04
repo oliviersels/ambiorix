@@ -13,64 +13,53 @@ import java.util.Set;
  * 
  * Deze PuntMap zorgt hiervoor voor de klasse punt door strings als keys te nemen voor de hashmap.
  */
-public class PuntMap<T>
-{
-	private HashMap<String,T> map = new HashMap<String,T>();
-	
-	public PuntMap()
-	{
-		
+public class PuntMap<T> {
+	private HashMap<String, T> map = new HashMap<String, T>();
+
+	public PuntMap() {
+
 	}
-	
-	public void put(Punt p, T value)
-	{
+
+	public void put(Punt p, T value) {
 		map.put(p.toString(), value);
 	}
-	
-	public T get(Punt p)
-	{
-		return map.get( p.toString() );
+
+	public T get(Punt p) {
+		return map.get(p.toString());
 	}
-	
-	public Set<Punt> keySet()
-	{
+
+	public Set<Punt> keySet() {
 		Set<Punt> output = new HashSet<Punt>();
-		
+
 		Set<String> punten = map.keySet();
-		
-		for( String huidigPunt: punten )
-		{
+
+		for (String huidigPunt : punten) {
 			Punt p = Punt.fromString(huidigPunt);
 			output.add(p);
 		}
-		
+
 		return output;
 	}
-	
-	public boolean containsValue(T value)
-	{
+
+	public boolean containsValue(T value) {
 		return map.containsValue(value);
 	}
-	
-	public Collection<T> values()
-	{
+
+	public Collection<T> values() {
 		return map.values();
 	}
-	
-	public Punt getKey(T value)
-	{
+
+	public Punt getKey(T value) {
 		Set<String> punten = map.keySet();
-		for( String punt: punten )
-		{
-			if( map.get(punt) == value )
+		for (String punt : punten) {
+			if (map.get(punt) == value)
 				return Punt.fromString(punt);
 		}
-		
+
 		return null;
 	}
-	
-	public void remove(Punt key)
-	{
+
+	public void remove(Punt key) {
 		map.remove(key.toString());
 	}
 }

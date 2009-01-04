@@ -14,149 +14,130 @@ import ambiorix.xml.XmlNode;
  * Tot de functie bereidVoor wordt aangeroepen, is de uitbreiding nog niet ingeladen in het systeem,
  * en geldt dit object enkel als "placeholder".
  */
-public class Uitbreiding extends Type implements UitbreidingInterface
-{
+public class Uitbreiding extends Type implements UitbreidingInterface {
 	private String naam = null;
 	private String uitbreidingPad = "";
 	private UitbreidingImplementatie implementatie = null;
-	
+
 	private String afbeelding = null;
 	private String beschrijving = null;
 	private int volgnummer = -1;
-	
+
 	private Vector<String> compatibelMet = new Vector<String>();
-	
-	public Uitbreiding(String pad, String naam)
-	{
+
+	public Uitbreiding(String pad, String naam) {
 		this.naam = naam;
 		uitbreidingPad = pad + naam + "/";
 		// zoeken naar de Uitbreiding met deze naam
-		File uitbreiding = new File( uitbreidingPad + "info.xml");
-		if( !uitbreiding.exists() )
-		{
+		File uitbreiding = new File(uitbreidingPad + "info.xml");
+		if (!uitbreiding.exists()) {
 			// TODO : throw exception
-			System.out.println("Uitbreiding::Constructor : kan uitbreiding met naam " + naam + " niet vinden");
+			System.out
+					.println("Uitbreiding::Constructor : kan uitbreiding met naam "
+							+ naam + " niet vinden");
 		}
-		
+
 		// inhoud van de info.xml opslaan, hebben we later nog nodig.
-		String xmlinhoud = ambiorix.util.File.getContents( uitbreiding );
+		String xmlinhoud = ambiorix.util.File.getContents(uitbreiding);
 		XmlNode info = XmlNode.fromString(xmlinhoud);
 		info = info.getChild("info");
-		
-		this.volgnummer = Integer.parseInt( info.getChild("nr").getValue() );
+
+		this.volgnummer = Integer.parseInt(info.getChild("nr").getValue());
 		this.afbeelding = info.getChild("afbeelding").getValue();
 		this.beschrijving = info.getChild("beschrijving").getValue();
 		ID = info.getChild("type").getValue();
-		
+
 		XmlNode compatibelMetNode = info.getChild("compatibel_met");
-		Vector<XmlNode> compatibeleUitbreidingen = compatibelMetNode.getChildren("uitbreiding");
-		
-		for( XmlNode compatibeleUitbreiding : compatibeleUitbreidingen )
-		{
-			this.compatibelMet.add( compatibeleUitbreiding.getValue() );
+		Vector<XmlNode> compatibeleUitbreidingen = compatibelMetNode
+				.getChildren("uitbreiding");
+
+		for (XmlNode compatibeleUitbreiding : compatibeleUitbreidingen) {
+			this.compatibelMet.add(compatibeleUitbreiding.getValue());
 		}
 	}
-	
-	private void laadImplementatie()
-	{
-		if( implementatie == null )
-		{
+
+	private void laadImplementatie() {
+		if (implementatie == null) {
 			// uitbreiding class laden van filesystem
-			try
-			{
-				KlasseLader<UitbreidingImplementatie> lader = new KlasseLader<UitbreidingImplementatie>(uitbreidingPad);
-				System.out.println( ID );
-				Class<UitbreidingImplementatie> imp = lader.LaadKlasse("ambiorix.uitbreidingen.implementaties." + ID );
+			try {
+				KlasseLader<UitbreidingImplementatie> lader = new KlasseLader<UitbreidingImplementatie>(
+						uitbreidingPad);
+				System.out.println(ID);
+				Class<UitbreidingImplementatie> imp = lader
+						.LaadKlasse("ambiorix.uitbreidingen.implementaties."
+								+ ID);
 				implementatie = imp.newInstance();
-			}
-			catch(Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	@Override
-	public void bereidVoor(Vector<String> andereUitbreidingen)
-	{
+	public void bereidVoor(Vector<String> andereUitbreidingen) {
 		laadImplementatie();
-		
+
 		implementatie.bereidVoor(andereUitbreidingen);
 
 	}
-	
-	public boolean isCompatibelMet(String uitbreidingType)
-	{
-		// eerst checken op wildcard 
-		if( (compatibelMet.size() == 1) && (compatibelMet.get(0) == "*") )
+
+	public boolean isCompatibelMet(String uitbreidingType) {
+		// eerst checken op wildcard
+		if ((compatibelMet.size() == 1) && (compatibelMet.get(0) == "*"))
 			return true;
-		else
-		{
+		else {
 			return compatibelMet.contains(uitbreidingType);
 		}
 	}
-	
-	public String getAfbeelding()
-	{
+
+	public String getAfbeelding() {
 		return uitbreidingPad + afbeelding;
 	}
-	
-	public String getBeschrijving()
-	{
+
+	public String getBeschrijving() {
 		return beschrijving;
 	}
-	
-	public String getNaam()
-	{
+
+	public String getNaam() {
 		return naam;
 	}
-	
-	public int getVolgnummer()
-	{
+
+	public int getVolgnummer() {
 		return this.volgnummer;
 	}
-	
+
 	@Override
-	public String getEersteActie() 
-	{
+	public String getEersteActie() {
 		laadImplementatie();
-		
+
 		return implementatie.getEersteActie();
 	}
 
 	@Override
-	public ScoreBerekenaar getScoreBerekenaar() 
-	{
+	public ScoreBerekenaar getScoreBerekenaar() {
 		laadImplementatie();
-		
+
 		return implementatie.getScoreBerekenaar();
 	}
-	
-	@Override 
-	public Ai getAi()
-	{
+
+	@Override
+	public Ai getAi() {
 		laadImplementatie();
 		return implementatie.getAi();
 	}
-	
 
-	public class Sorteerder implements Comparator<Uitbreiding>
-	{
-		public int compare(Uitbreiding t1, Uitbreiding t2)
-		{
-			//System.out.println("COMPARE : " + t1.getID() + " <> " + t2.getID() );
-			
-			if( t1.getVolgnummer() < t2.getVolgnummer() )
+	public class Sorteerder implements Comparator<Uitbreiding> {
+		public int compare(Uitbreiding t1, Uitbreiding t2) {
+			// System.out.println("COMPARE : " + t1.getID() + " <> " +
+			// t2.getID() );
+
+			if (t1.getVolgnummer() < t2.getVolgnummer())
 				return -1;
-			if( t1.getVolgnummer() > t2.getVolgnummer() )
+			if (t1.getVolgnummer() > t2.getVolgnummer())
 				return 1;
-			
+
 			return 0;
-		}	
+		}
 	}
 
-
-
-
-		
 }

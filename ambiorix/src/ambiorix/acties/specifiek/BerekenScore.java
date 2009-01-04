@@ -19,37 +19,38 @@ public class BerekenScore extends AbstractActie {
 		super(kit, vorige);
 		geplaatsteTegel = null;
 	}
-	
-	public BerekenScore(SpelToolkit kit, AbstractActie vorige, Tegel geplaatsteTegel) {
+
+	public BerekenScore(SpelToolkit kit, AbstractActie vorige,
+			Tegel geplaatsteTegel) {
 		super(kit, vorige);
 		this.geplaatsteTegel = geplaatsteTegel;
 	}
 
 	@Override
 	public AbstractActie doeActie() {
-		if(geplaatsteTegel != null) {
+		if (geplaatsteTegel != null) {
 			/*
-			 * We gaan alle pionnen opvragen.. Daar gebieden van berekenen en dan
-			 * van scorende gebieden pionnen afhalen.
+			 * We gaan alle pionnen opvragen.. Daar gebieden van berekenen en
+			 * dan van scorende gebieden pionnen afhalen.
 			 */
 			HashMap<Pion, Terrein> pionnen = kit.getPionnenEnPosities();
 			Iterator<Pion> it = pionnen.keySet().iterator();
 			ScoreBerekenaar sb = kit.getScoreBerekenaar();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				Pion p = it.next();
 				Terrein t = pionnen.get(p);
 				Gebied g = kit.getGebied(t);
 				boolean gescoord = false;
-				for(Pion p2 : g.getPionnen()) {
+				for (Pion p2 : g.getPionnen()) {
 					int score = 0;
 					score = sb.berekenScore(g, p2.getSpeler());
-					if(score > 0) {
+					if (score > 0) {
 						p2.getSpeler().addScore(score);
 						gescoord = true;
 					}
 				}
-				if(gescoord) {
-					for(Pion p3 : g.getPionnen()) {
+				if (gescoord) {
+					for (Pion p3 : g.getPionnen()) {
 						kit.geefSpelerPion(p3, p3.getSpeler());
 						kit.verwijderPion(p3);
 					}
@@ -57,18 +58,19 @@ public class BerekenScore extends AbstractActie {
 					it = pionnen.keySet().iterator();
 				}
 			}
-			
+
 			try {
-				Object[] param = {kit, this};
-				Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
-				return ActieVerzameling.getInstantie().getNewInstantie("EindeBeurt", param, paramKlassen);
+				Object[] param = { kit, this };
+				Class<?>[] paramKlassen = { SpelToolkit.class,
+						AbstractActie.class };
+				return ActieVerzameling.getInstantie().getNewInstantie(
+						"EindeBeurt", param, paramKlassen);
 			} catch (Exception e) {
 				System.err.println("Unexpected Exception: " + e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
-		}
-		else
+		} else
 			return null;
 	}
 

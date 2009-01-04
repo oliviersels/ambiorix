@@ -22,30 +22,33 @@ public class StartSpel extends AbstractActie {
 		kit.setTegelAantal("TegelType_RechteWeg", 4);
 		kit.setTegelAantal("TegelType_Driesprong", 4);
 		kit.setTegelAantal("TegelType_EenZijdeBurcht", 4);
-		//kit.setTegelAantal("TegelType_BBBBB", 4);
+		// kit.setTegelAantal("TegelType_BBBBB", 4);
 		kit.setTegelAantal("TegelType_GGGGK", 2);
 		kit.setTegelAantal("TegelType_BurchtMetBochtweg", 2);
-		
-		//kit.setTegelAantal("TegelType_LavaMetWeg", 4);
-		//kit.setTegelAantal("TegelType_LavaMetBurchten", 4);
-		//kit.setTegelAantal("TegelType_LavaBocht", 4);
-		//kit.setTegelAantal("TegelType_LavaRecht", 4);
-		
+
+		// kit.setTegelAantal("TegelType_LavaMetWeg", 4);
+		// kit.setTegelAantal("TegelType_LavaMetBurchten", 4);
+		// kit.setTegelAantal("TegelType_LavaBocht", 4);
+		// kit.setTegelAantal("TegelType_LavaRecht", 4);
+
 		// TODO: Spelers juiste pionnen geven
-		for(Speler s : kit.getSpelers()) {
-			for(int i = 0; i < 7; i++)
-				kit.geefSpelerPion(new Pion(0, PionTypeVerzameling.getInstantie().getType("PionType_Volgeling"), s), s);
+		for (Speler s : kit.getSpelers()) {
+			for (int i = 0; i < 7; i++)
+				kit.geefSpelerPion(new Pion(0, PionTypeVerzameling
+						.getInstantie().getType("PionType_Volgeling"), s), s);
 		}
 		// Actieve Speler instellen (de eerste)
 		kit.setActieveSpeler(kit.getSpelers().get(0));
-		
-		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType("TegelType_BurchtMetBochtweg"));
+
+		Tegel t = new Tegel(TegelTypeVerzameling.getInstantie().getType(
+				"TegelType_BurchtMetBochtweg"));
 		kit.setBegintegel(t);
-		
+
 		try {
-			Object[] param = {kit, this};
-			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class};
-			return ActieVerzameling.getInstantie().getNewInstantie("GeefTegel", param, paramKlassen);
+			Object[] param = { kit, this };
+			Class<?>[] paramKlassen = { SpelToolkit.class, AbstractActie.class };
+			return ActieVerzameling.getInstantie().getNewInstantie("GeefTegel",
+					param, paramKlassen);
 		} catch (Exception e) {
 			System.err.println("Unexpected Exception: " + e.getMessage());
 			e.printStackTrace();

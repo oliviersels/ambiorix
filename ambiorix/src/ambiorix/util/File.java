@@ -5,57 +5,45 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-
-public class File 
-{
-	public static String getContents(java.io.File file)
-	{
+public class File {
+	public static String getContents(java.io.File file) {
 		String output = "";
-		
-		try
-		{
+
+		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			
+
 			String line = "";
-			while( line != null )
-			{
+			while (line != null) {
 				output += line;
 				line = reader.readLine();
 			}
-			
+
 			reader.close();
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return output;
 	}
-	
-	public static String getContents(String filename)
-	{
+
+	public static String getContents(String filename) {
 		java.io.File file = new java.io.File(filename);
-		
+
 		return getContents(file);
 	}
-	
-	public static void writeContents(String contents, String filename)
-	{
+
+	public static void writeContents(String contents, String filename) {
 		java.io.File file = new java.io.File(filename);
-		
-		try
-		{
+
+		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			
+
 			writer.write(contents);
-			
+
 			writer.close();
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-		}	
-		
+		}
+
 	}
 }

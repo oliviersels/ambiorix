@@ -9,21 +9,21 @@ public class StartController implements StartMenuLuisteraar {
 	SpelerMenu spelerMenu;
 	SpelerController spelerController;
 	StartMenu startMenu;
-	
+
 	public StartController(StartMenu menu) {
 		startMenu = menu;
 	}
-	
+
 	@Override
 	public void highscores() {
 		new BestaatNogNietVenster();
-		
+
 	}
 
 	@Override
 	public void laadSpel() {
 		new BestaatNogNietVenster();
-		
+
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class StartController implements StartMenuLuisteraar {
 	@Override
 	public void stop() {
 		new BestaatNogNietVenster();
-		
+
 	}
 
 }

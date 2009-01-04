@@ -16,90 +16,91 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
 
-public class TegelGeest extends JComponent implements MouseMotionListener, MouseListener, TegelVeldComponent{
+public class TegelGeest extends JComponent implements MouseMotionListener,
+		MouseListener, TegelVeldComponent {
 	private int xPos;
 	private int yPos;
 	private Vector<Tegel.RICHTING> richtingen;
-	private Vector<Tegel_Gui> buren;//oorspronkelijk was 1 buur genoeg, maar om in de gui te controleren of een tegel plaatsbaar is
-									//en om de TegelGeesten terug te kunnen verwijderen hebben we er meerdere nodig
-	private Vector <TegelGeestLuisteraar> tegelGeestLuisteraars;
+	private Vector<Tegel_Gui> buren;// oorspronkelijk was 1 buur genoeg, maar om
+									// in de gui te controleren of een tegel
+									// plaatsbaar is
+	// en om de TegelGeesten terug te kunnen verwijderen hebben we er meerdere
+	// nodig
+	private Vector<TegelGeestLuisteraar> tegelGeestLuisteraars;
 	private TegelBasis teTekenenTegel = null;
 	private boolean isRood;
-	public TegelGeest(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting)
-	{
+
+	public TegelGeest(int x, int y, Tegel_Gui tg, Tegel.RICHTING richting) {
 		tegelGeestLuisteraars = new Vector<TegelGeestLuisteraar>();
 		setXPos(x);
 		setYPos(y);
 		this.richtingen = new Vector<Tegel.RICHTING>();
 		this.richtingen.add(richting);
-		this.setBounds(x*100, y*100, 100, 100);
+		this.setBounds(x * 100, y * 100, 100, 100);
 		this.buren = new Vector<Tegel_Gui>();
 		this.buren.add(tg);
 		this.revalidate();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
+
 	/**
 	 * Voegt een TegelGeestLuisteraar toe.
-	 * @param tgl De TegelGeestLuisteraar.
+	 * 
+	 * @param tgl
+	 *            De TegelGeestLuisteraar.
 	 */
-	public void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl)
-	{
+	public void addTegelGeestLuisteraar(TegelGeestLuisteraar tgl) {
 		tegelGeestLuisteraars.add(tgl);
 	}
-	
-	public void voegBuurToe(Tegel_Gui tg, Tegel.RICHTING richting)
-	{
+
+	public void voegBuurToe(Tegel_Gui tg, Tegel.RICHTING richting) {
 		this.buren.add(tg);
 		this.richtingen.add(richting);
 	}
-	
-	public void verwijderBuur(Tegel_Gui tg)
-	{
+
+	public void verwijderBuur(Tegel_Gui tg) {
 		int index = buren.indexOf(tg);
-		if(index != -1)
-		{
+		if (index != -1) {
 			this.buren.remove(index);
 			this.richtingen.remove(index);
 		}
 	}
-	
-	public Vector<Tegel_Gui> geefBuren()
-	{
+
+	public Vector<Tegel_Gui> geefBuren() {
 		return this.buren;
 	}
-	public Vector<Tegel.RICHTING> geefRichtingen()
-	{
+
+	public Vector<Tegel.RICHTING> geefRichtingen() {
 		return this.richtingen;
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON3 && this.teTekenenTegel != null)
-		{
+		if (e.getButton() == MouseEvent.BUTTON3 && this.teTekenenTegel != null) {
 			int rot = this.teTekenenTegel.getRotatie();
 			rot += 90;
 			if (rot == 360)
 				rot = 0;
 			this.teTekenenTegel.setRotatie(rot);
-			Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
+			Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars
+					.iterator();
 			TegelGeestGebeurtenis tgg = new TegelGeestGebeurtenis();
 			tgg.tegel = this.buren.get(0).getTegel();// 1 tegel is hier genoeg
 			tgg.richting = this.richtingen.get(0);
 			tgg.tegelGeest = this;
-			while(it.hasNext())
-			{
+			while (it.hasNext()) {
 				(it.next()).bewogen(tgg);
 			}
 			this.repaint();
 			this.revalidate();
-		}else
-			{
-			Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars.iterator();
+		} else {
+			Iterator<TegelGeestLuisteraar> it = tegelGeestLuisteraars
+					.iterator();
 			TegelGeestGebeurtenis tgg = new TegelGeestGebeurtenis();
 			tgg.tegel = this.buren.get(0).getTegel();
 			tgg.richting = this.richtingen.get(0);
-			while(it.hasNext())
-			{
+			while (it.hasNext()) {
 				(it.next()).geklikt(tgg);
 			}
 		}
@@ -108,7 +109,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -117,50 +118,55 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 		this.zetRood(false);
 		this.repaint();
 		this.revalidate();
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		if(teTekenenTegel != null)
-		{
+		if (teTekenenTegel != null) {
 			int rot = teTekenenTegel.getRotatie();
 			g2.rotate(Math.toRadians(rot), 50, 50);
-			AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f);
+			AlphaComposite ap = AlphaComposite.getInstance(
+					AlphaComposite.SRC_OVER, .5f);
 			g2.setComposite(ap);
-			g2.drawImage(AfbeeldingLader.geefAfbeelding(teTekenenTegel.getType().getAfbeelding())
-					, 1, 1, 98, 98, null);
+			g2.drawImage(AfbeeldingLader.geefAfbeelding(teTekenenTegel
+					.getType().getAfbeelding()), 1, 1, 98, 98, null);
 		}
-		if(isRood)
-		{
-			AlphaComposite ap = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .4f);
+		if (isRood) {
+			AlphaComposite ap = AlphaComposite.getInstance(
+					AlphaComposite.SRC_OVER, .4f);
 			g2.setComposite(ap);
 			g2.setColor(Color.red);
 			g2.fillRect(1, 1, 99, 99);
 		}
 	}
+
 	public void setYPos(int yPos) {
 		this.yPos = yPos;
 	}
+
 	public int getYPos() {
 		return yPos;
 	}
+
 	public void setXPos(int xPos) {
 		this.xPos = xPos;
 	}
+
 	public int getXPos() {
 		return xPos;
 	}
@@ -173,7 +179,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -183,8 +189,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 		tgg.tegel = this.buren.get(0).getTegel();
 		tgg.richting = this.richtingen.get(0);
 		tgg.tegelGeest = this;
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			(it.next()).bewogen(tgg);
 		}
 	}
@@ -196,7 +201,7 @@ public class TegelGeest extends JComponent implements MouseMotionListener, Mouse
 	}
 
 	public void zetRood(boolean b) {
-		isRood =b;
+		isRood = b;
 		this.repaint();
 		this.revalidate();
 	}

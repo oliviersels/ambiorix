@@ -11,213 +11,207 @@ import ambiorix.spelbord.scoreberekenaars.SimpelScoreBerekenaar;
 import ambiorix.spelers.Speler;
 import ambiorix.util.Punt;
 
-
-public class Positie
-{
+public class Positie {
 	private BordPositie positie;
 	private Vector<Score> scores;
 	private Pion pion;
 	private Terrein locatie;
-	
-	public Positie( BordPositie positie )
-	{
+
+	public Positie(BordPositie positie) {
 		this.positie = positie;
 		scores = new Vector<Score>();
 	}
-	
-	//---------------------------------------------------------------------------------
-	
-	public BordPositie getPositie()
-	{
+
+	// ---------------------------------------------------------------------------------
+
+	public BordPositie getPositie() {
 		return positie;
 	}
-	
-	public Vector<Score> getScores()
-	{
+
+	public Vector<Score> getScores() {
 		return scores;
 	}
-	
-	public Pion getPion()
-	{
+
+	public Pion getPion() {
 		return pion;
 	}
-	
-	public Terrein getLocatie()
-	{
+
+	public Terrein getLocatie() {
 		return locatie;
 	}
-	
-	public Score getScore(int index)
-	{
-		if( index > 0 && index < scores.size() )
-		{
+
+	public Score getScore(int index) {
+		if (index > 0 && index < scores.size()) {
 			return scores.elementAt(index);
 		}
-		
+
 		return null;
 	}
-	
-	//---------------------------------------------------------------------------------
-	
-	public void setScore(int index, Score score)
-	{
-		if( index > 0 && index < scores.size() )
-		{
+
+	// ---------------------------------------------------------------------------------
+
+	public void setScore(int index, Score score) {
+		if (index > 0 && index < scores.size()) {
 			scores.setElementAt(score, index);
 		}
 	}
-	
-	public void setScore(Speler speler, int score)
-	{
-		for( int i = 0; i < scores.size(); ++i )
-		{
-			if( speler.getNaam().toString().equals( scores.elementAt(i).getSpeler().getNaam().toString() ) )
-			{
+
+	public void setScore(Speler speler, int score) {
+		for (int i = 0; i < scores.size(); ++i) {
+			if (speler.getNaam().toString().equals(
+					scores.elementAt(i).getSpeler().getNaam().toString())) {
 				scores.elementAt(i).setScore(score);
 			}
 		}
 	}
-	
-	public void setScores(Vector<Score> s)
-	{
+
+	public void setScores(Vector<Score> s) {
 		scores = new Vector<Score>();
 		scores.addAll(s);
 	}
-	
-	public void setPion(Pion pion)
-	{
+
+	public void setPion(Pion pion) {
 		this.pion = pion;
 	}
-	
-	public void setLocatie(Terrein locatie)
-	{
+
+	public void setLocatie(Terrein locatie) {
 		this.locatie = locatie;
 	}
-	
-	//---------------------------------------------------------------------------------
-	
+
+	// ---------------------------------------------------------------------------------
+
 	/**
-	 * Berekent de score van gebieden waar de geplaatste tegel deel van uitmaakt.
+	 * Berekent de score van gebieden waar de geplaatste tegel deel van
+	 * uitmaakt.
 	 */
-	public void berekenScores(Tegel t)
-	{
-		//System.out.println("*--- begin scoreberekening --- *" );
+	public void berekenScores(Tegel t) {
+		// System.out.println("*--- begin scoreberekening --- *" );
 		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
-		Vector<Punt> beginpunten = t.getGebiedBeginPunten();						// bereken startpunten vd gebieden op de tegel
-		//System.out.println("aantal beginpunten: " + beginpunten.size() );
-		
-		for( int i = 0; i < beginpunten.size(); ++i )								// voor elk beginpunt
+		Vector<Punt> beginpunten = t.getGebiedBeginPunten(); // bereken
+																// startpunten
+																// vd gebieden
+																// op de tegel
+		// System.out.println("aantal beginpunten: " + beginpunten.size() );
+
+		for (int i = 0; i < beginpunten.size(); ++i) // voor elk beginpunt
 		{
-			//System.out.println("---\n beginpunt " + i + ": " );
-			Terrein terrein = new Terrein( t, beginpunten.elementAt(i) );
-			Gebied gebied = t.getGebied( terrein );									// bereken het gebied van dit beginpunt
-			
-			Pion []pionnen = gebied.getPionnen().toArray( new Pion[0] );			// zet set om naar array -> spelers kunnen aanspreken
+			// System.out.println("---\n beginpunt " + i + ": " );
+			Terrein terrein = new Terrein(t, beginpunten.elementAt(i));
+			Gebied gebied = t.getGebied(terrein); // bereken het gebied van dit
+													// beginpunt
+
+			Pion[] pionnen = gebied.getPionnen().toArray(new Pion[0]); // zet
+																		// set
+																		// om
+																		// naar
+																		// array
+																		// ->
+																		// spelers
+																		// kunnen
+																		// aanspreken
 			int aantalSpelers = gebied.getPionnen().size();
-			//System.out.println("aantal pionnen: " + gebied.getPionnen().size() );
-			
-			for( int j = 0; j < aantalSpelers; ++j )												
-			{
+			// System.out.println("aantal pionnen: " +
+			// gebied.getPionnen().size() );
+
+			for (int j = 0; j < aantalSpelers; ++j) {
 				boolean gevonden = false;
-				
-				for( int s = 0; s < scores.size() && gevonden == false; ++s )
-				{
-					if( scores.elementAt(s).getSpeler().getNaam().toString().equals( pionnen[j].getSpeler().toString() ) )
-					{
-						// speler heeft al punten gehad door deze plaatsing -> punten bijtellen
-						scores.elementAt(s).setScore( scores.elementAt(s).getScore() + simpel.berekenScore( gebied, pionnen[j].getSpeler() ) );
+
+				for (int s = 0; s < scores.size() && gevonden == false; ++s) {
+					if (scores.elementAt(s).getSpeler().getNaam().toString()
+							.equals(pionnen[j].getSpeler().toString())) {
+						// speler heeft al punten gehad door deze plaatsing ->
+						// punten bijtellen
+						scores.elementAt(s).setScore(
+								scores.elementAt(s).getScore()
+										+ simpel.berekenScore(gebied,
+												pionnen[j].getSpeler()));
 						gevonden = true;
 					}
 				}
-				
-				if( !gevonden )
-				{
-					// nieuwe speler die score toegewezen krijgt -> nieuwe score invoegen
-					voegScoreToe(pionnen[j].getSpeler(), simpel.berekenScore( gebied, pionnen[j].getSpeler() ) );		// bereken score voor elke speler en voeg die toe
+
+				if (!gevonden) {
+					// nieuwe speler die score toegewezen krijgt -> nieuwe score
+					// invoegen
+					voegScoreToe(pionnen[j].getSpeler(), simpel.berekenScore(
+							gebied, pionnen[j].getSpeler())); // bereken score
+																// voor elke
+																// speler en
+																// voeg die toe
 				}
 			}
 		}
-		//System.out.println("einde scoreberekening\n*----------*" );
-		sorteer();																	// sorteer de lijst van groot naar klein
+		// System.out.println("einde scoreberekening\n*----------*" );
+		sorteer(); // sorteer de lijst van groot naar klein
 	}
-	
-	public void voegScoreToe(Speler speler, int score)
-	{
+
+	public void voegScoreToe(Speler speler, int score) {
 		Score s = new Score(speler, score);
 		scores.add(s);
 	}
-	
+
 	/**
 	 * sorteert de lijst van scores van hoog naar laag
 	 */
-	public void sorteer()
-	{
+	public void sorteer() {
 		int min, index;
 		Score s;
-		
-		for( int i = 0; i < scores.size(); ++i )
-		{
+
+		for (int i = 0; i < scores.size(); ++i) {
 			min = scores.elementAt(i).getScore();
 			index = i;
-			
-			for( int j = i+1; j < scores.size(); ++j )
-			{
-				if( scores.elementAt(j).getScore() < min )
-				{
+
+			for (int j = i + 1; j < scores.size(); ++j) {
+				if (scores.elementAt(j).getScore() < min) {
 					min = scores.elementAt(j).getScore();
 					index = j;
 				}
 			}
-			
-			s = new Score( scores.elementAt(index).getSpeler(), scores.elementAt(index).getScore() );
+
+			s = new Score(scores.elementAt(index).getSpeler(), scores
+					.elementAt(index).getScore());
 			scores.remove(index);
 			scores.add(0, s);
 		}
 	}
-	
-	public boolean bevatSpeler(Speler speler)
-	{
-		for( int i = 0; i < scores.size(); ++i )
-		{
-			if( scores.elementAt(i).getSpeler().toString().equals( speler.toString() ) )
-			{
+
+	public boolean bevatSpeler(Speler speler) {
+		for (int i = 0; i < scores.size(); ++i) {
+			if (scores.elementAt(i).getSpeler().toString().equals(
+					speler.toString())) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
-	public int getScore( Speler speler )
-	{
-		for( int i = 0; i < scores.size(); ++i )
-		{
-			if( scores.elementAt(i).getSpeler().toString().equals( speler.toString() ) )
-			{
+
+	public int getScore(Speler speler) {
+		for (int i = 0; i < scores.size(); ++i) {
+			if (scores.elementAt(i).getSpeler().toString().equals(
+					speler.toString())) {
 				return scores.elementAt(i).getScore();
 			}
 		}
-		
+
 		return 0;
 	}
-	
-	public void printPositie()
-	{
-		System.out.println( "positie: " + positie.toString());
-		if( pion != null )
-		{
-			System.out.println( "---" );
-			System.out.println( "pion: " + pion.getID() );
-			System.out.println( "locatie: " + locatie.getType().getID() );
+
+	public void printPositie() {
+		System.out.println("positie: " + positie.toString());
+		if (pion != null) {
+			System.out.println("---");
+			System.out.println("pion: " + pion.getID());
+			System.out.println("locatie: " + locatie.getType().getID());
 		}
-		System.out.println( "---" );
-		System.out.println( "aantal scores: " + scores.size() );
-		System.out.println( "---" );
-		
-		for( int i = 0; i < scores.size(); ++i )
-		{
-			System.out.println( "\t\t" + scores.elementAt(i).getSpeler() + " - " + scores.elementAt(i).getScore() );
+		System.out.println("---");
+		System.out.println("aantal scores: " + scores.size());
+		System.out.println("---");
+
+		for (int i = 0; i < scores.size(); ++i) {
+			System.out.println("\t\t" + scores.elementAt(i).getSpeler() + " - "
+					+ scores.elementAt(i).getScore());
 		}
-		System.out.println( "-----------------------------------------------------" );
+		System.out
+				.println("-----------------------------------------------------");
 	}
 }

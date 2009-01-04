@@ -14,7 +14,6 @@ import ambiorix.spelers.MenselijkeSpeler;
 import ambiorix.spelers.Speler;
 import ambiorix.uitbreidingen.UitbreidingVerzameling;
 
-
 public class UitbreidingController implements MenuLuisteraar {
 	UitbreidingMenu uitbreidingMenu;
 	Vector<SpelerOpties> spelerOpties;
@@ -26,44 +25,46 @@ public class UitbreidingController implements MenuLuisteraar {
 		uitbreidingMenu = um;
 		spelerOpties = s;
 	}
-	
+
 	@Override
 	public void volgende() {
-		UitbreidingVerzameling.getInstantie().bereidUitbreidingenVoor(uitbreidingMenu.geefGeselecteerdeUitbreidingen());
+		UitbreidingVerzameling.getInstantie().bereidUitbreidingenVoor(
+				uitbreidingMenu.geefGeselecteerdeUitbreidingen());
 		gui = new HoofdVenster();
 		spel = new Spel(gui.getUitvoer());
 		spelers = new Vector<Speler>();
-		for(SpelerOpties so : spelerOpties) {
-			if(so.type == SpelerOptiesType.HOT_SEAT) {
-				MenselijkeSpeler s = new MenselijkeSpeler(gui.getInvoer(), gui.getUitvoer());
+		for (SpelerOpties so : spelerOpties) {
+			if (so.type == SpelerOptiesType.HOT_SEAT) {
+				MenselijkeSpeler s = new MenselijkeSpeler(gui.getInvoer(), gui
+						.getUitvoer());
 				s.setKleur(so.kleur);
 				s.setNaam(so.naam);
 				spelers.add(s);
-			}
-			else if(so.type == SpelerOptiesType.AI) {
-				AiSpeler s = new AiSpeler(spel.getSpelbord(), gui.getUitvoer(), UitbreidingVerzameling.getInstantie().getAi());
+			} else if (so.type == SpelerOptiesType.AI) {
+				AiSpeler s = new AiSpeler(spel.getSpelbord(), gui.getUitvoer(),
+						UitbreidingVerzameling.getInstantie().getAi());
 				s.setKleur(so.kleur);
 				s.setNaam(so.naam);
 				spelers.add(s);
 			}
 		}
-		for(Speler s : spelers) {
+		for (Speler s : spelers) {
 			spel.addSpeler(s);
 			gui.voegSpelerToe(s);
 		}
-		
+
 		gui.setLocationRelativeTo(gui);
 		gui.setVisible(true);
 		uitbreidingMenu.setVisible(false);
 		gui.requestFocus();
-		
+
 		spel.start();
 	}
 
 	@Override
 	public void vorige() {
 		new BestaatNogNietVenster();
-		
+
 	}
 
 }

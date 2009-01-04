@@ -18,36 +18,36 @@ public class ZetPion extends AbstractActie {
 		super(kit, vorige);
 		vorigeTegel = null;
 	}
-	
+
 	public ZetPion(SpelToolkit kit, AbstractActie vorige, Tegel vorigeTegel) {
 		super(kit, vorige);
 		this.vorigeTegel = vorigeTegel;
 	}
-	
+
 	private boolean controleerPositie(Pion p, Terrein t) {
-		if(p == null || t == null)
+		if (p == null || t == null)
 			return false;
-		
+
 		// Check of we wel op dezelfde tegel plaatsen als de vorige
-		if(vorigeTegel != null) {
-			if(!vorigeTegel.equals(t.getTegel()))
+		if (vorigeTegel != null) {
+			if (!vorigeTegel.equals(t.getTegel()))
 				return false;
 		}
-		
+
 		return kit.controleerPlaatsbaarheid(p, t);
 	}
 
 	@Override
-	public AbstractActie doeActie() {		
+	public AbstractActie doeActie() {
 		Speler actieveSpeler = kit.getActieveSpeler();
-		
+
 		// Heeft de speler nog pionnen?
-		if(actieveSpeler.getAantalPionnen() != 0) {
+		if (actieveSpeler.getAantalPionnen() != 0) {
 			gekozenPion = null;
 			gekozenTerrein = null;
-			
-			while(!controleerPositie(gekozenPion, gekozenTerrein)) {
-				if(gekozenPion != null)
+
+			while (!controleerPositie(gekozenPion, gekozenTerrein)) {
+				if (gekozenPion != null)
 					kit.geefSpelerPion(gekozenPion, actieveSpeler);
 				try {
 					gekozenPion = kit.selecteerSpelerPion(actieveSpeler);
@@ -57,7 +57,7 @@ public class ZetPion extends AbstractActie {
 					return vorigeActie;
 				}
 				// We willen geen pion zetten!
-				if(gekozenPion == null)
+				if (gekozenPion == null)
 					break;
 				try {
 					gekozenTerrein = kit.selecteerTegelGebied(actieveSpeler);
@@ -68,20 +68,22 @@ public class ZetPion extends AbstractActie {
 				}
 				kit.neemSpelerPionAf(gekozenPion, actieveSpeler);
 			}
-			if(gekozenPion != null) {
+			if (gekozenPion != null) {
 				kit.zetPion(actieveSpeler, gekozenPion, gekozenTerrein);
 			}
 		}
 		System.out.println("voor score bereken");
 		try {
-			Object[] param = {kit, this, vorigeTegel};
-			Class<?>[] paramKlassen = {SpelToolkit.class, AbstractActie.class, Tegel.class};
-			return ActieVerzameling.getInstantie().getNewInstantie("BerekenScore", param, paramKlassen);
+			Object[] param = { kit, this, vorigeTegel };
+			Class<?>[] paramKlassen = { SpelToolkit.class, AbstractActie.class,
+					Tegel.class };
+			return ActieVerzameling.getInstantie().getNewInstantie(
+					"BerekenScore", param, paramKlassen);
 		} catch (Exception e) {
 			System.err.println("Unexpected Exception: " + e.getMessage());
 			e.printStackTrace();
 			return null;
-		}		
+		}
 	}
 
 	@Override

@@ -7,25 +7,26 @@ import java.awt.LayoutManager;
 
 public class TegelSelectieVeldLayout implements LayoutManager {
 	int minH = 0;
-    int minB = 100;
+	int minB = 100;
+
 	@Override
 	public void addLayoutComponent(String arg0, Component arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void layoutContainer(Container parent) {
 		int nComps = parent.getComponentCount();
-        minH = 0;
+		minH = 0;
 
-        for (int i = 0 ; i < nComps ; i++) {
-            Component c = parent.getComponent(i);
-           c.setBounds(0, i*100, 100, 100);
-           minH = i*100 + 100;
-            
-        }
-		
+		for (int i = 0; i < nComps; i++) {
+			Component c = parent.getComponent(i);
+			c.setBounds(0, i * 100, 100, 100);
+			minH = i * 100 + 100;
+
+		}
+
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class TegelSelectieVeldLayout implements LayoutManager {
 	@Override
 	public void removeLayoutComponent(Component arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -17,7 +17,8 @@ import javax.swing.JTextArea;
 import ambiorix.uitbreidingen.Uitbreiding;
 import ambiorix.uitbreidingen.UitbreidingVerzameling;
 
-public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, ActionListener{
+public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar,
+		ActionListener {
 	private JPanel knoppenPanel;
 	private JButton knop_vorige;
 	private JButton knop_volgende;
@@ -27,7 +28,7 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 	private Vector<Uitbreiding_Gui> uitbreidingPanels;
 	private JScrollPane beschrijvingScroller;
 	private JTextArea uitbreidingBeschrijving;
-	private Vector <MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
+	private Vector<MenuLuisteraar> menuLuisteraars = new Vector<MenuLuisteraar>();
 
 	public UitbreidingMenu() {
 		super("Ambiorix");
@@ -43,52 +44,49 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 		uitbreidingBeschrijving = new JTextArea();
 		uitbreidingBeschrijving.setLineWrap(true);
 		uitbreidingBeschrijving.setWrapStyleWord(true);
-		//======== this ========
+		// ======== this ========
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		//======== knoppenPanel ========
-
+		// ======== knoppenPanel ========
 
 		knoppenPanel.setLayout(new GridLayout());
 
-		//---- knop_vorige ----
+		// ---- knop_vorige ----
 		knop_vorige.setActionCommand("vorige");
 		knop_vorige.addActionListener(this);
 		knoppenPanel.add(knop_vorige);
 
-		//---- knop_volgende ----
+		// ---- knop_volgende ----
 		knop_volgende.setActionCommand("volgende");
 		knop_volgende.addActionListener(this);
 		knoppenPanel.add(knop_volgende);
-		
+
 		contentPane.add(knoppenPanel, BorderLayout.SOUTH);
 
-		//======== splitter ========
+		// ======== splitter ========
 
 		splitter.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
-
-		//======== uitbreidingLijstPanel ========
+		// ======== uitbreidingLijstPanel ========
 
 		uitbreidingLijstPanel.setLayout(new GridLayout());
 		UitbreidingVerzameling uv = UitbreidingVerzameling.getInstantie();
-		for( String naam : UitbreidingVerzameling.getInstantie().getTypes() )
-		{
-			Uitbreiding uitbreiding = UitbreidingVerzameling.getInstantie().getType(naam);
+		for (String naam : UitbreidingVerzameling.getInstantie().getTypes()) {
+			Uitbreiding uitbreiding = UitbreidingVerzameling.getInstantie()
+					.getType(naam);
 			Uitbreiding_Gui ug = new Uitbreiding_Gui(uitbreiding);
 			ug.VoegUitbreidingLuisteraarToe(this);
 			uitbreidingLijstPanel.add(ug);
 			uitbreidingPanels.add(ug);
 		}
-		
 
 		scroller.setViewportView(uitbreidingLijstPanel);
 
 		splitter.setTopComponent(scroller);
 
-		//======== beschrijvingScroller ========
+		// ======== beschrijvingScroller ========
 		{
 			beschrijvingScroller.setViewportView(uitbreidingBeschrijving);
 			uitbreidingBeschrijving.setEditable(false);
@@ -100,57 +98,57 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 		setLocationRelativeTo(getOwner());
 	}
 
-	public Vector<String> geefGeselecteerdeUitbreidingen()
-	{
+	public Vector<String> geefGeselecteerdeUitbreidingen() {
 		Vector<String> rStrings = new Vector<String>();
-		for(Uitbreiding_Gui ug:this.uitbreidingPanels)
-		{
-			if(ug.isGeselecteerd())
+		for (Uitbreiding_Gui ug : this.uitbreidingPanels) {
+			if (ug.isGeselecteerd())
 				rStrings.add(ug.getUitbreidingID());
 		}
 		return rStrings;
 	}
-	
-	public static void main(String args[])
-	{
+
+	public static void main(String args[]) {
 		UitbreidingMenu um = new UitbreidingMenu();
 		um.setVisible(true);
 	}
 
-	
 	@Override
 	public void muisBinnenKomst(Uitbreiding_Gui ug) {
-		this.uitbreidingBeschrijving.setText(ug.getUitbreiding().getBeschrijving());
+		this.uitbreidingBeschrijving.setText(ug.getUitbreiding()
+				.getBeschrijving());
 	}
+
 	/**
 	 * Gaat al de MenuLuisteraars waarschuwen dat er op een knop is geklikt.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent AE) {
-		if(AE.getActionCommand().equals("vorige"))
-		{
-			for(MenuLuisteraar ml : menuLuisteraars)
+		if (AE.getActionCommand().equals("vorige")) {
+			for (MenuLuisteraar ml : menuLuisteraars)
 				ml.vorige();
-		}else if(AE.getActionCommand().equals("volgende"))
-		{
-			for(MenuLuisteraar ml : menuLuisteraars)
+		} else if (AE.getActionCommand().equals("volgende")) {
+			for (MenuLuisteraar ml : menuLuisteraars)
 				ml.volgende();
 		}
 	}
+
 	/**
 	 * Voegt een MenuLuisteraar toe.
-	 * @param ML De MenuLuisteraar om toe te voegen.
+	 * 
+	 * @param ML
+	 *            De MenuLuisteraar om toe te voegen.
 	 */
-	public void voegMenuLuisteraarToe(MenuLuisteraar ML)
-	{
+	public void voegMenuLuisteraarToe(MenuLuisteraar ML) {
 		this.menuLuisteraars.add(ML);
 	}
+
 	/**
 	 * Verwijder een MenuLuisteraar.
-	 * @param ML De MenuLuisteraar om te verwijderen.
+	 * 
+	 * @param ML
+	 *            De MenuLuisteraar om te verwijderen.
 	 */
-	public void verwijderMenuLuisteraar(MenuLuisteraar ML)
-	{
+	public void verwijderMenuLuisteraar(MenuLuisteraar ML) {
 		this.menuLuisteraars.remove(ML);
 	}
 }

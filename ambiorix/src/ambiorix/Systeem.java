@@ -1,6 +1,5 @@
 package ambiorix;
 
-
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -8,15 +7,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ambiorix.controller.StartController;
 import ambiorix.guimenus.StartMenu;
 
-
-
 public class Systeem {
-	
+
 	public synchronized void startGUI() {
 		SwingUtilities.invokeLater(new Runnable() {
-		    public void run() {
+			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					UIManager.setLookAndFeel(UIManager
+							.getSystemLookAndFeelClassName());
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 					System.exit(0);
@@ -30,12 +28,12 @@ public class Systeem {
 					e.printStackTrace();
 					System.exit(0);
 				}
-				
+
 				StartMenu start = new StartMenu();
 				StartController sc = new StartController(start);
 				start.voegStartMenuLuisteraarToe(sc);
 				start.setVisible(true);
-		    }
+			}
 		});
 
 	}

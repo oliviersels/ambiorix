@@ -12,7 +12,7 @@ public class Antwoord {
 	private Vector<Tegel> tegels;
 	private Vector<Terrein> terreinen;
 	private Vector<BordPositie> posities;
-	
+
 	public Antwoord() {
 		pionnen = new Vector<Pion>();
 		tegels = new Vector<Tegel>();

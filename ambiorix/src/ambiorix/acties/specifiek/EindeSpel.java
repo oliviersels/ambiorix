@@ -26,25 +26,25 @@ public class EindeSpel extends AbstractActie {
 		Iterator<Pion> it = pionnen.keySet().iterator();
 		ScoreBerekenaar sb = kit.getScoreBerekenaar();
 		sb.zetEindeSpel(true);
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Pion p = it.next();
 			Terrein t = pionnen.get(p);
 			Gebied g = kit.getGebied(t);
-			for(Pion p2 : g.getPionnen()) {
+			for (Pion p2 : g.getPionnen()) {
 				int score = 0;
 				score = sb.berekenScore(g, p2.getSpeler());
-				if(score > 0)
+				if (score > 0)
 					p2.getSpeler().addScore(score);
 			}
 			/* Alle pionnen verwijderen */
-			for(Pion p3 : g.getPionnen()) {
+			for (Pion p3 : g.getPionnen()) {
 				kit.geefSpelerPion(p3, p3.getSpeler());
 				kit.verwijderPion(p3);
 			}
 			pionnen = kit.getPionnenEnPosities();
 			it = pionnen.keySet().iterator();
 		}
-		
+
 		return null;
 	}
 

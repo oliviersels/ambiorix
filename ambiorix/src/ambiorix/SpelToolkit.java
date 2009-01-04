@@ -24,7 +24,8 @@ public class SpelToolkit {
 	private Uitvoer gui;
 	private ScoreBerekenaar scoreBerekenaar;
 
-	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord, Uitvoer gui, ScoreBerekenaar scoreBerekenaar) {
+	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord, Uitvoer gui,
+			ScoreBerekenaar scoreBerekenaar) {
 		this.spelers = spelers;
 		this.spelbord = spelbord;
 		this.gui = gui;
@@ -32,27 +33,27 @@ public class SpelToolkit {
 	}
 
 	// van Spel
-	
+
 	public int getAantalSpelers() {
 		return spelers.size();
 	}
 
 	public Vector<Speler> getSpelers() {
 		return spelers;
-	}	
+	}
 
 	public Speler getActieveSpeler() {
-		for(Speler s : spelers) {
-			if(s.isActief())
+		for (Speler s : spelers) {
+			if (s.isActief())
 				return s;
 		}
-		
+
 		return null;
 	}
 
 	public void setActieveSpeler(Speler actieveSpeler) {
 		Speler nuActief = getActieveSpeler();
-		if(nuActief != null)
+		if (nuActief != null)
 			nuActief.zetActief(false);
 		actieveSpeler.zetActief(true);
 		Uitvoer.ZetActieveSpeler run = gui.new ZetActieveSpeler(actieveSpeler);
@@ -60,74 +61,78 @@ public class SpelToolkit {
 	}
 
 	// van Spelbord
-	
+
 	public boolean positieMogelijk(Tegel t, BordPositie p) {
 		return t.kanBuurAccepteren(p.getBuur(), p.getRichting());
 	}
-	
+
 	// van typeverzamelingen
-	
+
 	public Pion getPion(String piontype, Speler s) {
-		return new Pion(0,PionTypeVerzameling.getInstantie().getType(piontype), s);
+		return new Pion(0,
+				PionTypeVerzameling.getInstantie().getType(piontype), s);
 	}
 
 	public void setTegelAantal(String tegelType, int hoeveelheid) {
 		spelbord.setTegelAantal(tegelType, hoeveelheid);
 	}
-	
+
 	// Van Speler
-	//  1) Input
-	public BordPositie selecteerBordPositie(Speler s) throws InterruptedException, UndoException {
+	// 1) Input
+	public BordPositie selecteerBordPositie(Speler s)
+			throws InterruptedException, UndoException {
 		Antwoord a = s.selecteerBordPositie();
 		return a.getPosities().get(0);
 	}
-	
-	public Tegel selecteerSpelerTegel(Speler s) throws InterruptedException, UndoException {
+
+	public Tegel selecteerSpelerTegel(Speler s) throws InterruptedException,
+			UndoException {
 		Antwoord a = s.selecteerSpelerTegel();
 		return a.getTegels().get(0);
 	}
-	
 
-	public Terrein selecteerTegelGebied(Speler s) throws InterruptedException, UndoException {
+	public Terrein selecteerTegelGebied(Speler s) throws InterruptedException,
+			UndoException {
 		Antwoord a = s.selecteerTegelGebied();
 		return a.getTerreinen().get(0);
 	}
-	
-	public Pion selecteerSpelerPion(Speler s) throws InterruptedException, UndoException {
+
+	public Pion selecteerSpelerPion(Speler s) throws InterruptedException,
+			UndoException {
 		Antwoord a = s.selecteerSpelerPion();
-		if(a != null)
+		if (a != null)
 			return a.getPionnen().get(0);
 		else
 			return null;
 	}
-	
-	//  2) Output
+
+	// 2) Output
 	public void zetTegel(Speler s, Tegel t, BordPositie p) {
 		spelbord.plaatsTegel(t, p);
 		s.zetTegel(t, p);
 	}
-	
+
 	public void zetPion(Speler s, Pion p, Terrein t) {
 		spelbord.plaatsPion(p, t);
 		s.zetPion(p, t);
 	}
-	
+
 	public void geefSpelerTegel(Tegel t, Speler s) {
 		s.addTegel(t);
 	}
-	
+
 	public void geefSpelerPion(Pion p, Speler s) {
 		s.addPion(p);
 	}
-	
+
 	public void neemSpelerTegelAf(Tegel t, Speler s) {
 		s.deleteTegel(t);
 	}
-	
+
 	public void neemSpelerPionAf(Pion p, Speler s) {
 		s.deletePion(p);
 	}
-	
+
 	// 3) spelbord functies ROBIN
 	public Vector<BordPositie> controleerGlobalePlaatsbaarheid(Tegel tegel,
 			boolean stopDirect) {
@@ -183,16 +188,15 @@ public class SpelToolkit {
 		Uitvoer.VerwijderTegel run = gui.new VerwijderTegel(tegel);
 		SwingUtilities.invokeLater(run);
 	}
-	
-	public Tegel getVolgendeTegel()
-	{
+
+	public Tegel getVolgendeTegel() {
 		return spelbord.getVolgendeTegel();
 	}
-	
+
 	public ScoreBerekenaar getScoreBerekenaar() {
 		return scoreBerekenaar;
 	}
-	
+
 	public HashMap<Pion, Terrein> getPionnenEnPosities() {
 		return spelbord.getPionnenEnPosities();
 	}
