@@ -103,19 +103,22 @@ public class Tegel implements TegelBasis
 					// kijken in alle reeds gevonden gebieden
 					boolean isBeginPunt = true;
 					
-					for( Gebied gevonden : gevondenGebieden )
+					if( temp.getType() != TerreinTypeVerzameling.getInstantie().getType("TerreinType_Wildcard") )
 					{
-						if( gevonden.bevatTerrein(temp) )
+						for( Gebied gevonden : gevondenGebieden )
 						{
-							isBeginPunt = false;
-							break;
+							if( gevonden.bevatTerrein(temp) )
+							{
+								isBeginPunt = false;
+								break;
+							}
 						}
-					}
-					
-					if(isBeginPunt)
-					{
-						gebiedBeginPunten.add( new Punt(i,j) );
-						gevondenGebieden.add( gebiedBeheerder.getBeperktGebied(temp) );
+						
+						if(isBeginPunt)
+						{
+							gebiedBeginPunten.add( new Punt(i,j) );
+							gevondenGebieden.add( gebiedBeheerder.getBeperktGebied(temp) );
+						}
 					}
 				}
 			}
