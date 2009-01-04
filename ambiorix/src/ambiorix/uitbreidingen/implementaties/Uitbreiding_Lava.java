@@ -13,15 +13,11 @@ public class Uitbreiding_Lava extends UitbreidingImplementatie {
 
 	@Override
 	public void bereidVoor(Vector<String> andereUitbreidingen) {
-		System.out.println("Lavauitbreiding is ingeladen");
-
 		super.bereidVoor(andereUitbreidingen);
 	}
 
 	@Override
 	public ScoreBerekenaar getScoreBerekenaar() {
-		// rekenen op scoreberekenaar van de onderliggende uitbreidingen
-		// System.out.println("We zitten in de getScoreBerekenaar van Lava");
 		return super.getScoreBerekenaar();
 	}
 

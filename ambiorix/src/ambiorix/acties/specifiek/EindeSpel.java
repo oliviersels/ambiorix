@@ -44,7 +44,7 @@ public class EindeSpel extends AbstractActie {
 			pionnen = kit.getPionnenEnPosities();
 			it = pionnen.keySet().iterator();
 		}
-		
+
 		kit.toonEindeSpel();
 
 		return null;

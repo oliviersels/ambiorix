@@ -167,12 +167,6 @@ public class TegelGebiedBeheerder {
 		Pion pion = null;
 		TerreinType gebiedType = gebied.getType();
 
-		// System.out.print("Kandidaat : " + start.getTegel().getID() + " - " +
-		// start.getPositie().getX() + "," + start.getPositie().getY() );
-		// System.out.println(" -> " +
-		// tegel.getTerreinType(start.getPositie()).getID() + " en " +
-		// gebiedType.getID() );
-
 		// TODO : deze check naar beneden, aannemen dat start geldig is (en
 		// eventueel al in gebied zit)
 		if (tegel.getTerreinType(start.getPositie()) == gebiedType) {
@@ -189,10 +183,6 @@ public class TegelGebiedBeheerder {
 					gebied.voegPionToe(pion, new Terrein(tegel, new Punt(start
 							.getPositie())));
 
-				// System.out.println("Toegevoegd : " + nieuw.getTegel().getID()
-				// + " - " + nieuw.getPositie().getX() + "," +
-				// nieuw.getPositie().getY() );
-
 				// variabelen voor rondom in 4 richtingen kijken
 				Punt punt = null;
 				boolean doorgaanNaarVolgende = true;
@@ -205,9 +195,6 @@ public class TegelGebiedBeheerder {
 				// in de 4 richtingen rondom start kijken voor nieuwe stukjes in
 				// het gebied
 				for (Tegel.RICHTING richting : Tegel.RICHTING.values()) {
-					// System.out.println( "We gaan kijken in richting " +
-					// richting.toString() );
-
 					doorgaanNaarVolgende = true;
 					punt = new Punt(start.getPositie());
 
@@ -236,9 +223,6 @@ public class TegelGebiedBeheerder {
 					// - ofwel een nieuw vakje op dezelfde tegel
 					// - ofwel een nieuw vakje op een andere tegel
 					// - ofwel geen vakje meer
-
-					// System.out.println("Kijk naar : " + tegel.getID() + " - "
-					// + punt.getX() + "," + punt.getY() );
 
 					// op volgende tegel, boven en onder
 					if ((x < 0) || (x > tegel.getTerreinHoogte() - 1)) {
@@ -276,7 +260,6 @@ public class TegelGebiedBeheerder {
 						// structuur van de lijsten
 						// checken of er ook echt een tegel aan gekoppeld is!
 						if (nieuw.getTegel() == null) {
-							// System.out.println("Punt niet gevonden op buur");
 							nieuw = null;
 
 							gebied.voegOpenZijdeToe(new BordPositie(tegel,
@@ -299,42 +282,4 @@ public class TegelGebiedBeheerder {
 			}
 		}
 	}
-
-	public void print() {
-		System.out
-				.println("GebiedBeheerder::Print voor tegel " + tegel.getID());
-		printRichting(Tegel.RICHTING.BOVEN);
-		printRichting(Tegel.RICHTING.ONDER);
-		printRichting(Tegel.RICHTING.RECHTS);
-		printRichting(Tegel.RICHTING.LINKS);
-	}
-
-	private void printRichting(Tegel.RICHTING richting) {
-		System.out.println("TegelGebiedBeheerder::printRichting "
-				+ richting.toString());
-
-		PuntMap<Terrein> verzameling = getGebiedHelpers(richting);
-
-		Set<Punt> keys = verzameling.keySet();
-
-		for (Punt lokaalPunt : keys) {
-			if (lokaalPunt != null) {
-				System.out.print(lokaalPunt.getX() + "," + lokaalPunt.getY()
-						+ " -> ");
-
-				Terrein helper = verzameling.get(lokaalPunt);
-				if (helper != null) {
-					System.out.print(helper.getPositie().getX() + ","
-							+ helper.getPositie().getY() + " = ");
-					if (helper.getTegel() == null)
-						System.out.println("LEEG");
-					else
-						System.out.println(helper.getTegel().getID());
-				} else
-					System.out.println("ERROR");
-			} else
-				System.out.println("punt ERROR");
-		}
-	}
-
 }

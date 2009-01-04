@@ -59,7 +59,6 @@ public class HulpVenster extends JFrame {
 			BufferedReader in = new BufferedReader(new FileReader(FileNaam));
 			String lijn;
 			while ((lijn = in.readLine()) != null) {
-				System.out.println("joe");
 				HulpItem hi = new HulpItem(lijn);
 				hulpItems.remove(hi);
 				hulpItems.add(hi);

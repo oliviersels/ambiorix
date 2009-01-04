@@ -110,8 +110,7 @@ public class UitbreidingVerzameling extends TypeVerzameling<Uitbreiding> {
 				return ingeladenUitbreidingen.get(i).getAi();
 		}
 
-		// FIXME : THROW EXCEPTION
-		System.out.println("UitbreidingVerzameling::getAi : geen gevonden");
+		System.err.println("UitbreidingVerzameling::getAi : geen gevonden");
 		return null;
 	}
 

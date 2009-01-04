@@ -18,13 +18,6 @@ public class ActieVerzameling {
 
 	public void registreerType(Class<AbstractActie> type) {
 		try {
-			/*
-			 * Class[] params = new Class[] {}; Object[] params2 = new
-			 * Object[]{}; String ID = (String) type.getMethod("getID",
-			 * params).invoke(null, params2); System.out.println(
-			 * "ActieVerzameling::registreerType : id : " + ID );
-			 */
-
 			// FIXME : dit mag niet zomaar !!!! inladen met goeie reflectie obv.
 			// TIjdelijk :::
 			// zorgen dat de acties ook mooi voorgaande dinges overschrijven

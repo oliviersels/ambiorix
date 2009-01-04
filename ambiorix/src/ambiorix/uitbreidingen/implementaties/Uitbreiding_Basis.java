@@ -11,8 +11,6 @@ public class Uitbreiding_Basis extends UitbreidingImplementatie {
 
 	@Override
 	public void bereidVoor(Vector<String> andereUitbreidingen) {
-		System.out.println("Basisuitbreiding is ingeladen");
-
 		super.bereidVoor(andereUitbreidingen);
 	}
 

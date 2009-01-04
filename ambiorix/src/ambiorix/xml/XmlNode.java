@@ -35,8 +35,6 @@ public class XmlNode {
 		NodeList children = node.getChildNodes();
 
 		for (int i = 0; i < children.getLength(); i++) {
-			// System.out.println( children.item(i).getNodeName() + " == " +
-			// name );
 			if (children.item(i).getNodeName() == name)
 				output.add(new XmlNode(children.item(i)));
 		}
@@ -65,9 +63,9 @@ public class XmlNode {
 
 			output = new XmlNode(root);
 		} catch (SAXParseException saxParseException) {
-			System.out.println("Line Number:  "
+			System.err.println("Line Number:  "
 					+ saxParseException.getLineNumber());
-			System.out.println("Column Number:  "
+			System.err.println("Column Number:  "
 					+ saxParseException.getColumnNumber());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,7 +75,6 @@ public class XmlNode {
 	}
 
 	public String getValue() {
-		// System.out.println("NodeValue : " + node.getTextContent() );
 		return node.getTextContent();
 	}
 }

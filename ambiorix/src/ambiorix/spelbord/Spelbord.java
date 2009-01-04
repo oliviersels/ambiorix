@@ -45,7 +45,7 @@ public class Spelbord {
 	public void setBegintegel(Tegel beginTegel) {
 		if (this.beginTegel != null) {
 			// TODO : throw exception
-			System.out
+			System.err
 					.println("Spelbord::setBeginTegel : Begintegel is al gezet!!!");
 			return;
 		}
@@ -59,7 +59,7 @@ public class Spelbord {
 	private void assertBegintegel() {
 		if (this.beginTegel == null) {
 			// TODO : throw exception
-			System.out
+			System.err
 					.println("Spelbord::getVolgendeTegel : Begintegel is nog niet gezet!!!");
 			return;
 		}
@@ -94,7 +94,7 @@ public class Spelbord {
 		// TODO : fatsoenlijk checken, NIET GEWOON null TERUGGEVEN !!!!
 		if (tegel == null) // teller > 100, zelf checken of er nog eentje is
 		{
-			System.out
+			System.err
 					.println("Spelbord::GetVolgendeTegel : na 100x zoeken nog altijd geen goede tegel gevonden in de pool : aantal overgebleven : "
 							+ this.overgeblevenTegelAantal);
 			return null;
@@ -172,7 +172,6 @@ public class Spelbord {
 
 		// staat al een tegel daar, zeker niet plaatsbaar dus
 		if (tegelCoordinaten.get(nieuweCoordinaat) != null) {
-			System.out.println("Staat al een tegel");
 			return false;
 		}
 
@@ -274,7 +273,7 @@ public class Spelbord {
 		Punt positie = tegelCoordinaten.getKey(tegel);
 		if (positie == null) {
 			// TODO exception
-			System.out
+			System.err
 					.println("Spelbord::verwijderTegel : Kan tegel niet vinden op het spelbord !");
 			return;
 		}
@@ -297,11 +296,6 @@ public class Spelbord {
 					// gebruiken later (UNDO)
 					tegel.verwijderBuur(richting);
 				}
-				/*
-				 * else { // TODO : ExceptionSystem.out.println(
-				 * "Spelbord::verwijderTegel : Kan tegel op buurpositie niet vinden !"
-				 * + richting); return; }
-				 */
 			}
 			// else is er daar geen buur, dus moeten we ook niks laten weten
 		}
@@ -390,9 +384,6 @@ public class Spelbord {
 			if (buur != null) {
 				tegel.setBuur(buur, r);
 				buur.setBuur(tegel, r.getTegenovergestelde());
-			} else {
-				// System.out.println(" spelbord::PlaatsTegel : geen buur gevonden op "
-				// + buurCoordinaat);
 			}
 		}
 	}
@@ -403,7 +394,7 @@ public class Spelbord {
 		// eerst controleren of de tegel wel een coordinaat heeft
 		if (!tegelCoordinaten.containsValue(tegel)) {
 			// TODO : exception
-			System.out
+			System.err
 					.println("Spelbord::getTegelCoordinaat : tegel heeft nog geen coordinaat");
 			return null;
 		}
@@ -415,7 +406,7 @@ public class Spelbord {
 				return punt;
 		}
 
-		System.out
+		System.err
 				.println("Spelbord::getTegelCoordinaat : tegel heeft nog geen coordinaat 2");
 		return null;
 	}
@@ -520,9 +511,6 @@ public class Spelbord {
 
 	public static Spelbord fromXML(XmlNode root) {
 		Spelbord output = new Spelbord();
-		// Vector<XmlNode> toeTeVoegenBuren = new Vector<XmlNode>();
-
-		// System.out.println("Spelbord::fromXML : " + doc.getNodeName() );
 
 		root = root.getChild("spelbord");
 
@@ -546,10 +534,6 @@ public class Spelbord {
 		// tegels staan hoogstwaarschijnlijk niet in de goede volgorde.
 
 		for (XmlNode tegel : tegels) {
-			// System.out.println("Spelbord::fromXML : " +
-			// tegels.item(i).getNodeName() );
-			// System.out.println("Spelbord::fromXML : " + tegels.item(i) );
-
 			Tegel nieuweTegel = Tegel.fromXML(tegel);
 
 			XmlNode buur = tegel.getChild("buur");
@@ -581,10 +565,6 @@ public class Spelbord {
 							locatie));
 				}
 			}
-
-			// System.out.println("Spelbord::fromXML tegel : " + id + " " + type
-			// + " " + rotatie );
-
 		}
 
 		return output;

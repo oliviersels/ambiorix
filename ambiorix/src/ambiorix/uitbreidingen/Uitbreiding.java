@@ -62,7 +62,6 @@ public class Uitbreiding extends Type implements UitbreidingInterface {
 			try {
 				KlasseLader<UitbreidingImplementatie> lader = new KlasseLader<UitbreidingImplementatie>(
 						uitbreidingPad);
-				System.out.println(ID);
 				Class<UitbreidingImplementatie> imp = lader
 						.LaadKlasse("ambiorix.uitbreidingen.implementaties."
 								+ ID);
@@ -128,8 +127,6 @@ public class Uitbreiding extends Type implements UitbreidingInterface {
 
 	public class Sorteerder implements Comparator<Uitbreiding> {
 		public int compare(Uitbreiding t1, Uitbreiding t2) {
-			// System.out.println("COMPARE : " + t1.getID() + " <> " +
-			// t2.getID() );
 
 			if (t1.getVolgnummer() < t2.getVolgnummer())
 				return -1;

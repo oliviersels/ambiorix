@@ -50,20 +50,20 @@ public class Tegel implements TegelBasis {
 	 */
 	public void setRotatie(int rotatie) {
 		if ((rotatie == this.rotatie) && (terrein != null)) {
-			System.out.println("Tegel::setRotatie : GEEN GEVOLG");
+			System.err.println("Tegel::setRotatie : GEEN GEVOLG");
 			return;
 		}
 
 		if (!draaibaar) {
 			// TODO : exception
-			System.out.println("Tegel::setRotatie : NIET TOEGESTAAN");
+			System.err.println("Tegel::setRotatie : NIET TOEGESTAAN");
 			return;
 		}
 
 		if ((rotatie != 90) && (rotatie != 180) && (rotatie != 270)
 				&& (rotatie != 0)) {
 			// TODO : exception
-			System.out.println("Tegel::setRotatie : FOUTE GRADEN");
+			System.err.println("Tegel::setRotatie : FOUTE GRADEN");
 			return;
 		}
 
@@ -156,8 +156,6 @@ public class Tegel implements TegelBasis {
 
 	public void setBuur(Tegel buur, RICHTING richting) {
 		draaibaar = false;
-		// setBuur(buur, richting, true);
-		// System.out.println("SET BUUR : NOG AANPASSEN");
 
 		buren[richting.ordinal()] = buur;
 		gebiedBeheerder.setBuur(buur, richting);
@@ -293,19 +291,6 @@ public class Tegel implements TegelBasis {
 		return draaibaar;
 	}
 
-	public void print() {
-		System.out.println("Tegel::Print voor tegel " + ID);
-
-		for (RICHTING r : RICHTING.values()) {
-			Tegel buur = getBuur(r);
-			if (buur == null)
-				System.out.println(r + " = LEEG");
-			else
-				System.out.println(r + " = " + buur.getID());
-
-		}
-	}
-
 	public String toXML() {
 		String output = "\t\t<tegel>\n";
 
@@ -370,8 +355,6 @@ public class Tegel implements TegelBasis {
 
 	public class Sorteerder implements Comparator<Tegel> {
 		public int compare(Tegel t1, Tegel t2) {
-			// System.out.println("COMPARE : " + t1.getID() + " <> " +
-			// t2.getID() );
 
 			if (t1.getID() < t2.getID())
 				return -1;

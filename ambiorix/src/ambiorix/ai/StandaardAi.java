@@ -35,42 +35,25 @@ public class StandaardAi extends Ai {
 		int huidigMaximumWaarde = -1, tijdelijkTotaal;
 		Vector<Antwoord> antwoorden = new Vector<Antwoord>();
 
-		// System.out.println("te plaatsen tegel: " +
-		// tegels.elementAt(0).getType().getID());
-
 		positieLijst = maakPosities(bord);
-		// telScores(positieLijst);
-		// printScores( positieLijst );
-		// printPositieLijst( positieLijst );
-		// System.out.println("grootte positieLijst: " + positieLijst.size());
 
 		for (int i = 0; i < positieLijst.size(); ++i) {
-			// System.out.println("for-lus positieLijst op positie: " + (i+1) );
 
 			tijdelijkTotaal = 0;
-			if (positieLijst.elementAt(i).bevatSpeler(speler))// als punten van
-			// de speler
-			// beinvloed
-			// worden
-			{
-				// System.out.println( "speler wordt beinvloed" );
+			if (positieLijst.elementAt(i).bevatSpeler(speler)) {
 				Vector<Punt> beginpunten = tegels.elementAt(0)
 						.getGebiedBeginPunten(); // bereken beginpunten vd
-				// gebieden
+													// gebieden
 				tijdelijkTotaal = positieLijst.elementAt(i).getScore(speler);
-				// System.out.println("tijdelijkTotaal bij begin positie " + (i
-				// + 1) + ": " + tijdelijkTotaal);
 
 				for (int j = 0; j < beginpunten.size(); ++j) {
 					Terrein terrein = new Terrein(tegels.elementAt(0),
 							beginpunten.elementAt(j));
 					Gebied gebied = tegels.elementAt(0).getGebied(terrein); // bereken
-					// gebieden
+																			// gebieden
 
 					if (gebied.isEigenaar(speler)) {
-						if (gebied.getPionnen().size() == 1) // speler is enige
-						// bezitter
-						{
+						if (gebied.getPionnen().size() == 1) {
 							if (gebied.isEnigeEigenaar(speler)) {
 								// vermenigvuldig met hoge factor
 								tijdelijkTotaal += 20 * positieLijst.elementAt(
@@ -96,8 +79,7 @@ public class StandaardAi extends Ai {
 										.elementAt(i).getScore(speler));
 							}
 						}
-					} else // speler is geen bezitter
-					{
+					} else {
 						if (gebied.isVolledig()) {
 							// vermenigvuldig met lage factor
 							tijdelijkTotaal -= 10 * positieLijst.elementAt(i)
@@ -112,15 +94,10 @@ public class StandaardAi extends Ai {
 					}
 				}
 
-				// System.out.println("i+1 VOOR toekenning " +
-				// positieLijst.elementAt(i+1).getScore(speler) );
 				positieLijst.elementAt(i).setScore(speler, tijdelijkTotaal);
-				// System.out.println("i+1 NA toekenning " +
-				// positieLijst.elementAt(i+1).getScore(speler) );
 			}
 
 			if (positieLijst.elementAt(i).getScore(speler) > huidigMaximumWaarde) {
-				System.out.println("maximumwaarde aangepast");
 				huidigMaximum = positieLijst.elementAt(i);
 				huidigMaximumWaarde = positieLijst.elementAt(i)
 						.getScore(speler);
@@ -133,7 +110,6 @@ public class StandaardAi extends Ai {
 		antwoorden.add(a1);
 		// ------
 		Antwoord a2 = new Antwoord();
-		// huidigMaximum.getPositie();
 		a2.getPosities().add(huidigMaximum.getPositie());
 		antwoorden.add(a2);
 		// ------
@@ -148,10 +124,6 @@ public class StandaardAi extends Ai {
 			a4.getTerreinen().add(huidigMaximum.getLocatie());
 			antwoorden.add(a4);
 		}
-
-		// System.out.println("*=========================\n");
-		// printAntwoorden(antwoorden);
-		// System.out.println("=========================*\n");
 
 		return antwoorden;
 	}
@@ -168,24 +140,15 @@ public class StandaardAi extends Ai {
 						.getGebiedBeginPunten(); // bereken startpunten vd
 				// gebieden op de tegel
 
-				for (int j = 0; j < beginpunten.size(); ++j) // voor elk
-				// beginpunt
-				{
+				for (int j = 0; j < beginpunten.size(); ++j) {
 					Terrein terrein = new Terrein(tegels.elementAt(0),
 							beginpunten.elementAt(j));
 					Positie p = new Positie(BPLijst.elementAt(i));
 
 					if (bord.controleerPlaatsbaarheid(pionnen.elementAt(0),
-							terrein)) // als gebied leeg is
-					{
+							terrein)) {
 						tegels.elementAt(0).plaatsPion(
-								beginpunten.elementAt(j), pionnen.elementAt(0)); // plaats
-						// pion
-						// VOORLOPIG
-						// op
-						// de
-						// tegel
-						// ----
+								beginpunten.elementAt(j), pionnen.elementAt(0));
 						p.setPion(pionnen.elementAt(0)); // zet pion IN POSITIE
 						p.setLocatie(terrein); // zet terrein waarop pion
 						// geplaatst wordt IN POSITIE
@@ -196,8 +159,8 @@ public class StandaardAi extends Ai {
 						// ----
 						tegels.elementAt(0).verwijderPion(
 								beginpunten.elementAt(j)); // pion opnieuw
-						// verwijderen van
-						// spelbord
+															// verwijderen van
+															// spelbord
 					}
 				}
 			}
@@ -208,25 +171,10 @@ public class StandaardAi extends Ai {
 			p.setLocatie(null);
 			p.berekenScores(tegels.elementAt(0));
 
-			if (tegels.elementAt(0).getType().getID().equals(
-					"TegelType_LavaMetBurchten")
-					|| tegels.elementAt(0).getType().getID().equals(
-							"TegelType_BBBBB")) {
-				// p.berekenScores2( tegels.elementAt(0) );
-			} else {
-				// p.berekenScores( tegels.elementAt(0) );
-			}
 			Plijst.add(p);
 		}
 
 		return Plijst;
-	}
-
-	public void telScores(Vector<Positie> lijst) {
-		for (int j = 0; j < lijst.size(); ++j) {
-			System.out.println("element " + (j + 1) + ": "
-					+ lijst.elementAt(j).getScores().size());
-		}
 	}
 
 	@Override

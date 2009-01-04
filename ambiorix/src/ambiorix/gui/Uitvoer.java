@@ -157,14 +157,16 @@ public class Uitvoer {
 			gui.verwijderTegel(tegel);
 		}
 	}
-	
+
 	public class EindeSpel implements Runnable {
 
-		public EindeSpel() {}
+		public EindeSpel() {
+		}
 
 		@Override
 		public void run() {
-			JOptionPane.showMessageDialog(gui, "Het spel is gedaan!", "Gedaan!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(gui, "Het spel is gedaan!",
+					"Gedaan!", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

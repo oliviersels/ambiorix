@@ -76,16 +76,4 @@ public class TegelType extends Type {
 
 		return output;
 	}
-
-	// TODO : moet er uit
-	public static void print(TerreinType[][] terrein) {
-		for (int i = 0; i < terrein.length; i++)
-			for (int j = 0; j < terrein.length; j++) {
-				System.out.print(terrein[i][j].getID() + "     ");
-
-				if (j == terrein.length - 1)
-					System.out.println();
-			}
-	}
-
 }
