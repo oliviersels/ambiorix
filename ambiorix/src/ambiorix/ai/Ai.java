@@ -17,6 +17,7 @@ public abstract class Ai
 	protected Vector<Positie> positieLijst;
 	protected Vector<Tegel> tegels;
 	protected Vector<Pion> pionnen;
+	protected Speler speler;
 	
 	public Ai()
 	{
@@ -29,6 +30,7 @@ public abstract class Ai
 		this.tegels = tegels;
 		this.pionnen = pionnen;
 		positieLijst = new Vector<Positie>();
+		this.speler = speler;
 	}
 	
 	//---------------------------------------------------------------------------------

@@ -25,7 +25,6 @@ public class AiSpeler extends Speler
 	public AiSpeler(Spelbord b, Uitvoer uit, Ai ai)
 	{
 		bord = b;
-		//aiElement = null;
 		antwoorden = new Vector<Antwoord>();
 		gui = uit;
 		aiElement = ai;
@@ -59,7 +58,6 @@ public class AiSpeler extends Speler
 	public void run()
 	{
 		moetRunnen = false;
-		//aiElement = new StandaardAi();// is pionnen hier juist?
 		aiElement.reset();
 		aiElement.initialiseer(bord, tegels, pionnen, this);
 		antwoorden = aiElement.berekenZet();

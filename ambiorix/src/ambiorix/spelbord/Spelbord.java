@@ -234,7 +234,7 @@ public class Spelbord
 		return this.overgeblevenTegelAantal;
 	}
 	
-	/*
+	/**
 	 * Deze functie gaat controleren of een tegel ERGENS op het bord kan geplaatst worden.
 	 * Als dit zo is, is output.size() != 0
 	 * 
