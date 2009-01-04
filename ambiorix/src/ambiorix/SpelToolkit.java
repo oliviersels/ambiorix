@@ -23,11 +23,13 @@ public class SpelToolkit {
 	private Vector<Speler> spelers;
 	private Spelbord spelbord;
 	private Uitvoer gui;
+	private ScoreBerekenaar scoreBerekenaar;
 
-	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord, Uitvoer gui) {
+	public SpelToolkit(Vector<Speler> spelers, Spelbord spelbord, Uitvoer gui, ScoreBerekenaar scoreBerekenaar) {
 		this.spelers = spelers;
 		this.spelbord = spelbord;
 		this.gui = gui;
+		this.scoreBerekenaar = scoreBerekenaar;
 	}
 
 	// van Spel
@@ -189,7 +191,7 @@ public class SpelToolkit {
 	}
 	
 	public ScoreBerekenaar getScoreBerekenaar() {
-		return new SimpelScoreBerekenaar(); // TODO: Aanpassen en opvragen op Spel
+		return scoreBerekenaar;
 	}
 	
 	public HashMap<Pion, Terrein> getPionnenEnPosities() {

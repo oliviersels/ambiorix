@@ -135,11 +135,11 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar, Ac
 	 */
 	@Override
 	public void actionPerformed(ActionEvent AE) {
-		if(AE.equals("vorige"))
+		if(AE.getActionCommand().equals("vorige"))
 		{
 			for(MenuLuisteraar ml : menuLuisteraars)
 				ml.vorige();
-		}else if(AE.equals("volgende"))
+		}else if(AE.getActionCommand().equals("volgende"))
 		{
 			for(MenuLuisteraar ml : menuLuisteraars)
 				ml.volgende();

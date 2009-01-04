@@ -7,6 +7,8 @@ import javax.swing.SwingUtilities;
 import ambiorix.ai.Ai;
 import ambiorix.ai.StandaardAi;
 import ambiorix.gui.Uitvoer;
+import ambiorix.gui.Uitvoer.NeemSpelerPionAf;
+import ambiorix.gui.Uitvoer.UpdateScore;
 import ambiorix.gui.Uitvoer.VerwijderPion;
 import ambiorix.gui.Uitvoer.ZetPion;
 import ambiorix.gui.Uitvoer.ZetTegel;
@@ -123,5 +125,37 @@ public class AiSpeler extends Speler
 		{
 			return null;
 		}
+	}
+	
+	@Override
+	public void setScore(int score) {
+		super.setScore(score);
+		
+		Uitvoer.UpdateScore run = gui.new UpdateScore();
+		SwingUtilities.invokeLater(run);
+	}
+	
+	@Override
+	public void addScore(int score) {
+		super.addScore(score);
+		
+		Uitvoer.UpdateScore run = gui.new UpdateScore();
+		SwingUtilities.invokeLater(run);
+	}
+	
+	@Override
+	public void deletePion(Pion pion) {
+		super.deletePion(pion);
+		
+		Uitvoer.UpdateScore run = gui.new UpdateScore();
+		SwingUtilities.invokeLater(run);
+	}
+	
+	@Override
+	public void addPion(Pion pion) {
+		super.addPion(pion);
+		
+		Uitvoer.UpdateScore run = gui.new UpdateScore();
+		SwingUtilities.invokeLater(run);
 	}
 }

@@ -70,7 +70,7 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.voegPionToeAanSpeler(pion, speler);
-			
+			gui.updateScores();
 		}
 	}
 	
@@ -101,6 +101,7 @@ public class Uitvoer {
 		@Override
 		public void run() {
 			gui.verwijderPionVanSpeler(pion, speler);
+			gui.updateScores();
 		}
 	}
 	

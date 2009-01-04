@@ -183,7 +183,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		try
 		{
 			KlasseLader<ScoreBerekenaar> berekenaarLader = new KlasseLader<ScoreBerekenaar>(uitbreidingPad);
-			berekenaar = berekenaarLader.LaadKlasse("ambiorix.spelbord.scoreberekenaars." + berekenaarsNamen[0].getName() ).newInstance();
+			berekenaar = berekenaarLader.LaadKlasse("ambiorix.spelbord.scoreberekenaars." + getClassNaam(berekenaarsNamen[0].getName()) ).newInstance();
 		}
 		catch(Exception e)
 		{
