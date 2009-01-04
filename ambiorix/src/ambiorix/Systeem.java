@@ -484,11 +484,13 @@ public class Systeem
 		TegelType_LavaMetBurchten lavaMetBurchten = new TegelType_LavaMetBurchten();
 		TegelType_LavaBocht lavaBocht = new TegelType_LavaBocht();
 		TegelType_LavaMetWeg lavaMetWeg = new TegelType_LavaMetWeg();
+		TegelType_LavaPoel lavaPoel = new TegelType_LavaPoel();
 		
 		TegelTypeVerzameling.getInstantie().registreerType(lavaRecht);	
 		TegelTypeVerzameling.getInstantie().registreerType(lavaMetBurchten);
 		TegelTypeVerzameling.getInstantie().registreerType(lavaBocht);
 		TegelTypeVerzameling.getInstantie().registreerType(lavaMetWeg);	
+		TegelTypeVerzameling.getInstantie().registreerType(lavaPoel);	
 		
 		
 		

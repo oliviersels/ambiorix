@@ -109,6 +109,7 @@ public class Spelbord
 		// TODO : fatsoenlijk checken, NIET GEWOON null TERUGGEVEN !!!!
 		if( tegel == null ) // teller > 100, zelf checken of er nog eentje is
 		{
+			System.out.println("Spelbord::GetVolgendeTegel : na 100x zoeken nog altijd geen goede tegel gevonden in de pool : aantal overgebleven : " + this.overgeblevenTegelAantal );
 			return null;
 		}
 

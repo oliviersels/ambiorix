@@ -36,14 +36,17 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		File terreinTypesMap = new File( uitbreidingPad + "ambiorix/spelbord/terreintypes/" );
 		
 		String[] terreinTypesNamen = terreinTypesMap.list();
-		KlasseLader<TerreinType> terreinLader = new KlasseLader<TerreinType>(uitbreidingPad);
-		
-		for( String terreinTypeNaam : terreinTypesNamen )
+		if( terreinTypesNamen != null )
 		{
-			if( terreinTypeNaam.contains(".class") ) // anders geen geldige file
+			KlasseLader<TerreinType> terreinLader = new KlasseLader<TerreinType>(uitbreidingPad);
+			
+			for( String terreinTypeNaam : terreinTypesNamen )
 			{
-				TerreinType terreinType = terreinLader.LaadKlasse("ambiorix.spelbord.terreintypes." + terreinTypeNaam ).newInstance();
-				TerreinTypeVerzameling.getInstantie().registreerType(terreinType);
+				if( terreinTypeNaam.contains(".class") ) // anders geen geldige file
+				{
+					TerreinType terreinType = terreinLader.LaadKlasse("ambiorix.spelbord.terreintypes." + getClassNaam(terreinTypeNaam) ).newInstance();
+					TerreinTypeVerzameling.getInstantie().registreerType(terreinType);
+				}
 			}
 		}
 		
@@ -51,14 +54,17 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		File tegelTypesMap = new File( uitbreidingPad + "ambiorix/spelbord/tegeltypes/" );
 		
 		String[] tegelTypesNamen = tegelTypesMap.list();
-		KlasseLader<TegelType> tegelLader = new KlasseLader<TegelType>(uitbreidingPad);
-		
-		for( String tegelTypeNaam : tegelTypesNamen )
+		if( tegelTypesNamen != null )
 		{
-			if( tegelTypeNaam.contains(".class") ) // anders geen geldige file
+			KlasseLader<TegelType> tegelLader = new KlasseLader<TegelType>(uitbreidingPad);
+			
+			for( String tegelTypeNaam : tegelTypesNamen )
 			{
-				TegelType tegelType = tegelLader.LaadKlasse("ambiorix.spelbord.tegeltypes." + tegelTypeNaam ).newInstance();
-				TegelTypeVerzameling.getInstantie().registreerType(tegelType);
+				if( tegelTypeNaam.contains(".class") ) // anders geen geldige file
+				{
+					TegelType tegelType = tegelLader.LaadKlasse("ambiorix.spelbord.tegeltypes." + getClassNaam(tegelTypeNaam) ).newInstance();
+					TegelTypeVerzameling.getInstantie().registreerType(tegelType);
+				}
 			}
 		}
 		
@@ -66,14 +72,17 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		File pionTypesMap = new File( uitbreidingPad + "ambiorix/spelbord/piontypes/" );
 		
 		String[] pionTypesNamen = pionTypesMap.list();
-		KlasseLader<PionType> pionLader = new KlasseLader<PionType>(uitbreidingPad);
-		
-		for( String pionTypeNaam : pionTypesNamen )
+		if( pionTypesNamen != null )
 		{
-			if( pionTypeNaam.contains(".class") ) // anders geen geldige file
+			KlasseLader<PionType> pionLader = new KlasseLader<PionType>(uitbreidingPad);
+			
+			for( String pionTypeNaam : pionTypesNamen )
 			{
-				PionType pionType = pionLader.LaadKlasse("ambiorix.spelbord.piontypes." + pionTypeNaam ).newInstance();
-				PionTypeVerzameling.getInstantie().registreerType(pionType);
+				if( pionTypeNaam.contains(".class") ) // anders geen geldige file
+				{
+					PionType pionType = pionLader.LaadKlasse("ambiorix.spelbord.piontypes." + getClassNaam(pionTypeNaam) ).newInstance();
+					PionTypeVerzameling.getInstantie().registreerType(pionType);
+				}
 			}
 		}
 		
@@ -83,14 +92,17 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		File actiesMap = new File( uitbreidingPad + "ambiorix/acties/specifiek/" );
 		
 		String[] actieNamen = actiesMap.list();
-		KlasseLader<AbstractActie> actieLader = new KlasseLader<AbstractActie>(uitbreidingPad);
-		
-		for( String actieNaam : actieNamen )
+		if( actieNamen != null )
 		{
-			if( actieNaam.contains(".class") ) // anders geen geldige file
+			KlasseLader<AbstractActie> actieLader = new KlasseLader<AbstractActie>(uitbreidingPad);
+			
+			for( String actieNaam : actieNamen )
 			{
-				AbstractActie actie = actieLader.LaadKlasse("ambiorix.acties.specifiek." + actieNaam ).newInstance();
-				ActieVerzameling.getInstantie().registreerType(actie);
+				if( actieNaam.contains(".class") ) // anders geen geldige file
+				{
+					AbstractActie actie = actieLader.LaadKlasse("ambiorix.acties.specifiek." + getClassNaam(actieNaam) ).newInstance();
+					ActieVerzameling.getInstantie().registreerType(actie);
+				}
 			}
 		}
 		
@@ -102,6 +114,12 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 		}
 		
 	}
+		// .class achter de filenames uithalen
+		private String getClassNaam(String input)
+		{
+			String output = input.replace(".class", "");
+			return output;
+		}
 
 	@Override
 	public String getEersteActie() 
@@ -124,7 +142,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 			}
 			});
 		
-		if( aiNamen.length == 0 )
+		if( aiNamen == null )
 			return null;
 
 		Ai ai = null;
@@ -157,7 +175,7 @@ public class UitbreidingImplementatie extends Type implements UitbreidingInterfa
 			}
 			});
 		
-		if( berekenaarsNamen.length == 0 )
+		if( berekenaarsNamen == null )
 			return null;
 
 		ScoreBerekenaar berekenaar = null;
