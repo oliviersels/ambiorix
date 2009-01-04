@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import ambiorix.spelers.Speler;
 
 public class ScoreVeld extends JPanel {
+	private static final long serialVersionUID = -8127780771830631017L;
 	private Vector<Speler> spelers = new Vector<Speler>();
 	private Vector<JTextArea> spelerTextAreas = new Vector<JTextArea>();
 	private static final Color inactieveKleur = new Color(220, 220, 220);

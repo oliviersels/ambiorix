@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import ambiorix.spelbord.TegelBasis;
 
 public class TegelSelectieVeld extends JPanel implements TegelLuisteraar {
+	private static final long serialVersionUID = 3293123065866281943L;
 	private Vector<Tegel_Gui> mijnTegels;
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;
 

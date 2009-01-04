@@ -15,6 +15,7 @@ import ambiorix.util.Punt;
 
 public class TegelVeld extends JPanel implements TegelLuisteraar,
 		TegelGeestLuisteraar {
+	private static final long serialVersionUID = 853739061815235412L;
 	private Vector<Tegel_Gui> mijnTegels;
 	private Vector<TegelGeest> mijnTegelGeesten;
 	private Vector<TegelLuisteraar> tegelKlikLuisteraars;

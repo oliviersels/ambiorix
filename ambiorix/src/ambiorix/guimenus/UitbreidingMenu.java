@@ -19,6 +19,7 @@ import ambiorix.uitbreidingen.UitbreidingVerzameling;
 
 public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar,
 		ActionListener {
+	private static final long serialVersionUID = -7808777677567276558L;
 	private JPanel knoppenPanel;
 	private JButton knop_vorige;
 	private JButton knop_volgende;
@@ -72,7 +73,6 @@ public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar,
 		// ======== uitbreidingLijstPanel ========
 
 		uitbreidingLijstPanel.setLayout(new GridLayout());
-		UitbreidingVerzameling uv = UitbreidingVerzameling.getInstantie();
 		for (String naam : UitbreidingVerzameling.getInstantie().getTypes()) {
 			Uitbreiding uitbreiding = UitbreidingVerzameling.getInstantie()
 					.getType(naam);

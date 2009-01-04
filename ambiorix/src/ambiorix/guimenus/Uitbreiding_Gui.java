@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 import ambiorix.uitbreidingen.Uitbreiding;
 
 public class Uitbreiding_Gui extends JPanel implements MouseListener {
+	private static final long serialVersionUID = -7890105708873496398L;
+
 	private Vector<UitbreidingLuisteraar> uitbreidingLuisteraars = new Vector<UitbreidingLuisteraar>();
 
 	private Uitbreiding uitbreiding;

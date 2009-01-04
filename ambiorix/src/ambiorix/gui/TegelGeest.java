@@ -18,6 +18,7 @@ import ambiorix.util.Punt;
 
 public class TegelGeest extends JComponent implements MouseMotionListener,
 		MouseListener, TegelVeldComponent {
+	private static final long serialVersionUID = 921943073594792594L;
 	private int xPos;
 	private int yPos;
 	private Vector<Tegel.RICHTING> richtingen;

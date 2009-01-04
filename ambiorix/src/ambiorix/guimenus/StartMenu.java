@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class StartMenu extends JFrame implements ActionListener {
+	private static final long serialVersionUID = -2155947744881497643L;
 	private JButton knop_nieuwSpel;
 	private JButton knop_laadSpel;
 	private JButton knop_bekijkHighscores;

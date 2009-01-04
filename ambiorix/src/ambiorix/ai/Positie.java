@@ -5,10 +5,11 @@ import java.util.Vector;
 import ambiorix.spelbord.BordPositie;
 import ambiorix.spelbord.Gebied;
 import ambiorix.spelbord.Pion;
+import ambiorix.spelbord.ScoreBerekenaar;
 import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.Terrein;
-import ambiorix.spelbord.scoreberekenaars.SimpelScoreBerekenaar;
 import ambiorix.spelers.Speler;
+import ambiorix.uitbreidingen.UitbreidingVerzameling;
 import ambiorix.util.Punt;
 
 public class Positie {
@@ -85,7 +86,7 @@ public class Positie {
 	 * uitmaakt.
 	 */
 	public void berekenScores(Tegel t) {
-		SimpelScoreBerekenaar simpel = new SimpelScoreBerekenaar();
+		ScoreBerekenaar simpel = UitbreidingVerzameling.getInstantie().getScoreBerekenaar();
 		Vector<Punt> beginpunten = t.getGebiedBeginPunten(); // bereken
 		// startpunten
 		// vd gebieden

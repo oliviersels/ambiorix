@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class HulpVenster extends JFrame {
+	private static final long serialVersionUID = -7916877981585493428L;
 	private Vector<HulpItem> hulpItems = new Vector<HulpItem>();
 	private JTextField hulpNaam = new JTextField();
 	private JScrollPane beschrijvingScroller = new JScrollPane();
@@ -80,7 +81,6 @@ public class HulpVenster extends JFrame {
 	public void slaOpInBestand(String FileNaam) {
 		try {
 			BufferedWriter uit = new BufferedWriter(new FileWriter(FileNaam));
-			String lijn;
 			for (HulpItem hi : this.hulpItems) {
 				uit.write(hi.naarString() + "\n");
 			}

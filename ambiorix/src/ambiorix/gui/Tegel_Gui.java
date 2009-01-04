@@ -21,6 +21,8 @@ import ambiorix.util.Punt;
 public class Tegel_Gui extends JComponent implements MouseListener,
 		MouseMotionListener, TegelVeldComponent {
 
+	private static final long serialVersionUID = 1898186744968544521L;
+
 	@Override
 	public void update(Graphics g) {
 		paint(g);

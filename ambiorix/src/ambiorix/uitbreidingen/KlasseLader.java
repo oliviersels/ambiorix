@@ -27,15 +27,16 @@ public class KlasseLader<T> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Class<T> LaadKlasse(String naam) {
-		Class<?> output = null;
+		Class<T> output = null;
 
 		try {
-			output = lader.loadClass(naam);
+			output = (Class<T>) lader.loadClass(naam);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return (Class<T>) output;
+		return output;
 	}
 }

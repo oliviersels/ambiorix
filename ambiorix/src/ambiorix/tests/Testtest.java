@@ -5,13 +5,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import ambiorix.acties.specifiek.BerekenScore;
-import ambiorix.acties.specifiek.EindeBeurt;
-import ambiorix.acties.specifiek.EindeSpel;
-import ambiorix.acties.specifiek.GeefTegel;
-import ambiorix.acties.specifiek.LegTegel;
-import ambiorix.acties.specifiek.StartSpel;
-import ambiorix.acties.specifiek.ZetPion;
 import ambiorix.spelbord.PionTypeVerzameling;
 import ambiorix.spelbord.TegelTypeVerzameling;
 import ambiorix.spelbord.TerreinTypeVerzameling;
@@ -84,7 +77,7 @@ public class Testtest {
 		TegelTypeVerzameling.getInstantie().registreerType(eenzijdeBurcht);
 		TegelTypeVerzameling.getInstantie().registreerType(rechteweg);
 
-		LegTegel legTegel = new LegTegel(null, null);
+		/*LegTegel legTegel = new LegTegel(null, null);
 		StartSpel startSpel = new StartSpel(null, null);
 		GeefTegel geefTegel = new GeefTegel(null, null);
 		ZetPion zetPion = new ZetPion(null, null, null);

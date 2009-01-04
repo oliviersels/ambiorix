@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class SpelerMenu extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 4169242819876956272L;
 	private static final int MAX_AANTAL_SPELERS = 5;
 	private static final String[] KLEUREN = { "Rood", "Groen", "Blauw", "Geel",
 			"Zwart", "Roze", "Oranje" };
