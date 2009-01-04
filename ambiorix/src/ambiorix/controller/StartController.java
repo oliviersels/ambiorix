@@ -1,5 +1,6 @@
 package ambiorix.controller;
 
+import ambiorix.guimenus.BestaatNogNietVenster;
 import ambiorix.guimenus.SpelerMenu;
 import ambiorix.guimenus.StartMenu;
 import ambiorix.guimenus.StartMenuLuisteraar;
@@ -15,13 +16,13 @@ public class StartController implements StartMenuLuisteraar {
 	
 	@Override
 	public void highscores() {
-		// TODO Auto-generated method stub
+		new BestaatNogNietVenster();
 		
 	}
 
 	@Override
 	public void laadSpel() {
-		// TODO Auto-generated method stub
+		new BestaatNogNietVenster();
 		
 	}
 
@@ -38,7 +39,7 @@ public class StartController implements StartMenuLuisteraar {
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
+		new BestaatNogNietVenster();
 		
 	}
 

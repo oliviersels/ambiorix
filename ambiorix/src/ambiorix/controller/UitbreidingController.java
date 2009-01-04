@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import ambiorix.Spel;
 import ambiorix.gui.HoofdVenster;
+import ambiorix.guimenus.BestaatNogNietVenster;
 import ambiorix.guimenus.MenuLuisteraar;
 import ambiorix.guimenus.SpelerOpties;
 import ambiorix.guimenus.UitbreidingMenu;
@@ -61,7 +62,7 @@ public class UitbreidingController implements MenuLuisteraar {
 
 	@Override
 	public void vorige() {
-		// TODO Auto-generated method stub
+		new BestaatNogNietVenster();
 		
 	}
 

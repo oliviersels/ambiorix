@@ -2,6 +2,7 @@ package ambiorix.controller;
 
 import java.io.File;
 
+import ambiorix.guimenus.BestaatNogNietVenster;
 import ambiorix.guimenus.MenuLuisteraar;
 import ambiorix.guimenus.SpelerMenu;
 import ambiorix.guimenus.UitbreidingMenu;
@@ -30,7 +31,7 @@ public class SpelerController implements MenuLuisteraar {
 
 	@Override
 	public void vorige() {
-		// TODO Auto-generated method stub
+		new BestaatNogNietVenster();
 		
 	}
 

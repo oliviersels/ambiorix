@@ -37,8 +37,4 @@ public class BestaatNogNietVenster extends JDialog implements ActionListener{
 		this.dispose();
 		
 	}
-	
-	public static void main(String[] args) {
-		BestaatNogNietVenster bsn = new BestaatNogNietVenster();
-	}
 }
