@@ -2,7 +2,10 @@ package ambiorix;
 
 import java.util.Vector;
 
+import ambiorix.acties.AbstractActie;
+import ambiorix.acties.Actie;
 import ambiorix.acties.ActieBestuurder;
+import ambiorix.acties.ActieVerzameling;
 import ambiorix.acties.specifiek.StartSpel;
 import ambiorix.gui.Uitvoer;
 import ambiorix.spelbord.ScoreBerekenaar;
@@ -29,8 +32,8 @@ public class Spel {
 	
 	// Spel starten: uitbreidingen bepalen de startactie
 	public void start() {
-		actieBestuurder.start(new StartSpel(speltoolkit, null));
-		/*
+		//actieBestuurder.start(new StartSpel(speltoolkit, null));
+		
 		try {
 			String startString = UitbreidingVerzameling.getInstantie().getEersteActie();
 			Object[] param = {speltoolkit, null};
@@ -41,7 +44,7 @@ public class Spel {
 		} catch (Exception e) {
 			System.err.println("Unexpected Exception: " + e.getMessage());
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	public void stop() {
