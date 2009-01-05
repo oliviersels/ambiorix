@@ -8,7 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+/**
+ * Een dialoogvenster om weer te geven dat een bepaalde 
+ * functie nog niet geimplementeerd is.
+ * @author Jens
+ *
+ */
 public class BestaatNogNietVenster extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 

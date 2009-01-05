@@ -8,7 +8,11 @@ import java.awt.LayoutManager;
 import java.awt.Rectangle;
 
 import ambiorix.util.Punt;
-
+/**
+ * De LayoutManager voor TegelVeld.
+ * @author Jens
+ *
+ */
 public class TegelVeldLayout implements LayoutManager {
 	int minHoogte = 0;
 	int minBreedte = 0;
@@ -21,7 +25,7 @@ public class TegelVeldLayout implements LayoutManager {
 	public Dimension minimumLayoutSize(Container parent) {
 		return (preferredLayoutSize(parent));
 	}
-
+	
 	@Override
 	public Dimension preferredLayoutSize(Container parent) {
 		Dimension dim = new Dimension(0, 0);
@@ -53,10 +57,15 @@ public class TegelVeldLayout implements LayoutManager {
 
 	@Override
 	public void removeLayoutComponent(Component arg0) {
-		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * Zorgt er voor dat componenten die op een negatieve 
+	 * positie liggen toch positieve coordinaten krijgen.
+	 * Hiervoor moeten alle componenten wel een TegelVeldComponent zijn, 
+	 * zodat de positie opgevraagd kan worden.
+	 */
 	public void layoutContainer(Container parent) {
 		int nComps = parent.getComponentCount();
 		int minH = 0;

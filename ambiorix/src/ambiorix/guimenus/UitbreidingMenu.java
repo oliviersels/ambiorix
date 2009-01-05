@@ -16,7 +16,11 @@ import javax.swing.JTextArea;
 
 import ambiorix.uitbreidingen.Uitbreiding;
 import ambiorix.uitbreidingen.UitbreidingVerzameling;
-
+/**
+ * Menu om uitbreidingen te selecteren.
+ * @author Jens
+ *
+ */
 public class UitbreidingMenu extends JFrame implements UitbreidingLuisteraar,
 		ActionListener {
 	private static final long serialVersionUID = -7808777677567276558L;

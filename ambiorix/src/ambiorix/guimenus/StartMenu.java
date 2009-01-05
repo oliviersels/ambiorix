@@ -8,7 +8,11 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
+/**
+ * Menu met een aantal knoppen.
+ * @author Jens
+ *
+ */
 public class StartMenu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -2155947744881497643L;
 	private JButton knop_nieuwSpel;

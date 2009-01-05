@@ -16,7 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import ambiorix.uitbreidingen.Uitbreiding;
-
+/**
+ * Geeft een uitbreiding weer.
+ * Bij een klik selecteerd deze zichzelf.
+ * Indien men met de muis over dit venster komt, stuurt het een event 
+ * uit, zodat men de beschrijving kan weergeven.
+ * @author Jens
+ *
+ */
 public class Uitbreiding_Gui extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -7890105708873496398L;
 
@@ -36,7 +43,6 @@ public class Uitbreiding_Gui extends JPanel implements MouseListener {
 			nieuweAfbeelding = ImageIO.read(new File(uitbreiding
 					.getAfbeelding()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mijnIcoontje = new ImageIcon(nieuweAfbeelding);
@@ -92,19 +98,16 @@ public class Uitbreiding_Gui extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 }

@@ -17,7 +17,12 @@ import javax.swing.JComponent;
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.util.Punt;
-
+/**
+ * De klasse die een tegel weergeeft.
+ * Men kan er pionnen op toevoegen.
+ * @author Jens
+ *
+ */
 public class Tegel_Gui extends JComponent implements MouseListener,
 		MouseMotionListener, TegelVeldComponent {
 
@@ -80,7 +85,6 @@ public class Tegel_Gui extends JComponent implements MouseListener,
 		int aantalPionnen = this.mijnPionnen.size();
 		for (int i = 0; i < aantalPionnen; i++) {
 			BufferedImage mijnPionImg = null;
-			// TODO image loader maken
 
 			mijnPionImg = mijnPionnen.get(i).geefAfbeelding();
 			Punt p = mijnPionPunten.get(i);
@@ -143,25 +147,21 @@ public class Tegel_Gui extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -193,13 +193,11 @@ public class Tegel_Gui extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO functie maken die een tg invult
 		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
 		TegelGebeurtenis tg = new TegelGebeurtenis();
 		tg.tegel = this.tegel;

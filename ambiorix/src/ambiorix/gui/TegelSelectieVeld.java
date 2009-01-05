@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 
 import ambiorix.spelbord.TegelBasis;
 
+/**
+ * Deze klasse stelt een veldje voor waarin tegels staan die een speler vast heeft.
+ * @author Jens
+ *
+ */
 public class TegelSelectieVeld extends JPanel implements TegelLuisteraar {
 	private static final long serialVersionUID = 3293123065866281943L;
 	private Vector<Tegel_Gui> mijnTegels;
@@ -21,6 +26,10 @@ public class TegelSelectieVeld extends JPanel implements TegelLuisteraar {
 	}
 
 	@Override
+	/**
+	 * Als de rechtermuisknop gebruikt wordt, wordt de tegel gedraaid.
+	 * Indien een andere muisknop gebruikt wordt, wordt de gebeurtenis doorgegeven.
+	 */
 	public synchronized void geklikt(TegelGebeurtenis tg) {
 		Iterator<TegelLuisteraar> it = tegelKlikLuisteraars.iterator();
 		if (tg.me.getButton() == MouseEvent.BUTTON3) {
@@ -99,7 +108,6 @@ public class TegelSelectieVeld extends JPanel implements TegelLuisteraar {
 
 	@Override
 	public void bewogen(TegelGebeurtenis tg) {
-		// TODO Auto-generated method stub
 
 	}
 }

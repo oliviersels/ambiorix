@@ -8,7 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import ambiorix.spelers.Speler;
-
+/**
+ * Deze klasse geeft een de namen van de spelers, hun score en hun aantal pionnen weer.
+ * Gebruik updateScores() om het venster te hernieuwen.
+ * @author Jens
+ *
+ */
 public class ScoreVeld extends JPanel {
 	private static final long serialVersionUID = -8127780771830631017L;
 	private Vector<Speler> spelers = new Vector<Speler>();

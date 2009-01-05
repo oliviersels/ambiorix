@@ -5,7 +5,11 @@ import java.util.Vector;
 import ambiorix.spelbord.PionBasis;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelers.Speler;
-
+/**
+ * Een klasse die een speler bevat, samen met zijn pionnen en tegels.
+ * @author Jens
+ *
+ */
 public class Speler_Gui {
 	private Speler speler;
 	private Vector<Pion_Gui> pionnen;

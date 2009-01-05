@@ -4,7 +4,11 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
-
+/**
+ * De LayoutManager voor TegelSelectieVeld.
+ * @author Jens
+ *
+ */
 public class TegelSelectieVeldLayout implements LayoutManager {
 	int minH = 0;
 	int minB = 100;

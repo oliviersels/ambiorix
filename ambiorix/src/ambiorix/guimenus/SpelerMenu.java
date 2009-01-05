@@ -13,7 +13,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+/**
+ * Menu dat gebruikt wordt om de namen, types en kleuren van spelers te kiezen.
+ * Er wordt nog niet gecontroleerd of er bijvoorbeeld 2 spelers zijn met dezelfde kleur.
+ * @author Jens
+ *
+ */
 public class SpelerMenu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 4169242819876956272L;
 	private static final int MAX_AANTAL_SPELERS = 5;
@@ -121,7 +126,10 @@ public class SpelerMenu extends JFrame implements ActionListener {
 	public void verwijderMenuLuisteraar(MenuLuisteraar ML) {
 		this.menuLuisteraars.remove(ML);
 	}
-
+	/**
+	 * Geeft een vector terug met de geselecteerde spelers hun informatie.
+	 * @return De vector.
+	 */
 	public Vector<SpelerOpties> geefSpelers() {
 		Vector<SpelerOpties> rSpelers = new Vector<SpelerOpties>();
 		int aantal = spelerPanels.size();

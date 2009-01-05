@@ -12,7 +12,12 @@ import ambiorix.spelbord.Tegel;
 import ambiorix.spelbord.TegelBasis;
 import ambiorix.spelbord.Terrein;
 import ambiorix.util.Punt;
-
+/**
+ * Deze klasse wordt gebruikt om een veld met tegels weer te geven.
+ * Het bevat Tegel_Guis en TegelGeesten.
+ * @author Jens
+ *
+ */
 public class TegelVeld extends JPanel implements TegelLuisteraar,
 		TegelGeestLuisteraar {
 	private static final long serialVersionUID = 853739061815235412L;
